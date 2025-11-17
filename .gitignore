@@ -1,0 +1,49 @@
+# Node.js / npm
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json  # Optional: If you prefer yarn, remove this; otherwise, ignore for consistent deps
+
+# Electron-specific
+dist/
+out/
+*.asar
+*.exe
+*.dmg
+*.deb
+*.rpm
+.electron-forge/
+
+# React / CRA / Build outputs
+build/
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# TypeScript
+*.tsbuildinfo
+
+# Logs and temp
+*.log
+tmp/
+temp/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Editor/IDE
+.vscode/  # Ignore local VS Code settings; commit .vscode/extensions.json if needed for recommendations
+.idea/
+*.sublime*
+
+# Misc
+*.bak
+*.gho
+*.ori
+*.orig
+*.tmp
