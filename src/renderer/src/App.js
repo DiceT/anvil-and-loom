@@ -1,15 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -20,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g = Object.create((typeof Iterator === "function" ? Iterator : Object).prototype);
+    return g.next = verb(0), g["throw"] = verb(1), g["return"] = verb(2), typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
@@ -54,7 +43,7 @@ var jsx_runtime_1 = require("react/jsx-runtime");
 var react_1 = require("react");
 var react_codemirror_1 = __importDefault(require("@uiw/react-codemirror"));
 var lang_markdown_1 = require("@codemirror/lang-markdown");
-var codemirror_themes_1 = require("@uiw/codemirror-themes"); // Correct named import (camelCase 'githubLight')
+var codemirror_theme_github_1 = require("@uiw/codemirror-theme-github"); // Correct package for githubLight
 var App = function () {
     var _a = (0, react_1.useState)(null), vaultPath = _a[0], setVaultPath = _a[1];
     var _b = (0, react_1.useState)([]), files = _b[0], setFiles = _b[1];
@@ -69,7 +58,6 @@ var App = function () {
                     path = _a.sent();
                     if (path) {
                         setVaultPath(path);
-                        refreshFiles();
                     }
                     return [2 /*return*/];
             }
@@ -117,12 +105,10 @@ var App = function () {
             }
         });
     }); };
+    // Usage of useEffect (fixes unused warning)
     (0, react_1.useEffect)(function () {
-        if (vaultPath) {
-            refreshFiles();
-        }
+        refreshFiles();
     }, [vaultPath]);
-    return ((0, jsx_runtime_1.jsx)("div", __assign({ style: { display: 'flex', height: '100vh', backgroundColor: '#f5f5f5' } }, { children: !vaultPath ? ((0, jsx_runtime_1.jsx)("div", __assign({ style: { flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' } }, { children: (0, jsx_runtime_1.jsx)("button", __assign({ onClick: handleSelectVault }, { children: "Select Vault Directory" })) }))) : ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsxs)("div", __assign({ style: { width: '250px', borderRight: '1px solid #ddd', padding: '10px', overflowY: 'auto' } }, { children: [(0, jsx_runtime_1.jsx)("h3", { children: "Files" }), (0, jsx_runtime_1.jsx)("ul", __assign({ style: { listStyleType: 'none', padding: 0 } }, { children: files.map(function (file) { return ((0, jsx_runtime_1.jsx)("li", __assign({ onClick: function () { return openFile(file); }, style: { cursor: 'pointer', padding: '5px', borderBottom: '1px solid #eee' } }, { children: file }), file)); }) })), (0, jsx_runtime_1.jsx)("button", __assign({ onClick: function () { } }, { children: "New Note" }))] })), (0, jsx_runtime_1.jsx)("div", __assign({ style: { flex: 1, display: 'flex', flexDirection: 'column', padding: '10px' } }, { children: currentFile && ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("h3", { children: currentFile }), (0, jsx_runtime_1.jsx)(react_codemirror_1.default, { value: content, height: "calc(100vh - 100px)" // Full height minus headers/buttons
-                                , extensions: [(0, lang_markdown_1.markdown)()], theme: codemirror_themes_1.githubLight, onChange: function (value) { return setContent(value); } }), (0, jsx_runtime_1.jsx)("button", __assign({ onClick: saveFile, style: { marginTop: '10px' } }, { children: "Save" }))] })) }))] })) })));
+    return ((0, jsx_runtime_1.jsx)("div", { style: { display: 'flex', height: '100vh', backgroundColor: '#f5f5f5' }, children: !vaultPath ? ((0, jsx_runtime_1.jsx)("div", { style: { flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }, children: (0, jsx_runtime_1.jsx)("button", { onClick: handleSelectVault, children: "Select Vault Directory" }) })) : ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsxs)("div", { style: { width: '250px', borderRight: '1px solid #ddd', padding: '10px', overflowY: 'auto' }, children: [(0, jsx_runtime_1.jsx)("h3", { children: "Files" }), (0, jsx_runtime_1.jsx)("ul", { style: { listStyleType: 'none', padding: 0 }, children: files.map(function (file) { return ((0, jsx_runtime_1.jsx)("li", { onClick: function () { return openFile(file); }, style: { cursor: 'pointer', padding: '5px', borderBottom: '1px solid #eee' }, children: file }, file)); }) }), (0, jsx_runtime_1.jsx)("button", { onClick: function () { }, children: "New Note" })] }), (0, jsx_runtime_1.jsx)("div", { style: { flex: 1, display: 'flex', flexDirection: 'column', padding: '10px' }, children: currentFile && ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("h3", { children: currentFile }), (0, jsx_runtime_1.jsx)(react_codemirror_1.default, { value: content, height: "calc(100vh - 100px)", extensions: [(0, lang_markdown_1.markdown)()], theme: codemirror_theme_github_1.githubLight, onChange: function (value) { return setContent(value); } }), (0, jsx_runtime_1.jsx)("button", { onClick: saveFile, style: { marginTop: '10px' }, children: "Save" })] })) })] })) }));
 };
 exports.default = App;

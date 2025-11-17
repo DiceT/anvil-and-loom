@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { markdown } from '@codemirror/lang-markdown';
-import { githubLight } from '@uiw/codemirror-themes';  // Correct named import (camelCase 'githubLight')
+import { githubLight } from '@uiw/codemirror-theme-github';  // Correct package for githubLight
 
 const App: React.FC = () => {
   const [vaultPath, setVaultPath] = useState<string | null>(null);
@@ -13,7 +13,6 @@ const App: React.FC = () => {
     const path = await (window as any).electronAPI.selectVault();
     if (path) {
       setVaultPath(path);
-      refreshFiles();
     }
   };
 
@@ -36,10 +35,9 @@ const App: React.FC = () => {
     }
   };
 
+  // Usage of useEffect (fixes unused warning)
   useEffect(() => {
-    if (vaultPath) {
-      refreshFiles();
-    }
+    refreshFiles();
   }, [vaultPath]);
 
   return (
@@ -71,9 +69,9 @@ const App: React.FC = () => {
                 <h3>{currentFile}</h3>
                 <CodeMirror
                   value={content}
-                  height="calc(100vh - 100px)"  // Full height minus headers/buttons
+                  height="calc(100vh - 100px)"
                   extensions={[markdown()]}
-                  theme={githubLight}  // Pass the imported theme here
+                  theme={githubLight}
                   onChange={(value) => setContent(value)}
                 />
                 <button onClick={saveFile} style={{ marginTop: '10px' }}>Save</button>
