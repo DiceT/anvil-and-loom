@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { markdown } from '@codemirror/lang-markdown';
-import { githubLight } from '@uiw/codemirror-theme-github';  // Correct package for githubLight
+import { githubLight } from '@uiw/codemirror-theme-github';
 
 const App: React.FC = () => {
   const [vaultPath, setVaultPath] = useState<string | null>(null);
@@ -46,7 +46,6 @@ const App: React.FC = () => {
     }
   };
 
-  // Usage of useEffect (fixes unused warning)
   useEffect(() => {
     refreshFiles();
   }, [vaultPath]);
