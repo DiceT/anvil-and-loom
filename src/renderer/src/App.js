@@ -54,7 +54,7 @@ var jsx_runtime_1 = require("react/jsx-runtime");
 var react_1 = require("react");
 var react_codemirror_1 = __importDefault(require("@uiw/react-codemirror"));
 var lang_markdown_1 = require("@codemirror/lang-markdown");
-var codemirror_themes_1 = require("@uiw/codemirror-themes"); // Added for explicit theme
+var codemirror_themes_1 = require("@uiw/codemirror-themes"); // Correct named import (camelCase 'githubLight')
 var App = function () {
     var _a = (0, react_1.useState)(null), vaultPath = _a[0], setVaultPath = _a[1];
     var _b = (0, react_1.useState)([]), files = _b[0], setFiles = _b[1];

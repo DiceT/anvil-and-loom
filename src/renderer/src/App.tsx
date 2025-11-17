@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { markdown } from '@codemirror/lang-markdown';
-import { githubLight } from '@uiw/codemirror-themes';  // Added for explicit theme
+import { githubLight } from '@uiw/codemirror-themes';  // Correct named import (camelCase 'githubLight')
 
 const App: React.FC = () => {
   const [vaultPath, setVaultPath] = useState<string | null>(null);
@@ -73,7 +73,7 @@ const App: React.FC = () => {
                   value={content}
                   height="calc(100vh - 100px)"  // Full height minus headers/buttons
                   extensions={[markdown()]}
-                  theme={githubLight}  // Explicit theme to fix the error
+                  theme={githubLight}  // Pass the imported theme here
                   onChange={(value) => setContent(value)}
                 />
                 <button onClick={saveFile} style={{ marginTop: '10px' }}>Save</button>
