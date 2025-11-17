@@ -105,10 +105,30 @@ var App = function () {
             }
         });
     }); };
+    var createNewNote = function () { return __awaiter(void 0, void 0, void 0, function () {
+        var fileName;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    fileName = prompt('Enter note name (e.g., new-note.md)');
+                    if (!(fileName && fileName.endsWith('.md'))) return [3 /*break*/, 2];
+                    return [4 /*yield*/, window.electronAPI.writeFile(fileName, '# New Note\nContent here...')];
+                case 1:
+                    _a.sent();
+                    refreshFiles();
+                    openFile(fileName);
+                    return [3 /*break*/, 3];
+                case 2:
+                    alert('Please enter a valid .md file name.');
+                    _a.label = 3;
+                case 3: return [2 /*return*/];
+            }
+        });
+    }); };
     // Usage of useEffect (fixes unused warning)
     (0, react_1.useEffect)(function () {
         refreshFiles();
     }, [vaultPath]);
-    return ((0, jsx_runtime_1.jsx)("div", { style: { display: 'flex', height: '100vh', backgroundColor: '#f5f5f5' }, children: !vaultPath ? ((0, jsx_runtime_1.jsx)("div", { style: { flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }, children: (0, jsx_runtime_1.jsx)("button", { onClick: handleSelectVault, children: "Select Vault Directory" }) })) : ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsxs)("div", { style: { width: '250px', borderRight: '1px solid #ddd', padding: '10px', overflowY: 'auto' }, children: [(0, jsx_runtime_1.jsx)("h3", { children: "Files" }), (0, jsx_runtime_1.jsx)("ul", { style: { listStyleType: 'none', padding: 0 }, children: files.map(function (file) { return ((0, jsx_runtime_1.jsx)("li", { onClick: function () { return openFile(file); }, style: { cursor: 'pointer', padding: '5px', borderBottom: '1px solid #eee' }, children: file }, file)); }) }), (0, jsx_runtime_1.jsx)("button", { onClick: function () { }, children: "New Note" })] }), (0, jsx_runtime_1.jsx)("div", { style: { flex: 1, display: 'flex', flexDirection: 'column', padding: '10px' }, children: currentFile && ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("h3", { children: currentFile }), (0, jsx_runtime_1.jsx)(react_codemirror_1.default, { value: content, height: "calc(100vh - 100px)", extensions: [(0, lang_markdown_1.markdown)()], theme: codemirror_theme_github_1.githubLight, onChange: function (value) { return setContent(value); } }), (0, jsx_runtime_1.jsx)("button", { onClick: saveFile, style: { marginTop: '10px' }, children: "Save" })] })) })] })) }));
+    return ((0, jsx_runtime_1.jsx)("div", { style: { display: 'flex', height: '100vh', backgroundColor: '#f5f5f5' }, children: !vaultPath ? ((0, jsx_runtime_1.jsx)("div", { style: { flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }, children: (0, jsx_runtime_1.jsx)("button", { onClick: handleSelectVault, children: "Select Vault Directory" }) })) : ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsxs)("div", { style: { width: '250px', borderRight: '1px solid #ddd', padding: '10px', overflowY: 'auto' }, children: [(0, jsx_runtime_1.jsx)("h3", { children: "Files" }), (0, jsx_runtime_1.jsx)("ul", { style: { listStyleType: 'none', padding: 0 }, children: files.map(function (file) { return ((0, jsx_runtime_1.jsx)("li", { onClick: function () { return openFile(file); }, style: { cursor: 'pointer', padding: '5px', borderBottom: '1px solid #eee' }, children: file }, file)); }) }), (0, jsx_runtime_1.jsx)("button", { onClick: createNewNote, children: "New Note" })] }), (0, jsx_runtime_1.jsx)("div", { style: { flex: 1, display: 'flex', flexDirection: 'column', padding: '10px' }, children: currentFile && ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("h3", { children: currentFile }), (0, jsx_runtime_1.jsx)(react_codemirror_1.default, { value: content, height: "calc(100vh - 100px)", extensions: [(0, lang_markdown_1.markdown)()], theme: codemirror_theme_github_1.githubLight, onChange: function (value) { return setContent(value); } }), (0, jsx_runtime_1.jsx)("button", { onClick: saveFile, style: { marginTop: '10px' }, children: "Save" })] })) })] })) }));
 };
 exports.default = App;

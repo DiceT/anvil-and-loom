@@ -35,6 +35,17 @@ const App: React.FC = () => {
     }
   };
 
+  const createNewNote = async () => {
+    const fileName = prompt('Enter note name (e.g., new-note.md)');
+    if (fileName && fileName.endsWith('.md')) {
+      await (window as any).electronAPI.writeFile(fileName, '# New Note\nContent here...');
+      refreshFiles();
+      openFile(fileName);
+    } else {
+      alert('Please enter a valid .md file name.');
+    }
+  };
+
   // Usage of useEffect (fixes unused warning)
   useEffect(() => {
     refreshFiles();
@@ -61,7 +72,7 @@ const App: React.FC = () => {
                 </li>
               ))}
             </ul>
-            <button onClick={() => { /* Add new file logic here later */ }}>New Note</button>
+            <button onClick={createNewNote}>New Note</button>
           </div>
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '10px' }}>
             {currentFile && (
