@@ -43,7 +43,7 @@ var jsx_runtime_1 = require("react/jsx-runtime");
 var react_1 = require("react");
 var react_codemirror_1 = __importDefault(require("@uiw/react-codemirror"));
 var lang_markdown_1 = require("@codemirror/lang-markdown");
-var codemirror_theme_github_1 = require("@uiw/codemirror-theme-github"); // Correct package for githubLight
+var codemirror_theme_github_1 = require("@uiw/codemirror-theme-github");
 var App = function () {
     var _a = (0, react_1.useState)(null), vaultPath = _a[0], setVaultPath = _a[1];
     var _b = (0, react_1.useState)([]), files = _b[0], setFiles = _b[1];
@@ -125,7 +125,6 @@ var App = function () {
             }
         });
     }); };
-    // Usage of useEffect (fixes unused warning)
     (0, react_1.useEffect)(function () {
         refreshFiles();
     }, [vaultPath]);
