@@ -1,7 +1,7 @@
 {
   "name": "anvil-and-loom",
   "version": "0.1.0",
-  "main": "main.js",
+  "main": "src/main.js",
   "scripts": {
     "start": "electron-forge start",
     "react-start": "react-scripts start",
