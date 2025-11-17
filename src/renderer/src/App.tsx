@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { markdown } from '@codemirror/lang-markdown';
+import { githubLight } from '@uiw/codemirror-themes';  // Added for explicit theme
 
 const App: React.FC = () => {
   const [vaultPath, setVaultPath] = useState<string | null>(null);
@@ -12,6 +13,12 @@ const App: React.FC = () => {
     const path = await (window as any).electronAPI.selectVault();
     if (path) {
       setVaultPath(path);
+      refreshFiles();
+    }
+  };
+
+  const refreshFiles = async () => {
+    if (vaultPath) {
       const fileList = await (window as any).electronAPI.listFiles();
       setFiles(fileList);
     }
@@ -29,31 +36,45 @@ const App: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    if (vaultPath) {
+      refreshFiles();
+    }
+  }, [vaultPath]);
+
   return (
-    <div style={{ display: 'flex', height: '100vh' }}>
+    <div style={{ display: 'flex', height: '100vh', backgroundColor: '#f5f5f5' }}>
       {!vaultPath ? (
-        <button onClick={handleSelectVault}>Select Vault Directory</button>
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <button onClick={handleSelectVault}>Select Vault Directory</button>
+        </div>
       ) : (
         <>
-          <div style={{ width: '200px', borderRight: '1px solid #ccc', padding: '10px' }}>
+          <div style={{ width: '250px', borderRight: '1px solid #ddd', padding: '10px', overflowY: 'auto' }}>
             <h3>Files</h3>
-            <ul style={{ listStyle: 'none', padding: 0 }}>
-              {files.map((f) => (
-                <li key={f} onClick={() => openFile(f)} style={{ cursor: 'pointer', marginBottom: '5px' }}>
-                  {f}
+            <ul style={{ listStyleType: 'none', padding: 0 }}>
+              {files.map((file) => (
+                <li
+                  key={file}
+                  onClick={() => openFile(file)}
+                  style={{ cursor: 'pointer', padding: '5px', borderBottom: '1px solid #eee' }}
+                >
+                  {file}
                 </li>
               ))}
             </ul>
-            <button onClick={() => { /* Logic for new file */ }}>New Note</button>
+            <button onClick={() => { /* Add new file logic here later */ }}>New Note</button>
           </div>
-          <div style={{ flex: 1, padding: '10px' }}>
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '10px' }}>
             {currentFile && (
               <>
+                <h3>{currentFile}</h3>
                 <CodeMirror
                   value={content}
+                  height="calc(100vh - 100px)"  // Full height minus headers/buttons
                   extensions={[markdown()]}
+                  theme={githubLight}  // Explicit theme to fix the error
                   onChange={(value) => setContent(value)}
-                  height="100%"
                 />
                 <button onClick={saveFile} style={{ marginTop: '10px' }}>Save</button>
               </>

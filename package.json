@@ -3,14 +3,16 @@
   "version": "0.1.0",
   "main": "src/main.js",
   "scripts": {
-    "start": "electron-forge start",
-    "react-start": "react-scripts start",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
+    "start": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && cross-env NODE_ENV=development electron-forge start\"",
+    "react-start": "cd src/renderer && npm start",
+    "package": "npm run react-build && electron-forge package",
+    "make": "npm run react-build && electron-forge make",
+    "react-build": "cd src/renderer && npm run build"
   },
   "dependencies": {
     "@codemirror/lang-markdown": "^6.3.0",
     "@codemirror/language": "^6.10.3",
+    "@uiw/codemirror-themes": "^4.25.3",
     "@uiw/react-codemirror": "^4.23.5",
     "electron-squirrel-startup": "^1.0.1",
     "react": "^18.3.1",
@@ -32,6 +34,7 @@
     "@typescript-eslint/parser": "^8.10.0",
     "@vercel/webpack-asset-relocator-loader": "^1.7.3",
     "concurrently": "^9.0.1",
+    "cross-env": "^10.1.0",
     "css-loader": "^7.1.2",
     "electron": "^33.0.0",
     "eslint": "^9.12.0",

@@ -54,26 +54,39 @@ var jsx_runtime_1 = require("react/jsx-runtime");
 var react_1 = require("react");
 var react_codemirror_1 = __importDefault(require("@uiw/react-codemirror"));
 var lang_markdown_1 = require("@codemirror/lang-markdown");
+var codemirror_themes_1 = require("@uiw/codemirror-themes"); // Added for explicit theme
 var App = function () {
     var _a = (0, react_1.useState)(null), vaultPath = _a[0], setVaultPath = _a[1];
     var _b = (0, react_1.useState)([]), files = _b[0], setFiles = _b[1];
     var _c = (0, react_1.useState)(null), currentFile = _c[0], setCurrentFile = _c[1];
     var _d = (0, react_1.useState)(''), content = _d[0], setContent = _d[1];
     var handleSelectVault = function () { return __awaiter(void 0, void 0, void 0, function () {
-        var path, fileList;
+        var path;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, window.electronAPI.selectVault()];
                 case 1:
                     path = _a.sent();
-                    if (!path) return [3 /*break*/, 3];
-                    setVaultPath(path);
+                    if (path) {
+                        setVaultPath(path);
+                        refreshFiles();
+                    }
+                    return [2 /*return*/];
+            }
+        });
+    }); };
+    var refreshFiles = function () { return __awaiter(void 0, void 0, void 0, function () {
+        var fileList;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    if (!vaultPath) return [3 /*break*/, 2];
                     return [4 /*yield*/, window.electronAPI.listFiles()];
-                case 2:
+                case 1:
                     fileList = _a.sent();
                     setFiles(fileList);
-                    _a.label = 3;
-                case 3: return [2 /*return*/];
+                    _a.label = 2;
+                case 2: return [2 /*return*/];
             }
         });
     }); };
@@ -104,6 +117,12 @@ var App = function () {
             }
         });
     }); };
-    return ((0, jsx_runtime_1.jsx)("div", __assign({ style: { display: 'flex', height: '100vh' } }, { children: !vaultPath ? ((0, jsx_runtime_1.jsx)("button", __assign({ onClick: handleSelectVault }, { children: "Select Vault Directory" }))) : ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsxs)("div", __assign({ style: { width: '200px', borderRight: '1px solid #ccc', padding: '10px' } }, { children: [(0, jsx_runtime_1.jsx)("h3", { children: "Files" }), (0, jsx_runtime_1.jsx)("ul", __assign({ style: { listStyle: 'none', padding: 0 } }, { children: files.map(function (f) { return ((0, jsx_runtime_1.jsx)("li", __assign({ onClick: function () { return openFile(f); }, style: { cursor: 'pointer', marginBottom: '5px' } }, { children: f }), f)); }) })), (0, jsx_runtime_1.jsx)("button", __assign({ onClick: function () { } }, { children: "New Note" }))] })), (0, jsx_runtime_1.jsx)("div", __assign({ style: { flex: 1, padding: '10px' } }, { children: currentFile && ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(react_codemirror_1.default, { value: content, extensions: [(0, lang_markdown_1.markdown)()], onChange: function (value) { return setContent(value); }, height: "100%" }), (0, jsx_runtime_1.jsx)("button", __assign({ onClick: saveFile, style: { marginTop: '10px' } }, { children: "Save" }))] })) }))] })) })));
+    (0, react_1.useEffect)(function () {
+        if (vaultPath) {
+            refreshFiles();
+        }
+    }, [vaultPath]);
+    return ((0, jsx_runtime_1.jsx)("div", __assign({ style: { display: 'flex', height: '100vh', backgroundColor: '#f5f5f5' } }, { children: !vaultPath ? ((0, jsx_runtime_1.jsx)("div", __assign({ style: { flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' } }, { children: (0, jsx_runtime_1.jsx)("button", __assign({ onClick: handleSelectVault }, { children: "Select Vault Directory" })) }))) : ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsxs)("div", __assign({ style: { width: '250px', borderRight: '1px solid #ddd', padding: '10px', overflowY: 'auto' } }, { children: [(0, jsx_runtime_1.jsx)("h3", { children: "Files" }), (0, jsx_runtime_1.jsx)("ul", __assign({ style: { listStyleType: 'none', padding: 0 } }, { children: files.map(function (file) { return ((0, jsx_runtime_1.jsx)("li", __assign({ onClick: function () { return openFile(file); }, style: { cursor: 'pointer', padding: '5px', borderBottom: '1px solid #eee' } }, { children: file }), file)); }) })), (0, jsx_runtime_1.jsx)("button", __assign({ onClick: function () { } }, { children: "New Note" }))] })), (0, jsx_runtime_1.jsx)("div", __assign({ style: { flex: 1, display: 'flex', flexDirection: 'column', padding: '10px' } }, { children: currentFile && ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("h3", { children: currentFile }), (0, jsx_runtime_1.jsx)(react_codemirror_1.default, { value: content, height: "calc(100vh - 100px)" // Full height minus headers/buttons
+                                , extensions: [(0, lang_markdown_1.markdown)()], theme: codemirror_themes_1.githubLight, onChange: function (value) { return setContent(value); } }), (0, jsx_runtime_1.jsx)("button", __assign({ onClick: saveFile, style: { marginTop: '10px' } }, { children: "Save" }))] })) }))] })) })));
 };
 exports.default = App;
