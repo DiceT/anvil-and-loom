@@ -6,13 +6,55 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+/* Left: Tome pane */
 .app-sidebar {
   width: 260px;
   border-right: 1px solid #ddd;
-  padding: 1rem;
+  padding: 0.75rem 1rem;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
+.app-tome-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.app-tome-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-right: auto;
+}
+
+.app-tome-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: #666;
+}
+
+.app-tome-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0.25rem 0 0;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.app-master-toolbar {
+  margin-top: auto;
+  padding-top: 0.5rem;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: space-around;
+}
+
+/* Center: main content */
 .app-main {
   flex: 1;
   padding: 1.5rem;
@@ -20,8 +62,10 @@
   overflow: auto;
 }
 
-.app-tools-collapsed {
-  width: 32px;
+/* Right: tools */
+
+.app-tools-launcher {
+  width: 40px;
   border-left: 1px solid #ddd;
   display: flex;
   flex-direction: column;
@@ -32,9 +76,121 @@
 }
 
 .app-tools-expanded {
-  width: 320px;
+  width: 340px;
   border-left: 1px solid #ddd;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+}
+
+.app-tools-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.35rem 0.6rem;
+  border-bottom: 1px solid #eee;
+}
+
+.app-tools-header-icons {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.app-tools-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.6rem;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.85rem;
+}
+
+.app-tools-toolbar-label {
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #777;
+}
+
+.app-tools-content {
+  padding: 0.75rem;
+  font-size: 0.9rem;
+  flex: 1;
+  overflow: auto;
+}
+
+/* Generic button styles */
+
+.icon-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0.1rem;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--icon-color); /* <-- icons inherit this */
+}
+
+.icon-button:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.icon-button--active {
+  background: rgba(0, 0, 0, 0.08);
+  color: var(--icon-color-active); /* <-- active icon color */
+}
+
+
+.nav-button {
+  width: 100%;
+  text-align: left;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.nav-button--active {
+  background: #eee;
+}
+
+/* Just a soft hint for future themes */
+:root {
+  --icon-size-sm: 24px;
+  --icon-size-md: 32px;
+  --icon-size-lg: 40px;
+
+  /* themeable colors */
+  --icon-color: #444;          /* default icon color */
+  --icon-color-active: #111;   /* active/selected */
+  --icon-color-muted: #888;    /* if we ever need muted icons */
+}
+
+.dice-tray {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dice-tray-controls {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.dice-tray-controls button {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background: #f7f7f7;
+  cursor: pointer;
+}
+
+.dice-tray-controls button:hover {
+  background: #eee;
 }

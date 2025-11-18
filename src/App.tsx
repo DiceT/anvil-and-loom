@@ -1,7 +1,22 @@
 import { useState } from "react";
 import "./App.css";
+import {
+  Dice5,
+  MessagesSquare,
+  ScrollText,
+  FolderPlus,
+  FilePlus,
+  Pencil,
+  Trash2,
+  Search,
+  Settings,
+  Puzzle,
+  User,
+} from "lucide-react";
+import { DiceTray } from "./components/DiceTray";
 
-type ToolId = "dice" | "oracle";
+
+type ToolId = "results" | "dice" | "oracle";
 type ViewId = "home" | "journal" | "tables";
 
 function App() {
@@ -23,7 +38,7 @@ function App() {
         return (
           <>
             <h2>Tables</h2>
-            <p>Tables / oracle browser placeholder.</p>
+            <p>Tables / oracle editor view placeholder.</p>
           </>
         );
       case "home":
@@ -38,36 +53,116 @@ function App() {
     }
   };
 
+  const renderToolToolbar = () => {
+    if (!activeTool) return null;
+
+    switch (activeTool) {
+      case "results":
+        return (
+          <div className="app-tools-toolbar">
+            <span className="app-tools-toolbar-label">Results</span>
+            <span>Filter: All</span>
+            {/* later: dropdown / chips for Dice / Tables / System / Notes */}
+          </div>
+        );
+      case "dice":
+        return (
+          <div className="app-tools-toolbar">
+            <span className="app-tools-toolbar-label">Dice</span>
+            <span>d4</span>
+            <span>d6</span>
+            <span>d8</span>
+            <span>d10</span>
+            <span>d12</span>
+            <span>d20</span>
+            <span>ADV</span>
+            <span>DIS</span>
+            {/* later: proper buttons, modifiers, formula input */}
+          </div>
+        );
+      case "oracle":
+        return (
+          <div className="app-tools-toolbar">
+            <span className="app-tools-toolbar-label">Oracles</span>
+            <span>Add folder</span>
+            <span>Add table</span>
+            <span>Edit</span>
+            <span>Delete</span>
+            {/* later: search, filter, roll-on-table, etc. */}
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
+  const renderToolContent = () => {
+    if (!activeTool) return null;
+
+    switch (activeTool) {
+      case "results":
+        return (
+          <div className="app-tools-content">
+            <p>Results log placeholder.</p>
+            <p>
+              This will show real-time cards for dice rolls, table results, and
+              notes, with a chat box at the bottom.
+            </p>
+          </div>
+        );
+      case "dice":
+        return (
+          <div className="app-tools-content">
+            <DiceTray />
+          </div>
+        );
+      case "oracle":
+        return (
+          <div className="app-tools-content">
+            <p>Oracles / tables browser placeholder.</p>
+            <p>JSON tables directory and quick roll UI will live here.</p>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="app-root">
       {/* LEFT: Tome / library */}
       <aside className="app-sidebar">
-        <h1 style={{ fontSize: "1.25rem", marginBottom: "0.5rem" }}>
-          Anvil &amp; Loom
-        </h1>
-        <div
-          style={{
-            fontSize: "0.75rem",
-            textTransform: "uppercase",
-            color: "#666",
-            marginBottom: "0.75rem",
-          }}
-        >
-          Tome
+        {/* Tome toolbar (top of left pane) */}
+        <div className="app-tome-toolbar">
+          <div className="app-tome-title">Anvil &amp; Loom</div>
+          <button
+            className="icon-button"
+            title="New folder"
+            type="button"
+          >
+            <FolderPlus size={24} strokeWidth={2.5} />
+          </button>
+          <button
+            className="icon-button"
+            title="New entry"
+            type="button"
+          >
+            <FilePlus size={24} strokeWidth={2.5} />
+          </button>
+          <button
+            className="icon-button"
+            title="Search Tome"
+            type="button"
+          >
+            <Search size={24} strokeWidth={2.5} />
+          </button>
         </div>
 
+        <div className="app-tome-label">Tome</div>
+
+        {/* Tomb nav (for now: simple views) */}
         <nav>
-          <ul
-            style={{
-              listStyle: "none",
-              padding: 0,
-              margin: 0,
-              fontSize: "0.9rem",
-              display: "flex",
-              flexDirection: "column",
-              gap: "0.25rem",
-            }}
-          >
+          <ul className="app-tome-nav">
             {[
               { id: "home", label: "Home" },
               { id: "journal", label: "Journal" },
@@ -75,17 +170,12 @@ function App() {
             ].map((item) => (
               <li key={item.id}>
                 <button
+                  type="button"
                   onClick={() => setCurrentView(item.id as ViewId)}
-                  style={{
-                    width: "100%",
-                    textAlign: "left",
-                    padding: "0.25rem 0.5rem",
-                    borderRadius: "4px",
-                    border: "none",
-                    background:
-                      currentView === item.id ? "#eee" : "transparent",
-                    cursor: "pointer",
-                  }}
+                  className={
+                    "nav-button" +
+                    (currentView === item.id ? " nav-button--active" : "")
+                  }
                 >
                   {item.label}
                 </button>
@@ -93,6 +183,31 @@ function App() {
             ))}
           </ul>
         </nav>
+
+        {/* Master toolbar (bottom of left pane) */}
+        <div className="app-master-toolbar">
+          <button
+            className="icon-button"
+            title="Settings"
+            type="button"
+          >
+            <Settings size={24} strokeWidth={2.5} />
+          </button>
+          <button
+            className="icon-button"
+            title="Plugins"
+            type="button"
+          >
+            <Puzzle size={24} strokeWidth={2.5} />
+          </button>
+          <button
+            className="icon-button"
+            title="Account"
+            type="button"
+          >
+            <User size={24} strokeWidth={2.5} />
+          </button>
+        </div>
       </aside>
 
       {/* CENTER: main content */}
@@ -100,114 +215,85 @@ function App() {
 
       {/* RIGHT: tools area */}
       {!isToolPaneOpen ? (
-        // Collapsed: slim vertical toolbar
-        <div className="app-tools-collapsed">
+        // Collapsed: slim vertical launcher (Results, Dice, Oracles)
+        <div className="app-tools-launcher">
           <button
-            onClick={() => setActiveTool("dice")}
-            title="Dice tray"
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              fontSize: "1.2rem",
-              lineHeight: 1,
-            }}
+            className="icon-button"
+            title="Results"
+            type="button"
+            onClick={() => setActiveTool("results")}
           >
-            🎲
+            <MessagesSquare size={32} strokeWidth={2.5} />
           </button>
           <button
-            onClick={() => setActiveTool("oracle")}
-            title="Oracles / tables"
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              fontSize: "1.2rem",
-              lineHeight: 1,
-            }}
+            className="icon-button"
+            title="Dice tray"
+            type="button"
+            onClick={() => setActiveTool("dice")}
           >
-            📜
+            <Dice5 size={32} strokeWidth={2.5} />
+          </button>
+          <button
+            className="icon-button"
+            title="Oracles / tables"
+            type="button"
+            onClick={() => setActiveTool("oracle")}
+          >
+            <ScrollText size={32} strokeWidth={2.5} />
           </button>
         </div>
       ) : (
-        // Expanded: full tools pane with horizontal icon toolbar
+        // Expanded: full tools pane with header + per-tool toolbar + content
         <div className="app-tools-expanded">
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              padding: "0.4rem 0.6rem",
-              borderBottom: "1px solid #eee",
-            }}
-          >
-            <div style={{ display: "flex", gap: "0.25rem" }}>
+          <div className="app-tools-header">
+            <div className="app-tools-header-icons">
               <button
-                onClick={() => setActiveTool("dice")}
-                title="Dice tray"
-                style={{
-                  padding: "0.15rem 0.35rem",
-                  borderRadius: "4px",
-                  border: "1px solid #ccc",
-                  background:
-                    activeTool === "dice" ? "#eee" : "rgba(255,255,255,0.9)",
-                  cursor: "pointer",
-                  fontSize: "1.1rem",
-                  lineHeight: 1,
-                }}
+                className={
+                  "icon-button" +
+                  (activeTool === "results" ? " icon-button--active" : "")
+                }
+                title="Results"
+                type="button"
+                onClick={() => setActiveTool("results")}
               >
-                🎲
+                <MessagesSquare size={32} strokeWidth={2.5} />
               </button>
               <button
-                onClick={() => setActiveTool("oracle")}
-                title="Oracles / tables"
-                style={{
-                  padding: "0.15rem 0.35rem",
-                  borderRadius: "4px",
-                  border: "1px solid #ccc",
-                  background:
-                    activeTool === "oracle"
-                      ? "#eee"
-                      : "rgba(255,255,255,0.9)",
-                  cursor: "pointer",
-                  fontSize: "1.1rem",
-                  lineHeight: 1,
-                }}
+                className={
+                  "icon-button" +
+                  (activeTool === "dice" ? " icon-button--active" : "")
+                }
+                title="Dice tray"
+                type="button"
+                onClick={() => setActiveTool("dice")}
               >
-                📜
+                <Dice5 size={32} strokeWidth={2.5} />
+              </button>
+              <button
+                className={
+                  "icon-button" +
+                  (activeTool === "oracle" ? " icon-button--active" : "")
+                }
+                title="Oracles / tables"
+                type="button"
+                onClick={() => setActiveTool("oracle")}
+              >
+                <ScrollText size={32} strokeWidth={2.5} />
               </button>
             </div>
 
             <button
-              onClick={() => setActiveTool(null)}
+              className="icon-button"
               title="Close tools pane"
-              style={{
-                border: "none",
-                background: "none",
-                cursor: "pointer",
-                fontSize: "1rem",
-                lineHeight: 1,
-              }}
+              type="button"
+              onClick={() => setActiveTool(null)}
             >
               ✕
             </button>
           </div>
 
-          <div
-            style={{
-              padding: "0.75rem",
-              fontSize: "0.9rem",
-              flex: 1,
-              overflow: "auto",
-            }}
-          >
-            {activeTool === "dice" && (
-              <div>Dice tray placeholder (3D dice will live here).</div>
-            )}
-            {activeTool === "oracle" && (
-              <div>Oracles / tables browser placeholder.</div>
-            )}
-          </div>
+          {renderToolToolbar()}
+          {renderToolContent()}
         </div>
       )}
     </div>
