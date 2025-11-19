@@ -1,11 +1,16 @@
 import DiceBox from "@3d-dice/dice-box-threejs/dist/dice-box-threejs.es";
 
 const DICE_CONTAINER_ID = "dice-box-container";
+const DICE_VISIBLE_CLASS = "dice-box-visible";
+const DICE_FADE_CLASS = "dice-box-fade";
+const DEFAULT_FADE_DURATION_MS = 3000;
 
 type DiceBoxInstance = any;
 
 let diceBox: DiceBoxInstance | null = null;
 let diceBoxInitPromise: Promise<DiceBoxInstance> | null = null;
+let diceFadeTimeout: number | null = null;
+let diceFadeDurationMs = DEFAULT_FADE_DURATION_MS;
 
 export type SingleDieType =
   | "d4"
@@ -89,6 +94,49 @@ async function getDiceBox(): Promise<DiceBoxInstance> {
   return diceBoxInitPromise;
 }
 
+function getDiceContainer(): HTMLElement | null {
+  return document.getElementById(DICE_CONTAINER_ID);
+}
+
+function showDiceOverlay() {
+  const container = getDiceContainer();
+  if (!container) return;
+  if (diceFadeTimeout) {
+    window.clearTimeout(diceFadeTimeout);
+    diceFadeTimeout = null;
+  }
+  container.classList.add(DICE_VISIBLE_CLASS);
+  container.classList.remove(DICE_FADE_CLASS);
+}
+
+function scheduleDiceFade() {
+  const container = getDiceContainer();
+  if (!container) return;
+  if (diceFadeTimeout) {
+    window.clearTimeout(diceFadeTimeout);
+  }
+  const delay = Math.max(0, diceFadeDurationMs);
+  diceFadeTimeout = window.setTimeout(() => {
+    container.classList.add(DICE_FADE_CLASS);
+  }, delay);
+}
+
+export function setDiceFadeDuration(durationMs: number) {
+  if (Number.isFinite(durationMs)) {
+    diceFadeDurationMs = Math.max(500, durationMs);
+  }
+}
+
+async function rollWithOverlay(
+  box: DiceBoxInstance,
+  notation: string
+): Promise<any> {
+  showDiceOverlay();
+  const result = await box.roll(notation);
+  scheduleDiceFade();
+  return result;
+}
+
 function extractDiceValues(raw: any): number[] {
   const values: number[] = [];
 
@@ -148,7 +196,7 @@ export async function rollDice(
 
   switch (type) {
     case "four_d6": {
-      const raw = await box.roll("4d6");
+      const raw = await rollWithOverlay(box, "4d6");
       const rolls = extractDiceValues(raw);
       const total = rolls.reduce((sum, v) => sum + v, 0);
 
@@ -164,7 +212,7 @@ export async function rollDice(
     }
 
     case "percentile": {
-      const raw = await box.roll("1d100+1d10");
+      const raw = await rollWithOverlay(box, "1d100+1d10");
       const vals = extractDiceValues(raw);
 
       const tensValue = vals[0];
@@ -189,7 +237,7 @@ export async function rollDice(
     }
 
     case "challenge": {
-      const raw = await box.roll("1d6+2d10");
+      const raw = await rollWithOverlay(box, "1d6+2d10");
       const vals = extractDiceValues(raw);
 
       const actionDie = vals[0];
@@ -262,7 +310,7 @@ async function rollSingleDie(
   const mode: RollAdvantageMode = options.mode ?? "normal";
   const modifier = options.modifier ?? 0;
   const diceCount = mode === "normal" ? 1 : 2;
-  const raw = await box.roll(`${diceCount}d${sides}`);
+  const raw = await rollWithOverlay(box, `${diceCount}d${sides}`);
   const rolls = extractDiceValues(raw).slice(0, diceCount);
 
   const chosen =
