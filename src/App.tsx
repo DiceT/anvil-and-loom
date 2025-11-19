@@ -116,6 +116,7 @@ function App() {
             <DiceTray />
           </div>
         );
+
       case "oracle":
         return (
           <div className="app-tools-content">

@@ -194,3 +194,13 @@
 .dice-tray-controls button:hover {
   background: #eee;
 }
+
+#dice-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none; /* so it doesn't block clicks for now */
+  z-index: 1000;
+}
