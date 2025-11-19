@@ -1,19 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import {
-  MessageSquareMore,
+  ScrollText,
   Dices,
-  Table2,
+  LayoutPanelTop,
   Settings,
   User,
+  FolderPlus,
+  FilePlus2,
+  Edit3,
+  Puzzle,
+  SunMoon,
 } from "lucide-react";
 import { DiceTray } from "./components/DiceTray";
 
 type ActiveTool = "results" | "dice" | "tables";
+type ThemeMode = "dark" | "light";
 
 function App() {
   const [isToolPaneOpen, setToolPaneOpen] = useState(false);
   const [activeTool, setActiveTool] = useState<ActiveTool>("results");
+  const [theme, setTheme] = useState<ThemeMode>("dark");
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
 
   const openTool = (tool: ActiveTool) => {
     setActiveTool(tool);
@@ -32,22 +43,28 @@ function App() {
     </div>
   );
 
-const renderToolContent = () => (
-  <div className="app-tools-content">
-    {activeTool === "results" && <p>Results tool will go here.</p>}
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  };
 
-    {activeTool === "tables" && <p>Oracles / Tables tool will go here.</p>}
+  const renderToolContent = () => (
+    <div className="app-tools-content">
+      {activeTool === "results" && <p>Results tool will go here.</p>}
 
-    {/* DiceTray stays mounted, just hidden when not active */}
-    <div style={{ display: activeTool === "dice" ? "block" : "none" }}>
-      <DiceTray />
+      {activeTool === "tables" && <p>Oracles / Tables tool will go here.</p>}
+
+      {/* DiceTray stays mounted, just hidden when not active */}
+      <div style={{ display: activeTool === "dice" ? "block" : "none" }}>
+        <DiceTray />
+      </div>
     </div>
-  </div>
-);
+  );
 
+  const statusText = "Connected to local workspace";
 
   return (
     <div className="app-root">
+      <div className="app-shell">
       {/* LEFT: Tome / library pane */}
       <aside className="app-sidebar">
         <div className="app-sidebar-header">
@@ -58,21 +75,35 @@ const renderToolContent = () => (
           </div>
         </div>
 
+        <div className="app-sidebar-toolbar">
+          <button
+            className="sidebar-toolbar-button icon-button"
+            aria-label="Add folder"
+            data-tooltip="Add folder"
+          >
+            <FolderPlus size={20} strokeWidth={2} />
+          </button>
+          <button
+            className="sidebar-toolbar-button icon-button"
+            aria-label="Add tome entry"
+            data-tooltip="Add tome entry"
+          >
+            <FilePlus2 size={20} strokeWidth={2} />
+          </button>
+          <button
+            className="sidebar-toolbar-button icon-button"
+            aria-label="Rename selection"
+            data-tooltip="Rename selection"
+          >
+            <Edit3 size={20} strokeWidth={2} />
+          </button>
+        </div>
+
         <nav className="app-sidebar-nav">
           <button className="nav-item nav-item-active">Home</button>
           <button className="nav-item">Journal</button>
           <button className="nav-item">Tables</button>
         </nav>
-
-        {/* Master toolbar at bottom of left pane */}
-        <div className="app-sidebar-footer">
-          <button className="sidebar-icon-button" title="Settings">
-            <Settings size={20} strokeWidth={2.5} />
-          </button>
-          <button className="sidebar-icon-button" title="Account">
-            <User size={20} strokeWidth={2.5} />
-          </button>
-        </div>
       </aside>
 
       {/* CENTER: main content pane */}
@@ -82,25 +113,28 @@ const renderToolContent = () => (
       {!isToolPaneOpen ? (
         <div className="app-tools-launcher">
           <button
-            className="tool-icon-button"
-            title="Results"
+            className="tool-icon-button icon-button"
             onClick={() => openTool("results")}
+            aria-label="Results"
+            data-tooltip="Results"
           >
-            <MessageSquareMore size={32} strokeWidth={2.5} />
+            <ScrollText size={32} strokeWidth={2.5} />
           </button>
           <button
-            className="tool-icon-button"
-            title="Dice"
+            className="tool-icon-button icon-button"
             onClick={() => openTool("dice")}
+            aria-label="Dice"
+            data-tooltip="Dice"
           >
             <Dices size={32} strokeWidth={2.5} />
           </button>
           <button
-            className="tool-icon-button"
-            title="Tables"
+            className="tool-icon-button icon-button"
             onClick={() => openTool("tables")}
+            aria-label="Tables"
+            data-tooltip="Tables"
           >
-            <Table2 size={32} strokeWidth={2.5} />
+            <LayoutPanelTop size={32} strokeWidth={2.5} />
           </button>
         </div>
       ) : (
@@ -108,34 +142,34 @@ const renderToolContent = () => (
           <div className="app-tools-header">
             <div className="app-tools-tabs">
               <button
-                className={
-                  "tool-tab" +
-                  (activeTool === "results" ? " tool-tab-active" : "")
-                }
+                className={`tool-tab icon-button${
+                  activeTool === "results" ? " tool-tab-active" : ""
+                }`}
                 onClick={() => setActiveTool("results")}
-                title="Results"
+                aria-label="Results"
+                data-tooltip="Results"
               >
-                <MessageSquareMore size={24} strokeWidth={2.5} />
+                <ScrollText size={24} strokeWidth={2.5} />
               </button>
               <button
-                className={
-                  "tool-tab" +
-                  (activeTool === "dice" ? " tool-tab-active" : "")
-                }
+                className={`tool-tab icon-button${
+                  activeTool === "dice" ? " tool-tab-active" : ""
+                }`}
                 onClick={() => setActiveTool("dice")}
-                title="Dice"
+                aria-label="Dice"
+                data-tooltip="Dice"
               >
                 <Dices size={24} strokeWidth={2.5} />
               </button>
               <button
-                className={
-                  "tool-tab" +
-                  (activeTool === "tables" ? " tool-tab-active" : "")
-                }
+                className={`tool-tab icon-button${
+                  activeTool === "tables" ? " tool-tab-active" : ""
+                }`}
                 onClick={() => setActiveTool("tables")}
-                title="Tables"
+                aria-label="Tables"
+                data-tooltip="Tables"
               >
-                <Table2 size={24} strokeWidth={2.5} />
+                <LayoutPanelTop size={24} strokeWidth={2.5} />
               </button>
             </div>
             <button
@@ -150,6 +184,44 @@ const renderToolContent = () => (
           <div className="app-tools-body">{renderToolContent()}</div>
         </div>
       )}
+      </div>
+
+      <footer className="app-status-bar">
+        <div className="app-status-actions">
+          <button
+            className="status-icon-button icon-button"
+            aria-label="Account"
+            data-tooltip="Account"
+          >
+            <User size={24} strokeWidth={2} />
+          </button>
+          <button
+            className="status-icon-button icon-button"
+            aria-label="Settings"
+            data-tooltip="Settings"
+          >
+            <Settings size={24} strokeWidth={2} />
+          </button>
+          <button
+            className="status-icon-button icon-button"
+            aria-label="Plugins"
+            data-tooltip="Plugins"
+          >
+            <Puzzle size={24} strokeWidth={2} />
+          </button>
+          <button
+            className="status-icon-button icon-button"
+            aria-label="Toggle theme"
+            data-tooltip={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            onClick={toggleTheme}
+          >
+            <SunMoon size={24} strokeWidth={2} />
+          </button>
+        </div>
+        <div className="app-status-indicator">
+          <span>Status:</span> {statusText}
+        </div>
+      </footer>
     </div>
   );
 }

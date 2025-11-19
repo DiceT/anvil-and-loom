@@ -7,9 +7,28 @@ type DiceBoxInstance = any;
 let diceBox: DiceBoxInstance | null = null;
 let diceBoxInitPromise: Promise<DiceBoxInstance> | null = null;
 
-export type LogicalRollType = "d20" | "four_d6" | "percentile" | "challenge";
+export type SingleDieType =
+  | "d4"
+  | "d6"
+  | "d8"
+  | "d10"
+  | "d12"
+  | "d20";
+
+export type LogicalRollType =
+  | SingleDieType
+  | "four_d6"
+  | "percentile"
+  | "challenge";
 
 export type DiceEngineResultKind = "number" | "percentile" | "challenge";
+
+export type RollAdvantageMode = "normal" | "advantage" | "disadvantage";
+
+export interface RollOptions {
+  mode?: RollAdvantageMode;
+  modifier?: number;
+}
 
 export interface DiceEngineResult {
   id: string;
@@ -17,9 +36,17 @@ export interface DiceEngineResult {
   label: string;
   value?: number;
   detail?: string;
-  meta?: any; // 🔹 add this
+  meta?: any;
 }
 
+const SINGLE_DIE_CONFIG: Record<SingleDieType, { sides: number; label: string }> = {
+  d4: { sides: 4, label: "1d4" },
+  d6: { sides: 6, label: "1d6" },
+  d8: { sides: 8, label: "1d8" },
+  d10: { sides: 10, label: "1d10" },
+  d12: { sides: 12, label: "1d12" },
+  d20: { sides: 20, label: "1d20" },
+};
 
 /**
  * Ensure DiceBox is initialized on the global overlay container.
@@ -37,13 +64,12 @@ async function getDiceBox(): Promise<DiceBoxInstance> {
         throw new Error(`Dice container #${DICE_CONTAINER_ID} not found in DOM`);
       }
 
-      // Clear any previous canvases
       container.innerHTML = "";
 
       const box = new (DiceBox as any)(`#${DICE_CONTAINER_ID}`, {
         theme: "default",
-        assetPath: "/assets/",        // <-- points to public/assets
-        sounds: true,                // turn sound on
+        assetPath: "/assets/",
+        sounds: true,
         light_intensity: 0.8,
         gravity_multiplier: 400,
         baseScale: 100,
@@ -63,14 +89,6 @@ async function getDiceBox(): Promise<DiceBoxInstance> {
   return diceBoxInitPromise;
 }
 
-/**
- * Recursively walk the raw result and pull out per-die values
- * in a predictable order.
- *
- * We only collect:
- * - leaf objects with `value` / `result`
- * - roll entries inside `.rolls`
- */
 function extractDiceValues(raw: any): number[] {
   const values: number[] = [];
 
@@ -78,18 +96,13 @@ function extractDiceValues(raw: any): number[] {
     if (node == null) return;
 
     if (Array.isArray(node)) {
-      for (const item of node) {
-        visit(item);
-      }
+      for (const item of node) visit(item);
       return;
     }
 
     if (typeof node === "object") {
-      const anyNode = node as any;
-
-      // If this looks like a roll-group: prefer its .rolls array
-      if (Array.isArray(anyNode.rolls)) {
-        for (const r of anyNode.rolls) {
+      if (Array.isArray(node.rolls)) {
+        for (const r of node.rolls) {
           if (r && typeof r.value === "number") {
             values.push(r.value);
           } else if (r && typeof r.result === "number") {
@@ -97,23 +110,19 @@ function extractDiceValues(raw: any): number[] {
           }
         }
       } else {
-        // Otherwise, this might itself be a single roll
-        if (typeof anyNode.value === "number") {
-          values.push(anyNode.value);
-        } else if (typeof anyNode.result === "number") {
-          values.push(anyNode.result);
+        if (typeof node.value === "number") {
+          values.push(node.value);
+        } else if (typeof node.result === "number") {
+          values.push(node.result);
         }
       }
 
-      // Dive into nested sets/results if present
-      if (Array.isArray(anyNode.sets)) {
-        visit(anyNode.sets);
+      if (Array.isArray(node.sets)) {
+        visit(node.sets);
       }
-      if (Array.isArray(anyNode.results)) {
-        visit(anyNode.results);
+      if (Array.isArray(node.results)) {
+        visit(node.results);
       }
-
-      return;
     }
   };
 
@@ -126,30 +135,18 @@ function extractFirstValue(raw: any): number | undefined {
   return vals.length ? vals[0] : undefined;
 }
 
-// --- public API ---
-
 export async function rollDice(
-  type: LogicalRollType
+  type: LogicalRollType,
+  options: RollOptions = {}
 ): Promise<DiceEngineResult> {
   const box = await getDiceBox();
 
+  if (type in SINGLE_DIE_CONFIG) {
+    const config = SINGLE_DIE_CONFIG[type as SingleDieType];
+    return rollSingleDie(box, config.sides, config.label, options);
+  }
+
   switch (type) {
-    case "d20": {
-      const raw = await box.roll("1d20");
-      const value = extractFirstValue(raw);
-
-      return {
-        id: createId(),
-        kind: "number",
-        label: "1d20",
-        value,
-        detail:
-          value !== undefined
-            ? `Rolled 1d20 → ${value}`
-            : "Rolled 1d20 (could not read value)",
-      };
-    }
-
     case "four_d6": {
       const raw = await box.roll("4d6");
       const rolls = extractDiceValues(raw);
@@ -161,17 +158,15 @@ export async function rollDice(
         label: "4d6",
         value: rolls.length ? total : undefined,
         detail: rolls.length
-          ? `Rolled 4d6 → [${rolls.join(", ")}], total = ${total}`
+          ? `Rolled 4d6 -> [${rolls.join(", ")}], total = ${total}`
           : "Rolled 4d6 (could not read values)",
       };
     }
 
     case "percentile": {
-      // 🔹 Roll tens and ones together in a single expression
       const raw = await box.roll("1d100+1d10");
       const vals = extractDiceValues(raw);
 
-      // Expect at least 2 dice: [d100, d10, ...maybe other junk]
       const tensValue = vals[0];
       const onesValue = vals[1];
 
@@ -179,9 +174,7 @@ export async function rollDice(
       const onesIndex = normalizeOnesIndex(onesValue);
 
       let total = tensIndex * 10 + onesIndex;
-      if (total === 0) {
-        total = 100;
-      }
+      if (total === 0) total = 100;
 
       const d100Face = tensIndex === 0 ? "00" : String(tensIndex * 10);
       const d10Face = String(onesIndex);
@@ -191,18 +184,18 @@ export async function rollDice(
         kind: "percentile",
         label: "d100",
         value: total,
-        detail: `d100=${d100Face}, d10=${d10Face} → ${total}`,
+        detail: `d100=${d100Face}, d10=${d10Face} -> ${total}`,
       };
     }
 
     case "challenge": {
-      // Roll action + challenge dice together: 1d6 + 2d10
       const raw = await box.roll("1d6+2d10");
       const vals = extractDiceValues(raw);
 
       const actionDie = vals[0];
-      const challengeDice = vals.slice(1, 3); // first two d10s
-      const modifier = 2;
+      const challengeDice = vals.slice(1, 3);
+      const baseModifier = 0;
+      const userModifier = options.modifier ?? 0;
 
       let actionScore: number | undefined;
       let quality: "Strong Hit" | "Weak Hit" | "Miss" | null = null;
@@ -211,7 +204,7 @@ export async function rollDice(
 
       if (typeof actionDie === "number" && challengeDice.length >= 2) {
         const [c1, c2] = challengeDice;
-        actionScore = actionDie + modifier;
+        actionScore = actionDie + baseModifier + userModifier;
 
         const beats1 = actionScore > c1;
         const beats2 = actionScore > c2;
@@ -228,12 +221,11 @@ export async function rollDice(
         }
       }
 
-      // Fallback detail string in case we ever need it
       const detail =
         typeof actionDie === "number" && challengeDice.length >= 2 && quality
-          ? `Action: ${actionDie} + ${modifier} = ${actionScore}; Challenge: [${challengeDice.join(
-              ", "
-            )}]`
+          ? `Action: ${actionDie}${baseModifier ? ` + ${baseModifier}` : ""}${
+              userModifier ? ` + ${userModifier}` : ""
+            } = ${actionScore}; Challenge: [${challengeDice.join(", ")}]`
           : "Challenge roll (invalid)";
 
       return {
@@ -245,7 +237,8 @@ export async function rollDice(
         meta: {
           type: "challenge",
           actionDie,
-          modifier,
+          baseModifier,
+          userModifier,
           actionScore,
           challengeDice,
           outcome: quality,
@@ -255,48 +248,98 @@ export async function rollDice(
       };
     }
 
-
+    default:
+      throw new Error(`Unsupported roll type: ${type}`);
   }
+}
+
+async function rollSingleDie(
+  box: DiceBoxInstance,
+  sides: number,
+  baseLabel: string,
+  options: RollOptions
+): Promise<DiceEngineResult> {
+  const mode: RollAdvantageMode = options.mode ?? "normal";
+  const modifier = options.modifier ?? 0;
+  const diceCount = mode === "normal" ? 1 : 2;
+  const raw = await box.roll(`${diceCount}d${sides}`);
+  const rolls = extractDiceValues(raw).slice(0, diceCount);
+
+  const chosen =
+    mode === "advantage"
+      ? Math.max(...rolls)
+      : mode === "disadvantage"
+      ? Math.min(...rolls)
+      : rolls[0];
+
+  const label =
+    mode === "normal"
+      ? baseLabel
+      : `${baseLabel} (${mode === "advantage" ? "Advantage" : "Disadvantage"})`;
+
+  const detail =
+    mode === "normal"
+      ? rolls.length
+        ? `Rolled ${baseLabel} -> ${chosen}`
+        : `Rolled ${baseLabel} (could not read value)`
+      : rolls.length >= 2
+      ? `Rolled 2d${sides} [${rolls.slice(0, 2).join(", ")}] -> ${
+          mode === "advantage" ? "highest" : "lowest"
+        } ${chosen}`
+      : `Rolled 2d${sides} (could not read values)`;
+
+  const finalValue =
+    typeof chosen === "number" && !Number.isNaN(chosen)
+      ? chosen + modifier
+      : chosen;
+
+  const detailWithModifier =
+    modifier && typeof chosen === "number"
+      ? `${detail}; modifier ${modifier >= 0 ? "+" : "-"} ${Math.abs(
+          modifier
+        )} = ${finalValue}`
+      : detail;
+
+  return {
+    id: createId(),
+    kind: "number",
+    label,
+    value: finalValue,
+    detail: detailWithModifier,
+    meta: {
+      type: "single",
+      mode,
+      rolls: rolls.slice(0, diceCount),
+      chosen,
+      sides,
+      modifier,
+    },
+  };
 }
 
 // --- helpers for percentile semantics ---
 
 function normalizeTensIndex(value: number | undefined): number {
   if (value == null || Number.isNaN(value)) return 0;
-
-  // Treat 0 or 100 as "00" (tensIndex = 0)
   if (value === 0 || value === 100) return 0;
-
-  // Standard percentile tens: 10, 20, ..., 90
   if (value % 10 === 0 && value >= 10 && value <= 90) {
-    return value / 10; // 10 -> 1, 20 -> 2, ..., 90 -> 9
+    return value / 10;
   }
-
-  // If we ever get 1–9 directly, treat them as indices
   if (value >= 1 && value <= 9) {
     return value;
   }
-
-  // Fallback: derive index from the tens place, clamp 0–9
   return Math.max(0, Math.min(9, Math.floor(value / 10)));
 }
 
 function normalizeOnesIndex(value: number | undefined): number {
   if (value == null || Number.isNaN(value)) return 0;
-
-  // 10 or 0 should mean face "0"
   if (value === 10 || value === 0) return 0;
-
-  // Normal 1–9 range
   if (value >= 1 && value <= 9) {
     return value;
   }
-
-  // Fallback: last digit, clamped 0–9
   const digit = Math.floor(value) % 10;
   return digit < 0 ? digit + 10 : digit;
 }
-
 
 function createId(): string {
   return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
