@@ -1,70 +1,180 @@
-import { useEffect, useRef } from "react";
-import DiceBox from "@3d-dice/dice-box-threejs/dist/dice-box-threejs.es";
-
-type DiceBoxInstance = any; // we'll tighten this up later
-
-const DICE_CONTAINER_ID = "dice-box-container";
+// src/components/DiceTray.tsx
+import { useState } from "react";
+import { rollDice } from "../lib/diceEngine";
+import type {
+  LogicalRollType,
+  DiceEngineResult,
+} from "../lib/diceEngine";
 
 export function DiceTray() {
-  const diceBoxRef = useRef<DiceBoxInstance | null>(null);
+  const [lastResult, setLastResult] = useState<DiceEngineResult | null>(null);
+  const [isRolling, setIsRolling] = useState(false);
 
-  useEffect(() => {
-    // Create the DiceBox instance and attach it to our div
-    const box = new (DiceBox as any)(`#${DICE_CONTAINER_ID}`, {
-      sounds: false,
-      light_intensity: 0.8,
-      gravity_multiplier: 400,
-      baseScale: 100,
-      strength: 2,
-      onRollComplete: (results: unknown) => {
-        console.log("Dice results:", results);
-      },
-    });
-
-    diceBoxRef.current = box;
-
-    (async () => {
-      if (box.initialize) {
-        await box.initialize();
-      }
-    })();
-
-    return () => {
-      if (diceBoxRef.current && typeof diceBoxRef.current.destroy === "function") {
-        diceBoxRef.current.destroy();
-      }
-    };
-  }, []);
-
-  const rollD20 = async () => {
-    if (!diceBoxRef.current?.roll) return;
-    await diceBoxRef.current.roll("1d20");
-  };
-
-  const roll4d6 = async () => {
-    if (!diceBoxRef.current?.roll) return;
-    await diceBoxRef.current.roll("4d6");
+  const handleRoll = async (type: LogicalRollType) => {
+    if (isRolling) return; // simple throttle to avoid overlapping animations
+    try {
+      setIsRolling(true);
+      const result = await rollDice(type);
+      setLastResult(result);
+    } catch (err) {
+      console.error("Dice roll error:", err);
+    } finally {
+      setIsRolling(false);
+    }
   };
 
   return (
-    <div className="dice-tray">
-      <div className="dice-tray-controls">
-        <button type="button" onClick={rollD20}>
+    <div style={{ padding: 16 }}>
+      <div
+        style={{
+          marginBottom: 8,
+          display: "flex",
+          gap: 8,
+          flexWrap: "wrap",
+        }}
+      >
+        <button
+          type="button"
+          onClick={() => handleRoll("d20")}
+          disabled={isRolling}
+        >
           Roll 1d20
         </button>
-        <button type="button" onClick={roll4d6}>
+        <button
+          type="button"
+          onClick={() => handleRoll("four_d6")}
+          disabled={isRolling}
+        >
           Roll 4d6
         </button>
+        <button
+          type="button"
+          onClick={() => handleRoll("percentile")}
+          disabled={isRolling}
+        >
+          Roll d100
+        </button>
+        <button
+          type="button"
+          onClick={() => handleRoll("challenge")}
+          disabled={isRolling}
+        >
+          Challenge (1d6 vs 2d10)
+        </button>
       </div>
-      <div
-        id={DICE_CONTAINER_ID}
-        style={{
-          width: "100%",
-          height: 260,
-          borderRadius: 8,
-          overflow: "hidden",
-        }}
-      />
+
+      {lastResult && lastResult.kind === "challenge" &&
+      lastResult.meta?.type === "challenge" ? (
+        // 🔹 Fancy Challenge card
+        (() => {
+          const meta = lastResult.meta;
+          const outcome: string = meta.outcome ?? "Result";
+          const actionDie: number | undefined = meta.actionDie;
+          const modifier: number | undefined = meta.modifier;
+          const actionScore: number | undefined = meta.actionScore;
+          const challengeDice: number[] = meta.challengeDice ?? [];
+          const boon: boolean = !!meta.boon;
+          const complication: boolean = !!meta.complication;
+
+          let outcomeColor = "#e5e5e5";
+          if (outcome === "Strong Hit") outcomeColor = "#4ade80"; // green
+          else if (outcome === "Weak Hit") outcomeColor = "#eab308"; // yellow
+          else if (outcome === "Miss") outcomeColor = "#f97373"; // red
+
+          return (
+            <div
+              style={{
+                marginTop: 8,
+                padding: 12,
+                borderRadius: 6,
+                background: "#1f1f1f",
+                border: "1px solid #444",
+                fontSize: 13,
+              }}
+            >
+              <div
+                style={{
+                  fontWeight: 600,
+                  marginBottom: 8,
+                  fontSize: 14,
+                  textTransform: "uppercase",
+                  letterSpacing: 0.5,
+                }}
+              >
+                Challenge Roll
+              </div>
+
+              <div style={{ marginBottom: 4 }}>
+                Action Roll:{" "}
+                {typeof actionDie === "number" &&
+                typeof modifier === "number" &&
+                typeof actionScore === "number" ? (
+                  <span>
+                    {actionDie} + {modifier} = <strong>{actionScore}</strong>
+                  </span>
+                ) : (
+                  "—"
+                )}
+              </div>
+
+              <div style={{ marginBottom: 8 }}>
+                Challenge Roll:{" "}
+                {challengeDice.length >= 2 ? (
+                  <span>
+                    {challengeDice[0]}, {challengeDice[1]}
+                  </span>
+                ) : (
+                  "—"
+                )}
+              </div>
+
+              <div
+                style={{
+                  marginTop: 4,
+                  fontSize: 18,
+                  fontWeight: 700,
+                  color: outcomeColor,
+                }}
+              >
+                Result: {outcome || "—"}
+                {boon && " (Boon)"}
+                {complication && " (Complication)"}
+              </div>
+            </div>
+          );
+        })()
+      ) : (
+        // 🔹 Generic card for everything else
+        lastResult && (
+          <div
+            style={{
+              marginTop: 8,
+              padding: 8,
+              borderRadius: 6,
+              background: "#1f1f1f",
+              border: "1px solid #444",
+              fontSize: 12,
+            }}
+          >
+            <div style={{ fontWeight: 600, marginBottom: 4 }}>
+              {lastResult.label}
+            </div>
+
+            {(lastResult.kind === "number" ||
+              lastResult.kind === "percentile") &&
+              typeof lastResult.value === "number" && (
+                <div>
+                  Result: <strong>{lastResult.value}</strong>
+                </div>
+              )}
+
+            {lastResult.detail && (
+              <div style={{ marginTop: 4 }}>{lastResult.detail}</div>
+            )}
+          </div>
+        )
+      )}
+
     </div>
   );
 }

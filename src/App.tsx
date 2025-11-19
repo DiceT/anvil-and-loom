@@ -1,300 +1,153 @@
 import { useState } from "react";
 import "./App.css";
 import {
-  Dice5,
-  MessagesSquare,
-  ScrollText,
-  FolderPlus,
-  FilePlus,
-  Pencil,
-  Trash2,
-  Search,
+  MessageSquareMore,
+  Dices,
+  Table2,
   Settings,
-  Puzzle,
   User,
 } from "lucide-react";
 import { DiceTray } from "./components/DiceTray";
 
-
-type ToolId = "results" | "dice" | "oracle";
-type ViewId = "home" | "journal" | "tables";
+type ActiveTool = "results" | "dice" | "tables";
 
 function App() {
-  const [activeTool, setActiveTool] = useState<ToolId | null>(null);
-  const [currentView, setCurrentView] = useState<ViewId>("home");
+  const [isToolPaneOpen, setToolPaneOpen] = useState(false);
+  const [activeTool, setActiveTool] = useState<ActiveTool>("results");
 
-  const isToolPaneOpen = activeTool !== null;
-
-  const renderMainContent = () => {
-    switch (currentView) {
-      case "journal":
-        return (
-          <>
-            <h2>Journal</h2>
-            <p>Journal view placeholder. Entries will appear here.</p>
-          </>
-        );
-      case "tables":
-        return (
-          <>
-            <h2>Tables</h2>
-            <p>Tables / oracle editor view placeholder.</p>
-          </>
-        );
-      case "home":
-      default:
-        return (
-          <>
-            <h2>Welcome to your Tome</h2>
-            <p>Core app shell is running inside Electron.</p>
-            <p>This main area will become the editor/workspace.</p>
-          </>
-        );
-    }
+  const openTool = (tool: ActiveTool) => {
+    setActiveTool(tool);
+    setToolPaneOpen(true);
   };
 
-  const renderToolToolbar = () => {
-    if (!activeTool) return null;
-
-    switch (activeTool) {
-      case "results":
-        return (
-          <div className="app-tools-toolbar">
-            <span className="app-tools-toolbar-label">Results</span>
-            <span>Filter: All</span>
-            {/* later: dropdown / chips for Dice / Tables / System / Notes */}
-          </div>
-        );
-      case "dice":
-        return (
-          <div className="app-tools-toolbar">
-            <span className="app-tools-toolbar-label">Dice</span>
-            <span>d4</span>
-            <span>d6</span>
-            <span>d8</span>
-            <span>d10</span>
-            <span>d12</span>
-            <span>d20</span>
-            <span>ADV</span>
-            <span>DIS</span>
-            {/* later: proper buttons, modifiers, formula input */}
-          </div>
-        );
-      case "oracle":
-        return (
-          <div className="app-tools-toolbar">
-            <span className="app-tools-toolbar-label">Oracles</span>
-            <span>Add folder</span>
-            <span>Add table</span>
-            <span>Edit</span>
-            <span>Delete</span>
-            {/* later: search, filter, roll-on-table, etc. */}
-          </div>
-        );
-      default:
-        return null;
-    }
+  const closeTools = () => {
+    setToolPaneOpen(false);
   };
 
-  const renderToolContent = () => {
-    if (!activeTool) return null;
+  const renderMainContent = () => (
+    <div className="app-main-inner">
+      <h1>Your Tome</h1>
+      <p>Main editor / workspace will live here.</p>
+      <p>Dice roll as a full-screen overlay on top of everything.</p>
+    </div>
+  );
 
-    switch (activeTool) {
-      case "results":
-        return (
-          <div className="app-tools-content">
-            <p>Results log placeholder.</p>
-            <p>
-              This will show real-time cards for dice rolls, table results, and
-              notes, with a chat box at the bottom.
-            </p>
-          </div>
-        );
-      case "dice":
-        return (
-          <div className="app-tools-content">
-            <DiceTray />
-          </div>
-        );
+const renderToolContent = () => (
+  <div className="app-tools-content">
+    {activeTool === "results" && <p>Results tool will go here.</p>}
 
-      case "oracle":
-        return (
-          <div className="app-tools-content">
-            <p>Oracles / tables browser placeholder.</p>
-            <p>JSON tables directory and quick roll UI will live here.</p>
-          </div>
-        );
-      default:
-        return null;
-    }
-  };
+    {activeTool === "tables" && <p>Oracles / Tables tool will go here.</p>}
+
+    {/* DiceTray stays mounted, just hidden when not active */}
+    <div style={{ display: activeTool === "dice" ? "block" : "none" }}>
+      <DiceTray />
+    </div>
+  </div>
+);
+
 
   return (
     <div className="app-root">
-      {/* LEFT: Tome / library */}
+      {/* LEFT: Tome / library pane */}
       <aside className="app-sidebar">
-        {/* Tome toolbar (top of left pane) */}
-        <div className="app-tome-toolbar">
-          <div className="app-tome-title">Anvil &amp; Loom</div>
-          <button
-            className="icon-button"
-            title="New folder"
-            type="button"
-          >
-            <FolderPlus size={24} strokeWidth={2.5} />
-          </button>
-          <button
-            className="icon-button"
-            title="New entry"
-            type="button"
-          >
-            <FilePlus size={24} strokeWidth={2.5} />
-          </button>
-          <button
-            className="icon-button"
-            title="Search Tome"
-            type="button"
-          >
-            <Search size={24} strokeWidth={2.5} />
-          </button>
+        <div className="app-sidebar-header">
+          <div className="app-logo-mark" />
+          <div className="app-logo-text">
+            <div className="app-logo-title">Anvil &amp; Loom</div>
+            <div className="app-logo-subtitle">TOME</div>
+          </div>
         </div>
 
-        <div className="app-tome-label">Tome</div>
-
-        {/* Tomb nav (for now: simple views) */}
-        <nav>
-          <ul className="app-tome-nav">
-            {[
-              { id: "home", label: "Home" },
-              { id: "journal", label: "Journal" },
-              { id: "tables", label: "Tables" },
-            ].map((item) => (
-              <li key={item.id}>
-                <button
-                  type="button"
-                  onClick={() => setCurrentView(item.id as ViewId)}
-                  className={
-                    "nav-button" +
-                    (currentView === item.id ? " nav-button--active" : "")
-                  }
-                >
-                  {item.label}
-                </button>
-              </li>
-            ))}
-          </ul>
+        <nav className="app-sidebar-nav">
+          <button className="nav-item nav-item-active">Home</button>
+          <button className="nav-item">Journal</button>
+          <button className="nav-item">Tables</button>
         </nav>
 
-        {/* Master toolbar (bottom of left pane) */}
-        <div className="app-master-toolbar">
-          <button
-            className="icon-button"
-            title="Settings"
-            type="button"
-          >
-            <Settings size={24} strokeWidth={2.5} />
+        {/* Master toolbar at bottom of left pane */}
+        <div className="app-sidebar-footer">
+          <button className="sidebar-icon-button" title="Settings">
+            <Settings size={20} strokeWidth={2.5} />
           </button>
-          <button
-            className="icon-button"
-            title="Plugins"
-            type="button"
-          >
-            <Puzzle size={24} strokeWidth={2.5} />
-          </button>
-          <button
-            className="icon-button"
-            title="Account"
-            type="button"
-          >
-            <User size={24} strokeWidth={2.5} />
+          <button className="sidebar-icon-button" title="Account">
+            <User size={20} strokeWidth={2.5} />
           </button>
         </div>
       </aside>
 
-      {/* CENTER: main content */}
+      {/* CENTER: main content pane */}
       <main className="app-main">{renderMainContent()}</main>
 
-      {/* RIGHT: tools area */}
+      {/* RIGHT: tools launcher / pane */}
       {!isToolPaneOpen ? (
-        // Collapsed: slim vertical launcher (Results, Dice, Oracles)
         <div className="app-tools-launcher">
           <button
-            className="icon-button"
+            className="tool-icon-button"
             title="Results"
-            type="button"
-            onClick={() => setActiveTool("results")}
+            onClick={() => openTool("results")}
           >
-            <MessagesSquare size={32} strokeWidth={2.5} />
+            <MessageSquareMore size={32} strokeWidth={2.5} />
           </button>
           <button
-            className="icon-button"
-            title="Dice tray"
-            type="button"
-            onClick={() => setActiveTool("dice")}
+            className="tool-icon-button"
+            title="Dice"
+            onClick={() => openTool("dice")}
           >
-            <Dice5 size={32} strokeWidth={2.5} />
+            <Dices size={32} strokeWidth={2.5} />
           </button>
           <button
-            className="icon-button"
-            title="Oracles / tables"
-            type="button"
-            onClick={() => setActiveTool("oracle")}
+            className="tool-icon-button"
+            title="Tables"
+            onClick={() => openTool("tables")}
           >
-            <ScrollText size={32} strokeWidth={2.5} />
+            <Table2 size={32} strokeWidth={2.5} />
           </button>
         </div>
       ) : (
-        // Expanded: full tools pane with header + per-tool toolbar + content
         <div className="app-tools-expanded">
           <div className="app-tools-header">
-            <div className="app-tools-header-icons">
+            <div className="app-tools-tabs">
               <button
                 className={
-                  "icon-button" +
-                  (activeTool === "results" ? " icon-button--active" : "")
+                  "tool-tab" +
+                  (activeTool === "results" ? " tool-tab-active" : "")
                 }
-                title="Results"
-                type="button"
                 onClick={() => setActiveTool("results")}
+                title="Results"
               >
-                <MessagesSquare size={32} strokeWidth={2.5} />
+                <MessageSquareMore size={24} strokeWidth={2.5} />
               </button>
               <button
                 className={
-                  "icon-button" +
-                  (activeTool === "dice" ? " icon-button--active" : "")
+                  "tool-tab" +
+                  (activeTool === "dice" ? " tool-tab-active" : "")
                 }
-                title="Dice tray"
-                type="button"
                 onClick={() => setActiveTool("dice")}
+                title="Dice"
               >
-                <Dice5 size={32} strokeWidth={2.5} />
+                <Dices size={24} strokeWidth={2.5} />
               </button>
               <button
                 className={
-                  "icon-button" +
-                  (activeTool === "oracle" ? " icon-button--active" : "")
+                  "tool-tab" +
+                  (activeTool === "tables" ? " tool-tab-active" : "")
                 }
-                title="Oracles / tables"
-                type="button"
-                onClick={() => setActiveTool("oracle")}
+                onClick={() => setActiveTool("tables")}
+                title="Tables"
               >
-                <ScrollText size={32} strokeWidth={2.5} />
+                <Table2 size={24} strokeWidth={2.5} />
               </button>
             </div>
-
             <button
-              className="icon-button"
-              title="Close tools pane"
-              type="button"
-              onClick={() => setActiveTool(null)}
+              className="app-tools-close"
+              onClick={closeTools}
+              title="Close tools"
             >
-              ✕
+              ×
             </button>
           </div>
 
-          {renderToolToolbar()}
-          {renderToolContent()}
+          <div className="app-tools-body">{renderToolContent()}</div>
         </div>
       )}
     </div>

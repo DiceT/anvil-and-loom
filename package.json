@@ -10,6 +10,7 @@
     "electron": "electron ./electron/main.js"
   },
   "dependencies": {
+    "@3d-dice/dice-box": "^1.1.4",
     "@3d-dice/dice-box-threejs": "^0.0.12",
     "lucide-react": "^0.554.0",
     "react": "^19.2.0",
