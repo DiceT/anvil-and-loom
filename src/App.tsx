@@ -157,7 +157,7 @@ function App() {
   const [settingsCategory, setSettingsCategory] =
     useState<SettingsCategory>("general");
   const [sidebarWidth, setSidebarWidth] = useState(260);
-  const [toolsWidth, setToolsWidth] = useState(450);
+  const [toolsWidth, setToolsWidth] = useState(360);
   const [isResizingLeft, setIsResizingLeft] = useState(false);
   const [isResizingRight, setIsResizingRight] = useState(false);
   const activeEntryMode =
@@ -197,7 +197,7 @@ function App() {
         setSidebarWidth(next);
       } else if (isResizingRight) {
         const total = window.innerWidth;
-        const next = Math.min(Math.max(total - event.clientX, 450), 520);
+        const next = Math.min(Math.max(total - event.clientX, 320), 520);
         setToolsWidth(next);
       }
     };

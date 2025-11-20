@@ -16,6 +16,8 @@ import {
   Eraser,
   Play,
   BookCheck,
+  Save,
+  Trash2,
 } from "lucide-react";
 
 interface DiceTrayProps {
@@ -344,79 +346,6 @@ export function DiceTray({ onRollResult, fadeDurationMs = 3000 }: DiceTrayProps)
         ))}
       </div>
 
-      <div className="dice-expression-builder">
-        <label htmlFor="dice-expression-input">Dice Expression</label>
-        <textarea
-          id="dice-expression-input"
-          className="dice-expression-input"
-          rows={2}
-          value={expressionText}
-          onChange={(event) => setExpressionText(event.target.value)}
-          placeholder="Example: 2d20kh1 + 4"
-        />
-        <div className="dice-expression-actions">
-          <button
-            type="button"
-            className="dice-action-icon"
-            onClick={() => setExpressionText("")}
-            disabled={!expressionText.trim()}
-            aria-label="Clear expression"
-            data-tooltip="Clear expression"
-          >
-            <Eraser size={34} strokeWidth={2.2} />
-          </button>
-          <button
-            type="button"
-            className={`dice-action-icon${logToEntry ? " primary" : ""}`}
-            onClick={() => setLogToEntry((prev) => !prev)}
-            aria-label="Toggle log to entry"
-            data-tooltip={logToEntry ? "Logging to entry" : "Not logging to entry"}
-          >
-            <BookCheck size={34} strokeWidth={2.2} />
-          </button>
-          <button
-            type="button"
-            className="dice-action-icon primary"
-            onClick={handleRoll}
-            disabled={isRolling || !expressionText.trim()}
-            aria-label="Roll expression"
-            data-tooltip="Roll expression"
-          >
-            <Play size={34} strokeWidth={2.2} />
-          </button>
-        </div>
-      </div>
-
-      <div className="dice-template-row">
-        <button
-          type="button"
-          className="dice-template-button"
-          onClick={() => handleTemplate("challenge")}
-          aria-label="Challenge template"
-          data-tooltip="Challenge Template"
-        >
-          <Swords size={18} strokeWidth={2.5} />
-        </button>
-        <button
-          type="button"
-          className="dice-template-button"
-          onClick={() => handleTemplate("pool")}
-          aria-label="Dice pool template"
-          data-tooltip="Dice Pool Template"
-        >
-          <Layers size={18} strokeWidth={2.5} />
-        </button>
-        <button
-          type="button"
-          className="dice-template-button"
-          onClick={() => handleTemplate("degrade")}
-          aria-label="Degrading die template"
-          data-tooltip="Degrading Die Template"
-        >
-          <TrendingDown size={18} strokeWidth={2.5} />
-        </button>
-      </div>
-
       <div className="dice-mode-row">
         <button
           type="button"
@@ -462,48 +391,131 @@ export function DiceTray({ onRollResult, fadeDurationMs = 3000 }: DiceTrayProps)
         </button>
       </div>
 
-        <div className="dice-save-controls">
-          <input
-            type="text"
-            value={saveName}
-            onChange={(event) => setSaveName(event.target.value)}
-            placeholder="Save name"
-          />
-        <button
-          type="button"
-          onClick={handleSaveExpression}
-          disabled={!saveName.trim()}
-          aria-label="Save expression"
-          data-tooltip="Save expression"
-        >
-          Save
-        </button>
-        <select
-          value={selectedSaveId ?? ""}
-          onChange={(event) => {
-            const value = event.target.value;
-            setSelectedSaveId(value || null);
-            if (value) handleLoadExpression(value);
-          }}
-          className="dice-saved-select"
-        >
-          <option value="">Saved expressions</option>
-          {savedExpressions.map((expr) => (
-            <option key={expr.id} value={expr.id}>
-              {expr.name}
-            </option>
-          ))}
-        </select>
-        <button
-          type="button"
-          onClick={handleDeleteSaved}
-          disabled={!selectedSaveId}
-          aria-label="Delete saved expression"
-          data-tooltip="Delete saved expression"
-        >
-          Delete
-        </button>
+      <div className="dice-expression-builder">
+        <label htmlFor="dice-expression-input">Dice Expression</label>
+        <textarea
+          id="dice-expression-input"
+          className="dice-expression-input"
+          rows={2}
+          value={expressionText}
+          onChange={(event) => setExpressionText(event.target.value)}
+          placeholder="Example: 2d20kh1 + 4"
+        />
+        <div className="dice-expression-actions">
+          <button
+            type="button"
+            className={`dice-action-icon${logToEntry ? " primary" : ""}`}
+            onClick={() => setLogToEntry((prev) => !prev)}
+            aria-label="Toggle log to entry"
+            data-tooltip={logToEntry ? "Logging to entry" : "Not logging to entry"}
+          >
+            <BookCheck size={34} strokeWidth={2.2} />
+          </button>
+          <div className="dice-expression-actions-right">
+            <button
+              type="button"
+              className="dice-action-icon primary"
+              onClick={handleRoll}
+              disabled={isRolling || !expressionText.trim()}
+              aria-label="Roll expression"
+              data-tooltip="Roll expression"
+            >
+              <Play size={34} strokeWidth={2.2} />
+            </button>
+          </div>
+        </div>
       </div>
+
+      <div className="dice-template-row">
+        <button
+          type="button"
+          className="dice-action-icon"
+          onClick={() => setExpressionText("")}
+          disabled={!expressionText.trim()}
+          aria-label="Clear expression"
+          data-tooltip="Clear expression"
+        >
+          <Eraser size={34} strokeWidth={2.2} />
+        </button>
+        <div className="dice-template-group">
+        <button
+          type="button"
+          className="dice-template-button"
+          onClick={() => handleTemplate("challenge")}
+          aria-label="Challenge template"
+          data-tooltip="Challenge Template"
+        >
+          <Swords size={18} strokeWidth={2.5} />
+        </button>
+        <button
+          type="button"
+          className="dice-template-button"
+          onClick={() => handleTemplate("pool")}
+          aria-label="Dice pool template"
+          data-tooltip="Dice Pool Template"
+        >
+          <Layers size={18} strokeWidth={2.5} />
+        </button>
+        <button
+          type="button"
+          className="dice-template-button"
+          onClick={() => handleTemplate("degrade")}
+          aria-label="Degrading die template"
+          data-tooltip="Degrading Die Template"
+        >
+          <TrendingDown size={18} strokeWidth={2.5} />
+        </button>
+        </div>
+      </div>
+
+        <div className="dice-save-controls">
+          <div className="dice-save-inputs">
+            <input
+              type="text"
+              value={saveName}
+              onChange={(event) => setSaveName(event.target.value)}
+              placeholder="Save name"
+            />
+            <select
+              value={selectedSaveId ?? ""}
+              onChange={(event) => {
+                const value = event.target.value;
+                setSelectedSaveId(value || null);
+                if (value) handleLoadExpression(value);
+              }}
+              className="dice-saved-select"
+            >
+              <option value="">Saved expressions</option>
+              {savedExpressions.map((expr) => (
+                <option key={expr.id} value={expr.id}>
+                  {expr.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="dice-save-actions">
+            <button
+              type="button"
+              className="dice-save-icon"
+              onClick={handleSaveExpression}
+              disabled={!saveName.trim()}
+              aria-label="Save expression"
+              data-tooltip="Save expression"
+            >
+              <Save size={28} strokeWidth={2.2} />
+            </button>
+            <button
+              type="button"
+              className="dice-save-icon"
+              onClick={handleDeleteSaved}
+              disabled={!selectedSaveId}
+              aria-label="Delete saved expression"
+              data-tooltip="Delete saved expression"
+            >
+              <Trash2 size={28} strokeWidth={2.2} />
+            </button>
+          </div>
+        </div>
 
       {warnings.length > 0 && (
         <div className="dice-dev-warning">
