@@ -25,6 +25,7 @@ import {
   Pencil,
   ChevronRight,
   ChevronDown,
+  FlaskConical,
 } from "lucide-react";
 import { marked } from "marked";
 
@@ -39,8 +40,14 @@ import {
   updateAppSettings,
   type AppSettings,
 } from "./lib/settingsStore";
+import DiceExpression, {
+  type DiceExpressionWarning,
+} from "./lib/dice/DiceExpression";
+import DiceRoller, { type RollResult } from "./lib/dice/DiceRoller";
+import { annotateRollResult, type RollHighlight } from "./lib/dice/rollHighlights";
+import diceBoxValueProvider from "./lib/dice/diceBoxAdapter";
 
-type ActiveTool = "results" | "dice" | "tables";
+type ActiveTool = "results" | "dice" | "tables" | "diceDev";
 type EntryType = "journal" | "note";
 
 interface Entry {
@@ -128,6 +135,10 @@ function App() {
     type: "file" | "folder";
     name: string;
   } | null>(null);
+  const [diceDevExpression, setDiceDevExpression] = useState("1d6");
+  const [diceDevResult, setDiceDevResult] = useState<RollResult | null>(null);
+  const [diceDevWarnings, setDiceDevWarnings] = useState<DiceExpressionWarning[]>([]);
+  const [diceDevError, setDiceDevError] = useState<string | null>(null);
   const [entryViewModes, setEntryViewModes] = useState<
     Record<string, "edit" | "view">
   >({});
@@ -145,6 +156,10 @@ function App() {
   const [isSettingsOpen, setSettingsOpen] = useState(false);
   const [settingsCategory, setSettingsCategory] =
     useState<SettingsCategory>("general");
+  const [sidebarWidth, setSidebarWidth] = useState(260);
+  const [toolsWidth, setToolsWidth] = useState(450);
+  const [isResizingLeft, setIsResizingLeft] = useState(false);
+  const [isResizingRight, setIsResizingRight] = useState(false);
   const activeEntryMode =
     activeEntryId && entryViewModes[activeEntryId]
       ? entryViewModes[activeEntryId]
@@ -174,6 +189,29 @@ function App() {
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", settings.theme);
   }, [settings.theme]);
+
+  useEffect(() => {
+    const handleMove = (event: MouseEvent) => {
+      if (isResizingLeft) {
+        const next = Math.min(Math.max(event.clientX, 260), 520);
+        setSidebarWidth(next);
+      } else if (isResizingRight) {
+        const total = window.innerWidth;
+        const next = Math.min(Math.max(total - event.clientX, 450), 520);
+        setToolsWidth(next);
+      }
+    };
+    const stop = () => {
+      setIsResizingLeft(false);
+      setIsResizingRight(false);
+    };
+    window.addEventListener("mousemove", handleMove);
+    window.addEventListener("mouseup", stop);
+    return () => {
+      window.removeEventListener("mousemove", handleMove);
+      window.removeEventListener("mouseup", stop);
+    };
+  }, [isResizingLeft, isResizingRight]);
 
   useEffect(() => {
     setTapestryRootInput(settings.tapestriesRoot);
@@ -1415,11 +1453,84 @@ function App() {
       });
   }, [activeEntry, activeEntryDraftTitle, fetchTapestryTree]);
 
+  const handleDiceDevRoll = useCallback(async () => {
+    try {
+      const expression = DiceExpression.parse(diceDevExpression || "");
+      setDiceDevWarnings(expression.warnings);
+      const result = await DiceRoller.rollWithProvider(expression, diceBoxValueProvider);
+      setDiceDevResult(result);
+      setDiceDevError(null);
+    } catch (error) {
+      setDiceDevResult(null);
+      setDiceDevWarnings([]);
+      setDiceDevError(
+        error instanceof Error ? error.message : "Failed to parse/roll expression"
+      );
+    }
+  }, [diceDevExpression]);
+
+  const renderDiceDevPanel = () => (
+    <div className="dice-dev-panel">
+      <div className="dice-dev-controls">
+        <label htmlFor="dice-dev-expression">Expression</label>
+        <div className="dice-dev-input-row">
+          <input
+            id="dice-dev-expression"
+            type="text"
+            value={diceDevExpression}
+            onChange={(event) => setDiceDevExpression(event.target.value)}
+            placeholder="e.g. 4d6dl1 + 2"
+          />
+          <button type="button" onClick={handleDiceDevRoll}>
+            Roll
+          </button>
+        </div>
+        <p className="dice-dev-hint">
+          Supports keep/drop (kh/kl/dh/dl), pool successes (&gt;=6#3), degrade triggers
+          (!&lt;=2), and challenge rolls (e.g. <code>challenge(d6+1 vs 2d10)</code>).
+        </p>
+      </div>
+      {diceDevError && <div className="dice-dev-error">{diceDevError}</div>}
+      {!diceDevError && diceDevWarnings.length > 0 && (
+        <div className="dice-dev-warning">
+          {diceDevWarnings.map((warning, index) => (
+            <div key={`${warning.fragment}-${index}`}>
+              {warning.reason}: <code>{warning.fragment}</code>
+            </div>
+          ))}
+        </div>
+      )}
+      {diceDevResult && !diceDevError && (
+        <div className="dice-dev-output">
+          <div className="dice-dev-summary">
+            <p>
+              <strong>Expression:</strong> {diceDevResult.expression.describe()}
+            </p>
+            <p>
+              <strong>Total:</strong> {diceDevResult.total}
+            </p>
+            {typeof diceDevResult.successes === "number" && (
+              <p>
+                <strong>Successes:</strong> {diceDevResult.successes}
+              </p>
+            )}
+          </div>
+          {renderDiceDevHighlights(diceDevResult)}
+          <pre className="dice-dev-json">
+            {JSON.stringify(diceDevResult, null, 2)}
+          </pre>
+        </div>
+      )}
+    </div>
+  );
+
   const renderToolContent = () => (
     <div className="app-tools-content">
       {activeTool === "results" && <p>Results tool will go here.</p>}
 
       {activeTool === "tables" && <p>Oracles / Tables tool will go here.</p>}
+
+      {activeTool === "diceDev" && renderDiceDevPanel()}
 
       {/* DiceTray stays mounted, just hidden when not active */}
         <div style={{ display: activeTool === "dice" ? "block" : "none" }}>
@@ -1437,7 +1548,7 @@ function App() {
     <div className="app-root">
       <div className="app-shell">
       {/* LEFT: Tome / library pane */}
-      <aside className="app-sidebar">
+      <aside className="app-sidebar" style={{ width: sidebarWidth }}>
         <div className="app-sidebar-header">
           <div className="app-logo-mark" />
           <div className="app-logo-text">
@@ -1529,6 +1640,11 @@ function App() {
         </div>
       </aside>
 
+      <div
+        className="app-resize-handle app-resize-handle-left"
+        onMouseDown={() => setIsResizingLeft(true)}
+      />
+
       {/* CENTER: main content pane */}
       <main className="app-main">{renderMainContent()}</main>
 
@@ -1559,9 +1675,22 @@ function App() {
           >
             <LayoutPanelTop size={32} strokeWidth={2.5} />
           </button>
+          <button
+            className="tool-icon-button icon-button"
+            onClick={() => openTool("diceDev")}
+            aria-label="Dice dev"
+            data-tooltip="Dice Dev"
+          >
+            <FlaskConical size={32} strokeWidth={2.5} />
+          </button>
         </div>
       ) : (
-        <div className="app-tools-expanded">
+        <>
+        <div
+          className="app-resize-handle app-resize-handle-right"
+          onMouseDown={() => setIsResizingRight(true)}
+        />
+        <div className="app-tools-expanded" style={{ width: toolsWidth }}>
           <div className="app-tools-header">
             <div className="app-tools-tabs">
               <button
@@ -1594,6 +1723,16 @@ function App() {
               >
                 <LayoutPanelTop size={24} strokeWidth={2.5} />
               </button>
+              <button
+                className={`tool-tab icon-button${
+                  activeTool === "diceDev" ? " tool-tab-active" : ""
+                }`}
+                onClick={() => setActiveTool("diceDev")}
+                aria-label="Dice Dev"
+                data-tooltip="Dice Dev"
+              >
+                <FlaskConical size={24} strokeWidth={2.5} />
+              </button>
             </div>
             <button
               className="app-tools-close"
@@ -1606,6 +1745,7 @@ function App() {
 
           <div className="app-tools-body">{renderToolContent()}</div>
         </div>
+        </>
       )}
       </div>
 
@@ -1767,3 +1907,58 @@ function App() {
 
 export default App;
 
+  const renderDiceDevHighlights = (result: RollResult) => {
+    const highlights = annotateRollResult(result);
+    if (!highlights.length) return null;
+    return (
+      <div className="dice-dev-highlights">
+        {highlights.map((highlight, index) => (
+          <DiceDevHighlight key={`${highlight.type}-${index}`} highlight={highlight} />
+        ))}
+      </div>
+    );
+  };
+const DiceDevHighlight = ({ highlight }: { highlight: RollHighlight }) => {
+  switch (highlight.type) {
+    case "challenge-outcome":
+      return (
+        <div
+          className="dice-dev-highlight challenge"
+          style={{ borderColor: highlight.color }}
+        >
+          <strong style={{ color: highlight.color }}>{highlight.outcome}</strong>
+          {highlight.boon && <span> • Boon</span>}
+          {highlight.complication && <span> • Complication</span>}
+        </div>
+      );
+    case "natural-crit":
+      return (
+        <div className="dice-dev-highlight crit">
+          {highlight.crit === "success" ? "Natural 20!" : "Natural 1!"} (die #{highlight.dieIndex + 1})
+        </div>
+      );
+    case "pool-success":
+      return (
+        <div className="dice-dev-highlight pool">
+          {highlight.successes} success
+          {highlight.successes === 1 ? "" : "es"}
+          {typeof highlight.target === "number" && (
+            <>
+              {" "}
+              / target {highlight.target}{" "}
+              {highlight.metTarget ? "(met)" : "(not met)"}
+            </>
+          )}
+        </div>
+      );
+    case "degrade":
+      return (
+        <div className="dice-dev-highlight degrade">
+          Die steps down by {highlight.step}
+          {highlight.step === 1 ? "" : " steps"}
+        </div>
+      );
+    default:
+      return null;
+  }
+};

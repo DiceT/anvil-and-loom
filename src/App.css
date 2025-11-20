@@ -84,6 +84,42 @@ body {
   min-height: 0;
 }
 
+.app-resize-handle {
+  width: 10px;
+  cursor: col-resize;
+  position: relative;
+  flex-shrink: 0;
+  background: transparent;
+}
+
+.app-resize-handle::after {
+  content: "";
+  position: absolute;
+  top: 20%;
+  bottom: 20%;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: var(--border-muted);
+  opacity: 0.65;
+  transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+.app-resize-handle:hover::after,
+.app-resize-handle:active::after {
+  background: var(--accent-soft);
+  opacity: 1;
+}
+
+.app-resize-handle-left {
+  cursor: col-resize;
+}
+
+.app-resize-handle-right {
+  cursor: col-resize;
+}
+
 /* Shared icon button styling */
 
 .icon-button {
@@ -247,10 +283,15 @@ body {
   background: linear-gradient(135deg, var(--bg-deep), var(--bg-panel-alt));
   overflow: auto;
   color: var(--text-main);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .app-main-inner {
-  max-width: 900px;
+  width: 90%;
+  max-width: 90%;
+  margin: 0 auto;
 }
 
 .app-main-empty {
@@ -278,7 +319,7 @@ body {
 }
 
 .app-editor {
-  max-width: 900px;
+  width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -513,6 +554,127 @@ body {
   font-size: 0.9rem;
 }
 
+.dice-dev-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.dice-dev-controls label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.dice-dev-input-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+}
+
+.dice-dev-input-row input {
+  flex: 1;
+  border-radius: 8px;
+  border: 1px solid var(--border-muted);
+  background: var(--bg-panel-alt);
+  color: var(--text-main);
+  padding: 0.4rem 0.6rem;
+}
+
+.dice-dev-input-row button {
+  border-radius: 8px;
+  border: 1px solid var(--accent-soft);
+  background: transparent;
+  color: var(--accent-soft);
+  padding: 0 0.9rem;
+  cursor: pointer;
+}
+
+.dice-dev-input-row button:hover {
+  background: rgba(197, 143, 95, 0.15);
+}
+
+.dice-dev-hint {
+  margin: 0.25rem 0 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.dice-dev-warning,
+.dice-dev-error {
+  border-radius: 8px;
+  padding: 0.65rem 0.75rem;
+  font-size: 0.85rem;
+}
+
+.dice-dev-warning {
+  border: 1px solid rgba(255, 186, 73, 0.35);
+  background: rgba(255, 186, 73, 0.12);
+}
+
+.dice-dev-error {
+  border: 1px solid rgba(255, 96, 96, 0.35);
+  background: rgba(255, 96, 96, 0.12);
+}
+
+.dice-dev-output {
+  border: 1px solid var(--border-muted);
+  border-radius: 10px;
+  padding: 0.75rem;
+  background: var(--surface-card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dice-dev-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.dice-dev-highlight {
+  border: 1px solid var(--border-muted);
+  border-radius: 6px;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.85rem;
+}
+
+.dice-dev-highlight.challenge {
+  border-color: rgba(34, 197, 94, 0.4);
+}
+
+.dice-dev-highlight.crit {
+  border-color: rgba(246, 200, 122, 0.4);
+  color: var(--highlight-strong);
+  font-weight: 600;
+}
+
+.dice-dev-highlight.pool {
+  border-color: rgba(140, 90, 255, 0.4);
+}
+
+.dice-dev-highlight.degrade {
+  border-color: rgba(255, 96, 96, 0.4);
+  color: #ff6060;
+}
+
+.dice-dev-summary p {
+  margin: 0.1rem 0;
+}
+
+.dice-dev-json {
+  margin: 0;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background: var(--bg-panel);
+  color: var(--text-main);
+  max-height: 220px;
+  overflow: auto;
+  font-size: 0.8rem;
+}
+
 #dice-box-container {
   position: fixed;
   top: 0;
@@ -585,59 +747,240 @@ body {
   color: var(--text-main);
 }
 
-.dice-toolbar {
+.dice-expression-builder {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 0.5rem;
 }
 
-.dice-toolbar-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+.dice-expression-builder label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
 }
 
-.dice-die-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.dice-die-button {
-  border: none;
-  background: transparent;
-  color: var(--text-main);
-  padding: 0.35rem;
+.dice-expression-input {
+  width: 100%;
   border-radius: 10px;
+  border: 1px solid var(--border-muted);
+  background: var(--surface-card);
+  padding: 0.75rem;
+  color: var(--text-main);
+  font-size: 0.95rem;
+}
+
+.dice-expression-input:focus {
+  outline: none;
+  border-color: var(--accent-soft);
+}
+
+.dice-expression-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+:root {
+  --tooltip-bg: rgba(0, 0, 0, 0.9);
+  --tooltip-text: #f5d5a4;
+}
+
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 50%;
+  top: -8px;
+  transform: translate(-50%, -100%);
+  background: var(--tooltip-bg);
+  color: var(--tooltip-text);
+  padding: 0.15rem 0.4rem;
+  border-radius: 6px;
+  font-size: 0.65rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+  z-index: 10;
+}
+
+[data-tooltip]:hover::after,
+[data-tooltip]:focus-visible::after {
+  opacity: 1;
+}
+
+.dice-tray button,
+.dice-tray select {
+  background: none !important;
+  background-color: transparent !important;
+  border: none;
+  color: var(--text-main);
+  outline: none;
+}
+
+.dice-tray button:hover,
+.dice-tray button:focus-visible,
+.dice-tray select:hover,
+.dice-tray select:focus-visible {
+  color: var(--accent-soft);
+}
+
+.dice-action-icon {
+  border: none;
+  color: var(--text-main);
+  border-radius: 999px;
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: color 0.2s ease, stroke-width 0.1s ease;
+  transition: color 0.2s ease;
   outline: none;
 }
 
-.dice-die-button svg {
-  width: 22px;
-  height: 22px;
-  stroke-width: 1.9px;
-}
-
-.dice-die-button:hover:not(:disabled),
-.dice-die-button:focus-visible {
+.dice-action-icon.primary {
   color: var(--accent-soft);
-  background: transparent;
+}
+
+.dice-action-icon svg {
+  width: 32px;
+  height: 32px;
+  stroke-width: 2.2px;
+  transition: stroke-width 0.15s ease;
+}
+
+.dice-action-icon:hover:not(:disabled),
+.dice-action-icon:focus-visible {
+  color: var(--accent-soft);
+}
+
+.dice-action-icon:hover svg,
+.dice-action-icon:focus-visible svg {
+  stroke-width: 2.6px;
+}
+
+.dice-action-icon:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.dice-button-row,
+.dice-template-row,
+.dice-save-controls,
+.dice-mode-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.dice-icon-button,
+.dice-template-button {
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  border: none;
+  background-color: transparent !important;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: color 0.2s ease;
   outline: none;
 }
 
-.dice-die-button:hover svg,
-.dice-die-button:focus-visible svg {
+.dice-icon-button svg,
+.dice-template-button svg {
+  width: 28px;
+  height: 28px;
   stroke-width: 2.4px;
+  transition: stroke-width 0.15s ease;
 }
 
-.dice-die-button:disabled {
-  opacity: 0.45;
+.dice-icon-button:hover,
+.dice-icon-button:focus-visible,
+.dice-template-button:hover,
+.dice-template-button:focus-visible {
+  color: var(--accent-soft);
+}
+
+.dice-icon-button:hover svg,
+.dice-icon-button:focus-visible svg,
+.dice-template-button:hover svg,
+.dice-template-button:focus-visible svg {
+  stroke-width: 2.6px;
+}
+
+.dice-mode-row {
+  justify-content: center;
+  gap: 0.65rem;
+}
+
+.dice-modifier-pill,
+.dice-save-controls button,
+.dice-save-controls select {
+  border: none;
+  background: none !important;
+  color: var(--text-main);
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.dice-save-controls button:disabled {
+  opacity: 0.4;
   cursor: not-allowed;
+}
+
+.dice-save-controls {
+  justify-content: flex-start;
+}
+
+.dice-save-controls input {
+  border-radius: 8px;
+  border: 1px solid var(--border-muted);
+  background: var(--surface-card);
+  color: var(--text-main);
+  padding: 0.3rem 0.5rem;
+}
+
+.dice-highlight-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+.dice-chip {
+  border: 1px solid var(--border-muted);
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.8rem;
+}
+
+.dice-chip.challenge {
+  border-color: rgba(34, 197, 94, 0.4);
+}
+
+.dice-chip.crit {
+  border-color: rgba(246, 200, 122, 0.4);
+  color: var(--highlight-strong);
+}
+
+.dice-chip.pool {
+  border-color: rgba(140, 90, 255, 0.4);
+}
+
+.dice-chip.degrade {
+  border-color: rgba(255, 96, 96, 0.4);
+  color: #ff6060;
 }
 
 .dice-die-button[data-tooltip] {

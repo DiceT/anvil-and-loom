@@ -127,6 +127,34 @@ export function setDiceFadeDuration(durationMs: number) {
   }
 }
 
+export async function rollDiceBoxValues(count: number, sides: number): Promise<number[]> {
+  if (count <= 0 || sides <= 0) return [];
+  const box = await getDiceBox();
+  const raw = await rollWithOverlay(box, `${count}d${sides}`);
+  return extractDiceValues(raw).slice(0, count);
+}
+
+export async function rollDiceBoxComposite(
+  requests: Array<{ count: number; sides: number }>
+): Promise<number[][]> {
+  const filtered = requests.filter((req) => req.count > 0 && req.sides > 0);
+  if (!filtered.length) return [];
+
+  const notation = filtered.map((req) => `${req.count}d${req.sides}`).join("+");
+  const box = await getDiceBox();
+  const raw = await rollWithOverlay(box, notation);
+  const values = extractDiceValues(raw);
+
+  const result: number[][] = [];
+  let cursor = 0;
+  for (const req of filtered) {
+    const slice = values.slice(cursor, cursor + req.count);
+    cursor += req.count;
+    result.push(slice);
+  }
+  return result;
+}
+
 async function rollWithOverlay(
   box: DiceBoxInstance,
   notation: string
