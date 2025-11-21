@@ -1,4 +1,5 @@
 import DiceExpression from "./DiceExpression";
+import { getDiceAppearance } from "../diceEngine";
 import type {
   DicePoolComparator,
   DicePoolRules,
@@ -22,6 +23,8 @@ export interface DiceTermRollResult {
   term: DiceTerm;
   dice: SingleDieResult[];
   total: number;
+  explosions?: number[][];
+  explosionCount?: number;
   /**
    * Number of successes counted for pool mechanics.
    */
@@ -84,6 +87,13 @@ export interface DiceRollerOptions {
 export interface DiceValueProvider {
   rollDice(count: number, sides: number): Promise<number[]>;
   rollComposite?(requests: Array<{ count: number; sides: number }>): Promise<number[][]>;
+  rollCustomDice?(
+    dice: Array<{ sides: number | string; themeColor?: string; data?: string }>
+  ): Promise<number[]>;
+  setThemeColor?(color: string): void;
+  setThemeName?(name: string): void;
+  setTensThemeColor?(color: string): void;
+  setTexture?(texture: string): void;
 }
 
 /**
@@ -152,7 +162,7 @@ export class DiceRoller {
         continue;
       }
 
-      const cachedValues = compositeValues?.get(index);
+      const cachedValues = term.explode ? null : compositeValues?.get(index);
       const diceResult = cachedValues
         ? DiceRoller.evaluateDiceTerm(term, cachedValues)
         : await DiceRoller.rollDiceTermWithProvider(term, provider);
@@ -175,25 +185,67 @@ export class DiceRoller {
     term: DiceTerm,
     provider: DiceValueProvider
   ): Promise<DiceTermRollResult> {
+    if (term.percentile) {
+      // If custom dice supported, roll the two dice (first tinted) in one call for animation.
+      if (provider.rollCustomDice) {
+        const tensColor = getDiceAppearance().tensThemeColor ?? "#000000";
+        const dice: Array<{ sides: number | string; themeColor?: string; data?: string }> = [];
+        for (let i = 0; i < term.count; i++) {
+          dice.push({ sides: term.percentile.tensSides, themeColor: tensColor });
+          dice.push({ sides: term.percentile.onesSides });
+        }
+        const values = await provider.rollCustomDice(dice);
+        const combined: number[] = [];
+        for (let i = 0; i < values.length; i += 2) {
+          combined.push(
+            DiceRoller.combineCustomPercentile(
+              values[i],
+              values[i + 1],
+              term.percentile.tensSides,
+              term.percentile.onesSides
+            )
+          );
+        }
+        return DiceRoller.evaluateDiceTerm(term, combined);
+      }
+      // Fallback: standard provider path.
+      const result = await DiceRoller.rollPercentileWithProvider(term, provider);
+      return DiceRoller.evaluateDiceTerm(term, result.values);
+    }
+    if (term.explode) {
+      const explosion = await DiceRoller.rollExplodingWithProvider(term, provider);
+      return DiceRoller.evaluateDiceTerm(term, explosion.values, explosion.explosions);
+    }
     if (term.sides === 100 && term.count > 0) {
-      if (provider.rollComposite) {
-        const [tensChunk = [], onesChunk = []] = await provider.rollComposite([
-          { count: term.count, sides: 100 },
-          { count: term.count, sides: 10 },
-        ]);
-        const values = DiceRoller.combinePercentileValues(tensChunk, onesChunk);
+      if (provider.rollCustomDice) {
+        const dice: Array<{ sides: number | string; themeColor?: string; data?: string }> = [];
+        for (let i = 0; i < term.count; i++) {
+          dice.push({ sides: 100 });
+        }
+        const values = await provider.rollCustomDice(dice);
         return DiceRoller.evaluateDiceTerm(term, values);
       }
-      const tensRolls = await provider.rollDice(term.count, 100);
-      const onesRolls = await provider.rollDice(term.count, 10);
-      const values = DiceRoller.combinePercentileValues(tensRolls, onesRolls);
-      return DiceRoller.evaluateDiceTerm(term, values);
+      if (provider.rollComposite) {
+        const [hundreds = []] = await provider.rollComposite([{ count: term.count, sides: 100 }]);
+        const values = Array.isArray(hundreds) ? hundreds : [];
+        return DiceRoller.evaluateDiceTerm(term, values);
+      }
+      const rolls = await provider.rollDice(term.count, 100);
+      return DiceRoller.evaluateDiceTerm(term, rolls);
     }
     const values = await provider.rollDice(term.count, term.sides);
     return DiceRoller.evaluateDiceTerm(term, values);
   }
 
   private static rollDiceTerm(term: DiceTerm, rng: () => number): DiceTermRollResult {
+    if (term.percentile) {
+      const values = DiceRoller.rollPercentile(term, rng);
+      return DiceRoller.evaluateDiceTerm(term, values);
+    }
+    if (term.explode) {
+      const explosion = DiceRoller.rollExploding(term, rng);
+      return DiceRoller.evaluateDiceTerm(term, explosion.values, explosion.explosions);
+    }
     const values: number[] = [];
     if (term.sides === 100) {
       for (let index = 0; index < term.count; index++) {
@@ -209,9 +261,13 @@ export class DiceRoller {
     return DiceRoller.evaluateDiceTerm(term, values);
   }
 
-  private static evaluateDiceTerm(term: DiceTerm, values: number[]): DiceTermRollResult {
+  private static evaluateDiceTerm(
+    term: DiceTerm,
+    values: number[],
+    explosions?: number[][]
+  ): DiceTermRollResult {
     const dice: SingleDieResult[] = [];
-    for (let index = 0; index < term.count; index++) {
+    for (let index = 0; index < values.length; index++) {
       const value = values[index] ?? values[values.length - 1] ?? term.sides;
       dice.push({
         index,
@@ -236,6 +292,8 @@ export class DiceRoller {
       term,
       dice,
       total,
+      explosions,
+      explosionCount: explosions ? Math.max(0, explosions.length - 1) : 0,
       successes: poolInfo?.successes,
       metTarget: poolInfo?.metTarget,
       degradeTriggered: degradeInfo?.triggered,
@@ -318,6 +376,56 @@ export class DiceRoller {
           triggered: false,
           stepAmount: rule.stepAmount ?? 1,
         };
+  }
+
+  private static rollExploding(
+    term: DiceTerm,
+    rng: () => number
+  ): { values: number[]; explosions: number[][] } {
+    const threshold = term.explode?.threshold ?? term.sides;
+    const explosions: number[][] = [];
+    let current: number[] = [];
+    for (let i = 0; i < term.count; i++) {
+      current.push(DiceRoller.rollSingleDie(term.sides, rng));
+    }
+    explosions.push(current);
+    const allValues: number[] = [...current];
+
+    while (true) {
+      const toExplode = current.filter((value) => value >= threshold).length;
+      if (toExplode <= 0) break;
+      const next: number[] = [];
+      for (let i = 0; i < toExplode; i++) {
+        next.push(DiceRoller.rollSingleDie(term.sides, rng));
+      }
+      explosions.push(next);
+      allValues.push(...next);
+      current = next;
+    }
+
+    return { values: allValues, explosions };
+  }
+
+  private static async rollExplodingWithProvider(
+    term: DiceTerm,
+    provider: DiceValueProvider
+  ): Promise<{ values: number[]; explosions: number[][] }> {
+    const threshold = term.explode?.threshold ?? term.sides;
+    const explosions: number[][] = [];
+    let current = await provider.rollDice(term.count, term.sides);
+    explosions.push(current);
+    const allValues: number[] = [...current];
+
+    while (true) {
+      const toExplode = current.filter((value) => value >= threshold).length;
+      if (toExplode <= 0) break;
+      const next = await provider.rollDice(toExplode, term.sides);
+      explosions.push(next);
+      allValues.push(...next);
+      current = next;
+    }
+
+    return { values: allValues, explosions };
   }
 
   private static compare(value: number, comparator: DicePoolComparator, threshold: number): boolean {
@@ -432,18 +540,12 @@ export class DiceRoller {
     > = [];
 
     expression.terms.forEach((term, index) => {
-      if (term.type !== "dice") return;
+      if (term.type !== "dice" || term.explode) return;
       if (term.count <= 0 || term.sides <= 0) return;
-      if (term.sides === 100) {
-        mapping.push({
-          type: "percentile",
-          termIndex: index,
-          tensChunk: requests.length,
-          onesChunk: requests.length + 1,
-        });
-        requests.push({ count: term.count, sides: 100 });
-        requests.push({ count: term.count, sides: 10 });
-      } else {
+      // Percentile-like rolls (d%XX or d100) are handled explicitly in rollDiceTermWithProvider
+      // to avoid extra dice being spawned by composite requests.
+      if (term.percentile || term.sides === 100) return;
+      {
         mapping.push({
           type: "regular",
           termIndex: index,
@@ -464,7 +566,20 @@ export class DiceRoller {
       } else {
         const tens = chunks[mapEntry.tensChunk] ?? [];
         const ones = chunks[mapEntry.onesChunk] ?? [];
-        result.set(mapEntry.termIndex, DiceRoller.combinePercentileValues(tens, ones));
+        const term = expression.terms[mapEntry.termIndex];
+        if (term.type === "dice" && term.percentile) {
+          result.set(
+            mapEntry.termIndex,
+            DiceRoller.combineCustomPercentileArrays(
+              tens,
+              ones,
+              term.percentile.tensSides,
+              term.percentile.onesSides
+            )
+          );
+        } else {
+          result.set(mapEntry.termIndex, DiceRoller.combinePercentileValues(tens, ones));
+        }
       }
     });
 
@@ -482,6 +597,27 @@ export class DiceRoller {
     return combined;
   }
 
+  private static combineCustomPercentileArrays(
+    tens: number[],
+    ones: number[],
+    tensSides: number,
+    onesSides: number
+  ): number[] {
+    const combined: number[] = [];
+    const length = Math.max(tens.length, ones.length);
+    for (let i = 0; i < length; i++) {
+      combined.push(
+        DiceRoller.combineCustomPercentile(
+          tens[i] ?? DiceRoller.rollSingleDie(tensSides, Math.random),
+          ones[i] ?? DiceRoller.rollSingleDie(onesSides, Math.random),
+          tensSides,
+          onesSides
+        )
+      );
+    }
+    return combined;
+  }
+
   private static computePercentileValue(tensRaw: number, onesRaw: number): number {
     const sanitizedTens = tensRaw === 100 ? 0 : tensRaw % 100;
     const tensNormalized = Math.floor(sanitizedTens / 10) * 10;
@@ -492,7 +628,62 @@ export class DiceRoller {
     }
     return total === 0 ? 100 : total;
   }
+
+  private static rollPercentile(term: DiceTerm, rng: () => number): number[] {
+    if (!term.percentile) return [];
+    const values: number[] = [];
+    for (let i = 0; i < term.count; i++) {
+      const tens = DiceRoller.rollSingleDie(term.percentile.tensSides, rng);
+      const ones = DiceRoller.rollSingleDie(term.percentile.onesSides, rng);
+      values.push(
+        DiceRoller.combineCustomPercentile(tens, ones, term.percentile.tensSides, term.percentile.onesSides)
+      );
+    }
+    return values;
+  }
+
+  private static async rollPercentileWithProvider(
+    term: DiceTerm,
+    provider: DiceValueProvider
+  ): Promise<{ values: number[] }> {
+    if (!term.percentile) return { values: [] };
+    const { tensSides, onesSides } = term.percentile;
+    // Roll tens and ones once each; no extra DiceBox calls.
+    const tens = await provider.rollDice(term.count, tensSides);
+    const ones = await provider.rollDice(term.count, onesSides);
+    const values = tens.map((tensRoll, index) =>
+      DiceRoller.combineCustomPercentile(
+        tensRoll,
+        ones[index] ?? ones[ones.length - 1] ?? onesSides,
+        tensSides,
+        onesSides
+      )
+    );
+    return { values };
+  }
+
+  private static combineCustomPercentile(
+    tensRoll: number,
+    onesRoll: number,
+    tensSides: number,
+    onesSides: number
+  ): number {
+    // Standard percentile: d100 + d10, or 2d10 as fallback (00 -> 100)
+    if (
+      (tensSides === 100 && onesSides === 10) ||
+      (tensSides === 10 && onesSides === 10)
+    ) {
+      return DiceRoller.computePercentileValue(tensRoll, onesRoll);
+    }
+    // Custom percentiles (e.g., 2d6 -> 11-66, 2d8 -> 11-88)
+    return tensRoll * 10 + onesRoll;
+  }
 }
 
 export default DiceRoller;
+
+// Dev-only: expose DiceRoller on window for inspection in the console.
+if (typeof window !== "undefined") {
+  (window as any).DiceRoller = DiceRoller;
+}
 

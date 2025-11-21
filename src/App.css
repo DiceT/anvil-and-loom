@@ -279,13 +279,64 @@ body {
 
 .app-main {
   flex: 1;
-  padding: 16px;
-  background: linear-gradient(135deg, var(--bg-deep), var(--bg-panel-alt));
-  overflow: auto;
-  color: var(--text-main);
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  min-height: 0;
+  padding: 0;
+  background: linear-gradient(135deg, var(--bg-deep), var(--bg-panel-alt));
+  color: var(--text-main);
+}
+
+.app-main-tabbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px 6px;
+  border-bottom: 1px solid var(--border-muted);
+  background: var(--bg-panel);
+}
+
+.app-main-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.app-main-tab--active {
+  color: var(--text-main);
+  border-color: var(--border-muted);
+  background: var(--bg-panel-alt);
+}
+
+.app-main-tab-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.app-main-tab-close {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 8px;
+}
+
+.app-main-tab-close:hover {
+  color: var(--text-main);
+  background: var(--surface-muted-hover);
+}
+
+.app-main-body {
+  flex: 1;
+  overflow: auto;
+  padding: 16px;
 }
 
 .app-main-inner {
@@ -697,6 +748,15 @@ body {
   opacity: 0;
 }
 
+.dice-box-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none !important;
+}
+
 /* Bottom status bar */
 
 .app-status-bar {
@@ -736,6 +796,8 @@ body {
   font-weight: 600;
   margin-right: 6px;
 }
+
+/* Dice tray */
 
 /* Dice tray */
 
@@ -779,12 +841,12 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.35rem;
 }
 
 .dice-expression-actions-right {
   display: flex;
-  gap: 0.4rem;
+  gap: 0.35rem;
 }
 
 :root {
@@ -835,12 +897,17 @@ body {
   color: var(--accent-soft);
 }
 
-.dice-action-icon {
-  border: none;
-  color: var(--text-main);
+.dice-action-icon,
+.dice-icon-button,
+.dice-template-button,
+.dice-save-icon {
+  width: 40px;
+  height: 40px;
   border-radius: 999px;
-  width: 46px;
-  height: 46px;
+  border: none;
+  background-color: transparent !important;
+  color: var(--text-main);
+  padding: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -853,24 +920,46 @@ body {
   color: var(--accent-soft);
 }
 
-.dice-action-icon svg {
-  width: 28px;
-  height: 28px;
-  stroke-width: 2.2px;
+.dice-action-icon svg,
+.dice-icon-button svg,
+.dice-template-button svg,
+.dice-save-icon svg {
+  width: 32px;
+  height: 32px;
+  stroke-width: 2.3px;
   transition: stroke-width 0.15s ease;
 }
 
+.dice-icon-button svg,
+.dice-template-button svg {
+  stroke-width: 2.4px;
+}
+
 .dice-action-icon:hover:not(:disabled),
-.dice-action-icon:focus-visible {
+.dice-action-icon:focus-visible,
+.dice-icon-button:hover,
+.dice-icon-button:focus-visible,
+.dice-template-button:hover,
+.dice-template-button:focus-visible,
+.dice-save-icon:hover,
+.dice-save-icon:focus-visible {
   color: var(--accent-soft);
 }
 
 .dice-action-icon:hover svg,
-.dice-action-icon:focus-visible svg {
+.dice-action-icon:focus-visible svg,
+.dice-icon-button:hover svg,
+.dice-icon-button:focus-visible svg,
+.dice-template-button:hover svg,
+.dice-template-button:focus-visible svg,
+.dice-save-icon:hover svg,
+.dice-save-icon:focus-visible svg {
   stroke-width: 2.6px;
 }
 
-.dice-action-icon:disabled {
+.dice-action-icon:disabled,
+.dice-save-icon:disabled,
+.dice-save-controls button:disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
@@ -881,111 +970,53 @@ body {
 .dice-mode-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
+  gap: 0.2rem;
   align-items: center;
 }
 
 .dice-template-row {
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .dice-template-group {
   display: flex;
-  gap: 0.4rem;
+  gap: 0.2rem;
   align-items: center;
+  margin-left: auto;
 }
 
 .dice-save-controls {
   flex-direction: column;
   align-items: stretch;
-  gap: 0.4rem;
+  gap: 0.25rem;
+  justify-content: flex-start;
 }
 
-.dice-save-inputs {
+.dice-save-row {
   display: flex;
-  gap: 0.4rem;
+  align-items: center;
+  gap: 0.25rem;
   width: 100%;
 }
 
-.dice-save-inputs input {
+.dice-save-row input,
+.dice-save-row select {
   flex: 1;
 }
 
-.dice-save-actions {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.4rem;
-  width: 100%;
-}
-
 .dice-save-icon {
-  width: 40px;
-  height: 40px;
   border-radius: 12px;
   border: 1px solid var(--border-muted);
   background: var(--surface-muted);
-  color: var(--text-main);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
   transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
 }
 
-.dice-save-icon svg {
-  width: 28px;
-  height: 28px;
-  stroke-width: 2.2px;
-}
-
-.dice-save-icon:hover,
-.dice-save-icon:focus-visible {
-  border-color: var(--accent-soft);
-  color: var(--accent-soft);
-}
-
-.dice-save-icon:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.dice-icon-button,
-.dice-template-button {
-  width: 42px;
-  height: 42px;
-  border-radius: 999px;
-  border: none;
-  background-color: transparent !important;
+.dice-save-controls input {
+  border-radius: 8px;
+  border: 1px solid var(--border-muted);
+  background: var(--surface-card);
   color: var(--text-main);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: color 0.2s ease;
-  outline: none;
-}
-
-.dice-icon-button svg,
-.dice-template-button svg {
-  width: 24px;
-  height: 24px;
-  stroke-width: 2.3px;
-  transition: stroke-width 0.15s ease;
-}
-
-.dice-icon-button:hover,
-.dice-icon-button:focus-visible,
-.dice-template-button:hover,
-.dice-template-button:focus-visible {
-  color: var(--accent-soft);
-}
-
-.dice-icon-button:hover svg,
-.dice-icon-button:focus-visible svg,
-.dice-template-button:hover svg,
-.dice-template-button:focus-visible svg {
-  stroke-width: 2.6px;
+  padding: 0.3rem 0.5rem;
 }
 
 .dice-mode-row {
@@ -1003,23 +1034,6 @@ body {
   padding: 0.18rem 0.55rem;
   cursor: pointer;
   transition: color 0.2s ease;
-}
-
-.dice-save-controls button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.dice-save-controls {
-  justify-content: flex-start;
-}
-
-.dice-save-controls input {
-  border-radius: 8px;
-  border: 1px solid var(--border-muted);
-  background: var(--surface-card);
-  color: var(--text-main);
-  padding: 0.3rem 0.5rem;
 }
 
 .dice-highlight-list {
@@ -1114,7 +1128,12 @@ body {
 }
 
 .dice-adv-toggle-active {
-  color: var(--accent-soft);
+  color: var(--accent-soft) !important;
+  background: rgba(197, 143, 95, 0.2) !important;
+  border-radius: 999px;
+  font-weight: 700;
+  border: 1px solid var(--accent-soft);
+  box-shadow: none;
 }
 
 .dice-modifier-control {

@@ -32,6 +32,7 @@ Parsing produces:
 | `selection` | Keep/Drop modifier. Supported tags: `kh`, `kl`, `dh`, `dl` (see below).                      | `kh3`, `dl1` |
 | `pool`      | Success/Fumble logic for dice pools, e.g. `>=6#3` (see below).                               | `>=6`, `>=6#3` |
 | `degrade`   | Step-down trigger, using `!` notation (see below).                                           | `!<=2`, `!<=2:2` |
+| `percentile`| Percentile shorthand using `%` or `p` (see below).                                           | `d%100`, `d%66` |
 
 ### Keep/Drop Modifiers
 
@@ -79,6 +80,12 @@ Format inside the parentheses:
 ```
 challenge(<actionDie> vs <challengeDice>)
 ```
+
+### Percentile Rolls
+
+- `d%100` (or `dp100`) parses as a d100 percentile roll. The roller uses a native d100 die (no extra d10 is added).
+- `d%XY` where `X` and `Y` are digits (e.g., `d%66`, `d%88`) parses as a custom percentile built from two dice: tens uses X sides, ones uses Y sides. The runtime pairs those dice into a 2-digit result (and honors a configured tens color when using DiceBox).
+
 
 - `<actionDie>`: `dX` plus optional modifier (`d6+2`, `d8-1`). Always a single die.
 - `<challengeDice>`: `NdX` plus optional modifier (`2d10`, `3d12+1`).

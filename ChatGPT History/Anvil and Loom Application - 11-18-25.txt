@@ -17724,3 +17724,6 @@ That should:
    - Later: hook dice rolls into your **Weave / tables** (“Roll d100 on Haunted Atmosphere, log results”).
 
 If you paste your current `App.tsx` + whatever file you instantiate `DiceBox` in, I can tailor this exactly to your repo instead of hand-waving around it.
+
+## COMPLETED
+- Dice tool polish: unified button sizes (40px/32px icons), tightened gaps/padding, and consistent active styling (DIS/ADV toggles now behave like the logging toggle, reset on clear, and remain visibly active). Modifiers now increment/decrement the trailing modifier, display in headers/cards, and totals include constants. Tool pane clamp set to 350px min/360px default.

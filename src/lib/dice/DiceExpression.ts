@@ -35,6 +35,14 @@ export interface DicePoolRules {
   targetSuccesses?: number;
 }
 
+export interface DiceExplodeRule {
+  /**
+   * Threshold at which a die explodes (rolls an additional die).
+   * Default comparator is >= threshold.
+   */
+  threshold: number;
+}
+
 export interface DiceDegradeRule {
   /**
    * Comparator used to determine when the die should degrade.
@@ -56,10 +64,18 @@ export interface DiceTerm {
   count: number;
   /** Number of sides per die. */
   sides: number;
+  /** Optional percentile definition (e.g., d%66 -> tens/ones sides of 6). */
+  percentile?: {
+    tensSides: number;
+    onesSides: number;
+    raw: string;
+  };
   /** Optional keep/drop modifier. */
   selection?: DiceSelectionModifier;
   /** Optional pool-specific rules (success thresholds, targets). */
   pool?: DicePoolRules;
+  /** Optional explode rule (e.g., roll again on 6+). */
+  explode?: DiceExplodeRule;
   /** Optional degrade rule (e.g., step die down when rolling <= threshold). */
   degrade?: DiceDegradeRule;
   /** `+` or `-` – determines whether this dice pool adds or subtracts from the roll. */
@@ -135,7 +151,8 @@ export class DiceExpression {
    * Main entrypoint: parse a notation string into a DiceExpression.
    */
   static parse(notation: string, options: DiceExpressionParseOptions = {}): DiceExpression {
-    const trimmed = notation.trim();
+    const safeNotation = typeof notation === "string" ? notation : String(notation ?? "");
+    const trimmed = safeNotation.trim();
     if (!trimmed) {
       return new DiceExpression("", [], []);
     }
@@ -196,7 +213,11 @@ export class DiceExpression {
           return `${prefix}challenge(${actionPart} vs ${challengePart})`;
         }
         const base =
-          term.count === 1 ? `${prefix}d${term.sides}` : `${prefix}${term.count}d${term.sides}`;
+          term.percentile
+            ? `${prefix}${term.count === 1 ? "" : term.count}d%${term.percentile.raw}`
+            : term.count === 1
+              ? `${prefix}d${term.sides}`
+              : `${prefix}${term.count}d${term.sides}`;
         let suffix = "";
         if (term.selection) {
           const { mode, count } = term.selection;
@@ -214,6 +235,13 @@ export class DiceExpression {
           if (typeof pool.targetSuccesses === "number") {
             suffix += `#${pool.targetSuccesses}`;
           }
+        }
+        if (term.explode) {
+          const explodeSuffix =
+            term.explode.threshold && term.explode.threshold !== term.sides
+              ? `!${term.explode.threshold}`
+              : "!";
+          suffix += explodeSuffix;
         }
         if (term.degrade) {
           const { comparator, threshold, stepAmount } = term.degrade;
@@ -234,7 +262,7 @@ export class DiceExpression {
    * Example: "4d6dl1 + 2 - d4" -> ["+4d6dl1", "+2", "-d4"]
    */
   private static tokenize(notation: string): string[] {
-    const normalized = notation.replace(/\s+/g, "");
+    const normalized = (typeof notation === "string" ? notation : String(notation ?? "")).replace(/\s+/g, "");
     const fragments: string[] = [];
     let current = "";
     let depth = 0;
@@ -284,15 +312,21 @@ export class DiceExpression {
     const match = body.match(/^challenge(?:\((.*)\))?$/i);
     if (!match) return null;
 
-    const configText = match[1];
     let actionSides = 6;
     let actionModifier = 0;
     let challengeSides = 10;
     let challengeCount = 2;
     let challengeModifier = 0;
 
-    if (configText) {
-      const [actionPartRaw, challengePartRaw] = configText.split(/vs/i).map((part) => part?.trim());
+    const configText = match[1];
+    const safeConfig = typeof configText === "string" ? configText : "";
+    if (safeConfig.trim().length) {
+      const parts = (safeConfig ?? "")
+        .replace(/\s+/g, "")
+        .split(/vs/i)
+        .map((part) => (typeof part === "string" ? part.trim() : ""));
+      const actionPartRaw = parts[0] ?? "";
+      const challengePartRaw = parts[1] ?? "";
       if (actionPartRaw) {
         const parsed = DiceExpression.parseSingleDie(actionPartRaw);
         if (parsed) {
@@ -308,6 +342,8 @@ export class DiceExpression {
           challengeModifier = parsed.modifier;
         }
       }
+    } else if (configText && typeof configText !== "string") {
+      return null;
     }
 
     return {
@@ -327,6 +363,78 @@ export class DiceExpression {
   private static tryParseDice(fragment: string): DiceTerm | null {
     const operator: DiceArithmeticOperator = fragment.startsWith("-") ? "-" : "+";
     const body = fragment.slice(1);
+    // Percentile shorthand: d%66, d%88, d%100 (also allow dp66 to avoid any % parsing issues).
+    const percentMatch = body.match(/^(\d*)d[%pP](\d+)(.*)$/i);
+    if (percentMatch) {
+      const [, countStr, percentRaw, modifierPart] = percentMatch;
+      const count = countStr ? Number.parseInt(countStr, 10) : 1;
+      if (!count) return null;
+
+      const selectionResult = DiceExpression.parseSelectionModifier(modifierPart);
+      const selection = selectionResult.selection ?? undefined;
+      const poolResult = DiceExpression.parsePoolModifier(selectionResult.rest);
+      const pool = poolResult.pool ?? undefined;
+      const explodeResult = DiceExpression.parseExplodeModifier(
+        poolResult.rest,
+        10
+      );
+      const explode = explodeResult.explode ?? undefined;
+      const degradeResult = DiceExpression.parseDegradeModifier(explodeResult.rest);
+      const degrade = degradeResult.degrade ?? undefined;
+
+      const trailing = degradeResult.rest?.trim();
+      if (trailing) {
+        return null;
+      }
+
+      // Standard percentile: treat as a d100 term (roller rolls d100 + d10).
+      if (percentRaw === "100") {
+        return {
+          type: "dice",
+          count,
+          sides: 100,
+          selection,
+          pool,
+          explode,
+          degrade,
+          operator,
+          source: fragment,
+        };
+      }
+
+      // Custom percentiles use two dice (e.g., d%66 -> 2d6).
+      let tensSides: number;
+      let onesSides: number;
+      if (percentRaw.length === 2) {
+        tensSides = Number.parseInt(percentRaw[0], 10);
+        onesSides = Number.parseInt(percentRaw[1], 10);
+      } else {
+        const parsed = Number.parseInt(percentRaw, 10);
+        if (!parsed) return null;
+        tensSides = parsed;
+        onesSides = parsed;
+      }
+
+      const effectiveSides = tensSides * 10 + onesSides;
+
+      return {
+        type: "dice",
+        count,
+        sides: effectiveSides,
+        percentile: {
+          tensSides,
+          onesSides,
+          raw: percentRaw,
+        },
+        selection,
+        pool,
+        explode,
+        degrade,
+        operator,
+        source: fragment,
+      };
+    }
+
     const diceMatch = body.match(/^(\d*)d(\d+)(.*)$/i);
     if (!diceMatch) return null;
 
@@ -339,7 +447,12 @@ export class DiceExpression {
     const selection = selectionResult.selection ?? undefined;
     const poolResult = DiceExpression.parsePoolModifier(selectionResult.rest);
     const pool = poolResult.pool ?? undefined;
-    const degradeResult = DiceExpression.parseDegradeModifier(poolResult.rest);
+    const explodeResult = DiceExpression.parseExplodeModifier(
+      poolResult.rest,
+      sides
+    );
+    const explode = explodeResult.explode ?? undefined;
+    const degradeResult = DiceExpression.parseDegradeModifier(explodeResult.rest);
     const degrade = degradeResult.degrade ?? undefined;
 
     const trailing = degradeResult.rest?.trim();
@@ -354,6 +467,7 @@ export class DiceExpression {
       sides,
       selection,
       pool,
+      explode,
       degrade,
       operator,
       source: fragment,
@@ -449,6 +563,29 @@ export class DiceExpression {
         threshold,
         stepAmount,
       },
+      rest: remainder ?? "",
+    };
+  }
+
+  private static parseExplodeModifier(
+    part: string | undefined | null,
+    defaultThreshold: number
+  ): { explode: DiceExplodeRule | null; rest: string } {
+    if (!part) return { explode: null, rest: "" };
+    if (!part.startsWith("!")) return { explode: null, rest: part };
+    const second = part[1];
+    if (second === ">" || second === "<" || second === "=") {
+      return { explode: null, rest: part };
+    }
+    const match = part.match(/^!(\d+)?(.*)$/);
+    if (!match) return { explode: null, rest: part };
+    const [, thresholdStr, remainder] = match;
+    const threshold = thresholdStr
+      ? Number.parseInt(thresholdStr, 10)
+      : defaultThreshold || 0;
+    if (!threshold) return { explode: null, rest: part };
+    return {
+      explode: { threshold },
       rest: remainder ?? "",
     };
   }

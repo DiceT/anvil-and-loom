@@ -46,9 +46,27 @@ import DiceExpression, {
 import DiceRoller, { type RollResult } from "./lib/dice/DiceRoller";
 import { annotateRollResult, type RollHighlight } from "./lib/dice/rollHighlights";
 import diceBoxValueProvider from "./lib/dice/diceBoxAdapter";
+import {
+  setDiceFadeDuration,
+  setDiceThemeColor,
+  setDiceThemeName,
+  setDiceScale,
+  setDiceTensThemeColor,
+  setDiceTexture,
+} from "./lib/diceEngine";
+import { rollDiceBoxValues } from "./lib/dice/diceBoxManager";
 
 type ActiveTool = "results" | "dice" | "tables" | "diceDev";
 type EntryType = "journal" | "note";
+type DocKind = "home" | "journal" | "tables" | "tome" | "oracle";
+
+interface DocTab {
+  id: string;
+  kind: DocKind;
+  title: string;
+  path?: string;
+  isDirty?: boolean;
+}
 
 interface Entry {
   id: string;
@@ -75,6 +93,17 @@ const containsPath = (node: TapestryNode, target: string): boolean => {
   return false;
 };
 
+const findNodeByName = (nodes: TapestryNode[], name: string): TapestryNode | null => {
+  for (const node of nodes) {
+    if (node.name === name) return node;
+    if (node.children) {
+      const found = findNodeByName(node.children, name);
+      if (found) return found;
+    }
+  }
+  return null;
+};
+
 const getParentFolderPath = (relativePath: string) => {
   if (!relativePath) return "";
   const normalized = relativePath.replace(/\\/g, "/");
@@ -86,7 +115,8 @@ type SettingsCategory =
   | "general"
   | "editor"
   | "files"
-  | "dice"
+  | "diceAppearance"
+  | "diceMechanics"
   | "appearance"
   | "hotkeys"
   | "corePlugins"
@@ -96,7 +126,8 @@ const settingsNav: { id: SettingsCategory; label: string }[] = [
   { id: "general", label: "General" },
   { id: "editor", label: "Editor" },
   { id: "files", label: "Files & Threads" },
-  { id: "dice", label: "Dice" },
+  { id: "diceAppearance", label: "Dice Appearance" },
+  { id: "diceMechanics", label: "Dice Mechanics" },
   { id: "appearance", label: "Appearance" },
   { id: "hotkeys", label: "Hotkeys" },
   { id: "corePlugins", label: "Core Plugins" },
@@ -129,16 +160,20 @@ function App() {
   const [activeEntryDraftTitle, setActiveEntryDraftTitle] = useState("");
   const [activeEntryDraftContent, setActiveEntryDraftContent] = useState("");
   const [activeEntryId, setActiveEntryId] = useState<string | null>(null);
+  const [pendingWelcomeOpen, setPendingWelcomeOpen] = useState<string | null>(null);
   const [selectedFolderPath, setSelectedFolderPath] = useState<string>("");
   const [selectedNode, setSelectedNode] = useState<{
     path: string;
     type: "file" | "folder";
     name: string;
   } | null>(null);
-  const [diceDevExpression, setDiceDevExpression] = useState("1d6");
-  const [diceDevResult, setDiceDevResult] = useState<RollResult | null>(null);
-  const [diceDevWarnings, setDiceDevWarnings] = useState<DiceExpressionWarning[]>([]);
+  const [diceDevStatus, setDiceDevStatus] = useState<string | null>(null);
   const [diceDevError, setDiceDevError] = useState<string | null>(null);
+  const diceDevAudioPool = useRef<{ surfaces: HTMLAudioElement[]; dice: HTMLAudioElement[] }>({
+    surfaces: [],
+    dice: [],
+  });
+  const diceDevAudioPromise = useRef<Promise<void> | null>(null);
   const [entryViewModes, setEntryViewModes] = useState<
     Record<string, "edit" | "view">
   >({});
@@ -157,13 +192,62 @@ function App() {
   const [settingsCategory, setSettingsCategory] =
     useState<SettingsCategory>("general");
   const [sidebarWidth, setSidebarWidth] = useState(260);
-  const [toolsWidth, setToolsWidth] = useState(360);
+  const [toolsWidth, setToolsWidth] = useState(350);
   const [isResizingLeft, setIsResizingLeft] = useState(false);
   const [isResizingRight, setIsResizingRight] = useState(false);
+  const [tabs, setTabs] = useState<DocTab[]>([
+    { id: "home", kind: "home", title: "Home" },
+  ]);
+  const [activeTabId, setActiveTabId] = useState<string>("home");
   const activeEntryMode =
     activeEntryId && entryViewModes[activeEntryId]
       ? entryViewModes[activeEntryId]
       : "edit";
+
+  const openTab = useCallback(
+    (tab: DocTab) => {
+      setTabs((prev) => {
+        const exists = prev.some((t) => t.id === tab.id);
+        return exists ? prev : [...prev, tab];
+      });
+      setActiveTabId(tab.id);
+      if (tab.kind === "tome") {
+        setActiveEntryId(tab.id);
+      }
+    },
+    []
+  );
+
+
+  const closeTab = useCallback(
+    (id: string) => {
+      setTabs((prev) => {
+        const index = prev.findIndex((t) => t.id === id);
+        if (index === -1) return prev;
+        const nextTabs = [...prev.slice(0, index), ...prev.slice(index + 1)];
+        let nextActive: string | null = activeTabId;
+        if (id === activeTabId) {
+          const candidate = nextTabs[index] ?? nextTabs[index - 1];
+          nextActive = candidate ? candidate.id : "home";
+        }
+        setActiveTabId(nextActive ?? "home");
+        if (nextActive) {
+          const nextTab = nextTabs.find((t) => t.id === nextActive);
+          if (nextTab?.kind === "tome") {
+            setActiveEntryId(nextTab.id);
+          } else if (nextTab?.kind !== "journal") {
+            setActiveEntryId(null);
+          }
+        } else {
+          setActiveEntryId(null);
+        }
+        return nextTabs.length ? nextTabs : [{ id: "home", kind: "home", title: "Home" }];
+      });
+    },
+    [activeTabId]
+  );
+
+
 
   useEffect(() => {
     let isMounted = true;
@@ -191,13 +275,41 @@ function App() {
   }, [settings.theme]);
 
   useEffect(() => {
+    if (settings.diceThemeColor) {
+      setDiceThemeColor(settings.diceThemeColor);
+    }
+    if (settings.diceTensThemeColor) {
+      setDiceTensThemeColor(settings.diceTensThemeColor);
+    }
+    if (settings.diceThemeName) {
+      setDiceThemeName(settings.diceThemeName);
+    }
+    if (settings.diceTexture) {
+      setDiceTexture(settings.diceTexture);
+    }
+    if (settings.diceFadeDurationMs) {
+      setDiceFadeDuration(settings.diceFadeDurationMs);
+    }
+    if (settings.diceScale) {
+      setDiceScale(settings.diceScale);
+    }
+  }, [
+    settings.diceThemeColor,
+    settings.diceTensThemeColor,
+    settings.diceThemeName,
+    settings.diceTexture,
+    settings.diceFadeDurationMs,
+    settings.diceScale,
+  ]);
+
+  useEffect(() => {
     const handleMove = (event: MouseEvent) => {
       if (isResizingLeft) {
         const next = Math.min(Math.max(event.clientX, 260), 520);
         setSidebarWidth(next);
       } else if (isResizingRight) {
         const total = window.innerWidth;
-        const next = Math.min(Math.max(total - event.clientX, 320), 520);
+        const next = Math.min(Math.max(total - event.clientX, 350), 520);
         setToolsWidth(next);
       }
     };
@@ -357,6 +469,7 @@ function App() {
     setActiveEntryId(null);
     setEntries([]);
     setExpandedFolders({ "": true });
+    setPendingWelcomeOpen(settings.currentTapestry || null);
   }, [settings.currentTapestry]);
 
   useEffect(() => {
@@ -417,9 +530,11 @@ function App() {
         prev.includes(trimmed) ? prev : [...prev, trimmed]
       );
       applySettingsPatch({ currentTapestry: trimmed });
+      setPendingWelcomeOpen(trimmed);
       setNewTapestryName("");
     }
   }, [newTapestryName, applySettingsPatch, refreshTapestries]);
+
 
   const handleSelectTreeFile = useCallback(
     (node: TapestryNode) => {
@@ -445,6 +560,12 @@ function App() {
               return [entry, ...remaining];
             });
             setActiveEntryId(node.path);
+            openTab({
+              id: node.path,
+              kind: "tome",
+              title: node.name,
+              path: node.path,
+            });
           })
           .catch((error) =>
             console.error("Failed to read Tapestry entry", error)
@@ -463,9 +584,15 @@ function App() {
           return [entry, ...remaining];
         });
         setActiveEntryId(node.path);
+        openTab({
+          id: node.path,
+          kind: "tome",
+          title: node.name,
+          path: node.path,
+        });
       }
     },
-    []
+    [openTab]
   );
 
   const handleSelectTreeFolder = useCallback((node: TapestryNode) => {
@@ -474,6 +601,35 @@ function App() {
     setSelectedNode({ path: node.path, type: "folder", name: node.name });
     setExpandedFolders((prev) => ({ ...prev, [node.path]: true }));
   }, []);
+
+  useEffect(() => {
+    if (
+      !tapestryTree.length ||
+      !pendingWelcomeOpen ||
+      pendingWelcomeOpen !== settings.currentTapestry
+    ) {
+      return;
+    }
+    const welcomeNode = findNodeByName(
+      tapestryTree,
+      "Welcome to Your Tapestry.md"
+    );
+    if (!welcomeNode) return;
+    setPendingWelcomeOpen(null);
+    if (welcomeNode.type === "file") {
+      handleSelectTreeFile(welcomeNode);
+    } else {
+      const childFile = welcomeNode.children?.find(
+        (child) => child.type === "file" && child.name === "Welcome to Your Tapestry.md"
+      );
+      if (childFile) handleSelectTreeFile(childFile);
+    }
+  }, [
+    handleSelectTreeFile,
+    pendingWelcomeOpen,
+    settings.currentTapestry,
+    tapestryTree,
+  ]);
 
   const toggleFolder = useCallback((path: string, isRoot?: boolean) => {
     setExpandedFolders((prev) => {
@@ -690,9 +846,9 @@ function App() {
       setActiveEntryDraftContent("");
     }
   }, [activeEntry]);
-
+  
   const renderMainContent = () => {
-    if (!activeEntry) {
+  if (!activeEntry) {
       return (
         <div className="app-main-empty">
           <h2>No entry selected</h2>
@@ -778,6 +934,57 @@ function App() {
         )}
       </div>
     );
+  };
+
+  const renderHome = () => (
+    <div className="app-main-empty">
+      <h2>Welcome to Anvil &amp; Loom</h2>
+      <p>Select a file or open a view to begin.</p>
+    </div>
+  );
+
+  const renderTables = () => (
+    <div className="app-main-empty">
+      <h2>Tables</h2>
+      <p>Oracles / Tables tool will go here.</p>
+    </div>
+  );
+
+  const renderTomePlaceholder = (tab?: DocTab) => (
+    <div className="app-main-empty">
+      <h2>{tab?.title ?? "Tome"}</h2>
+      <p>Open a Tapestry entry to edit its contents.</p>
+    </div>
+  );
+
+  const renderTabContent = (tab: DocTab | undefined) => {
+    if (!tab) {
+      return (
+        <div className="app-main-empty">
+          <h2>No tabs open</h2>
+          <p>Open Home, Journal, or a Tapestry entry to get started.</p>
+        </div>
+      );
+    }
+    switch (tab.kind) {
+      case "home":
+        return renderHome();
+      case "journal":
+        return renderMainContent();
+      case "tables":
+        return renderTables();
+      case "tome":
+        return activeEntry ? renderMainContent() : renderTomePlaceholder(tab);
+      case "oracle":
+        return (
+          <div className="app-main-empty">
+            <h2>Oracle</h2>
+            <p>Oracle/table editor placeholder.</p>
+          </div>
+        );
+      default:
+        return renderHome();
+    }
   };
 
   const renderSettingsContent = () => {
@@ -981,17 +1188,58 @@ function App() {
             </div>
           </section>
         );
-      case "dice":
+      case "diceAppearance":
         const fadeSeconds = Math.max(
           0.5,
           (settings.diceFadeDurationMs ?? 0) / 1000
         );
         return (
           <section className="settings-section">
-            <h2>Dice</h2>
+            <h2>Dice Appearance</h2>
             <p className="settings-section-subtitle">
-              Control how long the 3D dice linger after each roll.
+              Control how the 3D dice look and linger after each roll.
             </p>
+            <div className="settings-option settings-option-column">
+              <div>
+                <p className="settings-option-label">Dice scale</p>
+                <p className="settings-option-description">
+                  Adjusts the rendered size of dice (1 = smallest, 8 = largest).
+                </p>
+              </div>
+              <div className="settings-fade-control">
+                <input
+                  type="range"
+                  min={1}
+                  max={8}
+                  step={0.5}
+                  value={settings.diceScale ?? 4}
+                  onChange={(e) => {
+                    const next = Number.parseFloat(e.target.value);
+                    const clamped = Number.isFinite(next)
+                      ? Math.max(1, Math.min(8, next))
+                      : 4;
+                    applySettingsPatch({ diceScale: clamped });
+                  }}
+                />
+                <div className="settings-fade-number">
+                  <input
+                    type="number"
+                    min={1}
+                    max={8}
+                    step={0.5}
+                    className="settings-number-input"
+                    value={settings.diceScale ?? 4}
+                    onChange={(e) => {
+                      const next = Number.parseFloat(e.target.value);
+                      const clamped = Number.isFinite(next)
+                        ? Math.max(1, Math.min(8, next))
+                        : 4;
+                      applySettingsPatch({ diceScale: clamped });
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
             <div className="settings-option settings-option-column">
               <div>
                 <p className="settings-option-label">Fade timer</p>
@@ -1037,6 +1285,204 @@ function App() {
                   <span>s</span>
                 </div>
               </div>
+            </div>
+            <div className="settings-option settings-option-column">
+              <div>
+                <p className="settings-option-label">Dice theme</p>
+                <p className="settings-option-description">
+                  Choose a DiceBox theme (from /assets/themes).
+                </p>
+              </div>
+              <select
+                className="settings-select"
+                value={settings.diceThemeName ?? "default"}
+                onChange={(e) => applySettingsPatch({ diceThemeName: e.target.value })}
+              >
+                <option value="default">Default</option>
+                <option value="rust">Rust</option>
+                <option value="diceOfRolling">Dice of Rolling</option>
+                <option value="gemstone">Gemstone</option>
+              </select>
+            </div>
+            <div className="settings-option settings-option-column">
+              <div>
+                <p className="settings-option-label">Dice theme color</p>
+                <p className="settings-option-description">
+                  Sets the base tint used by the dice engine (where supported).
+                </p>
+              </div>
+              <input
+                type="color"
+                className="settings-color-input"
+                value={settings.diceThemeColor ?? "#ff7f00"}
+                onChange={(e) =>
+                  applySettingsPatch({ diceThemeColor: e.target.value })
+                }
+              />
+            </div>
+            <div className="settings-option settings-option-column">
+              <div>
+                <p className="settings-option-label">Tens dice color</p>
+                <p className="settings-option-description">
+                  Tint for the tens die used in custom percentile rolls (d66/d88).
+                </p>
+              </div>
+              <input
+                type="color"
+                className="settings-color-input"
+                value={settings.diceTensThemeColor ?? "#000000"}
+                onChange={(e) =>
+                  applySettingsPatch({ diceTensThemeColor: e.target.value })
+                }
+              />
+            </div>
+            <div className="settings-option settings-option-column">
+              <div>
+                <p className="settings-option-label">Dice texture</p>
+                <p className="settings-option-description">
+                  Select a texture from /assets/textures for the dice material.
+                </p>
+              </div>
+              <select
+                className="settings-select"
+                value={settings.diceTexture ?? "paper"}
+                onChange={(e) => applySettingsPatch({ diceTexture: e.target.value })}
+              >
+                <option value="paper">paper</option>
+                <option value="marble">marble</option>
+                <option value="metal">metal</option>
+                <option value="wood">wood</option>
+                <option value="stone">stone</option>
+                <option value="ice">ice</option>
+                <option value="water">water</option>
+                <option value="fire">fire</option>
+                <option value="glitter">glitter</option>
+                <option value="stars">stars</option>
+                <option value="skulls">skulls</option>
+                <option value="cheetah">cheetah</option>
+                <option value="leopard">leopard</option>
+                <option value="tiger">tiger</option>
+                <option value="noise">noise</option>
+                <option value="astral">astral</option>
+              </select>
+            </div>
+          </section>
+        );
+      case "diceMechanics":
+        return (
+          <section className="settings-section">
+            <h2>Dice Mechanics</h2>
+            <p className="settings-section-subtitle">
+              Enable or disable mechanics available in the Dice Tray.
+            </p>
+            <div className="settings-option">
+              <div>
+                <p className="settings-option-label">Exploding dice</p>
+                <p className="settings-option-description">
+                  Allow expressions that explode on a trigger (e.g., !6).
+                </p>
+              </div>
+              <label className="settings-toggle">
+                <input
+                  type="checkbox"
+                  checked={settings.diceEnableExploding}
+                  onChange={(e) =>
+                    applySettingsPatch({ diceEnableExploding: e.target.checked })
+                  }
+                />
+                <span />
+              </label>
+            </div>
+            <div className="settings-option">
+              <div>
+                <p className="settings-option-label">Degradation</p>
+                <p className="settings-option-description">
+                  Allow degrading dice (e.g., !&lt;=2) to step down on triggers.
+                </p>
+              </div>
+              <label className="settings-toggle">
+                <input
+                  type="checkbox"
+                  checked={settings.diceEnableDegrade}
+                  onChange={(e) =>
+                    applySettingsPatch({ diceEnableDegrade: e.target.checked })
+                  }
+                />
+                <span />
+              </label>
+            </div>
+            <div className="settings-option">
+              <div>
+                <p className="settings-option-label">Dice pools</p>
+                <p className="settings-option-description">
+                  Allow pool-style rolls (success thresholds and targets).
+                </p>
+              </div>
+              <label className="settings-toggle">
+                <input
+                  type="checkbox"
+                  checked={settings.diceEnablePools}
+                  onChange={(e) =>
+                    applySettingsPatch({ diceEnablePools: e.target.checked })
+                  }
+                />
+                <span />
+              </label>
+            </div>
+          </section>
+        );
+      case "diceThemes":
+        return (
+          <section className="settings-section">
+            <h2>Dice Theme & Tens</h2>
+            <p className="settings-section-subtitle">
+              Choose the DiceBox theme and the colors used for primary and tens dice (d66/d88).
+            </p>
+            <div className="settings-option settings-option-column">
+              <div>
+                <p className="settings-option-label">Dice theme</p>
+                <p className="settings-option-description">
+                  Applies a preset dice style from the available DiceBox themes.
+                </p>
+              </div>
+              <select
+                className="settings-select"
+                value={settings.diceThemeName ?? "default"}
+                onChange={(e) => applySettingsPatch({ diceThemeName: e.target.value })}
+              >
+                <option value="default">Default</option>
+                <option value="rust">Rust</option>
+                <option value="diceOfRolling">Dice of Rolling</option>
+                <option value="gemstone">Gemstone</option>
+              </select>
+            </div>
+            <div className="settings-option settings-option-column">
+              <div>
+                <p className="settings-option-label">Primary dice color</p>
+                <p className="settings-option-description">
+                  Base tint for all dice (where supported by the theme).
+                </p>
+              </div>
+              <input
+                type="color"
+                className="settings-color-input"
+                value={settings.diceThemeColor ?? "#ff7f00"}
+                onChange={(e) => applySettingsPatch({ diceThemeColor: e.target.value })}
+              />
+            </div>
+            <div className="settings-option settings-option-column">
+              <div>
+                <p className="settings-option-label">Tens dice color</p>
+                <p className="settings-option-description">
+                  Tint for the tens die used in custom percentile rolls (d66/d88).
+                </p>
+              </div>
+              <input
+                type="color"
+                className="settings-color-input"
+                value={settings.diceTensThemeColor ?? "#000000"}
+                onChange={(e) => applySettingsPatch({ diceTensThemeColor: e.target.value })}
+              />
             </div>
           </section>
         );
@@ -1453,74 +1899,94 @@ function App() {
       });
   }, [activeEntry, activeEntryDraftTitle, fetchTapestryTree]);
 
-  const handleDiceDevRoll = useCallback(async () => {
+  const loadDiceDevAudio = useCallback(async () => {
+    if (diceDevAudioPromise.current) {
+      return diceDevAudioPromise.current;
+    }
+    diceDevAudioPromise.current = (async () => {
+      const loadClip = async (src: string) => {
+        return new Promise<HTMLAudioElement>((resolve, reject) => {
+          const audio = new Audio();
+          audio.oncanplaythrough = () => resolve(audio);
+          audio.onerror = (e) => reject(e);
+          audio.crossOrigin = "anonymous";
+          audio.src = src;
+        });
+      };
+
+      const surfaces: HTMLAudioElement[] = [];
+      const dice: HTMLAudioElement[] = [];
+      // Wood table surface (1-7)
+      for (let i = 1; i <= 7; i++) {
+        try {
+          surfaces.push(await loadClip(`/assets/sounds/surfaces/surface_wood_table${i}.mp3`));
+        } catch {
+          /* ignore */
+        }
+      }
+      // Plastic dice hits (1-15)
+      for (let i = 1; i <= 15; i++) {
+        try {
+          dice.push(await loadClip(`/assets/sounds/dicehit/dicehit_plastic${i}.mp3`));
+        } catch {
+          /* ignore */
+        }
+      }
+      diceDevAudioPool.current = { surfaces, dice };
+    })();
+    return diceDevAudioPromise.current;
+  }, []);
+
+const maybePlayDiceDevAudio = useCallback(async () => {
+  try {
+    await loadDiceDevAudio();
+    const { surfaces, dice } = diceDevAudioPool.current;
+    if (!surfaces.length && !dice.length) return;
+      const playClip = (clip?: HTMLAudioElement) => {
+        if (!clip) return;
+        clip.currentTime = 0;
+        clip.play().catch(() => {});
+      };
+      const hits = Math.max(1, Math.floor(Math.random() * 2) + 2); // 2-3 hits
+      for (let i = 0; i < hits; i++) {
+        const delay = 75 + Math.random() * 375; // concentrate near start
+        setTimeout(() => {
+          playClip(surfaces[Math.floor(Math.random() * surfaces.length)]);
+          playClip(dice[Math.floor(Math.random() * dice.length)]);
+        }, delay);
+    }
+  } catch {
+    // ignore audio failures so rolls don't break
+  }
+}, [loadDiceDevAudio]);
+
+  const handleDiceDevBoxRoll = useCallback(async () => {
     try {
-      const expression = DiceExpression.parse(diceDevExpression || "");
-      setDiceDevWarnings(expression.warnings);
-      const result = await DiceRoller.rollWithProvider(expression, diceBoxValueProvider);
-      setDiceDevResult(result);
+      void maybePlayDiceDevAudio();
+      const values = await rollDiceBoxValues(2, 20);
+      setDiceDevStatus("Rolled 2d20 via DiceBox (see overlay)");
       setDiceDevError(null);
     } catch (error) {
-      setDiceDevResult(null);
-      setDiceDevWarnings([]);
-      setDiceDevError(
-        error instanceof Error ? error.message : "Failed to parse/roll expression"
-      );
+      console.error("DiceBox test roll failed", error);
+      setDiceDevStatus(null);
+      setDiceDevError(error instanceof Error ? error.message : "Test roll failed");
     }
-  }, [diceDevExpression]);
+  }, [
+    maybePlayDiceDevAudio,
+  ]);
 
   const renderDiceDevPanel = () => (
     <div className="dice-dev-panel">
-      <div className="dice-dev-controls">
-        <label htmlFor="dice-dev-expression">Expression</label>
-        <div className="dice-dev-input-row">
-          <input
-            id="dice-dev-expression"
-            type="text"
-            value={diceDevExpression}
-            onChange={(event) => setDiceDevExpression(event.target.value)}
-            placeholder="e.g. 4d6dl1 + 2"
-          />
-          <button type="button" onClick={handleDiceDevRoll}>
-            Roll
+      <div className="dice-dev-controls" style={{ marginBottom: "1rem" }}>
+        <label>DiceBox Test (assetPath /assets/dice-box)</label>
+        <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", alignItems: "center" }}>
+          <button type="button" onClick={handleDiceDevBoxRoll}>
+            Roll 2d20
           </button>
         </div>
-        <p className="dice-dev-hint">
-          Supports keep/drop (kh/kl/dh/dl), pool successes (&gt;=6#3), degrade triggers
-          (!&lt;=2), and challenge rolls (e.g. <code>challenge(d6+1 vs 2d10)</code>).
-        </p>
+        {diceDevStatus && <div className="dice-dev-status">{diceDevStatus}</div>}
+        {diceDevError && <div className="dice-dev-error">{diceDevError}</div>}
       </div>
-      {diceDevError && <div className="dice-dev-error">{diceDevError}</div>}
-      {!diceDevError && diceDevWarnings.length > 0 && (
-        <div className="dice-dev-warning">
-          {diceDevWarnings.map((warning, index) => (
-            <div key={`${warning.fragment}-${index}`}>
-              {warning.reason}: <code>{warning.fragment}</code>
-            </div>
-          ))}
-        </div>
-      )}
-      {diceDevResult && !diceDevError && (
-        <div className="dice-dev-output">
-          <div className="dice-dev-summary">
-            <p>
-              <strong>Expression:</strong> {diceDevResult.expression.describe()}
-            </p>
-            <p>
-              <strong>Total:</strong> {diceDevResult.total}
-            </p>
-            {typeof diceDevResult.successes === "number" && (
-              <p>
-                <strong>Successes:</strong> {diceDevResult.successes}
-              </p>
-            )}
-          </div>
-          {renderDiceDevHighlights(diceDevResult)}
-          <pre className="dice-dev-json">
-            {JSON.stringify(diceDevResult, null, 2)}
-          </pre>
-        </div>
-      )}
     </div>
   );
 
@@ -1646,7 +2112,43 @@ function App() {
       />
 
       {/* CENTER: main content pane */}
-      <main className="app-main">{renderMainContent()}</main>
+      <main className="app-main">
+        <div className="app-main-tabbar">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              className={
+                "app-main-tab" + (tab.id === activeTabId ? " app-main-tab--active" : "")
+              }
+              onClick={() => {
+                setActiveTabId(tab.id);
+                if (tab.kind === "tome") setActiveEntryId(tab.id);
+              }}
+              title={tab.title}
+            >
+              <span className="app-main-tab-title">{tab.title}</span>
+              {tab.kind !== "home" && (
+                <span
+                  className="app-main-tab-close"
+                  role="button"
+                  aria-label={`Close ${tab.title}`}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    closeTab(tab.id);
+                  }}
+                >
+                  ×
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
+        <div className="app-main-body">
+          <div className="app-main-inner">
+            {renderTabContent(tabs.find((t) => t.id === activeTabId))}
+          </div>
+        </div>
+      </main>
 
       {/* RIGHT: tools launcher / pane */}
       {!isToolPaneOpen ? (

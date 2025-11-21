@@ -115,7 +115,12 @@ const provider: DiceValueProvider = {
 const result = await DiceRoller.rollWithProvider(expression, provider);
 ```
 
-`DiceValueProvider` requires a `rollDice(count, sides)` method that resolves with the rolled numbers. The optional `rollComposite(requests)` can return multiple rolls at once, letting us batch DiceBox calls and also support percentile behavior (the roller automatically pairs `d100` tens with `d10` ones). Challenge terms call the provider exactly once per die type so all dice animate together.
+`DiceValueProvider` requires a `rollDice(count, sides)` method that resolves with the rolled numbers. Optional methods:
+
+- `rollCustomDice(dice: { sides: number | string; themeColor?: string; data?: string }[])` is called for percentile terms (tens/ones) and for native d100 when available; the roller passes two dice for custom percentiles (e.g., d%66) and a single die for d100. If `themeColor` is provided, it tints the die (used for tens dice).
+- `rollComposite(requests)` can batch multiple simple dice requests when `rollCustomDice` isn’t available.
+
+Challenge terms call the provider exactly once per die type so all dice animate together.
 
 The returned `RollResult` structure is identical to the synchronous `roll` output, so UI components don’t care which path produced the data.
 

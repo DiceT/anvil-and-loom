@@ -131,6 +131,24 @@ async function createTapestryOnDisk(name) {
   const target = path.join(root, safeName);
   await mkdir(target, { recursive: true });
   await mkdir(path.join(target, "assets"), { recursive: true });
+  // Seed default structure and welcome doc for new Tapestries.
+  const defaultDirs = ["Journal", "Lore", "Places", "People", "Factions", "Notes"];
+  for (const dir of defaultDirs) {
+    await mkdir(path.join(target, dir), { recursive: true });
+  }
+  const welcomeCandidates = [
+    path.join(app.getAppPath(), "tapestries", "Welcome to Your Tapestry.md"),
+    path.join(process.cwd(), "tapestries", "Welcome to Your Tapestry.md"),
+    path.join(__dirname, "..", "tapestries", "Welcome to Your Tapestry.md"),
+  ];
+  const welcomeTemplate = welcomeCandidates.find((candidate) => existsSync(candidate));
+  if (welcomeTemplate) {
+    const welcomeDest = path.join(target, "Welcome to Your Tapestry.md");
+    if (!existsSync(welcomeDest)) {
+      const content = await readFile(welcomeTemplate, "utf-8");
+      await writeFile(welcomeDest, content, "utf-8");
+    }
+  }
   await updateSettings({ currentTapestry: safeName });
   return { name: safeName, path: target };
 }

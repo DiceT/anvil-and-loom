@@ -1,16 +1,12 @@
-import DiceBox from "@3d-dice/dice-box-threejs/dist/dice-box-threejs.es";
-
-const DICE_CONTAINER_ID = "dice-box-container";
-const DICE_VISIBLE_CLASS = "dice-box-visible";
-const DICE_FADE_CLASS = "dice-box-fade";
 const DEFAULT_FADE_DURATION_MS = 3000;
 
-type DiceBoxInstance = any;
-
-let diceBox: DiceBoxInstance | null = null;
-let diceBoxInitPromise: Promise<DiceBoxInstance> | null = null;
-let diceFadeTimeout: number | null = null;
 let diceFadeDurationMs = DEFAULT_FADE_DURATION_MS;
+let diceThemeColor = "#ff7f00";
+let diceThemeName = "default";
+let diceTensThemeColor = "#000000";
+let diceTexture = "paper";
+let diceScale = 4;
+const PRELOAD_THEMES = ["default", "rust", "diceOfRolling", "gemstone"];
 
 export type SingleDieType =
   | "d4"
@@ -44,6 +40,16 @@ export interface DiceEngineResult {
   meta?: any;
 }
 
+function simulateDice(count: number, sides: number): number[] {
+  if (count <= 0 || sides <= 0) return [];
+  const rolls: number[] = [];
+  for (let i = 0; i < count; i++) {
+    const value = Math.floor(Math.random() * sides) + 1;
+    rolls.push(Math.max(1, Math.min(sides, value)));
+  }
+  return rolls;
+}
+
 const SINGLE_DIE_CONFIG: Record<SingleDieType, { sides: number; label: string }> = {
   d4: { sides: 4, label: "1d4" },
   d6: { sides: 6, label: "1d6" },
@@ -53,179 +59,88 @@ const SINGLE_DIE_CONFIG: Record<SingleDieType, { sides: number; label: string }>
   d20: { sides: 20, label: "1d20" },
 };
 
-/**
- * Ensure DiceBox is initialized on the global overlay container.
- */
-async function getDiceBox(): Promise<DiceBoxInstance> {
-  if (diceBox && diceBoxInitPromise) {
-    await diceBoxInitPromise;
-    return diceBox;
-  }
-
-  if (!diceBoxInitPromise) {
-    diceBoxInitPromise = (async () => {
-      const container = document.getElementById(DICE_CONTAINER_ID);
-      if (!container) {
-        throw new Error(`Dice container #${DICE_CONTAINER_ID} not found in DOM`);
-      }
-
-      container.innerHTML = "";
-
-      const box = new (DiceBox as any)(`#${DICE_CONTAINER_ID}`, {
-        theme: "default",
-        assetPath: "/assets/",
-        sounds: true,
-        light_intensity: 0.8,
-        gravity_multiplier: 400,
-        baseScale: 100,
-        strength: 2,
-      });
-
-      diceBox = box;
-
-      if (box.initialize) {
-        await box.initialize();
-      }
-
-      return box;
-    })();
-  }
-
-  return diceBoxInitPromise;
-}
-
-function getDiceContainer(): HTMLElement | null {
-  return document.getElementById(DICE_CONTAINER_ID);
-}
-
-function showDiceOverlay() {
-  const container = getDiceContainer();
-  if (!container) return;
-  if (diceFadeTimeout) {
-    window.clearTimeout(diceFadeTimeout);
-    diceFadeTimeout = null;
-  }
-  container.classList.add(DICE_VISIBLE_CLASS);
-  container.classList.remove(DICE_FADE_CLASS);
-}
-
-function scheduleDiceFade() {
-  const container = getDiceContainer();
-  if (!container) return;
-  if (diceFadeTimeout) {
-    window.clearTimeout(diceFadeTimeout);
-  }
-  const delay = Math.max(0, diceFadeDurationMs);
-  diceFadeTimeout = window.setTimeout(() => {
-    container.classList.add(DICE_FADE_CLASS);
-  }, delay);
-}
-
 export function setDiceFadeDuration(durationMs: number) {
   if (Number.isFinite(durationMs)) {
     diceFadeDurationMs = Math.max(500, durationMs);
   }
 }
 
+export function setDiceThemeName(name: string) {
+  if (typeof name === "string" && name.trim().length) {
+    diceThemeName = name.trim();
+  }
+}
+
+export function setDiceThemeColor(color: string) {
+  if (typeof color === "string" && color.trim().length) {
+    diceThemeColor = color.trim();
+  }
+}
+
+export function setDiceTensThemeColor(color: string) {
+  if (typeof color === "string" && color.trim().length) {
+    diceTensThemeColor = color.trim();
+  }
+}
+
+export function setDiceTexture(texture: string) {
+  if (typeof texture === "string" && texture.trim().length) {
+    diceTexture = texture.trim();
+  }
+}
+
+export function setDiceScale(scale: number) {
+  if (Number.isFinite(scale) && scale > 0) {
+    diceScale = Math.max(1, Math.min(12, scale));
+  }
+}
+
+export function getDiceAppearance() {
+  return {
+    fadeDurationMs: diceFadeDurationMs,
+    themeColor: diceThemeColor,
+    themeName: diceThemeName,
+    tensThemeColor: diceTensThemeColor,
+    texture: diceTexture,
+    scale: diceScale,
+  };
+}
+
 export async function rollDiceBoxValues(count: number, sides: number): Promise<number[]> {
   if (count <= 0 || sides <= 0) return [];
-  const box = await getDiceBox();
-  const raw = await rollWithOverlay(box, `${count}d${sides}`);
-  return extractDiceValues(raw).slice(0, count);
+  return simulateDice(count, sides);
 }
 
 export async function rollDiceBoxComposite(
   requests: Array<{ count: number; sides: number }>
 ): Promise<number[][]> {
-  const filtered = requests.filter((req) => req.count > 0 && req.sides > 0);
+  return requests.map((req) => simulateDice(req.count, req.sides));
+}
+
+export async function rollDiceBoxList(
+  dice: Array<{ sides: number; themeColor?: string }>
+): Promise<number[]> {
+  const filtered = (dice ?? []).filter((die) => die && Number.isFinite(die.sides) && die.sides > 0);
   if (!filtered.length) return [];
-
-  const notation = filtered.map((req) => `${req.count}d${req.sides}`).join("+");
-  const box = await getDiceBox();
-  const raw = await rollWithOverlay(box, notation);
-  const values = extractDiceValues(raw);
-
-  const result: number[][] = [];
-  let cursor = 0;
-  for (const req of filtered) {
-    const slice = values.slice(cursor, cursor + req.count);
-    cursor += req.count;
-    result.push(slice);
-  }
-  return result;
-}
-
-async function rollWithOverlay(
-  box: DiceBoxInstance,
-  notation: string
-): Promise<any> {
-  showDiceOverlay();
-  const result = await box.roll(notation);
-  scheduleDiceFade();
-  return result;
-}
-
-function extractDiceValues(raw: any): number[] {
   const values: number[] = [];
-
-  const visit = (node: any) => {
-    if (node == null) return;
-
-    if (Array.isArray(node)) {
-      for (const item of node) visit(item);
-      return;
-    }
-
-    if (typeof node === "object") {
-      if (Array.isArray(node.rolls)) {
-        for (const r of node.rolls) {
-          if (r && typeof r.value === "number") {
-            values.push(r.value);
-          } else if (r && typeof r.result === "number") {
-            values.push(r.result);
-          }
-        }
-      } else {
-        if (typeof node.value === "number") {
-          values.push(node.value);
-        } else if (typeof node.result === "number") {
-          values.push(node.result);
-        }
-      }
-
-      if (Array.isArray(node.sets)) {
-        visit(node.sets);
-      }
-      if (Array.isArray(node.results)) {
-        visit(node.results);
-      }
-    }
-  };
-
-  visit(raw);
+  filtered.forEach((die) => {
+    values.push(...simulateDice(1, die.sides));
+  });
   return values;
-}
-
-function extractFirstValue(raw: any): number | undefined {
-  const vals = extractDiceValues(raw);
-  return vals.length ? vals[0] : undefined;
 }
 
 export async function rollDice(
   type: LogicalRollType,
   options: RollOptions = {}
 ): Promise<DiceEngineResult> {
-  const box = await getDiceBox();
-
   if (type in SINGLE_DIE_CONFIG) {
     const config = SINGLE_DIE_CONFIG[type as SingleDieType];
-    return rollSingleDie(box, config.sides, config.label, options);
+    return rollSingleDie(config.sides, config.label, options);
   }
 
   switch (type) {
     case "four_d6": {
-      const raw = await rollWithOverlay(box, "4d6");
-      const rolls = extractDiceValues(raw);
+      const rolls = simulateDice(4, 6);
       const total = rolls.reduce((sum, v) => sum + v, 0);
 
       return {
@@ -240,11 +155,8 @@ export async function rollDice(
     }
 
     case "percentile": {
-      const raw = await rollWithOverlay(box, "1d100+1d10");
-      const vals = extractDiceValues(raw);
-
-      const tensValue = vals[0];
-      const onesValue = vals[1];
+      const tensValue = simulateDice(1, 100)[0];
+      const onesValue = simulateDice(1, 10)[0];
 
       const tensIndex = normalizeTensIndex(tensValue);
       const onesIndex = normalizeOnesIndex(onesValue);
@@ -265,11 +177,8 @@ export async function rollDice(
     }
 
     case "challenge": {
-      const raw = await rollWithOverlay(box, "1d6+2d10");
-      const vals = extractDiceValues(raw);
-
-      const actionDie = vals[0];
-      const challengeDice = vals.slice(1, 3);
+      const actionDie = simulateDice(1, 6)[0];
+      const challengeDice = simulateDice(2, 10);
       const baseModifier = 0;
       const userModifier = options.modifier ?? 0;
 
@@ -330,7 +239,6 @@ export async function rollDice(
 }
 
 async function rollSingleDie(
-  box: DiceBoxInstance,
   sides: number,
   baseLabel: string,
   options: RollOptions
@@ -338,8 +246,7 @@ async function rollSingleDie(
   const mode: RollAdvantageMode = options.mode ?? "normal";
   const modifier = options.modifier ?? 0;
   const diceCount = mode === "normal" ? 1 : 2;
-  const raw = await rollWithOverlay(box, `${diceCount}d${sides}`);
-  const rolls = extractDiceValues(raw).slice(0, diceCount);
+  const rolls = simulateDice(diceCount, sides);
 
   const chosen =
     mode === "advantage"

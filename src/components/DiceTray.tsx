@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import DiceExpression, { type DiceExpressionWarning } from "../lib/dice/DiceExpression";
-import DiceRoller, { type RollResult } from "../lib/dice/DiceRoller";
+import DiceRoller, { type RollResult, type DiceTermRollResult } from "../lib/dice/DiceRoller";
 import diceBoxValueProvider from "../lib/dice/diceBoxAdapter";
 import { annotateRollResult, type RollHighlight } from "../lib/dice/rollHighlights";
 import { setDiceFadeDuration } from "../lib/diceEngine";
@@ -11,11 +11,12 @@ import {
   Pentagon,
   Percent,
   Swords,
-  Layers,
+  Blocks,
   TrendingDown,
+  Bomb,
   Eraser,
-  Play,
-  BookCheck,
+  CirclePlay,
+  NotebookPen,
   Save,
   Trash2,
 } from "lucide-react";
@@ -39,6 +40,7 @@ function formatResultAsHtml(result: RollResult): string {
   const term = getPrimaryTerm(result);
   if (!term) return "";
   const toggleId = `dice-log-${Date.now()}-${Math.floor(Math.random() * 100000)}`;
+  const constantTotal = getConstantSum(result.terms);
 
   if (term.type === "challenge") {
     const actionSegments: string[] = [`${term.actionDie}`];
@@ -55,60 +57,199 @@ function formatResultAsHtml(result: RollResult): string {
     }`;
     const outcomeColor = getChallengeOutcomeColor(term.outcome);
 
-    return `
-      <div class="dice-card dice-card-inline dice-log-card">
-        <input type="checkbox" id="${toggleId}" class="dice-log-toggle" />
-        <label for="${toggleId}" class="dice-card-title dice-log-header">
-          <span>CHALLENGE ROLL</span>
-          <span class="dice-log-caret" aria-hidden="true"></span>
-        </label>
-        <div class="dice-card-body dice-log-body">
-          <div class="dice-card-detail">
-            <span>Action Roll:</span> <strong>${actionText || "-"}</strong>
-          </div>
-          <div class="dice-card-detail">
-            <span>Challenge Roll:</span> <strong>${challengeText}</strong>
-          </div>
-        </div>
-        <div class="dice-card-highlight dice-log-footer">
-          <span class="dice-log-footer-label">Result:</span>
-          <span class="dice-card-inline-result" style="color:${outcomeColor}">
-            <strong>${resultText}</strong>
-          </span>
-        </div>
-      </div>
-    `.trim();
+    return joinHtml([
+      `<div class="dice-card dice-card-inline dice-log-card">`,
+      `<input type="checkbox" id="${toggleId}" class="dice-log-toggle" />`,
+      `<label for="${toggleId}" class="dice-card-title dice-log-header">`,
+      `<span>CHALLENGE ROLL</span>`,
+      `<span class="dice-log-caret" aria-hidden="true"></span>`,
+      `</label>`,
+      `<div class="dice-card-body dice-log-body">`,
+      `<div class="dice-card-detail"><span>Action Roll:</span> <strong>${actionText || "-"}</strong></div>`,
+      `<div class="dice-card-detail"><span>Challenge Roll:</span> <strong>${challengeText}</strong></div>`,
+      `</div>`,
+      `<div class="dice-card-highlight dice-log-footer">`,
+      `<span class="dice-log-footer-label">Result:</span>`,
+      `<span class="dice-card-inline-result" style="color:${outcomeColor}"><strong>${resultText}</strong></span>`,
+      `</div>`,
+      `</div>`,
+    ]);
   }
 
   if (term.type === "dice") {
-    const label = `ROLLED d${term.term.sides}`;
+    // Multiple plain dice terms (e.g., 3d6 + 1d4)
+    const simpleDiceTerms = result.terms.filter(
+      (t): t is DiceTermRollResult =>
+        t.type === "dice" && !t.term.pool && !t.term.explode && !t.term.degrade
+    );
+    const constantTerms = result.terms.filter((t) => t.type === "constant");
+    if (simpleDiceTerms.length > 1) {
+      const header = result.expression?.original
+        ? `ROLLED ${humanizeSelectionShorthand(result.expression.original)}`
+        : "ROLL RESULT";
+      const diceLines = simpleDiceTerms.map((t) => {
+        const rollsDisplay = t.dice
+          .map((die) => (die.dropped ? `(${die.value})` : `${die.value}`))
+          .join(", ");
+        const label = `${t.term.count}d${t.term.sides}${
+          t.term.selection ? ` (${t.term.selection.mode.replace("-", " ")})` : ""
+        }`;
+        return `<div class="dice-card-detail">${label}: ${rollsDisplay || "-"} = ${t.total}</div>`;
+      });
+      const constantLines = constantTerms.map(
+        (c) => `<div class="dice-card-detail">Modifier: <strong>${c.value}</strong></div>`
+      );
+
+      return joinHtml([
+        `<div class="dice-card dice-card-inline dice-log-card">`,
+        `<input type="checkbox" id="${toggleId}" class="dice-log-toggle" />`,
+        `<label for="${toggleId}" class="dice-card-title dice-log-header">`,
+        `<span>${header}</span>`,
+        `<span class="dice-log-caret" aria-hidden="true"></span>`,
+        `</label>`,
+        `<div class="dice-card-body dice-log-body">`,
+        ...diceLines,
+        ...constantLines,
+        `</div>`,
+        `<div class="dice-card-highlight dice-log-footer">`,
+        `<span class="dice-log-footer-label">Result:</span>`,
+        `<span class="dice-card-inline-result"><strong>${result.total}</strong></span>`,
+        `</div>`,
+        `</div>`,
+      ]);
+    }
+
+    // Dice Pool
+    if (term.term.pool) {
+      const pool = term.term.pool;
+      const threshold = `${pool.successThreshold}`;
+      const needed =
+        typeof pool.targetSuccesses === "number" ? pool.targetSuccesses : undefined;
+      const rollsDisplay = renderPoolRollsInlineHtml(term.dice, pool);
+      const successes = term.successes ?? 0;
+      const met = term.metTarget ?? (typeof needed === "number" ? successes >= needed : successes > 0);
+      const statusText = met ? "PASS" : "FAIL";
+      const statusColor = met ? "#22c55e" : "#ef4444";
+      const successLabel = `${successes} success${successes === 1 ? "" : "es"}`;
+      const poolHeader = `DICE POOL - ${term.term.count}d${term.term.sides} T:${threshold} S:${
+        needed !== undefined ? needed : "-"
+      }`;
+
+      return joinHtml([
+        `<div class="dice-card dice-card-inline dice-log-card">`,
+        `<input type="checkbox" id="${toggleId}" class="dice-log-toggle" />`,
+        `<label for="${toggleId}" class="dice-card-title dice-log-header">`,
+        `<span>${poolHeader}</span>`,
+        `<span class="dice-log-caret" aria-hidden="true"></span>`,
+        `</label>`,
+        `<div class="dice-card-body dice-log-body">`,
+        `<div class="dice-card-detail">Rolls: ${rollsDisplay}</div>`,
+        `<div class="dice-card-detail">Target: ${threshold}</div>`,
+        `<div class="dice-card-detail">Successes Needed: ${needed !== undefined ? needed : "-"}</div>`,
+        `</div>`,
+        `<div class="dice-card-highlight dice-log-footer">`,
+        `<span class="dice-log-footer-label">Result:</span>`,
+        `<span class="dice-card-inline-result" style="color:${statusColor}"><strong>${successLabel} - ${statusText}</strong></span>`,
+        `</div>`,
+        `</div>`,
+      ]);
+    }
+
+    // Degradation
+    if (term.term.degrade) {
+      const rollsDisplay = renderDegradeRollsInlineHtml(term.dice);
+      const threshold = term.term.degrade?.threshold ?? "-";
+      const triggered = term.degradeTriggered ?? false;
+      const statusText = triggered ? `${term.total} - DEGRADE` : `${term.total}`;
+      const statusColor = triggered ? "#ef4444" : "var(--text-main)";
+      const headerText = `DEGRADATION ROLL ${term.term.count}d${term.term.sides} D:${threshold}`;
+
+      return joinHtml([
+        `<div class="dice-card dice-card-inline dice-log-card">`,
+        `<input type="checkbox" id="${toggleId}" class="dice-log-toggle" />`,
+        `<label for="${toggleId}" class="dice-card-title dice-log-header">`,
+        `<span>${headerText}</span>`,
+        `<span class="dice-log-caret" aria-hidden="true"></span>`,
+        `</label>`,
+        `<div class="dice-card-body dice-log-body">`,
+        `<div class="dice-card-detail">Roll: ${rollsDisplay}</div>`,
+        `<div class="dice-card-detail">Threshold: ${threshold}</div>`,
+        `</div>`,
+        `<div class="dice-card-highlight dice-log-footer">`,
+        `<span class="dice-log-footer-label">Result:</span>`,
+        `<span class="dice-card-inline-result" style="color:${statusColor}"><strong>${statusText}</strong></span>`,
+        `</div>`,
+        `</div>`,
+      ]);
+    }
+
+    if (term.explosions && term.explosions.length) {
+      const threshold = term.term.explode?.threshold ?? term.term.sides;
+      const explosionCount = term.explosionCount ?? Math.max(0, term.explosions.length - 1);
+      const statusColor = explosionCount > 0 ? "#22c55e" : "var(--text-main)";
+      const lines = term.explosions
+        .map((group, index) => {
+          const label = index === 0 ? "ROLL" : "EXPLOSION";
+          const values = group
+            .map((value) => (value >= threshold ? `<strong>${value}</strong>` : `${value}`))
+            .join(", ");
+          return `<div class="dice-card-detail"><span>${label}:</span> ${values || "-"}</div>`;
+        })
+        .join("");
+      const header = `EXPLODING ROLL ${term.term.count}d${term.term.sides} T:${threshold}`;
+      const resultText = `${term.total}${
+        explosionCount > 0 ? ` - ${explosionCount} Explosions` : ""
+      }`;
+
+      return joinHtml([
+        `<div class="dice-card dice-card-inline dice-log-card">`,
+        `<input type="checkbox" id="${toggleId}" class="dice-log-toggle" />`,
+        `<label for="${toggleId}" class="dice-card-title dice-log-header">`,
+        `<span>${header}</span>`,
+        `<span class="dice-log-caret" aria-hidden="true"></span>`,
+        `</label>`,
+        `<div class="dice-card-body dice-log-body">`,
+        `${lines}`,
+        `</div>`,
+        `<div class="dice-card-highlight dice-log-footer">`,
+        `<span class="dice-log-footer-label">Result:</span>`,
+        `<span class="dice-card-inline-result" style="color:${statusColor}"><strong>${resultText}</strong></span>`,
+        `</div>`,
+        `</div>`,
+      ]);
+    }
+    const label = formatDiceLabel(term, {
+      modifier: constantTotal,
+      expression: result.expression?.original,
+    });
     const rollsDisplay = term.dice
       .map((die) => (die.dropped ? `(${die.value})` : `${die.value}`))
       .join(", ");
-    const detailText = `Rolls: ${rollsDisplay || "-"}`;
-    const selectionTag = term.term.selection
-      ? ` (${term.term.selection.mode.replace("-", " ")})`
-      : "";
-    const headerInner = [
-      `<span>${label}${selectionTag}</span>`,
-      '<span class="dice-log-caret" aria-hidden="true"></span>',
-    ].join("");
+    const rollsText = rollsDisplay || "-";
+    const modifierText =
+      constantTotal !== 0
+        ? `<div class="dice-card-detail">Modifier: <strong>${
+            constantTotal > 0 ? "+" : ""
+          }${constantTotal}</strong></div>`
+        : "";
 
-    return `
-      <div class="dice-card dice-card-inline dice-log-card">
-        <input type="checkbox" id="${toggleId}" class="dice-log-toggle" />
-        <label for="${toggleId}" class="dice-card-title dice-log-header">${headerInner}</label>
-        <div class="dice-card-body dice-log-body">
-          <div class="dice-card-detail">${detailText}</div>
-        </div>
-        <div class="dice-card-highlight dice-log-footer">
-          <span class="dice-log-footer-label">Result:</span>
-          <span class="dice-card-inline-result">
-            <strong>${term.total}</strong>
-          </span>
-        </div>
-      </div>
-    `.trim();
+    return joinHtml([
+      `<div class="dice-card dice-card-inline dice-log-card">`,
+      `<input type="checkbox" id="${toggleId}" class="dice-log-toggle" />`,
+      `<label for="${toggleId}" class="dice-card-title dice-log-header">`,
+      `<span>${label}</span>`,
+      `<span class="dice-log-caret" aria-hidden="true"></span>`,
+      `</label>`,
+      `<div class="dice-card-body dice-log-body">`,
+      `<div class="dice-card-detail">Rolls: ${rollsText}</div>`,
+      `${modifierText}`,
+      `</div>`,
+      `<div class="dice-card-highlight dice-log-footer">`,
+      `<span class="dice-log-footer-label">Result:</span>`,
+      `<span class="dice-card-inline-result"><strong>${result.total}</strong></span>`,
+      `</div>`,
+      `</div>`,
+    ]);
   }
 
   return "";
@@ -129,6 +270,107 @@ function getChallengeOutcomeColor(outcome: string) {
     default:
       return "var(--text-main)";
   }
+}
+
+function getConstantSum(terms: RollResult["terms"]): number {
+  return terms
+    .filter((t) => t.type === "constant")
+    .reduce((sum, t) => sum + (t.type === "constant" ? t.value : 0), 0);
+}
+
+function isPoolSuccessHtml(value: number, pool: PoolRules) {
+  const target = pool.successThreshold;
+  switch (pool.successComparator) {
+    case ">":
+      return value > target;
+    case "<":
+      return value < target;
+    case ">=":
+      return value >= target;
+    case "<=":
+      return value <= target;
+    case "=":
+    case "==":
+      return value === target;
+    default:
+      return value >= target;
+  }
+}
+
+function renderPoolRollsInlineHtml(
+  dice: { value: number; dropped?: boolean }[],
+  pool: PoolRules
+) {
+  if (!dice.length) return "-";
+  return dice
+    .map((die, index) => {
+      const success = !die.dropped && isPoolSuccessHtml(die.value, pool);
+      const text = die.dropped ? `(${die.value})` : `${die.value}`;
+      const content = success ? `<strong>${text}</strong>` : text;
+      const suffix = index < dice.length - 1 ? ", " : "";
+      return `${content}${suffix}`;
+    })
+    .join("");
+}
+
+function renderDegradeRollsInlineHtml(dice: { value: number; dropped?: boolean }[]) {
+  if (!dice.length) return "-";
+  return dice.map((die) => (die.dropped ? `(${die.value})` : `${die.value}`)).join(", ");
+}
+
+function joinHtml(parts: Array<string | null | undefined>): string {
+  return parts.filter(Boolean).map((p) => p!.trim()).join("");
+}
+
+function formatSelectionText(selection?: { mode: string; count: number }) {
+  if (!selection) return "";
+  const { mode, count } = selection;
+  switch (mode) {
+    case "keep-highest":
+      return `Keep Highest ${count}`;
+    case "keep-lowest":
+      return `Keep Lowest ${count}`;
+    case "drop-highest":
+      return `Drop Highest ${count}`;
+    case "drop-lowest":
+      return `Drop Lowest ${count}`;
+    default:
+      return "";
+  }
+}
+
+function humanizeSelectionShorthand(expression: string) {
+  return expression.replace(
+    /(d\d+)(kh|kl|dh|dl)(\d+)/gi,
+    (_match, dice, code, count) => {
+      const map: Record<string, string> = {
+        kh: "Keep Highest",
+        kl: "Keep Lowest",
+        dh: "Drop Highest",
+        dl: "Drop Lowest",
+      };
+      const label = map[code.toLowerCase()] ?? code.toUpperCase();
+      return `${dice} ${label} ${count}`;
+    }
+  );
+}
+
+function formatDiceLabel(
+  diceResult: RollResult["terms"][number],
+  options: { modifier?: number; expression?: string } = {}
+) {
+  if (diceResult.type !== "dice") return "ROLL RESULT";
+  const { modifier = 0, expression } = options;
+  // If an explicit expression is provided, assume it already contains the modifiers.
+  if (expression && expression.trim().length) {
+    return `ROLLED ${humanizeSelectionShorthand(expression.trim())}`;
+  }
+
+  const selectionText = formatSelectionText(diceResult.term.selection);
+  const base = `${diceResult.term.count}d${diceResult.term.sides}`;
+  const modifierText = modifier !== 0 ? ` ${modifier > 0 ? `+${modifier}` : modifier}` : "";
+  const selectionSuffix = selectionText ? ` ${selectionText}` : "";
+  return `ROLLED ${base}${selectionSuffix}${modifierText}`;
 }
 
 const SquareIcon: DiceIcon = ({ size = 20, strokeWidth = 2 }) => (
@@ -231,7 +473,7 @@ export function DiceTray({ onRollResult, fadeDurationMs = 3000 }: DiceTrayProps)
 
   const handleAddDie = (type: LogicalRollType) => {
     if (type === "percentile") {
-      mergeDieIntoExpression(100);
+      appendToExpression("d%100");
       return;
     }
 
@@ -249,8 +491,12 @@ export function DiceTray({ onRollResult, fadeDurationMs = 3000 }: DiceTrayProps)
       if (baseline) {
         return buildDieFragment(sides, builderMode, true);
       }
-      const bumped = incrementDieInExpression(trimmed, sides);
-      if (bumped) return bumped;
+      // When using advantage/disadvantage, always append a new fragment rather than
+      // merging into an existing die count so the selection (kh/kl) stays intact.
+      if (builderMode === "normal") {
+        const bumped = incrementDieInExpression(trimmed, sides);
+        if (bumped) return bumped;
+      }
       const fragment = buildDieFragment(sides, builderMode, false);
       return `${trimmed} ${fragment}`.trim();
     });
@@ -264,10 +510,10 @@ export function DiceTray({ onRollResult, fadeDurationMs = 3000 }: DiceTrayProps)
         return;
       }
     }
-    appendToExpression(delta >= 0 ? `+ ${delta}` : `${delta}`);
+    setExpressionText((prev) => adjustStandardModifier(prev, delta));
   };
 
-  const handleTemplate = (template: "challenge" | "pool" | "degrade") => {
+  const handleTemplate = (template: "challenge" | "pool" | "degrade" | "explode") => {
     switch (template) {
       case "challenge":
         setExpressionText("challenge(d6 vs 2d10)");
@@ -278,6 +524,9 @@ export function DiceTray({ onRollResult, fadeDurationMs = 3000 }: DiceTrayProps)
       case "degrade":
         setExpressionText("1d6!<=2");
         break;
+      case "explode":
+        setExpressionText("3d6!6");
+        break;
     }
   };
 
@@ -285,7 +534,7 @@ export function DiceTray({ onRollResult, fadeDurationMs = 3000 }: DiceTrayProps)
     if (isRolling) return;
     try {
       setIsRolling(true);
-      const expression = DiceExpression.parse(expressionText);
+      const expression = DiceExpression.parse(typeof expressionText === "string" ? expressionText : "");
       setWarnings(expression.warnings);
       const result = await DiceRoller.rollWithProvider(expression, diceBoxValueProvider);
       setLastRoll(result);
@@ -297,6 +546,11 @@ export function DiceTray({ onRollResult, fadeDurationMs = 3000 }: DiceTrayProps)
         }
       }
     } catch (error) {
+      if (error instanceof Error) {
+        console.error("Roll error:", error);
+      } else {
+        console.error("Roll error (non-error):", error);
+      }
       setRollError(
         error instanceof Error ? error.message : "Failed to parse or roll this expression."
       );
@@ -409,7 +663,7 @@ export function DiceTray({ onRollResult, fadeDurationMs = 3000 }: DiceTrayProps)
             aria-label="Toggle log to entry"
             data-tooltip={logToEntry ? "Logging to entry" : "Not logging to entry"}
           >
-            <BookCheck size={34} strokeWidth={2.2} />
+            <NotebookPen size={34} strokeWidth={2.2} />
           </button>
           <div className="dice-expression-actions-right">
             <button
@@ -417,25 +671,28 @@ export function DiceTray({ onRollResult, fadeDurationMs = 3000 }: DiceTrayProps)
               className="dice-action-icon primary"
               onClick={handleRoll}
               disabled={isRolling || !expressionText.trim()}
-              aria-label="Roll expression"
-              data-tooltip="Roll expression"
+              aria-label="Roll Dice!"
+              data-tooltip="Roll Dice!"
             >
-              <Play size={34} strokeWidth={2.2} />
+              <CirclePlay size={34} strokeWidth={2.2} />
             </button>
           </div>
         </div>
       </div>
 
       <div className="dice-template-row">
-        <button
-          type="button"
-          className="dice-action-icon"
-          onClick={() => setExpressionText("")}
-          disabled={!expressionText.trim()}
-          aria-label="Clear expression"
-          data-tooltip="Clear expression"
-        >
-          <Eraser size={34} strokeWidth={2.2} />
+          <button
+            type="button"
+            className="dice-action-icon"
+            onClick={() => {
+              setExpressionText("");
+              setBuilderMode("normal");
+            }}
+            disabled={!expressionText.trim()}
+            aria-label="Clear expression"
+            data-tooltip="Clear expression"
+          >
+            <Eraser size={34} strokeWidth={2.2} />
         </button>
         <div className="dice-template-group">
         <button
@@ -454,7 +711,7 @@ export function DiceTray({ onRollResult, fadeDurationMs = 3000 }: DiceTrayProps)
           aria-label="Dice pool template"
           data-tooltip="Dice Pool Template"
         >
-          <Layers size={18} strokeWidth={2.5} />
+          <Blocks size={18} strokeWidth={2.5} />
         </button>
         <button
           type="button"
@@ -465,17 +722,48 @@ export function DiceTray({ onRollResult, fadeDurationMs = 3000 }: DiceTrayProps)
         >
           <TrendingDown size={18} strokeWidth={2.5} />
         </button>
+        <button
+          type="button"
+          className="dice-template-button"
+          onClick={() => handleTemplate("explode")}
+          aria-label="Exploding dice template"
+          data-tooltip="Exploding Dice Template"
+        >
+          <Bomb size={18} strokeWidth={2.5} />
+        </button>
         </div>
       </div>
 
         <div className="dice-save-controls">
-          <div className="dice-save-inputs">
+          <div className="dice-save-row">
+            <button
+              type="button"
+              className="dice-save-icon"
+              onClick={handleSaveExpression}
+              disabled={!saveName.trim()}
+              aria-label="Save expression"
+              data-tooltip="Save expression"
+            >
+              <Save size={32} strokeWidth={2.2} />
+            </button>
             <input
               type="text"
               value={saveName}
               onChange={(event) => setSaveName(event.target.value)}
               placeholder="Save name"
             />
+          </div>
+          <div className="dice-save-row">
+            <button
+              type="button"
+              className="dice-save-icon"
+              onClick={handleDeleteSaved}
+              disabled={!selectedSaveId}
+              aria-label="Delete saved expression"
+              data-tooltip="Delete saved expression"
+            >
+              <Trash2 size={32} strokeWidth={2.2} />
+            </button>
             <select
               value={selectedSaveId ?? ""}
               onChange={(event) => {
@@ -492,28 +780,6 @@ export function DiceTray({ onRollResult, fadeDurationMs = 3000 }: DiceTrayProps)
                 </option>
               ))}
             </select>
-          </div>
-          <div className="dice-save-actions">
-            <button
-              type="button"
-              className="dice-save-icon"
-              onClick={handleSaveExpression}
-              disabled={!saveName.trim()}
-              aria-label="Save expression"
-              data-tooltip="Save expression"
-            >
-              <Save size={28} strokeWidth={2.2} />
-            </button>
-            <button
-              type="button"
-              className="dice-save-icon"
-              onClick={handleDeleteSaved}
-              disabled={!selectedSaveId}
-              aria-label="Delete saved expression"
-              data-tooltip="Delete saved expression"
-            >
-              <Trash2 size={28} strokeWidth={2.2} />
-            </button>
           </div>
         </div>
 
@@ -537,6 +803,114 @@ function renderLastRollCard(lastRoll: RollResult) {
   const term = getPrimaryTerm(lastRoll);
   if (!term) return null;
   const highlights = annotateRollResult(lastRoll);
+  const nonConstantTerms = lastRoll.terms.filter((t) => t.type !== "constant");
+  const constantTotal = getConstantSum(lastRoll.terms);
+
+  if (nonConstantTerms.length > 1) {
+    return (
+      <>
+        <div className="dice-card">
+          <div className="dice-card-title">ROLL RESULT</div>
+          <div className="dice-card-body">
+            {nonConstantTerms.map((t, index) => {
+              if (t.type === "dice" && t.term.pool) {
+                const rollsDisplay = renderPoolRollsInline(t.dice, t.term.pool);
+                const threshold = `${t.term.pool.successThreshold}`;
+                const needed =
+                  typeof t.term.pool.targetSuccesses === "number"
+                    ? t.term.pool.targetSuccesses
+                    : "-";
+                return (
+                  <div key={`term-${index}`} className="dice-card-detail">
+                    <span>Dice Pool:</span>{" "}
+                    <span className="dice-pool-line">
+                      Rolls: {rollsDisplay} | Target: {threshold} | Successes Needed: {needed}
+                    </span>
+                  </div>
+                );
+              }
+              if (t.type === "dice" && t.term.explode) {
+                const threshold = t.term.explode?.threshold ?? t.term.sides;
+                const groups =
+                  t.explosions && t.explosions.length
+                    ? t.explosions
+                    : [t.dice.map((die) => die.value)];
+                const explosionLines = renderExplosionLines(groups, threshold);
+                const header = `Exploding ${t.term.count}d${t.term.sides} T:${threshold}`;
+                return (
+                  <div key={`term-${index}`} className="dice-card-detail">
+                    <div>{header}</div>
+                    {explosionLines}
+                  </div>
+                );
+              }
+              if (t.type === "dice" && t.term.degrade) {
+                const rollsDisplay = renderDegradeRollsInline(t.dice);
+                const threshold = t.term.degrade?.threshold ?? "-";
+                return (
+                  <div key={`term-${index}`} className="dice-card-detail">
+                    <span>Degradation:</span>{" "}
+                    <span className="dice-pool-line">
+                      Roll: {rollsDisplay} | Threshold: {threshold}
+                    </span>
+                  </div>
+                );
+              }
+              if (t.type === "dice") {
+                const rollsDisplay = t.dice
+          .map((die) => (die.dropped ? `(${die.value})` : `${die.value}`))
+          .join(", ");
+        const countLabel = `${t.term.count}d${t.term.sides}`;
+        const selectionText = formatSelectionText(t.term.selection);
+        const selectionTag = selectionText
+          ? ` ${selectionText}`
+          : t.term.selection
+            ? ` (${t.term.selection.mode.replace("-", " ")})`
+            : "";
+                return (
+                  <div key={`term-${index}`} className="dice-card-detail">
+                    <span>
+                      {countLabel}
+                      {selectionTag}:
+                    </span>{" "}
+                    <strong>{t.total}</strong> {rollsDisplay ? `(${rollsDisplay})` : ""}
+                  </div>
+                );
+              }
+              if (t.type === "challenge") {
+                const actionSegments: string[] = [`${t.actionDie}`];
+                if (t.actionModifier) {
+                  actionSegments.push(`${t.actionModifier >= 0 ? "+" : ""}${t.actionModifier}`);
+                }
+                if (typeof t.actionScore === "number") {
+                  actionSegments.push(`= ${t.actionScore}`);
+                }
+                const challengeText = t.challengeScore.length ? t.challengeScore.join(", ") : "-";
+                return (
+                  <div key={`term-${index}`} className="dice-card-detail">
+                    <span>Challenge:</span>{" "}
+                    <strong>{`${actionSegments.join(" ")} vs ${challengeText}`}</strong>
+                  </div>
+                );
+              }
+              return (
+                <div key={`term-${index}`} className="dice-card-detail">
+                  <span>Term {index + 1}:</span> <strong>{t.total}</strong>
+                </div>
+              );
+            })}
+          </div>
+          <div className="dice-card-highlight">
+            Result:{" "}
+            <span className="dice-card-inline-result">
+              <strong>{lastRoll.total}</strong>
+            </span>
+          </div>
+        </div>
+        <DiceHighlightList highlights={highlights} />
+      </>
+    );
+  }
 
   if (term.type === "challenge") {
     const actionSegments: string[] = [`${term.actionDie}`];
@@ -578,25 +952,128 @@ function renderLastRollCard(lastRoll: RollResult) {
     );
   }
 
-  if (term.type === "dice") {
-    const rollsDisplay = term.dice
-      .map((die) => (die.dropped ? `(${die.value})` : `${die.value}`))
-      .join(", ");
-    const selectionTag = term.term.selection
-      ? ` (${term.term.selection.mode.replace("-", " ")})`
-      : "";
+  if (term.type === "dice" && term.term.degrade) {
+    const rollsDisplay = renderDegradeRollsInline(term.dice);
+    const threshold = term.term.degrade?.threshold ?? "-";
+    const triggered = term.degradeTriggered ?? false;
+    const statusText = triggered ? `${term.total} - DEGRADE` : `${term.total}`;
+    const statusColor = triggered ? "#ef4444" : "var(--text-main)";
+    const headerText = `DEGRADATION ROLL ${term.term.count}d${term.term.sides} D:${threshold}`;
 
     return (
       <>
         <div className="dice-card">
-          <div className="dice-card-title">{`ROLLED d${term.term.sides}${selectionTag}`}</div>
+          <div className="dice-card-title">{headerText}</div>
+          <div className="dice-card-body">
+            <div className="dice-card-detail">Roll: {rollsDisplay}</div>
+            <div className="dice-card-detail">Threshold: {threshold}</div>
+          </div>
+          <div className="dice-card-highlight">
+            Result:{" "}
+            <span className="dice-card-inline-result" style={{ color: statusColor }}>
+              <strong>{statusText}</strong>
+            </span>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  if (term.type === "dice" && term.term.explode) {
+    const threshold = term.term.explode?.threshold ?? term.term.sides;
+    const groups =
+      term.explosions && term.explosions.length
+        ? term.explosions
+        : [term.dice.map((die) => die.value)];
+    const explosionCount = term.explosionCount ?? Math.max(0, groups.length - 1);
+    const statusColor = explosionCount > 0 ? "#22c55e" : "var(--text-main)";
+    const headerText = `EXPLODING ROLL ${term.term.count}d${term.term.sides} T:${threshold}`;
+    const explosionLines = renderExplosionLines(groups, threshold);
+
+    return (
+      <>
+        <div className="dice-card">
+          <div className="dice-card-title">{headerText}</div>
+          <div className="dice-card-body">{explosionLines}</div>
+          <div className="dice-card-highlight">
+            Result:{" "}
+            <span className="dice-card-inline-result" style={{ color: statusColor }}>
+              <strong>
+                {term.total}
+                {explosionCount > 0 ? ` - ${explosionCount} Explosions` : ""}
+              </strong>
+            </span>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  if (term.type === "dice" && term.term.pool) {
+    const rollsDisplay = renderPoolRollsInline(term.dice, term.term.pool);
+    const pool = term.term.pool;
+    const threshold = `${pool.successThreshold}`;
+    const needed =
+      typeof pool.targetSuccesses === "number" ? pool.targetSuccesses : undefined;
+    const successes = term.successes ?? 0;
+    const met = term.metTarget ?? (typeof needed === "number" ? successes >= needed : successes > 0);
+    const statusText = met ? "PASS" : "FAIL";
+    const statusColor = met ? "#22c55e" : "#ef4444";
+    const successLabel = `${successes} success${successes === 1 ? "" : "es"}`;
+    const poolHeader = `DICE POOL - ${term.term.count}d${term.term.sides} T:${threshold} S:${
+      needed !== undefined ? needed : "-"
+    }`;
+
+    return (
+      <>
+        <div className="dice-card">
+          <div className="dice-card-title">{poolHeader}</div>
+          <div className="dice-card-body">
+            <div className="dice-card-detail">Rolls: {rollsDisplay}</div>
+            <div className="dice-card-detail">Target: {threshold}</div>
+            <div className="dice-card-detail">
+              Successes Needed: {needed !== undefined ? needed : "-"}
+            </div>
+          </div>
+          <div className="dice-card-highlight">
+            Result:{" "}
+            <span className="dice-card-inline-result" style={{ color: statusColor }}>
+              <strong>
+                {successLabel} - {statusText}
+              </strong>
+            </span>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  if (term.type === "dice") {
+    const rollsDisplay = term.dice
+      .map((die) => (die.dropped ? `(${die.value})` : `${die.value}`))
+      .join(", ");
+    const selectionTag = term.term.selection ? ` (${term.term.selection.mode.replace("-", " ")})` : "";
+    const headerText = formatDiceLabel(term, {
+      modifier: constantTotal,
+      expression: lastRoll.expression?.original,
+    });
+
+    return (
+      <>
+        <div className="dice-card">
+          <div className="dice-card-title">{headerText}</div>
           <div className="dice-card-body">
             <div className="dice-card-detail">Rolls: {rollsDisplay || "-"}</div>
+            {constantTotal !== 0 && (
+              <div className="dice-card-detail">
+                Modifier: <strong>{constantTotal > 0 ? `+${constantTotal}` : constantTotal}</strong>
+              </div>
+            )}
           </div>
           <div className="dice-card-highlight">
             Result:{" "}
             <span className="dice-card-inline-result">
-              <strong>{term.total}</strong>
+              <strong>{lastRoll.total}</strong>
             </span>
           </div>
         </div>
@@ -609,10 +1086,13 @@ function renderLastRollCard(lastRoll: RollResult) {
 }
 
 function DiceHighlightList({ highlights }: { highlights: RollHighlight[] }) {
-  if (!highlights.length) return null;
+  const visible = highlights.filter(
+    (h) => h.type !== "challenge-outcome" && h.type !== "pool-success" && h.type !== "degrade"
+  );
+  if (!visible.length) return null;
   return (
     <div className="dice-highlight-list">
-      {highlights.map((highlight, index) => (
+      {visible.map((highlight, index) => (
         <DiceHighlightBadge key={`${highlight.type}-${index}`} highlight={highlight} />
       ))}
     </div>
@@ -660,6 +1140,80 @@ function DiceHighlightBadge({ highlight }: { highlight: RollHighlight }) {
   return null;
 }
 
+type PoolRules = {
+  successComparator: string;
+  successThreshold: number;
+};
+
+function isPoolSuccess(value: number, pool: PoolRules) {
+  const target = pool.successThreshold;
+  switch (pool.successComparator) {
+    case ">":
+      return value > target;
+    case "<":
+      return value < target;
+    case ">=":
+      return value >= target;
+    case "<=":
+      return value <= target;
+    case "=":
+    case "==":
+      return value === target;
+    default:
+      return value >= target;
+  }
+}
+
+function renderPoolRollsInline(
+  dice: { value: number; dropped?: boolean }[],
+  pool: PoolRules
+) {
+  if (!dice.length) return "-";
+  return dice.map((die, index) => {
+    const success = !die.dropped && isPoolSuccess(die.value, pool);
+    const text = die.dropped ? `(${die.value})` : `${die.value}`;
+    const content = success ? <strong>{text}</strong> : <span>{text}</span>;
+    const suffix = index < dice.length - 1 ? ", " : "";
+    return (
+      <span key={`pool-roll-${index}`}>
+        {content}
+        {suffix}
+      </span>
+    );
+  });
+}
+
+function renderDegradeRollsInline(dice: { value: number; dropped?: boolean }[]) {
+  if (!dice.length) return "-";
+  return dice
+    .map((die) => (die.dropped ? `(${die.value})` : `${die.value}`))
+    .join(", ");
+}
+
+function renderExplosionLines(groups: number[][], threshold: number) {
+  return groups.map((values, idx) => {
+    const label = idx === 0 ? "ROLL" : "EXPLOSION";
+    return (
+      <div key={`explode-${idx}`} className="dice-card-detail">
+        <span>{label}:</span>{" "}
+        <span>
+          {values.map((value, valueIndex) => {
+            const isExploding = value >= threshold;
+            const content = isExploding ? <strong>{value}</strong> : <span>{value}</span>;
+            const suffix = valueIndex < values.length - 1 ? ", " : "";
+            return (
+              <span key={`explode-val-${idx}-${valueIndex}`}>
+                {content}
+                {suffix}
+              </span>
+            );
+          })}
+        </span>
+      </div>
+    );
+  });
+}
+
 function isBaselineExpression(value: string) {
   const trimmed = value.trim();
   return trimmed.length === 0 || trimmed === "1d20";
@@ -679,6 +1233,25 @@ function incrementDieInExpression(expression: string, sides: number): string | n
     return `${prefix}${signPart}${count + 1}d${sides}${suffix ?? ""}`;
   });
   return replaced ? result.trim().replace(/\s{2,}/g, " ") : null;
+}
+
+function adjustStandardModifier(expression: string, delta: number): string {
+  const trimmed = expression.trim();
+  if (!trimmed) {
+    return delta >= 0 ? `${delta}` : `${delta}`;
+  }
+  const modifierMatch = trimmed.match(/([+-]\s*\d+)\s*$/);
+  if (modifierMatch) {
+    const current = Number.parseInt(modifierMatch[1].replace(/\s+/g, ""), 10);
+    const next = current + delta;
+    if (next === 0) {
+      return trimmed.slice(0, modifierMatch.index).trim();
+    }
+    const nextFragment = next > 0 ? `+ ${next}` : `${next}`;
+    return `${trimmed.slice(0, modifierMatch.index)} ${nextFragment}`.trim();
+  }
+  const fragment = delta >= 0 ? `+ ${delta}` : `${delta}`;
+  return `${trimmed} ${fragment}`.trim();
 }
 
 function adjustChallengeModifier(text: string, delta: number) {

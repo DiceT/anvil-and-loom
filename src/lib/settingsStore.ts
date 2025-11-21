@@ -23,6 +23,14 @@ export interface AppSettings {
   tapestriesRoot: string;
   currentTapestry: string;
   diceFadeDurationMs: number;
+  diceThemeName: string;
+  diceThemeColor: string;
+  diceTensThemeColor: string;
+  diceTexture: string;
+  diceScale: number;
+  diceEnableExploding: boolean;
+  diceEnableDegrade: boolean;
+  diceEnablePools: boolean;
 }
 
 const LOCAL_STORAGE_KEY = "anvil-and-loom:settings";
