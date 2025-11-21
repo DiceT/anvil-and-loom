@@ -1,0 +1,1821 @@
+{
+  "aspects": {
+    "Overgrown": {
+      "description": "Overgrown marks places where nature has surged past its boundaries, swallowing roads, walls, and memories beneath roots, thorns, and moss. In an Overgrown environment, every step feels like trespass into a living, indifferent tide of growth that hides both ancient secrets and fresh, hungry things.",
+      "Objective": {
+        "sourcePath": "generated",
+        "name": "Objective",
+        "tags": [
+          "objective"
+        ],
+        "headers": [
+          "d100",
+          "Result"
+        ],
+        "tableData": [
+          {
+            "floor": 1,
+            "ceiling": 2,
+            "result": "Cut a path through knot-vine to reach graves."
+          },
+          {
+            "floor": 3,
+            "ceiling": 4,
+            "result": "Harvest thorn-bloom sap without waking the hive-wolves."
+          },
+          {
+            "floor": 5,
+            "ceiling": 6,
+            "result": "Drag a broken cart from choking reed-mire."
+          },
+          {
+            "floor": 7,
+            "ceiling": 8,
+            "result": "Light a beacon atop moss-slick watchtower stones."
+          },
+          {
+            "floor": 9,
+            "ceiling": 10,
+            "result": "Negotiate safe passage with briar-haunted forest spirits."
+          },
+          {
+            "floor": 11,
+            "ceiling": 12,
+            "result": "Excavate a drowned milestone hidden under root-knuckles."
+          },
+          {
+            "floor": 13,
+            "ceiling": 14,
+            "result": "Scout for dry ground amid creeping boggrass tides."
+          },
+          {
+            "floor": 15,
+            "ceiling": 16,
+            "result": "Reclaim the well, clearing leeches and strangler algae."
+          },
+          {
+            "floor": 17,
+            "ceiling": 18,
+            "result": "Rescue a trapped child from nettle-choked orchard rows."
+          },
+          {
+            "floor": 19,
+            "ceiling": 20,
+            "result": "Burn invasive kudzu masking a bandit ambush."
+          },
+          {
+            "floor": 21,
+            "ceiling": 22,
+            "result": "Retrieve lost mailbag swallowed by ditch brush."
+          },
+          {
+            "floor": 23,
+            "ceiling": 24,
+            "result": "Map a vanished road veiled by fern canopies."
+          },
+          {
+            "floor": 25,
+            "ceiling": 26,
+            "result": "Climb ivy-laden walls without tearing old mortar."
+          },
+          {
+            "floor": 27,
+            "ceiling": 28,
+            "result": "Free a flock snared in burr-crown hedgerows."
+          },
+          {
+            "floor": 29,
+            "ceiling": 30,
+            "result": "Recover an heirloom blade from lichen-blind statue hands."
+          },
+          {
+            "floor": 31,
+            "ceiling": 32,
+            "result": "Open a sealed crypt smothered in fungus quilts."
+          },
+          {
+            "floor": 33,
+            "ceiling": 34,
+            "result": "Bargain with hedgewitches for paths through green labyrinth."
+          },
+          {
+            "floor": 35,
+            "ceiling": 36,
+            "result": "Hunt the boar that uproots graves each night."
+          },
+          {
+            "floor": 37,
+            "ceiling": 38,
+            "result": "Drain a flooded cellar invaded by creeping mold."
+          },
+          {
+            "floor": 39,
+            "ceiling": 40,
+            "result": "Harvest ghost-orchids thriving on battlefield bones."
+          },
+          {
+            "floor": 41,
+            "ceiling": 42,
+            "result": "Track a kidnapper through sap-slick trailing leaves."
+          },
+          {
+            "floor": 43,
+            "ceiling": 44,
+            "result": "Clear church bells clogged with nests and moss."
+          },
+          {
+            "floor": 45,
+            "ceiling": 46,
+            "result": "Escort a pilgrim across thornlands demanding blood toll."
+          },
+          {
+            "floor": 47,
+            "ceiling": 48,
+            "result": "Cut free a watchman swallowed by strangler roots."
+          },
+          {
+            "floor": 49,
+            "ceiling": 50,
+            "result": "Smother a spore-bloom before villagers breathe death."
+          },
+          {
+            "floor": 51,
+            "ceiling": 52,
+            "result": "Divert a stream eroding tombs beneath willow curtains."
+          },
+          {
+            "floor": 53,
+            "ceiling": 54,
+            "result": "Salvage wagon wheels sunk in peat-choked ruts."
+          },
+          {
+            "floor": 55,
+            "ceiling": 56,
+            "result": "Signal allies through canopy smothering smoke plumes."
+          },
+          {
+            "floor": 57,
+            "ceiling": 58,
+            "result": "Parley with antlered hermit guarding overrun milestones."
+          },
+          {
+            "floor": 59,
+            "ceiling": 60,
+            "result": "Recover maps from a library entombed in vines."
+          },
+          {
+            "floor": 61,
+            "ceiling": 62,
+            "result": "Purge creeping ivy hiding arrow slits from defenders."
+          },
+          {
+            "floor": 63,
+            "ceiling": 64,
+            "result": "Cross a bridge buried in hanging moss curtains."
+          },
+          {
+            "floor": 65,
+            "ceiling": 66,
+            "result": "Plant warding thorns around fields against hungry green."
+          },
+          {
+            "floor": 67,
+            "ceiling": 68,
+            "result": "Find a lost dog amid maze-high bracken."
+          },
+          {
+            "floor": 69,
+            "ceiling": 70,
+            "result": "Rebuild a boundary stone eaten by creeping lichens."
+          },
+          {
+            "floor": 71,
+            "ceiling": 72,
+            "result": "Steal eggs from swamp hags’ cattail cradles."
+          },
+          {
+            "floor": 73,
+            "ceiling": 74,
+            "result": "Cut tangled hairgrass from wounded soldiers’ festering wounds."
+          },
+          {
+            "floor": 75,
+            "ceiling": 76,
+            "result": "Scout a keep whose courtyard grew a forest."
+          },
+          {
+            "floor": 77,
+            "ceiling": 78,
+            "result": "Quench a fire strangled by wet vine-smoke."
+          },
+          {
+            "floor": 79,
+            "ceiling": 80,
+            "result": "Retrieve a bell-rope entwined with venom nettles."
+          },
+          {
+            "floor": 81,
+            "ceiling": 82,
+            "result": "Track a stag marked by ivy-crown curse."
+          },
+          {
+            "floor": 83,
+            "ceiling": 84,
+            "result": "Free a millwheel jammed by river weeds."
+          },
+          {
+            "floor": 85,
+            "ceiling": 86,
+            "result": "Carry a corpse through briars without spilling blood."
+          },
+          {
+            "floor": 87,
+            "ceiling": 88,
+            "result": "Harvest marrow-sap from the great heartroot tree."
+          },
+          {
+            "floor": 89,
+            "ceiling": 90,
+            "result": "Open a sunless glade choking travelers with pollen."
+          },
+          {
+            "floor": 91,
+            "ceiling": 92,
+            "result": "Sneak past briar-trolls nesting beneath leaf-draped arches."
+          },
+          {
+            "floor": 93,
+            "ceiling": 94,
+            "result": "Unseal drainage tunnels clogged by root-knitted mats."
+          },
+          {
+            "floor": 95,
+            "ceiling": 96,
+            "result": "Guide refugees along an overrun aqueduct spine."
+          },
+          {
+            "floor": 97,
+            "ceiling": 98,
+            "result": "Quiet a shrine smothered under creeping prayer-moss."
+          },
+          {
+            "floor": 99,
+            "ceiling": 100,
+            "result": "Navigate thorn mazes to retrieve a fading memory."
+          }
+        ],
+        "maxRoll": 100
+      },
+      "Atmosphere": {
+        "sourcePath": "generated",
+        "name": "Atmosphere",
+        "tags": [],
+        "headers": [
+          "d100",
+          "Result"
+        ],
+        "tableData": [
+          {
+            "floor": 1,
+            "ceiling": 1,
+            "result": "Mud swallows bootprints; the forest forgets us"
+          },
+          {
+            "floor": 2,
+            "ceiling": 2,
+            "result": "Vines bind fallen spears like patient jailers"
+          },
+          {
+            "floor": 3,
+            "ceiling": 3,
+            "result": "Moss muffles screams beneath dripping boughs"
+          },
+          {
+            "floor": 4,
+            "ceiling": 4,
+            "result": "Root-heave cracks the road’s last memory"
+          },
+          {
+            "floor": 5,
+            "ceiling": 5,
+            "result": "Wet leaves kiss with cold, greedy tongues"
+          },
+          {
+            "floor": 6,
+            "ceiling": 6,
+            "result": "Green shade hides teeth and patient eyes"
+          },
+          {
+            "floor": 7,
+            "ceiling": 7,
+            "result": "Ants ferry bones under fern umbrellas"
+          },
+          {
+            "floor": 8,
+            "ceiling": 8,
+            "result": "Sap stinks sweet over old blood"
+          },
+          {
+            "floor": 9,
+            "ceiling": 9,
+            "result": "Briar crowns a toppled statue’s blank stare"
+          },
+          {
+            "floor": 10,
+            "ceiling": 10,
+            "result": "Stone altars drowned in nettle hush"
+          },
+          {
+            "floor": 11,
+            "ceiling": 11,
+            "result": "A doorway clogged with thorny breath"
+          },
+          {
+            "floor": 12,
+            "ceiling": 12,
+            "result": "Black water still as a held lie"
+          },
+          {
+            "floor": 13,
+            "ceiling": 13,
+            "result": "Tree-limbs knitted like a ribcage ceiling"
+          },
+          {
+            "floor": 14,
+            "ceiling": 14,
+            "result": "Fungus blooms on a rusted helm"
+          },
+          {
+            "floor": 15,
+            "ceiling": 15,
+            "result": "Wind pulls secrets through reed teeth"
+          },
+          {
+            "floor": 16,
+            "ceiling": 16,
+            "result": "Rot hums; beetles write in carcass"
+          },
+          {
+            "floor": 17,
+            "ceiling": 17,
+            "result": "A well choked with ivy’s thirst"
+          },
+          {
+            "floor": 18,
+            "ceiling": 18,
+            "result": "Paths rerouted by stubborn root knuckles"
+          },
+          {
+            "floor": 19,
+            "ceiling": 19,
+            "result": "Lichens gnaw names from graves, patient"
+          },
+          {
+            "floor": 20,
+            "ceiling": 20,
+            "result": "Slick moss invites a quiet fall"
+          },
+          {
+            "floor": 21,
+            "ceiling": 21,
+            "result": "Carrion smell under crushed fern hearts"
+          },
+          {
+            "floor": 22,
+            "ceiling": 22,
+            "result": "Crickets drum like dull war memories"
+          },
+          {
+            "floor": 23,
+            "ceiling": 23,
+            "result": "Crawling vines unknot a banner’s honor"
+          },
+          {
+            "floor": 24,
+            "ceiling": 24,
+            "result": "Rain beads on thorn like glass guilt"
+          },
+          {
+            "floor": 25,
+            "ceiling": 25,
+            "result": "Birdsong warped, distant, behind leaf walls"
+          },
+          {
+            "floor": 26,
+            "ceiling": 26,
+            "result": "Sunlight slices green dust in motes"
+          },
+          {
+            "floor": 27,
+            "ceiling": 27,
+            "result": "A tower’s crown braided with wolfbane"
+          },
+          {
+            "floor": 28,
+            "ceiling": 28,
+            "result": "Tangled hedges trap the day’s last light"
+          },
+          {
+            "floor": 29,
+            "ceiling": 29,
+            "result": "Stone stairs buried under velvet roots"
+          },
+          {
+            "floor": 30,
+            "ceiling": 30,
+            "result": "Spider bridges stitched between blackberry spears"
+          },
+          {
+            "floor": 31,
+            "ceiling": 31,
+            "result": "Dead campfires swallowed by creeping clover"
+          },
+          {
+            "floor": 32,
+            "ceiling": 32,
+            "result": "A helm sprouts tiny white mushrooms"
+          },
+          {
+            "floor": 33,
+            "ceiling": 33,
+            "result": "Ferns whisper, promising cover and hunger"
+          },
+          {
+            "floor": 34,
+            "ceiling": 34,
+            "result": "The stream chews a road’s bones"
+          },
+          {
+            "floor": 35,
+            "ceiling": 35,
+            "result": "Berry stains flash like false mercy"
+          },
+          {
+            "floor": 36,
+            "ceiling": 36,
+            "result": "Bark swallows iron rings once used"
+          },
+          {
+            "floor": 37,
+            "ceiling": 37,
+            "result": "Wet earth grips ankles like debt"
+          },
+          {
+            "floor": 38,
+            "ceiling": 38,
+            "result": "Rot-soft logs collapse with quiet sighs"
+          },
+          {
+            "floor": 39,
+            "ceiling": 39,
+            "result": "Foxglove bells toll for lost men"
+          },
+          {
+            "floor": 40,
+            "ceiling": 40,
+            "result": "Pollen hangs like a yellow threat"
+          },
+          {
+            "floor": 41,
+            "ceiling": 41,
+            "result": "Owls blink from ivy-shrouded arches"
+          },
+          {
+            "floor": 42,
+            "ceiling": 42,
+            "result": "Glass windows veiled by green scabs"
+          },
+          {
+            "floor": 43,
+            "ceiling": 43,
+            "result": "Thorns taste blood, then ask for more"
+          },
+          {
+            "floor": 44,
+            "ceiling": 44,
+            "result": "Drowned courtyard breathing under frog chorus"
+          },
+          {
+            "floor": 45,
+            "ceiling": 45,
+            "result": "Roots writhe around a buried shield"
+          },
+          {
+            "floor": 46,
+            "ceiling": 46,
+            "result": "Smell of leaf-rot, sweet and wrong"
+          },
+          {
+            "floor": 47,
+            "ceiling": 47,
+            "result": "Creepers climb armor, claim the dead"
+          },
+          {
+            "floor": 48,
+            "ceiling": 48,
+            "result": "A gate sealed by living chains"
+          },
+          {
+            "floor": 49,
+            "ceiling": 49,
+            "result": "Slugs polish bones to a shine"
+          },
+          {
+            "floor": 50,
+            "ceiling": 50,
+            "result": "Stooped willows gossip over drowned cobbles"
+          },
+          {
+            "floor": 51,
+            "ceiling": 51,
+            "result": "Branches scrape helmets like tired hands"
+          },
+          {
+            "floor": 52,
+            "ceiling": 52,
+            "result": "Silent orchard heavy with bitter fruit"
+          },
+          {
+            "floor": 53,
+            "ceiling": 53,
+            "result": "Mire gulps footsteps, refuses to return"
+          },
+          {
+            "floor": 54,
+            "ceiling": 54,
+            "result": "Matted grass hides rusted caltrops, patient"
+          },
+          {
+            "floor": 55,
+            "ceiling": 55,
+            "result": "Bramble hems the horizon into cages"
+          },
+          {
+            "floor": 56,
+            "ceiling": 56,
+            "result": "Bark scars shaped like forgotten prayers"
+          },
+          {
+            "floor": 57,
+            "ceiling": 57,
+            "result": "Twigs crack like old promises breaking"
+          },
+          {
+            "floor": 58,
+            "ceiling": 58,
+            "result": "A mildew crown on forgotten maps"
+          },
+          {
+            "floor": 59,
+            "ceiling": 59,
+            "result": "Ravens nest in thorn, mock oaths"
+          },
+          {
+            "floor": 60,
+            "ceiling": 60,
+            "result": "Fallen chapel kneels beneath nettle choir"
+          },
+          {
+            "floor": 61,
+            "ceiling": 61,
+            "result": "Sweet rot clings to the tongue"
+          },
+          {
+            "floor": 62,
+            "ceiling": 62,
+            "result": "Gnats knit veils over stagnant pools"
+          },
+          {
+            "floor": 63,
+            "ceiling": 63,
+            "result": "Vine-choked banner flutters like a wound"
+          },
+          {
+            "floor": 64,
+            "ceiling": 64,
+            "result": "Footpath becomes a green-walled throat"
+          },
+          {
+            "floor": 65,
+            "ceiling": 65,
+            "result": "Heartbeats echo in damp leaf vaults"
+          },
+          {
+            "floor": 66,
+            "ceiling": 66,
+            "result": "Petals bloom from a cracked skull"
+          },
+          {
+            "floor": 67,
+            "ceiling": 67,
+            "result": "Blackberries hoard a child’s wooden sword"
+          },
+          {
+            "floor": 68,
+            "ceiling": 68,
+            "result": "Moss quilts the dead with false comfort"
+          },
+          {
+            "floor": 69,
+            "ceiling": 69,
+            "result": "Slick roots write curses underfoot"
+          },
+          {
+            "floor": 70,
+            "ceiling": 70,
+            "result": "Pale toadstools mark a hunter’s grave"
+          },
+          {
+            "floor": 71,
+            "ceiling": 71,
+            "result": "Reeds hiss where soldiers once prayed"
+          },
+          {
+            "floor": 72,
+            "ceiling": 72,
+            "result": "Green weight slumps over broken spears"
+          },
+          {
+            "floor": 73,
+            "ceiling": 73,
+            "result": "Peat breath rises, warm and sour"
+          },
+          {
+            "floor": 74,
+            "ceiling": 74,
+            "result": "Crows lift, seeds drop, debts spread"
+          },
+          {
+            "floor": 75,
+            "ceiling": 75,
+            "result": "A milestone buried to its chin"
+          },
+          {
+            "floor": 76,
+            "ceiling": 76,
+            "result": "Caterpillars graze banners to lace"
+          },
+          {
+            "floor": 77,
+            "ceiling": 77,
+            "result": "Ivy stitches shut a castle’s mouth"
+          },
+          {
+            "floor": 78,
+            "ceiling": 78,
+            "result": "Saplings sprout from a mailed fist"
+          },
+          {
+            "floor": 79,
+            "ceiling": 79,
+            "result": "Grove listens, indifferent to pleading"
+          },
+          {
+            "floor": 80,
+            "ceiling": 80,
+            "result": "Dragonflies patrol a drowned hearth"
+          },
+          {
+            "floor": 81,
+            "ceiling": 81,
+            "result": "Fern-fronds hide traps like folded knives"
+          },
+          {
+            "floor": 82,
+            "ceiling": 82,
+            "result": "Sour berries tempt with bright lies"
+          },
+          {
+            "floor": 83,
+            "ceiling": 83,
+            "result": "Leaf-shade cools, then steals direction"
+          },
+          {
+            "floor": 84,
+            "ceiling": 84,
+            "result": "Bark breath rasps with beetle hunger"
+          },
+          {
+            "floor": 85,
+            "ceiling": 85,
+            "result": "A bridge replaced by root and rot"
+          },
+          {
+            "floor": 86,
+            "ceiling": 86,
+            "result": "Spear hafts bloom with gray lichen"
+          },
+          {
+            "floor": 87,
+            "ceiling": 87,
+            "result": "Tadpoles swarm in hoofprint graves"
+          },
+          {
+            "floor": 88,
+            "ceiling": 88,
+            "result": "Green stink clings to tarnished coin"
+          },
+          {
+            "floor": 89,
+            "ceiling": 89,
+            "result": "Bramble keeps trophies: blood, hair, cloth"
+          },
+          {
+            "floor": 90,
+            "ceiling": 90,
+            "result": "Thistles guard a forgotten wellhead"
+          },
+          {
+            "floor": 91,
+            "ceiling": 91,
+            "result": "Murk eddies around sunken banners"
+          },
+          {
+            "floor": 92,
+            "ceiling": 92,
+            "result": "Dew beads like sweat before judgment"
+          },
+          {
+            "floor": 93,
+            "ceiling": 93,
+            "result": "A crown of leaves on empty throne"
+          },
+          {
+            "floor": 94,
+            "ceiling": 94,
+            "result": "Gnarled trunks loom like tired wardens"
+          },
+          {
+            "floor": 95,
+            "ceiling": 95,
+            "result": "Owlet bones under a moss pillow"
+          },
+          {
+            "floor": 96,
+            "ceiling": 96,
+            "result": "Hare trails braid through ruined pews"
+          },
+          {
+            "floor": 97,
+            "ceiling": 98,
+            "result": "ACTION + THEME"
+          },
+          {
+            "floor": 99,
+            "ceiling": 100,
+            "result": "ROLL TWICE"
+          }
+        ],
+        "maxRoll": 100
+      },
+      "Manifestation": {
+        "sourcePath": "generated",
+        "name": "Manifestation",
+        "tags": [],
+        "headers": [
+          "d100",
+          "Result"
+        ],
+        "tableData": [
+          {
+            "floor": 1,
+            "ceiling": 2,
+            "result": "Road swallowed by roots, stones choking"
+          },
+          {
+            "floor": 3,
+            "ceiling": 4,
+            "result": "Thorn maze strangling a rusted gallows"
+          },
+          {
+            "floor": 5,
+            "ceiling": 6,
+            "result": "Temple steps buried under slick moss"
+          },
+          {
+            "floor": 7,
+            "ceiling": 8,
+            "result": "Helm fused to a stump of ivy"
+          },
+          {
+            "floor": 9,
+            "ceiling": 10,
+            "result": "Sunken milestone cradled by fern tongues"
+          },
+          {
+            "floor": 11,
+            "ceiling": 12,
+            "result": "Well mouth clogged with creeping lilies"
+          },
+          {
+            "floor": 13,
+            "ceiling": 14,
+            "result": "Gate hinges devoured by knotwood"
+          },
+          {
+            "floor": 15,
+            "ceiling": 16,
+            "result": "Gravemark erased by lichen bloom"
+          },
+          {
+            "floor": 17,
+            "ceiling": 18,
+            "result": "Banner pole sprouting sap and bark"
+          },
+          {
+            "floor": 19,
+            "ceiling": 20,
+            "result": "Cairn split by a birch’s hunger"
+          },
+          {
+            "floor": 21,
+            "ceiling": 22,
+            "result": "Cornfield reclaimed by wolf-high thistles"
+          },
+          {
+            "floor": 23,
+            "ceiling": 24,
+            "result": "Crumbling bridge veined with kudzu ropes"
+          },
+          {
+            "floor": 25,
+            "ceiling": 26,
+            "result": "Chapel bell muted by nettle nests"
+          },
+          {
+            "floor": 27,
+            "ceiling": 28,
+            "result": "Statue face masked in moss-beard"
+          },
+          {
+            "floor": 29,
+            "ceiling": 30,
+            "result": "Library drowned in leaf-litter drifts"
+          },
+          {
+            "floor": 31,
+            "ceiling": 32,
+            "result": "Mire swallowing a wagon’s last wheel"
+          },
+          {
+            "floor": 33,
+            "ceiling": 34,
+            "result": "Watchtower staircase carpeted with slime"
+          },
+          {
+            "floor": 35,
+            "ceiling": 36,
+            "result": "Grindstone rim circled by fungus teeth"
+          },
+          {
+            "floor": 37,
+            "ceiling": 38,
+            "result": "Cudgel grown shoots, still sticky red"
+          },
+          {
+            "floor": 39,
+            "ceiling": 40,
+            "result": "Cobbles lifted like teeth by roots"
+          },
+          {
+            "floor": 41,
+            "ceiling": 42,
+            "result": "Palisade laced with blackberry barbs"
+          },
+          {
+            "floor": 43,
+            "ceiling": 44,
+            "result": "Armor bloom: mushrooms inside the breastplate"
+          },
+          {
+            "floor": 45,
+            "ceiling": 46,
+            "result": "Quarry pit filled with bracken tides"
+          },
+          {
+            "floor": 47,
+            "ceiling": 48,
+            "result": "Outhouse crushed by a patient oak"
+          },
+          {
+            "floor": 49,
+            "ceiling": 50,
+            "result": "Kiln mouth coughing seed-laced smoke"
+          },
+          {
+            "floor": 51,
+            "ceiling": 52,
+            "result": "Fishpond choked in duckweed velvet"
+          },
+          {
+            "floor": 53,
+            "ceiling": 54,
+            "result": "Grain silo sprouting pale seedlings"
+          },
+          {
+            "floor": 55,
+            "ceiling": 56,
+            "result": "Graveyard path erased by creeping thyme"
+          },
+          {
+            "floor": 57,
+            "ceiling": 58,
+            "result": "Anvil sunk in peat, iron weeping"
+          },
+          {
+            "floor": 59,
+            "ceiling": 60,
+            "result": "Crown tangled in briar, birds nesting"
+          },
+          {
+            "floor": 61,
+            "ceiling": 62,
+            "result": "Hearthstone cracked, ferns drinking ashes"
+          },
+          {
+            "floor": 63,
+            "ceiling": 64,
+            "result": "Carriage half-eaten by wild grape"
+          },
+          {
+            "floor": 65,
+            "ceiling": 66,
+            "result": "Milestone lichened into a soft bone"
+          },
+          {
+            "floor": 67,
+            "ceiling": 68,
+            "result": "Stained glass webbed with vine veins"
+          },
+          {
+            "floor": 69,
+            "ceiling": 70,
+            "result": "Millwheel jammed by drifting cattails"
+          },
+          {
+            "floor": 71,
+            "ceiling": 72,
+            "result": "Spears standing as trellises for bindweed"
+          },
+          {
+            "floor": 73,
+            "ceiling": 74,
+            "result": "Shrine drowned in bulrush whisper"
+          },
+          {
+            "floor": 75,
+            "ceiling": 76,
+            "result": "Sword hilt sprouting foxglove bells"
+          },
+          {
+            "floor": 77,
+            "ceiling": 78,
+            "result": "Pews slumped beneath velvet moss"
+          },
+          {
+            "floor": 79,
+            "ceiling": 80,
+            "result": "Fenceposts budding leaves, nails flowering rust"
+          },
+          {
+            "floor": 81,
+            "ceiling": 82,
+            "result": "Mausoleum roof seeded by saplings"
+          },
+          {
+            "floor": 83,
+            "ceiling": 84,
+            "result": "Pathway buried under honeysuckle coils"
+          },
+          {
+            "floor": 85,
+            "ceiling": 86,
+            "result": "Hayloft sagging with mushroom weight"
+          },
+          {
+            "floor": 87,
+            "ceiling": 88,
+            "result": "Shield face colonized by star moss"
+          },
+          {
+            "floor": 89,
+            "ceiling": 90,
+            "result": "Cemetery iron welded by kudzu"
+          },
+          {
+            "floor": 91,
+            "ceiling": 92,
+            "result": "Dead cart cocooned in thorn silk"
+          },
+          {
+            "floor": 93,
+            "ceiling": 94,
+            "result": "Grindhouse gears filled with root-knots"
+          },
+          {
+            "floor": 95,
+            "ceiling": 96,
+            "result": "THE WEAVE"
+          },
+          {
+            "floor": 97,
+            "ceiling": 98,
+            "result": "ACTION + THEME"
+          },
+          {
+            "floor": 99,
+            "ceiling": 100,
+            "result": "ROLL TWICE"
+          }
+        ],
+        "maxRoll": 100
+      },
+      "Discovery": {
+        "sourcePath": "generated",
+        "name": "Discovery",
+        "tags": [],
+        "headers": [
+          "d100",
+          "Result"
+        ],
+        "tableData": [
+          {
+            "floor": 1,
+            "ceiling": 2,
+            "result": "Collapsed milepost smothered in strangler vines"
+          },
+          {
+            "floor": 3,
+            "ceiling": 4,
+            "result": "Bridge arches packed with roots like ribs"
+          },
+          {
+            "floor": 5,
+            "ceiling": 6,
+            "result": "Sunken wagon glued by moss and silt"
+          },
+          {
+            "floor": 7,
+            "ceiling": 8,
+            "result": "A well choked with lily-black water"
+          },
+          {
+            "floor": 9,
+            "ceiling": 10,
+            "result": "Mausoleum sealed by braided ivy chains"
+          },
+          {
+            "floor": 11,
+            "ceiling": 12,
+            "result": "Statue’s face erased by creeping lichens"
+          },
+          {
+            "floor": 13,
+            "ceiling": 14,
+            "result": "Thorn maze fed on old battlefield bones"
+          },
+          {
+            "floor": 15,
+            "ceiling": 16,
+            "result": "Doorway filled with woven bramble curtains"
+          },
+          {
+            "floor": 17,
+            "ceiling": 18,
+            "result": "Milestone swallowed by a bulging ant mound"
+          },
+          {
+            "floor": 19,
+            "ceiling": 20,
+            "result": "Altar buried beneath nettles and bees"
+          },
+          {
+            "floor": 21,
+            "ceiling": 22,
+            "result": "Stairwell corked by a root ball"
+          },
+          {
+            "floor": 23,
+            "ceiling": 24,
+            "result": "Lantern pole bent under kudzu weight"
+          },
+          {
+            "floor": 25,
+            "ceiling": 26,
+            "result": "Road sign gnawed by sap-bleeding creepers"
+          },
+          {
+            "floor": 27,
+            "ceiling": 28,
+            "result": "Crumbling wall held up by fig roots"
+          },
+          {
+            "floor": 29,
+            "ceiling": 30,
+            "result": "Helmets sprout fungi like dull crowns"
+          },
+          {
+            "floor": 31,
+            "ceiling": 32,
+            "result": "Grave names replaced with mossy script"
+          },
+          {
+            "floor": 33,
+            "ceiling": 34,
+            "result": "Gate hinges fused by bark and rust"
+          },
+          {
+            "floor": 35,
+            "ceiling": 36,
+            "result": "Dry fountain blooming with rat-tail reeds"
+          },
+          {
+            "floor": 37,
+            "ceiling": 38,
+            "result": "Bell rope replaced by living vine"
+          },
+          {
+            "floor": 39,
+            "ceiling": 40,
+            "result": "Watchtower interior packed with fern fog"
+          },
+          {
+            "floor": 41,
+            "ceiling": 42,
+            "result": "Arrow slits clogged by swallow nests"
+          },
+          {
+            "floor": 43,
+            "ceiling": 44,
+            "result": "Field turned bog by thirsting willows"
+          },
+          {
+            "floor": 45,
+            "ceiling": 46,
+            "result": "Pulley wheel spinning with vine-tangled rats"
+          },
+          {
+            "floor": 47,
+            "ceiling": 48,
+            "result": "Waystone veined in roots that pulse"
+          },
+          {
+            "floor": 49,
+            "ceiling": 50,
+            "result": "Library window stuffed with paper wasps"
+          },
+          {
+            "floor": 51,
+            "ceiling": 52,
+            "result": "Prayer flags sewn to thorns with hair"
+          },
+          {
+            "floor": 53,
+            "ceiling": 54,
+            "result": "Cattle skull cradled by velvet moss"
+          },
+          {
+            "floor": 55,
+            "ceiling": 56,
+            "result": "Sunken steps slick with green beard"
+          },
+          {
+            "floor": 57,
+            "ceiling": 58,
+            "result": "Cairn split open by sapling spear"
+          },
+          {
+            "floor": 59,
+            "ceiling": 60,
+            "result": "Militia pike gardened in creeping kudzu"
+          },
+          {
+            "floor": 61,
+            "ceiling": 62,
+            "result": "Cottage hearth burning peat and leafmold"
+          },
+          {
+            "floor": 63,
+            "ceiling": 64,
+            "result": "Irrigation ditch grown teeth of cattails"
+          },
+          {
+            "floor": 65,
+            "ceiling": 66,
+            "result": "Crown of briars gripping a bootprint"
+          },
+          {
+            "floor": 67,
+            "ceiling": 68,
+            "result": "Cellar hatch swallowed by puffball bloom"
+          },
+          {
+            "floor": 69,
+            "ceiling": 70,
+            "result": "Trail cairns replaced by mushroom towers"
+          },
+          {
+            "floor": 71,
+            "ceiling": 72,
+            "result": "Frozen well-rope crusted in brown lichen"
+          },
+          {
+            "floor": 73,
+            "ceiling": 74,
+            "result": "Belfry bell cradled by nesting ivy"
+          },
+          {
+            "floor": 75,
+            "ceiling": 76,
+            "result": "Corroded helmet housing a snake orchard"
+          },
+          {
+            "floor": 77,
+            "ceiling": 78,
+            "result": "Scribe stones glazed with snail trails"
+          },
+          {
+            "floor": 79,
+            "ceiling": 80,
+            "result": "Quarry pit carpeted in carnivore moss"
+          },
+          {
+            "floor": 81,
+            "ceiling": 82,
+            "result": "Bridge toll box rooted shut, humming"
+          },
+          {
+            "floor": 83,
+            "ceiling": 84,
+            "result": "Shrine path replaced by ant highways"
+          },
+          {
+            "floor": 85,
+            "ceiling": 86,
+            "result": "Gallows beam furred with wolf lichens"
+          },
+          {
+            "floor": 87,
+            "ceiling": 88,
+            "result": "Archway dripping sap like old wounds"
+          },
+          {
+            "floor": 89,
+            "ceiling": 90,
+            "result": "Sun dial shaded by gloved nettles"
+          },
+          {
+            "floor": 91,
+            "ceiling": 92,
+            "result": "Rotted banner stitched into wasp paper"
+          },
+          {
+            "floor": 93,
+            "ceiling": 94,
+            "result": "Gatehouse floor buckled by blind roots"
+          },
+          {
+            "floor": 95,
+            "ceiling": 96,
+            "result": "THE WEAVE"
+          },
+          {
+            "floor": 97,
+            "ceiling": 98,
+            "result": "DESCRIPTOR + FOCUS"
+          },
+          {
+            "floor": 99,
+            "ceiling": 100,
+            "result": "ROLL TWICE"
+          }
+        ],
+        "maxRoll": 100
+      },
+      "Bane": {
+        "sourcePath": "generated",
+        "name": "Bane",
+        "tags": [],
+        "headers": [
+          "d100",
+          "Result"
+        ],
+        "tableData": [
+          {
+            "floor": 1,
+            "ceiling": 2,
+            "result": "Root-snared ankles, slow bleed in the loam"
+          },
+          {
+            "floor": 3,
+            "ceiling": 4,
+            "result": "Moss-drowned steps hide rusted spike teeth"
+          },
+          {
+            "floor": 5,
+            "ceiling": 6,
+            "result": "Vines choke breaths, stealing quiet air"
+          },
+          {
+            "floor": 7,
+            "ceiling": 8,
+            "result": "Thorn curtains turn skin into maps"
+          },
+          {
+            "floor": 9,
+            "ceiling": 10,
+            "result": "Slick lichen floors betray footing"
+          },
+          {
+            "floor": 11,
+            "ceiling": 12,
+            "result": "Ant nests erupt under bare soles"
+          },
+          {
+            "floor": 13,
+            "ceiling": 14,
+            "result": "Bramble knots drink sweat and blood"
+          },
+          {
+            "floor": 15,
+            "ceiling": 16,
+            "result": "Rot-sweet scent masks fresh carnage"
+          },
+          {
+            "floor": 17,
+            "ceiling": 18,
+            "result": "Fallen stones cradle snake broods"
+          },
+          {
+            "floor": 19,
+            "ceiling": 20,
+            "result": "Creepers tangle gear, ruin draw"
+          },
+          {
+            "floor": 21,
+            "ceiling": 22,
+            "result": "Fungal bloom spores fog the mind"
+          },
+          {
+            "floor": 23,
+            "ceiling": 24,
+            "result": "Sap-slick grips wrench blades aside"
+          },
+          {
+            "floor": 25,
+            "ceiling": 26,
+            "result": "Foxfire lights mislead into bog"
+          },
+          {
+            "floor": 27,
+            "ceiling": 28,
+            "result": "Deadfall logs cradle hungry things"
+          },
+          {
+            "floor": 29,
+            "ceiling": 30,
+            "result": "Leaf-shadows hide arrow glints"
+          },
+          {
+            "floor": 31,
+            "ceiling": 32,
+            "result": "Wet roots pry open old graves"
+          },
+          {
+            "floor": 33,
+            "ceiling": 34,
+            "result": "Spindle thorns poison joints slowly"
+          },
+          {
+            "floor": 35,
+            "ceiling": 36,
+            "result": "Gnarlwood branches steal warmth nightly"
+          },
+          {
+            "floor": 37,
+            "ceiling": 38,
+            "result": "Choking kudzu smothers campfires cold"
+          },
+          {
+            "floor": 39,
+            "ceiling": 40,
+            "result": "Swamp grass drinks footprints, erases trails"
+          },
+          {
+            "floor": 41,
+            "ceiling": 42,
+            "result": "Beetle swarms chew leather straps"
+          },
+          {
+            "floor": 43,
+            "ceiling": 44,
+            "result": "Mud-numb feet invite quiet infection"
+          },
+          {
+            "floor": 45,
+            "ceiling": 46,
+            "result": "Hedge-walls reroute march into circles"
+          },
+          {
+            "floor": 47,
+            "ceiling": 48,
+            "result": "Clinging burrs carry fever mites"
+          },
+          {
+            "floor": 49,
+            "ceiling": 50,
+            "result": "Mire-pockets swallow burdens without sound"
+          },
+          {
+            "floor": 51,
+            "ceiling": 52,
+            "result": "Cankerous bark grips skin stubbornly"
+          },
+          {
+            "floor": 53,
+            "ceiling": 54,
+            "result": "Overhung limbs drop carrion insects"
+          },
+          {
+            "floor": 55,
+            "ceiling": 56,
+            "result": "Seed pods burst with biting grit"
+          },
+          {
+            "floor": 57,
+            "ceiling": 58,
+            "result": "Wolfway tunnels collapse under weight"
+          },
+          {
+            "floor": 59,
+            "ceiling": 60,
+            "result": "Ivy veils plunge into hidden wells"
+          },
+          {
+            "floor": 61,
+            "ceiling": 62,
+            "result": "Blooming nettles punish careless hands"
+          },
+          {
+            "floor": 63,
+            "ceiling": 64,
+            "result": "Rot-furred logs hide nail traps"
+          },
+          {
+            "floor": 65,
+            "ceiling": 66,
+            "result": "Sinew-vines tighten with sudden movement"
+          },
+          {
+            "floor": 67,
+            "ceiling": 68,
+            "result": "Moss drinks oil, rusts every hinge"
+          },
+          {
+            "floor": 69,
+            "ceiling": 70,
+            "result": "Sap stink lures boars to rage"
+          },
+          {
+            "floor": 71,
+            "ceiling": 72,
+            "result": "Tangle shade hides watchful owls"
+          },
+          {
+            "floor": 73,
+            "ceiling": 74,
+            "result": "Black thistle seeds foul wounds"
+          },
+          {
+            "floor": 75,
+            "ceiling": 76,
+            "result": "Antler-thick roots block straight paths"
+          },
+          {
+            "floor": 77,
+            "ceiling": 78,
+            "result": "Sour mushrooms twist guts to knots"
+          },
+          {
+            "floor": 79,
+            "ceiling": 80,
+            "result": "Wasp-burdened branches waggle threateningly"
+          },
+          {
+            "floor": 81,
+            "ceiling": 82,
+            "result": "Sedge knives slice boots to ribbons"
+          },
+          {
+            "floor": 83,
+            "ceiling": 84,
+            "result": "Old walls buried, maps become lies"
+          },
+          {
+            "floor": 85,
+            "ceiling": 86,
+            "result": "Frog choruses drown stalkers’ approach"
+          },
+          {
+            "floor": 87,
+            "ceiling": 88,
+            "result": "Waterlogged corpses snag travelers’ legs"
+          },
+          {
+            "floor": 89,
+            "ceiling": 90,
+            "result": "Buried shrines whisper greedy bargains"
+          },
+          {
+            "floor": 91,
+            "ceiling": 92,
+            "result": "Fox dens riddled with bone shards"
+          },
+          {
+            "floor": 93,
+            "ceiling": 94,
+            "result": "Creeping green devours camp markers"
+          },
+          {
+            "floor": 95,
+            "ceiling": 95,
+            "result": "Briar gates demand flesh for passage"
+          },
+          {
+            "floor": 96,
+            "ceiling": 98,
+            "result": "OBJECTIVES"
+          },
+          {
+            "floor": 99,
+            "ceiling": 100,
+            "result": "DESCRIPTOR + FOCUS"
+          }
+        ],
+        "maxRoll": 100
+      },
+      "Boon": {
+        "sourcePath": "generated",
+        "name": "Boon",
+        "tags": [],
+        "headers": [
+          "d100",
+          "Result"
+        ],
+        "tableData": [
+          {
+            "floor": 1,
+            "ceiling": 2,
+            "result": "Moss-muffled steps hide your approach"
+          },
+          {
+            "floor": 3,
+            "ceiling": 4,
+            "result": "Root-woven paths confuse pursuers behind"
+          },
+          {
+            "floor": 5,
+            "ceiling": 6,
+            "result": "Thorn-caught arrows slow the volley"
+          },
+          {
+            "floor": 7,
+            "ceiling": 8,
+            "result": "Sap-sticky hands grip wet stone"
+          },
+          {
+            "floor": 9,
+            "ceiling": 10,
+            "result": "Leaf-shade cools fevered skin quickly"
+          },
+          {
+            "floor": 11,
+            "ceiling": 12,
+            "result": "Creeper nets snag charging beasts"
+          },
+          {
+            "floor": 13,
+            "ceiling": 14,
+            "result": "Fungus glow marks safe footing"
+          },
+          {
+            "floor": 15,
+            "ceiling": 16,
+            "result": "Bog-smell masks your human scent"
+          },
+          {
+            "floor": 17,
+            "ceiling": 18,
+            "result": "Ivy handholds aid silent climbs"
+          },
+          {
+            "floor": 19,
+            "ceiling": 20,
+            "result": "Rot-soft bark yields hidden stash"
+          },
+          {
+            "floor": 21,
+            "ceiling": 22,
+            "result": "Vine swing crosses ravine safely"
+          },
+          {
+            "floor": 23,
+            "ceiling": 24,
+            "result": "Antler-snag brambles halt mounted scouts"
+          },
+          {
+            "floor": 25,
+            "ceiling": 26,
+            "result": "Matted grass deadens clattering gear"
+          },
+          {
+            "floor": 27,
+            "ceiling": 28,
+            "result": "Berry stain hides blood well"
+          },
+          {
+            "floor": 29,
+            "ceiling": 30,
+            "result": "Mud-swallowed tracks vanish by dawn"
+          },
+          {
+            "floor": 31,
+            "ceiling": 32,
+            "result": "Lichen film dulls blade glare"
+          },
+          {
+            "floor": 33,
+            "ceiling": 34,
+            "result": "Root arch shields from arrow rain"
+          },
+          {
+            "floor": 35,
+            "ceiling": 36,
+            "result": "Frog chorus cloaks hushed whispers"
+          },
+          {
+            "floor": 37,
+            "ceiling": 38,
+            "result": "Thick canopy chokes aerial scouts"
+          },
+          {
+            "floor": 39,
+            "ceiling": 40,
+            "result": "Buried milestone points secret route"
+          },
+          {
+            "floor": 41,
+            "ceiling": 42,
+            "result": "Mire pockets trap iron-shod boots"
+          },
+          {
+            "floor": 43,
+            "ceiling": 44,
+            "result": "Birch water steadies shaking hands"
+          },
+          {
+            "floor": 45,
+            "ceiling": 46,
+            "result": "Camouflage cloak braided with reeds"
+          },
+          {
+            "floor": 47,
+            "ceiling": 48,
+            "result": "Hollow log shelters night watch"
+          },
+          {
+            "floor": 49,
+            "ceiling": 50,
+            "result": "Ant trail leads to dry ground"
+          },
+          {
+            "floor": 51,
+            "ceiling": 52,
+            "result": "Cattail fluff feeds quick tinder"
+          },
+          {
+            "floor": 53,
+            "ceiling": 54,
+            "result": "Fallen giants bridge the sink"
+          },
+          {
+            "floor": 55,
+            "ceiling": 56,
+            "result": "Reeds whistle warning at disturbance"
+          },
+          {
+            "floor": 57,
+            "ceiling": 58,
+            "result": "Willow curtain hides boat landing"
+          },
+          {
+            "floor": 59,
+            "ceiling": 60,
+            "result": "Fern fronds veil wounded companions"
+          },
+          {
+            "floor": 61,
+            "ceiling": 62,
+            "result": "Spore cloud blinds charging foe"
+          },
+          {
+            "floor": 63,
+            "ceiling": 64,
+            "result": "Mushroom caps absorb spilled poison"
+          },
+          {
+            "floor": 65,
+            "ceiling": 66,
+            "result": "Briar maze buys precious minutes"
+          },
+          {
+            "floor": 67,
+            "ceiling": 68,
+            "result": "Stone choked in roots reveals footing"
+          },
+          {
+            "floor": 69,
+            "ceiling": 70,
+            "result": "Tangled hedge breaks cavalry line"
+          },
+          {
+            "floor": 71,
+            "ceiling": 72,
+            "result": "Honeyed rot distracts hungry wolves"
+          },
+          {
+            "floor": 73,
+            "ceiling": 74,
+            "result": "Thick mulch muffles dropped steel"
+          },
+          {
+            "floor": 75,
+            "ceiling": 76,
+            "result": "Crawling ivy marks northward drift"
+          },
+          {
+            "floor": 77,
+            "ceiling": 78,
+            "result": "Wet clay cools burning brand"
+          },
+          {
+            "floor": 79,
+            "ceiling": 80,
+            "result": "Snail trail shows night trespassers"
+          },
+          {
+            "floor": 81,
+            "ceiling": 82,
+            "result": "Green weight bows sapling as trap"
+          },
+          {
+            "floor": 83,
+            "ceiling": 84,
+            "result": "Seed-pocked cloak trades in villages"
+          },
+          {
+            "floor": 85,
+            "ceiling": 86,
+            "result": "Sedge knots stitch crude tourniquet"
+          },
+          {
+            "floor": 87,
+            "ceiling": 88,
+            "result": "Warm compost hides contraband safely"
+          },
+          {
+            "floor": 89,
+            "ceiling": 90,
+            "result": "Fox den grants secret egress"
+          },
+          {
+            "floor": 91,
+            "ceiling": 92,
+            "result": "Pollen haze dulls watchful eyes"
+          },
+          {
+            "floor": 93,
+            "ceiling": 94,
+            "result": "Gnarled stump offers steady rest"
+          },
+          {
+            "floor": 95,
+            "ceiling": 95,
+            "result": "Turtleback stone breaks line of sight"
+          },
+          {
+            "floor": 96,
+            "ceiling": 98,
+            "result": "OBJECTIVES"
+          },
+          {
+            "floor": 99,
+            "ceiling": 100,
+            "result": "DESCRIPTOR + FOCUS"
+          }
+        ],
+        "maxRoll": 100
+      }
+    }
+  }
+}

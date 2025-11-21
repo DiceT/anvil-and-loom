@@ -1,0 +1,2565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anvil & Loom JSON Explorer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #ffffff;
+            font-size: 2.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .control-group {
+            background-color: #16213e;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #0f3460;
+        }
+
+        .control-group h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #00d4ff;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .controls input, .controls select, .controls button {
+            padding: 8px 12px;
+            border: 1px solid #0f3460;
+            border-radius: 4px;
+            background-color: #0a1a2e;
+            color: #e0e0e0;
+            font-size: 14px;
+        }
+
+        .controls button {
+            background-color: #0f3460;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .controls button:hover {
+            background-color: #1e4f8a;
+        }
+
+        .controls button:disabled {
+            background-color: #333;
+            color: #666;
+            cursor: not-allowed;
+        }
+
+        .primary-button {
+            background-color: #00d4ff !important;
+            color: #1a1a2e !important;
+            font-weight: bold;
+        }
+
+        .primary-button:hover {
+            background-color: #00b8e6 !important;
+        }
+
+        #output {
+            border: 2px solid #0f3460;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #16213e;
+            min-height: 120px;
+            font-size: 16px;
+            white-space: pre-wrap;
+        }
+
+        .iteration-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .controls-column .iteration-controls {
+            margin-bottom: 0;
+        }
+
+        .api-config {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #16213e;
+            border-radius: 6px;
+            border: 1px solid #0f3460;
+        }
+
+        .api-config label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .api-config input[type="text"],
+        .api-config input[type="password"],
+        .control-group input,
+        .control-group select {
+            padding: 8px 12px;
+            border: 1px solid #0f3460;
+            border-radius: 4px;
+            background-color: #0a1a2e;
+            color: #e0e0e0;
+            font-size: 14px;
+        }
+
+        .api-config input:focus,
+        .control-group input:focus,
+        .control-group select:focus {
+            outline: none;
+            border-color: #00d4ff;
+            box-shadow: 0 0 5px rgba(0, 212, 255, 0.3);
+        }
+
+        .api-config input:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .decision-section {
+            margin-bottom: 20px;
+        }
+
+        #decisionLabel {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #ffffff;
+            word-wrap: break-word;
+            line-height: 1.4;
+        }
+
+        .counters {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .counter {
+            background-color: #16213e;
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: 1px solid #0f3460;
+        }
+
+        .counter-label {
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .counter-value {
+            color: #00d4ff;
+            font-weight: bold;
+        }
+
+        .error {
+            color: #ff6b6b;
+            background-color: #2e1a1a;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #ff6b6b;
+            margin-bottom: 20px;
+        }
+
+        .success {
+            color: #00d4ff;
+            background-color: #1a2a2e;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #00d4ff;
+            margin-bottom: 20px;
+        }
+
+        /* Dialog styles */
+        .dialog-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+        }
+
+        .dialog-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #16213e;
+            border: 1px solid #0f3460;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dialog-header {
+            padding: 20px;
+            background-color: #0f3460;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dialog-header h2 {
+            margin: 0;
+            color: #00d4ff;
+        }
+
+        .dialog-close {
+            background: none;
+            border: none;
+            color: #e0e0e0;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dialog-close:hover {
+            color: #00d4ff;
+        }
+
+        .dialog-body {
+            padding: 20px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .table-view {
+            font-family: 'Courier New', monospace;
+        }
+
+        .table-view table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .table-view th,
+        .table-view td {
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 1px solid #0f3460;
+        }
+
+        .table-view th {
+            background-color: #0f3460;
+            color: #00d4ff;
+            font-weight: bold;
+        }
+
+        .table-view td:first-child {
+            font-weight: bold;
+            color: #00d4ff;
+            width: 100px;
+        }
+
+        .table-view .empty-result {
+            color: #666;
+            font-style: italic;
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 450px 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .controls-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .content-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .iteration-controls {
+                flex-direction: column;
+            }
+            
+            .counters {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Anvil & Loom JSON Explorer</h1>
+        
+        <div class="main-layout">
+            <div class="controls-column">
+                <div class="control-group">
+                    <h3>Create New Template</h3>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <input type="text" id="templateName" placeholder="Enter name (e.g. Shadow Realm)..." style="width: 100%;">
+                        <textarea id="templateDescription" placeholder="Enter 2-sentence description (e.g. Ancient places hold forgotten secrets. Time moves differently here, and old powers still whisper.)" style="width: 100%; height: 60px; resize: vertical; font-family: inherit; padding: 8px; border: 1px solid #0f3460; background: #16213e; color: #e0e0e0; border-radius: 4px;"></textarea>
+                        <div style="display: flex; gap: 15px; justify-content: center;">
+                            <label style="display: flex; align-items: center; gap: 4px; color: #e0e0e0; font-size: 14px;">
+                                <input type="radio" name="templateType" value="aspect" checked> Aspect
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 4px; color: #e0e0e0; font-size: 14px;">
+                                <input type="radio" name="templateType" value="domain"> Domain
+                            </label>
+                        </div>
+                        <button id="generateTemplateBtn" class="primary-button">Generate & Load</button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h3>Load JSON File</h3>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <input type="file" id="fileInput" accept=".json" style="width: 100%;">
+                        <button id="loadBtn" class="primary-button">Load JSON</button>
+                    </div>
+                </div>
+
+
+
+                <div class="control-group">
+                    <h3>AI Configuration</h3>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <label style="display: flex; align-items: center; gap: 8px; font-weight: bold; cursor: pointer;">
+                            <input type="checkbox" id="useAPICheckbox"> Use OpenAI API
+                        </label>
+                        <div style="display: flex; gap: 10px;">
+                            <select id="apiMethod" disabled style="flex: 1;">
+                                <option value="proxy">Via Proxy</option>
+                                <option value="direct">Direct Call</option>
+                            </select>
+                            <select id="modelSelect" disabled style="flex: 1;">
+                                <option value="gpt-5" selected>GPT-5</option>
+                                <option value="gpt-4o">GPT-4o</option>
+                                <option value="gpt-4">GPT-4</option>
+                                <option value="gpt-4o-mini">GPT-4o-mini</option>
+                                <option value="gpt-3.5-turbo">GPT-3.5-turbo</option>
+                            </select>
+                        </div>
+                        <input type="password" id="apiKey" placeholder="OpenAI API Key (required)" style="width: 100%;" disabled>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <label style="color: #e0e0e0; font-weight: bold; white-space: nowrap;">Genre:</label>
+                            <select id="genreSelect" style="flex: 1;">
+                                <option value="dark-fantasy" selected>Dark Fantasy (Joe Abercrombie)</option>
+                                <option value="fantasy">Fantasy (Margaret Weis & Tracy Hickman)</option>
+                                <option value="sci-fi">Sci-Fi (James S.A. Corey)</option>
+                                <option value="starforged">Starforged: Sundered Isles (R.A. Salvatore)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="iteration-controls" style="display: flex; flex-direction: column; gap: 10px;">
+                    <div style="display: flex; gap: 10px;">
+                        <button id="startBtn" disabled style="flex: 1;">Start</button>
+                        <button id="pauseBtn" disabled style="flex: 1;">Pause</button>
+                    </div>
+                    <button id="manualReviewBtn" disabled style="width: 100%;">Manual AI Review</button>
+                    <button id="saveBtn" disabled style="width: 100%;">Save JSON</button>
+                </div>
+            </div>
+
+            <div class="content-column">
+                <!-- Aspect Navigation -->
+                <div class="control-group" id="aspectNavigation">
+                    <h3>Aspect Navigation</h3>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <div style="display: flex; gap: 10px;">
+                            <input type="file" id="aspectFileInput" accept=".json" style="display: none;">
+                            <button id="aspectLoadBtn" style="flex: 1;">Load Aspect File</button>
+                        </div>
+                        <select id="aspectTableSelect" disabled style="width: 100%;">
+                            <option value="">Select an aspect table...</option>
+                        </select>
+                        <div style="display: flex; gap: 10px;">
+                            <button id="aspectPrevBtn" disabled style="flex: 1;">Previous</button>
+                            <button id="aspectNextBtn" disabled style="flex: 1;">Next</button>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button id="aspectCopyTableBtn" disabled style="flex: 1;">Copy to Clipboard</button>
+                            <button id="aspectRollTableBtn" disabled style="flex: 1;">Roll on Table</button>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button id="aspectViewTableBtn" disabled style="flex: 1;">View Table</button>
+                            <button id="aspectGenerateTableBtn" disabled style="flex: 1;">Generate Entire Table</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Domain Navigation -->
+                <div class="control-group" id="domainNavigation">
+                    <h3>Domain Navigation</h3>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <div style="display: flex; gap: 10px;">
+                            <input type="file" id="domainFileInput" accept=".json" style="display: none;">
+                            <button id="domainLoadBtn" style="flex: 1;">Load Domain File</button>
+                        </div>
+                        <select id="domainTableSelect" disabled style="width: 100%;">
+                            <option value="">Select a domain table...</option>
+                        </select>
+                        <div style="display: flex; gap: 10px;">
+                            <button id="domainPrevBtn" disabled style="flex: 1;">Previous</button>
+                            <button id="domainNextBtn" disabled style="flex: 1;">Next</button>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button id="domainCopyTableBtn" disabled style="flex: 1;">Copy to Clipboard</button>
+                            <button id="domainRollTableBtn" disabled style="flex: 1;">Roll on Table</button>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button id="domainViewTableBtn" disabled style="flex: 1;">View Table</button>
+                            <button id="domainGenerateTableBtn" disabled style="flex: 1;">Generate Entire Table</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Legacy Navigation (for mixed or single type files) -->
+                <div class="control-group" id="legacyNavigation">
+                    <h3>Navigation</h3>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <select id="tableSelect" disabled style="width: 100%;">
+                            <option value="">Select a table...</option>
+                        </select>
+                        <div style="display: flex; gap: 10px;">
+                            <button id="prevBtn" disabled style="flex: 1;">Previous</button>
+                            <button id="nextBtn" disabled style="flex: 1;">Next</button>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button id="copyTableBtn" disabled style="flex: 1;">Copy to Clipboard</button>
+                            <button id="rollTableBtn" disabled style="flex: 1;">Roll on Table</button>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button id="viewTableBtn" disabled style="flex: 1;">View Table</button>
+                            <button id="generateTableBtn" disabled style="flex: 1;">Generate Entire Table</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="output">No file loaded. Please select a JSON file and click "Load JSON".</div>
+
+                <div class="decision-section">
+                    <div id="decisionLabel">Decision: (none)</div>
+                    <div class="counters">
+                        <div class="counter">
+                            <span class="counter-label">Leave:</span>
+                            <span class="counter-value" id="leaveCount">0</span>
+                        </div>
+                        <div class="counter">
+                            <span class="counter-label">Modify:</span>
+                            <span class="counter-value" id="modifyCount">0</span>
+                        </div>
+                        <div class="counter">
+                            <span class="counter-label">Recreate:</span>
+                            <span class="counter-value" id="recreateCount">0</span>
+                        </div>
+                    </div>
+                    <button id="resetBtn">RESET</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table View Dialog -->
+        <div id="tableDialog" class="dialog-overlay">
+            <div class="dialog-content">
+                <div class="dialog-header">
+                    <h2 id="dialogTitle">Table View</h2>
+                    <button class="dialog-close" id="closeDialog">&times;</button>
+                </div>
+                <div class="dialog-body">
+                    <div id="dialogTableContent" class="table-view">
+                        <!-- Table content will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global state
+        let originalJSON = null;
+        let tables = [];
+        let aspectTables = [];
+        let domainTables = [];
+        let currentTableIndex = 0;
+        let currentRowIndex = 0;
+        let aspectTableIndex = 0;
+        let aspectRowIndex = 0;
+        let domainTableIndex = 0;
+        let domainRowIndex = 0;
+        let iterationInterval = null;
+        let counters = { leave: 0, modify: 0, recreate: 0 };
+        let useAPIMode = false;
+        let apiEndpoint = '';
+        let apiKey = '';
+        let navigationMode = 'legacy'; // 'legacy', 'separated', or 'mixed'
+
+        // Simulation mode removed - only real API data will be used
+
+        // Macro patterns to skip
+        const macroPatterns = [
+            /the weave/i,
+            /roll twice/i,
+            /action \+ theme/i,
+            /descriptor \+ focus/i,
+            /objectives/i
+        ];
+
+        // Sample data for testing
+        const sampleData = {
+            "domains": {
+                "Atmosphere": {
+                    "sourcePath": "test",
+                    "name": "Atmosphere",
+                    "tags": ["environmental", "mood"],
+                    "headers": ["d100", "Result"],
+                    "tableData": [
+                        {
+                            "floor": 1,
+                            "ceiling": 10,
+                            "result": "thick mist rolls across the ground"
+                        },
+                        {
+                            "floor": 11,
+                            "ceiling": 20,
+                            "result": "blood-soaked earth beneath your feet"
+                        },
+                        {
+                            "floor": 21,
+                            "ceiling": 30,
+                            "result": "skeletal trees reach toward gray sky"
+                        },
+                        {
+                            "floor": 31,
+                            "ceiling": 40,
+                            "result": "rotting foundations crumble around you"
+                        },
+                        {
+                            "floor": 41,
+                            "ceiling": 50,
+                            "result": "THE WEAVE"
+                        }
+                    ],
+                    "maxRoll": 50
+                },
+                "Location": {
+                    "sourcePath": "test", 
+                    "name": "Location",
+                    "tags": ["place", "setting"],
+                    "headers": ["d100", "Result"],
+                    "tableData": [
+                        {
+                            "floor": 1,
+                            "ceiling": 25,
+                            "result": "abandoned tower on windswept hill"
+                        },
+                        {
+                            "floor": 26,
+                            "ceiling": 50,
+                            "result": "forgotten crypt beneath old church"
+                        },
+                        {
+                            "floor": 51,
+                            "ceiling": 75,
+                            "result": "ruined temple to forgotten gods"
+                        },
+                        {
+                            "floor": 76,
+                            "ceiling": 100,
+                            "result": "ROLL TWICE"
+                        }
+                    ],
+                    "maxRoll": 100
+                }
+            },
+            "aspects": {
+                "Objective": {
+                    "sourcePath": "test",
+                    "name": "Objective", 
+                    "tags": ["goal", "mission"],
+                    "headers": ["d100", "Result"],
+                    "tableData": [
+                        {
+                            "floor": 1,
+                            "ceiling": 33,
+                            "result": "escort merchant caravan safely"
+                        },
+                        {
+                            "floor": 34,
+                            "ceiling": 66,
+                            "result": "recover stolen tomb artifacts"
+                        },
+                        {
+                            "floor": 67,
+                            "ceiling": 100,
+                            "result": "negotiate clan peace treaty"
+                        }
+                    ],
+                    "maxRoll": 100
+                }
+            }
+        };
+
+        // DOM elements
+        const fileInput = document.getElementById('fileInput');
+        const loadBtn = document.getElementById('loadBtn');
+        const loadSampleBtn = document.getElementById('loadSampleBtn');
+        const tableSelect = document.getElementById('tableSelect');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const output = document.getElementById('output');
+        const useAPICheckbox = document.getElementById('useAPICheckbox');
+        const apiMethodSelect = document.getElementById('apiMethod');
+        const apiKeyInput = document.getElementById('apiKey');
+        const modelSelect = document.getElementById('modelSelect');
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const manualReviewBtn = document.getElementById('manualReviewBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const decisionLabel = document.getElementById('decisionLabel');
+        const leaveCount = document.getElementById('leaveCount');
+        const modifyCount = document.getElementById('modifyCount');
+        const recreateCount = document.getElementById('recreateCount');
+        const resetBtn = document.getElementById('resetBtn');
+
+
+
+        // Utility functions
+        function collectTables(obj, path = '') {
+            const collected = [];
+            
+            if (isForgeTable(obj)) {
+                collected.push(obj);
+            } else if (Array.isArray(obj)) {
+                obj.forEach((item, index) => {
+                    collected.push(...collectTables(item, `${path}[${index}]`));
+                });
+            } else if (obj && typeof obj === 'object') {
+                Object.keys(obj).forEach(key => {
+                    collected.push(...collectTables(obj[key], path ? `${path}.${key}` : key));
+                });
+            }
+            
+            return collected;
+        }
+
+        function isForgeTable(obj) {
+            return obj && 
+                   typeof obj === 'object' && 
+                   Array.isArray(obj.headers) && 
+                   Array.isArray(obj.tableData) &&
+                   obj.tableData.length > 0;
+        }
+
+        function getCurrentTable() {
+            if (navigationMode === 'legacy') {
+                return tables[currentTableIndex];
+            }
+            // For separated mode, this function should not be used directly
+            // Use getAspectTable() or getDomainTable() instead
+            return tables[currentTableIndex];
+        }
+
+        function getAspectTable() {
+            return aspectTables[aspectTableIndex];
+        }
+
+        function getDomainTable() {
+            return domainTables[domainTableIndex];
+        }
+
+        function separateAspectAndDomainTables(json) {
+            aspectTables = [];
+            domainTables = [];
+            
+            if (json.aspects) {
+                Object.keys(json.aspects).forEach(aspectName => {
+                    const aspect = json.aspects[aspectName];
+                    Object.keys(aspect).forEach(tableName => {
+                        if (tableName !== 'description' && isForgeTable(aspect[tableName])) {
+                            aspectTables.push({
+                                ...aspect[tableName],
+                                aspectName: aspectName,
+                                tableName: tableName
+                            });
+                        }
+                    });
+                });
+            }
+            
+            if (json.domains) {
+                Object.keys(json.domains).forEach(domainName => {
+                    const domain = json.domains[domainName];
+                    Object.keys(domain).forEach(tableName => {
+                        if (tableName !== 'description' && isForgeTable(domain[tableName])) {
+                            domainTables.push({
+                                ...domain[tableName],
+                                domainName: domainName,
+                                tableName: tableName
+                            });
+                        }
+                    });
+                });
+            }
+        }
+
+        function getCurrentRow() {
+            const table = getCurrentTable();
+            return table ? table.tableData[currentRowIndex] : null;
+        }
+
+        function showCurrent() {
+            const table = getCurrentTable();
+            const row = getCurrentRow();
+            
+            if (!table || !row) {
+                output.textContent = 'No data available.';
+                return;
+            }
+
+            const tableName = table.name || 'Unnamed Table';
+            const range = row.floor === row.ceiling ? 
+                row.floor.toString() : 
+                `${row.floor} - ${row.ceiling}`;
+            
+            // Ensure first letter is capitalized
+            const result = row.result.charAt(0).toUpperCase() + row.result.slice(1);
+            
+            output.textContent = `${tableName}\nRoll: ${range}\nResult: ${result}`;
+        }
+
+        function navigateRow(direction) {
+            const table = getCurrentTable();
+            if (!table) return;
+            
+            const newIndex = currentRowIndex + direction;
+            
+            if (newIndex >= 0 && newIndex < table.tableData.length) {
+                currentRowIndex = newIndex;
+                showCurrent();
+            }
+        }
+
+        function onTableSelect() {
+            const selectedIndex = parseInt(tableSelect.value);
+            if (selectedIndex >= 0 && selectedIndex < tables.length) {
+                currentTableIndex = selectedIndex;
+                currentRowIndex = 0;
+                showCurrent();
+            }
+        }
+
+        function navigateAspectRow(direction) {
+            const table = getAspectTable();
+            if (!table) return;
+            
+            const newIndex = aspectRowIndex + direction;
+            if (newIndex >= 0 && newIndex < table.tableData.length) {
+                aspectRowIndex = newIndex;
+                showAspectCurrent();
+            }
+        }
+
+        function navigateDomainRow(direction) {
+            const table = getDomainTable();
+            if (!table) return;
+            
+            const newIndex = domainRowIndex + direction;
+            if (newIndex >= 0 && newIndex < table.tableData.length) {
+                domainRowIndex = newIndex;
+                showDomainCurrent();
+            }
+        }
+
+        function showAspectCurrent() {
+            const table = getAspectTable();
+            if (!table || aspectRowIndex >= table.tableData.length) return;
+            
+            const row = table.tableData[aspectRowIndex];
+            const output = document.getElementById('output');
+            
+            const rangeText = row.floor === row.ceiling ? row.floor : `${row.floor}-${row.ceiling}`;
+            
+            output.innerHTML = `
+                <div style="margin-bottom: 10px;">
+                    <strong>Aspect:</strong> ${table.aspectName} - ${table.tableName}<br>
+                    <strong>Row:</strong> ${aspectRowIndex + 1} of ${table.tableData.length}<br>
+                    <strong>Range:</strong> ${rangeText}
+                </div>
+                <div style="padding: 15px; background-color: #16213e; border-radius: 6px; border: 1px solid #0f3460;">
+                    ${row.result || '<em>Empty result</em>'}
+                </div>
+            `;
+        }
+
+        function showDomainCurrent() {
+            const table = getDomainTable();
+            if (!table || domainRowIndex >= table.tableData.length) return;
+            
+            const row = table.tableData[domainRowIndex];
+            const output = document.getElementById('output');
+            
+            const rangeText = row.floor === row.ceiling ? row.floor : `${row.floor}-${row.ceiling}`;
+            
+            // Only update if we're not already showing aspect content
+            if (navigationMode === 'separated' && aspectTables.length === 0) {
+                output.innerHTML = `
+                    <div style="margin-bottom: 10px;">
+                        <strong>Domain:</strong> ${table.domainName} - ${table.tableName}<br>
+                        <strong>Row:</strong> ${domainRowIndex + 1} of ${table.tableData.length}<br>
+                        <strong>Range:</strong> ${rangeText}
+                    </div>
+                    <div style="padding: 15px; background-color: #16213e; border-radius: 6px; border: 1px solid #0f3460;">
+                        ${row.result || '<em>Empty result</em>'}
+                    </div>
+                `;
+            } else if (navigationMode === 'separated' && aspectTables.length > 0) {
+                // Add domain content below aspect content
+                const existingContent = output.innerHTML;
+                output.innerHTML = existingContent + `
+                    <div style="margin-top: 20px; margin-bottom: 10px;">
+                        <strong>Domain:</strong> ${table.domainName} - ${table.tableName}<br>
+                        <strong>Row:</strong> ${domainRowIndex + 1} of ${table.tableData.length}<br>
+                        <strong>Range:</strong> ${rangeText}
+                    </div>
+                    <div style="padding: 15px; background-color: #16213e; border-radius: 6px; border: 1px solid #0f3460;">
+                        ${row.result || '<em>Empty result</em>'}
+                    </div>
+                `;
+            }
+        }
+
+        function enableAspectControls() {
+            const buttons = ['aspectPrevBtn', 'aspectNextBtn', 'aspectCopyTableBtn', 'aspectRollTableBtn', 'aspectViewTableBtn', 'aspectGenerateTableBtn'];
+            buttons.forEach(btnId => {
+                document.getElementById(btnId).disabled = false;
+            });
+        }
+
+        function enableDomainControls() {
+            const buttons = ['domainPrevBtn', 'domainNextBtn', 'domainCopyTableBtn', 'domainRollTableBtn', 'domainViewTableBtn', 'domainGenerateTableBtn'];
+            buttons.forEach(btnId => {
+                document.getElementById(btnId).disabled = false;
+            });
+        }
+
+        function loadAspectFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const jsonText = e.target.result.replace(/^\uFEFF/, ''); // Remove BOM if present
+                    const json = JSON.parse(jsonText);
+                    
+                    // Extract aspects from the loaded JSON
+                    aspectTables = [];
+                    if (json.aspects) {
+                        Object.keys(json.aspects).forEach(aspectName => {
+                            const aspect = json.aspects[aspectName];
+                            Object.keys(aspect).forEach(tableName => {
+                                if (tableName !== 'description' && isForgeTable(aspect[tableName])) {
+                                    aspectTables.push({
+                                        ...aspect[tableName],
+                                        aspectName: aspectName,
+                                        tableName: tableName
+                                    });
+                                }
+                            });
+                        });
+                    }
+
+                    if (aspectTables.length === 0) {
+                        alert('No valid aspect tables found in this file.');
+                        return;
+                    }
+
+                    // Update aspect dropdown
+                    const aspectTableSelect = document.getElementById('aspectTableSelect');
+                    aspectTableSelect.innerHTML = '';
+                    aspectTables.forEach((table, index) => {
+                        const option = document.createElement('option');
+                        option.value = index;
+                        option.textContent = `${table.aspectName} - ${table.tableName}`;
+                        aspectTableSelect.appendChild(option);
+                    });
+
+                    // Reset and enable aspect controls
+                    aspectTableIndex = 0;
+                    aspectRowIndex = 0;
+                    aspectTableSelect.disabled = false;
+                    enableAspectControls();
+                    showAspectCurrent();
+                    
+                    const output = document.getElementById('output');
+                    output.innerHTML = `<div class="success">Loaded ${aspectTables.length} aspect table(s) from ${file.name}</div>`;
+                    
+                } catch (error) {
+                    alert(`Error loading aspect file: ${error.message}`);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function loadDomainFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const jsonText = e.target.result.replace(/^\uFEFF/, ''); // Remove BOM if present
+                    const json = JSON.parse(jsonText);
+                    
+                    // Extract domains from the loaded JSON
+                    domainTables = [];
+                    if (json.domains) {
+                        Object.keys(json.domains).forEach(domainName => {
+                            const domain = json.domains[domainName];
+                            Object.keys(domain).forEach(tableName => {
+                                if (tableName !== 'description' && isForgeTable(domain[tableName])) {
+                                    domainTables.push({
+                                        ...domain[tableName],
+                                        domainName: domainName,
+                                        tableName: tableName
+                                    });
+                                }
+                            });
+                        });
+                    }
+
+                    if (domainTables.length === 0) {
+                        alert('No valid domain tables found in this file.');
+                        return;
+                    }
+
+                    // Update domain dropdown
+                    const domainTableSelect = document.getElementById('domainTableSelect');
+                    domainTableSelect.innerHTML = '';
+                    domainTables.forEach((table, index) => {
+                        const option = document.createElement('option');
+                        option.value = index;
+                        option.textContent = `${table.domainName} - ${table.tableName}`;
+                        domainTableSelect.appendChild(option);
+                    });
+
+                    // Reset and enable domain controls
+                    domainTableIndex = 0;
+                    domainRowIndex = 0;
+                    domainTableSelect.disabled = false;
+                    enableDomainControls();
+                    showDomainCurrent();
+                    
+                    const output = document.getElementById('output');
+                    const successMsg = `<div class="success">Loaded ${domainTables.length} domain table(s) from ${file.name}</div>`;
+                    
+                    // If there's already aspect content, append below it
+                    if (aspectTables.length > 0) {
+                        output.innerHTML += successMsg;
+                    } else {
+                        output.innerHTML = successMsg;
+                    }
+                    
+                } catch (error) {
+                    alert(`Error loading domain file: ${error.message}`);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function isDuplicateInCurrentTable(text) {
+            const table = getCurrentTable();
+            if (!table) return false;
+            
+            const normalizedText = text.toLowerCase().replace(/\s+/g, ' ').trim();
+            
+            return table.tableData.some((row, index) => {
+                if (index === currentRowIndex) return false; // Skip current row
+                const normalizedResult = row.result.toLowerCase().replace(/\s+/g, ' ').trim();
+                return normalizedResult === normalizedText;
+            });
+        }
+
+        function tableTypeFromName(nameOrType) {
+            const name = (nameOrType || '').toLowerCase();
+            
+            if (name.includes('objective')) return 'objective';
+            if (name.includes('manifestation')) return 'manifestation';
+            if (name.includes('location')) return 'location';
+            if (name.includes('discovery')) return 'discovery';
+            if (name.includes('bane')) return 'bane';
+            if (name.includes('boon')) return 'boon';
+            if (name.includes('atmosphere')) return 'atmosphere';
+            
+            // Default fallback
+            return 'atmosphere';
+        }
+
+
+
+        function removeDuplicatedWords(text) {
+            const words = text.split(/\s+/);
+            const result = [];
+            
+            for (let i = 0; i < words.length; i++) {
+                if (i === 0 || words[i].toLowerCase() !== words[i-1].toLowerCase()) {
+                    result.push(words[i]);
+                }
+            }
+            
+            return result.join(' ');
+        }
+
+        function normalizeText(text) {
+            // Remove leading markers
+            text = text.replace(/^(Recreated:|Modified:|\(modified\))\s*/i, '');
+            
+            // Normalize whitespace and remove duplicated words
+            text = text.replace(/\s+/g, ' ').trim();
+            text = removeDuplicatedWords(text);
+            
+            return text;
+        }
+
+        function isSkippableMacro(text) {
+            return macroPatterns.some(pattern => pattern.test(text));
+        }
+
+        // This function was replaced by the more comprehensive toggleAPIMode above
+
+        async function callBatchGeneration(tableType, tableName, domainContext, numEntries) {
+            const useProxy = document.getElementById('apiMethod').value === 'proxy';
+            const apiKey = document.getElementById('apiKey').value.trim();
+            const selectedModel = document.getElementById('modelSelect').value;
+            
+            // API key required for all modes
+            if (!apiKey) {
+                throw new Error('OpenAI API key required for batch generation');
+            }
+            
+            // Only proxy mode is supported (direct calls removed for simplicity)
+            if (!useProxy) {
+                throw new Error('Only proxy mode is supported. Please select "Via Proxy" in API settings.');
+            }
+            
+            // Log the request for debugging
+            console.log(`Making batch generation request:`, {
+                table_type: tableType,
+                table_name: tableName,
+                model: selectedModel,
+                domain_context: domainContext,
+                num_entries: numEntries
+            });
+
+            // Clean API key to ensure ASCII-only characters
+            const cleanApiKey = apiKey.replace(/[^\x00-\x7F]/g, "");
+            if (cleanApiKey !== apiKey) {
+                throw new Error('API key contains invalid characters. Please check your API key.');
+            }
+
+            try {
+                // Clean all data to ensure ASCII-compatible encoding
+                const requestData = {
+                    table_type: tableType,
+                    table_name: tableName ? tableName.replace(/[^\x00-\x7F]/g, "") : tableName,
+                    model: selectedModel ? selectedModel.replace(/[^\x00-\x7F]/g, "") : selectedModel,
+                    domain_context: domainContext ? {
+                        type: domainContext.type ? domainContext.type.replace(/[^\x00-\x7F]/g, "") : domainContext.type,
+                        name: domainContext.name ? domainContext.name.replace(/[^\x00-\x7F]/g, "") : domainContext.name,
+                        description: domainContext.description ? domainContext.description.replace(/[^\x00-\x7F]/g, "") : domainContext.description
+                    } : domainContext,
+                    num_entries: numEntries,
+                    genre: document.getElementById('genreSelect').value
+                };
+
+                // Convert API key to base64 to avoid encoding issues
+                const encodedApiKey = btoa(cleanApiKey);
+                
+                const response = await fetch('/api/batch-generate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8',
+                        'X-API-Key-Encoded': encodedApiKey
+                    },
+                    body: JSON.stringify(requestData)
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    let errorData;
+                    try {
+                        errorData = JSON.parse(errorText);
+                    } catch (e) {
+                        throw new Error(`API error ${response.status}: ${errorText}`);
+                    }
+                    
+                    // Show detailed error information
+                    const errorMsg = errorData.error || 'Unknown error';
+                    const details = errorData.details ? ` Details: ${JSON.stringify(errorData.details)}` : '';
+                    throw new Error(`API error ${response.status}: ${errorMsg}${details}`);
+                }
+
+                return await response.json();
+
+            } catch (error) {
+                console.error('Batch generation failed:', error);
+                
+                // Check if error is from non-JSON response (HTML page)
+                if (error.message.includes('Unexpected token') && error.message.includes('<!DOCTYPE')) {
+                    throw new Error('Your local standalone_server.py is missing the /api/batch-generate endpoint. Please copy the updated standalone_server.py from this Replit and restart your local server to enable AI generation features.');
+                }
+                
+                if (error.message.includes('Failed to fetch')) {
+                    throw new Error('Cannot connect to API proxy. Make sure the proxy server is running.');
+                }
+                throw error;
+            }
+        }
+
+        function extractDomainContext() {
+            // Extract domain/aspect name and description from JSON structure
+            if (!originalJSON) return null;
+            
+            if (originalJSON.domains) {
+                const domainNames = Object.keys(originalJSON.domains);
+                if (domainNames.length > 0) {
+                    const domainName = domainNames[0];
+                    const domain = originalJSON.domains[domainName];
+                    return { 
+                        type: 'domain', 
+                        name: domainName,
+                        description: domain.description || null
+                    };
+                }
+            }
+            
+            if (originalJSON.aspects) {
+                const aspectNames = Object.keys(originalJSON.aspects);
+                if (aspectNames.length > 0) {
+                    const aspectName = aspectNames[0];
+                    const aspect = originalJSON.aspects[aspectName];
+                    return { 
+                        type: 'aspect', 
+                        name: aspectName,
+                        description: aspect.description || null
+                    };
+                }
+            }
+            
+            return null;
+        }
+
+        async function callOpenAI(originalResult, tableType, tableName, domainContext) {
+            // Always get the current API key value
+            apiKey = document.getElementById('apiKey').value.trim();
+            
+            if (!apiKey) {
+                throw new Error('OpenAI API key required');
+            }
+
+            const useProxy = document.getElementById('apiMethod').value === 'proxy';
+            const selectedModel = document.getElementById('modelSelect').value;
+
+            if (useProxy) {
+                // Use proxy server
+                try {
+                    const response = await fetch('/api/openai', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-API-Key': apiKey
+                        },
+                        body: JSON.stringify({
+                            original_result: originalResult,
+                            table_type: tableType,
+                            table_name: tableName,
+                            model: selectedModel,
+                            domain_context: domainContext,
+                            genre: document.getElementById('genreSelect').value
+                        })
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(`Proxy API error: ${response.status} - ${errorData.error || 'Unknown error'}`);
+                    }
+
+                    return await response.json();
+
+                } catch (error) {
+                    console.error('Proxy API call failed:', error);
+                    if (error.message.includes('Failed to fetch')) {
+                        throw new Error('Cannot connect to API proxy. Make sure the proxy server is running on port 5001.');
+                    }
+                    throw error;
+                }
+            } else {
+                // Direct OpenAI API call
+                const systemPrompt = `You are an AI assistant helping to review and improve fantasy tabletop RPG content. 
+
+Your task is to analyze text entries from ForgeTable data and decide if they need changes.
+
+Rules:
+- LEAVE: Keep content that is already good, unique, and fitting
+- MODIFY: Fix content that has issues (duplicates, poor word count, style issues)  
+- RECREATE: Replace content that is fundamentally flawed
+
+For ${tableType} tables:
+- Style: Grim fantasy, concrete imagery, no modern references, no comedy
+- Word count: ${tableType === 'objective' ? '6-10 words' : '4-10 words'}
+- Objectives should be scene-inspiring prompts in Joe Abercrombie style
+- Other tables avoid direct character interaction
+
+Respond with JSON only: {"decision": "LEAVE|MODIFY|RECREATE", "new_result": "replacement text if needed"}`;
+
+                const userPrompt = `Table: ${tableName}
+Original: "${originalResult}"
+
+Analyze this entry and provide your decision with any improvements needed.`;
+
+                try {
+                    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${apiKey}`
+                        },
+                        body: JSON.stringify({
+                            model: selectedModel,
+                            messages: [
+                                { role: 'system', content: systemPrompt },
+                                { role: 'user', content: userPrompt }
+                            ],
+                            max_tokens: 300,
+                            temperature: 0.7
+                        })
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.text();
+                        throw new Error(`OpenAI API error: ${response.status} - ${errorData}`);
+                    }
+
+                    const data = await response.json();
+                    const content = data.choices[0].message.content;
+                    
+                    try {
+                        return JSON.parse(content);
+                    } catch (parseError) {
+                        throw new Error(`Invalid JSON response from OpenAI: ${content}`);
+                    }
+
+                } catch (error) {
+                    if (error.message.includes('CORS') || error.message.includes('blocked')) {
+                        throw new Error('CORS Error: Direct OpenAI API calls are blocked by browsers. Try using the proxy method instead.');
+                    } else if (error.message.includes('401')) {
+                        throw new Error('Invalid API key. Please check your OpenAI API key.');
+                    } else if (error.message.includes('429')) {
+                        throw new Error('Rate limit exceeded. Please wait and try again.');
+                    } else if (error.message.includes('quota')) {
+                        throw new Error('API quota exceeded. Please check your OpenAI account.');
+                    }
+                    throw error;
+                }
+            }
+        }
+
+        async function autoReview() {
+            const row = getCurrentRow();
+            const table = getCurrentTable();
+            
+            if (!row || !table) return;
+            
+            // Store original result for comparison
+            const originalResult = row.result;
+            
+            // Check if it's a macro to skip
+            if (isSkippableMacro(row.result)) {
+                decisionLabel.textContent = 'Decision: MACRO (skipped)';
+                return;
+            }
+
+            let decision, newResult;
+            
+            try {
+                if (useAPIMode) {
+                    // Use OpenAI for decision making
+                    decisionLabel.textContent = 'Decision: Analyzing with OpenAI...';
+                    
+                    const tableType = tableTypeFromName(table.name || table.oracle_type);
+                    const domainContext = extractDomainContext();
+                    const apiResponse = await callOpenAI(originalResult, tableType, table.name, domainContext);
+                    
+                    decision = apiResponse.decision;
+                    newResult = apiResponse.new_result || originalResult;
+                    
+                    console.log(`API Response - Decision: ${decision}, Original: "${originalResult}", New: "${newResult}"`);
+                    
+                    // Ensure first letter is capitalized
+                    if (newResult !== originalResult) {
+                        newResult = newResult.charAt(0).toUpperCase() + newResult.slice(1);
+                    }
+                    
+                } else {
+                    // Use simulation mode
+                    if (isDuplicateInCurrentTable(row.result)) {
+                        decision = 'MODIFY'; // Force modify for duplicates
+                    } else {
+                        const rand = Math.random();
+                        if (rand < 0.33) decision = 'LEAVE';
+                        else if (rand < 0.66) decision = 'MODIFY';
+                        else decision = 'RECREATE';
+                    }
+                    
+                    newResult = originalResult;
+                    
+                    if (decision === 'MODIFY') {
+                        const tableType = tableTypeFromName(table.name || table.oracle_type);
+                        const isObjective = tableType === 'objective';
+                        const minWords = isObjective ? 6 : 4;
+                        const maxWords = isObjective ? 10 : 10;
+                        
+                        let modified = normalizeText(row.result);
+                        modified = clampWords(modified, minWords, maxWords);
+                        
+                        // If still duplicate after modification, generate new
+                        if (isDuplicateInCurrentTable(modified)) {
+                            modified = generateUnique(tableType);
+                        }
+                        
+                        modified = modified.charAt(0).toUpperCase() + modified.slice(1);
+                        newResult = modified;
+                    } else if (decision === 'RECREATE') {
+                        const recreateType = tableTypeFromName(table.name || table.oracle_type);
+                        let recreated = generateUnique(recreateType);
+                        recreated = recreated.charAt(0).toUpperCase() + recreated.slice(1);
+                        newResult = recreated;
+                    }
+                }
+                
+                // Apply the result
+                row.result = newResult;
+                
+                // Update counters
+                switch (decision) {
+                    case 'LEAVE': counters.leave++; break;
+                    case 'MODIFY': counters.modify++; break;
+                    case 'RECREATE': counters.recreate++; break;
+                }
+                
+                // Update UI with old/new result comparison
+                if (decision === 'LEAVE') {
+                    decisionLabel.textContent = `Decision: ${decision}`;
+                } else {
+                    const truncateText = (text, maxLength = 50) => {
+                        return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+                    };
+                    decisionLabel.textContent = `Decision: ${decision} - ${truncateText(originalResult)} --> ${truncateText(newResult)}`;
+                }
+                
+            } catch (error) {
+                decisionLabel.textContent = `Decision: API Error - ${error.message}`;
+                console.error('Auto review failed:', error);
+                console.error('API Key length:', apiKey ? apiKey.length : 0);
+                console.error('Use API Mode:', useAPIMode);
+                console.error('API Method:', document.getElementById('apiMethod').value);
+                console.error('Model:', document.getElementById('modelSelect').value);
+                
+                // Pause iteration on API error instead of falling back
+                if (useAPIMode && iterationInterval) {
+                    pauseIteration();
+                    alert(`API Error: ${error.message}\n\nIteration has been paused. Please check your API key and settings.`);
+                }
+                return; // Don't continue processing on error
+            }
+            
+            updateCounters();
+            showCurrent();
+        }
+
+        function updateCounters() {
+            leaveCount.textContent = counters.leave;
+            modifyCount.textContent = counters.modify;
+            recreateCount.textContent = counters.recreate;
+        }
+
+        function resetCounters() {
+            counters = { leave: 0, modify: 0, recreate: 0 };
+            updateCounters();
+            decisionLabel.textContent = 'Decision: (none)';
+        }
+
+        function navigate(direction) {
+            const table = getCurrentTable();
+            if (!table) return;
+            
+            currentRowIndex += direction;
+            
+            if (currentRowIndex < 0) {
+                currentRowIndex = 0;
+            } else if (currentRowIndex >= table.tableData.length) {
+                currentRowIndex = table.tableData.length - 1;
+            }
+            
+            showCurrent();
+        }
+
+        async function reviewAndNext() {
+            await autoReview();
+            
+            // Advance to next row
+            const table = getCurrentTable();
+            if (!table) return;
+            
+            currentRowIndex++;
+            
+            // If at end of current table, move to next table
+            if (currentRowIndex >= table.tableData.length) {
+                currentTableIndex++;
+                currentRowIndex = 0;
+                
+                // If no more tables, stop iteration
+                if (currentTableIndex >= tables.length) {
+                    pauseIteration();
+                    output.textContent = 'All tables completed.';
+                    return;
+                }
+                
+                // Update table selection
+                tableSelect.selectedIndex = currentTableIndex;
+            }
+            
+            showCurrent();
+        }
+
+        function startIteration() {
+            if (iterationInterval) return; // Prevent duplicate intervals
+            
+            iterationInterval = setInterval(reviewAndNext, 2000);
+            startBtn.disabled = true;
+            pauseBtn.disabled = false;
+        }
+
+        function pauseIteration() {
+            if (iterationInterval) {
+                clearInterval(iterationInterval);
+                iterationInterval = null;
+            }
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+        }
+
+        async function manualReview() {
+            await autoReview();
+        }
+
+        function onTableSelect() {
+            const selectedIndex = parseInt(tableSelect.value);
+            if (!isNaN(selectedIndex) && selectedIndex >= 0 && selectedIndex < tables.length) {
+                currentTableIndex = selectedIndex;
+                currentRowIndex = 0;
+                showCurrent();
+            }
+        }
+
+        function loadJSON() {
+            const file = fileInput.files[0];
+            if (!file) {
+                alert('Please select a file first.');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    let jsonText = e.target.result;
+                    if (!jsonText || jsonText.trim() === '') {
+                        throw new Error('Empty file');
+                    }
+                    
+                    // Remove BOM if present
+                    if (jsonText.charCodeAt(0) === 0xFEFF) {
+                        jsonText = jsonText.slice(1);
+                    }
+                    
+                    originalJSON = JSON.parse(jsonText);
+                    tables = collectTables(originalJSON);
+                    separateAspectAndDomainTables(originalJSON);
+                    
+                    // Determine navigation mode
+                    if (aspectTables.length > 0 && domainTables.length > 0) {
+                        navigationMode = 'separated';
+                    } else if (tables.length > 0) {
+                        navigationMode = 'legacy';
+                    }
+                    
+                    if (tables.length === 0 && aspectTables.length === 0 && domainTables.length === 0) {
+                        output.textContent = 'No valid ForgeTables found in this file.';
+                        return;
+                    }
+                    
+                    updateNavigationUI();
+                    
+                    if (navigationMode === 'separated') {
+                        // Populate aspect dropdown
+                        const aspectTableSelect = document.getElementById('aspectTableSelect');
+                        aspectTableSelect.innerHTML = '';
+                        aspectTables.forEach((table, index) => {
+                            const option = document.createElement('option');
+                            option.value = index;
+                            option.textContent = `${table.aspectName} - ${table.tableName}`;
+                            aspectTableSelect.appendChild(option);
+                        });
+                        
+                        // Populate domain dropdown
+                        const domainTableSelect = document.getElementById('domainTableSelect');
+                        domainTableSelect.innerHTML = '';
+                        domainTables.forEach((table, index) => {
+                            const option = document.createElement('option');
+                            option.value = index;
+                            option.textContent = `${table.domainName} - ${table.tableName}`;
+                            domainTableSelect.appendChild(option);
+                        });
+                        
+                        // Reset states
+                        aspectTableIndex = 0;
+                        aspectRowIndex = 0;
+                        domainTableIndex = 0;
+                        domainRowIndex = 0;
+                        
+                        // Enable controls
+                        aspectTableSelect.disabled = false;
+                        domainTableSelect.disabled = false;
+                        enableAspectControls();
+                        enableDomainControls();
+                        
+                        // Show first entries
+                        showAspectCurrent();
+                        showDomainCurrent();
+                    } else {
+                        // Legacy mode - populate single dropdown
+                        const tableSelect = document.getElementById('tableSelect');
+                        tableSelect.innerHTML = '';
+                        tables.forEach((table, index) => {
+                            const option = document.createElement('option');
+                            option.value = index;
+                            option.textContent = table.name || `Table ${index + 1}`;
+                            tableSelect.appendChild(option);
+                        });
+                        
+                        // Reset state
+                        currentTableIndex = 0;
+                        currentRowIndex = 0;
+                        tableSelect.selectedIndex = 0;
+                    }
+                    
+                    // Enable controls
+                    if (navigationMode === 'legacy') {
+                        tableSelect.disabled = false;
+                        prevBtn.disabled = false;
+                        nextBtn.disabled = false;
+                        document.getElementById('copyTableBtn').disabled = false;
+                        document.getElementById('rollTableBtn').disabled = false;
+                        document.getElementById('viewTableBtn').disabled = false;
+                        document.getElementById('generateTableBtn').disabled = false;
+                    }
+                    startBtn.disabled = false;
+                    manualReviewBtn.disabled = false;
+                    saveBtn.disabled = false;
+                    
+                    // Enable API controls
+                    apiMethodSelect.disabled = false;
+                    modelSelect.disabled = false;
+                    apiKeyInput.disabled = false;
+                    
+                    // Show first row
+                    showCurrent();
+                    
+                    // Show success message
+                    const successDiv = document.createElement('div');
+                    successDiv.className = 'success';
+                    successDiv.textContent = `Successfully loaded ${tables.length} table(s).`;
+                    output.parentNode.insertBefore(successDiv, output);
+                    setTimeout(() => successDiv.remove(), 3000);
+                    
+                } catch (error) {
+                    alert('Invalid JSON file: ' + error.message);
+                    console.error('JSON parse error:', error.message, error);
+                    output.textContent = 'Failed to load JSON file. Please check the file format.';
+                }
+            };
+            
+            reader.onerror = function() {
+                alert('Error reading file');
+                console.error('File read error');
+                output.textContent = 'Error reading the selected file.';
+            };
+            
+            reader.readAsText(file);
+        }
+
+        function loadSampleData() {
+            try {
+                originalJSON = JSON.parse(JSON.stringify(sampleData)); // Deep copy
+                tables = collectTables(originalJSON);
+                
+                if (tables.length === 0) {
+                    output.textContent = 'No valid ForgeTables found in sample data.';
+                    return;
+                }
+                
+                // Populate dropdown
+                tableSelect.innerHTML = '';
+                tables.forEach((table, index) => {
+                    const option = document.createElement('option');
+                    option.value = index;
+                    option.textContent = table.name || `Table ${index + 1}`;
+                    tableSelect.appendChild(option);
+                });
+                
+                // Reset state
+                currentTableIndex = 0;
+                currentRowIndex = 0;
+                tableSelect.selectedIndex = 0;
+                
+                // Enable controls
+                tableSelect.disabled = false;
+                prevBtn.disabled = false;
+                nextBtn.disabled = false;
+                document.getElementById('copyTableBtn').disabled = false;
+                document.getElementById('rollTableBtn').disabled = false;
+                startBtn.disabled = false;
+                manualReviewBtn.disabled = false;
+                saveBtn.disabled = false;
+                
+                // Enable API controls
+                apiMethodSelect.disabled = false;
+                modelSelect.disabled = false;
+                apiKeyInput.disabled = false;
+                
+                // Show first row
+                showCurrent();
+                
+                // Show success message
+                const successDiv = document.createElement('div');
+                successDiv.className = 'success';
+                successDiv.textContent = `Successfully loaded ${tables.length} sample table(s).`;
+                output.parentNode.insertBefore(successDiv, output);
+                setTimeout(() => successDiv.remove(), 3000);
+                
+            } catch (error) {
+                alert('Error loading sample data: ' + error.message);
+                console.error('Sample data error:', error);
+                output.textContent = 'Failed to load sample data.';
+            }
+        }
+
+        function saveJSON() {
+            if (!originalJSON) {
+                alert('No JSON data to save.');
+                return;
+            }
+            
+            const dataStr = JSON.stringify(originalJSON, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = 'updated.json';
+            link.click();
+            
+            URL.revokeObjectURL(link.href);
+        }
+
+        async function generateEntireTable() {
+            const table = getCurrentTable();
+            if (!table) {
+                alert('Please select a table first.');
+                return;
+            }
+
+            const tableType = tableTypeFromName(table.name || table.oracle_type);
+            const domainContext = extractDomainContext();
+            
+            if (!domainContext) {
+                alert('No Aspect/Domain context found. This feature works best with generated templates.');
+                return;
+            }
+            
+            // Use real API if enabled and available
+            const useProxy = useAPIMode;
+
+            try {
+                document.getElementById('generateTableBtn').disabled = true;
+                document.getElementById('generateTableBtn').textContent = 'Generating...';
+
+                // Count empty entries that need generation
+                const emptyEntriesCount = table.tableData.filter(row => row.result === "").length;
+                
+                console.log(`Calling batch generation API for ${emptyEntriesCount} ${tableType} entries`);
+                
+                // Use batch generation for all table types when API is enabled
+                // Always get current API key value
+                apiKey = document.getElementById('apiKey').value.trim();
+                if (useAPIMode && apiKey) {
+                    console.log(`Calling batch generation for ${tableType} table with ${emptyEntriesCount} entries`);
+                    var response = await callBatchGeneration(tableType, table.name, domainContext, emptyEntriesCount);
+                    console.log('Batch generation response:', response);
+                } else {
+                    // No API connection - show error instead of simulation
+                    if (!useAPIMode) {
+                        throw new Error('API mode is disabled. Please enable "Use OpenAI API" to generate table content.');
+                    } else if (!apiKey) {
+                        throw new Error('OpenAI API key required. Please enter your API key to generate content.');
+                    }
+                    throw new Error('Unknown API configuration error.');
+                }
+                
+                if (response && response.results && response.results.length > 0) {
+                    // Update only empty table entries (skip pre-filled special entries)
+                    let resultIndex = 0;
+                    table.tableData.forEach((row) => {
+                        if (row.result === "" && resultIndex < response.results.length) {
+                            row.result = response.results[resultIndex];
+                            resultIndex++;
+                        }
+                    });
+                    
+                    // Update counters (only count actually generated entries)
+                    counters.recreate += emptyEntriesCount;
+                    updateCounters();
+                    
+                    // Refresh display
+                    showCurrent();
+                    
+                    // Enable Save JSON button now that data has been generated
+                    document.getElementById('saveBtn').disabled = false;
+                    
+                    // Success message
+                    decisionLabel.textContent = `Table Generated: ${emptyEntriesCount} unique entries created`;
+                } else {
+                    const errorMsg = response?.error || 'No results returned from API';
+                    console.error('API Response:', response);
+                    throw new Error(errorMsg);
+                }
+                
+            } catch (error) {
+                decisionLabel.textContent = `Generation Error: ${error.message}`;
+                console.error('Batch generation failed:', error);
+                
+                // Only show alert if the table is actually empty (real failure)
+                const table = getCurrentTable();
+                const emptyEntriesCount = table ? table.tableData.filter(row => row.result === "").length : 0;
+                
+                if (emptyEntriesCount > 0) {
+                    alert(`Failed to generate table: ${error.message}`);
+                }
+            } finally {
+                document.getElementById('generateTableBtn').disabled = false;
+                document.getElementById('generateTableBtn').textContent = 'Generate Entire Table';
+            }
+        }
+
+        function generateTemplate() {
+            const name = document.getElementById('templateName').value.trim();
+            const description = document.getElementById('templateDescription').value.trim();
+            const type = document.querySelector('input[name="templateType"]:checked').value;
+            
+            if (!name) {
+                alert('Please enter an Aspect or Domain name.');
+                return;
+            }
+            
+            if (!description) {
+                alert('Please enter a 2-sentence description for the template.');
+                return;
+            }
+            
+            // Create empty table structure with exact ForgeTable specifications
+            const createEmptyTable = (tableName, templateType) => {
+                const lowerName = tableName.toLowerCase();
+                
+                // Objective: 50 entries covering 1–100 in 2-wide ranges
+                if (lowerName.includes('objective')) {
+                    return {
+                        sourcePath: "generated",
+                        name: tableName,
+                        tags: ["objective"],
+                        headers: ["d100", "Result"],
+                        tableData: Array.from({ length: 50 }, (_, i) => ({
+                            floor: i * 2 + 1,
+                            ceiling: i * 2 + 2,
+                            result: ""
+                        })),
+                        maxRoll: 100
+                    };
+                }
+                
+                // Atmosphere: 96 entries covering 1–96, plus special entries
+                if (lowerName.includes('atmosphere')) {
+                    const tableData = [
+                        // 96 regular entries (1-wide ranges)
+                        ...Array.from({ length: 96 }, (_, i) => ({
+                            floor: i + 1,
+                            ceiling: i + 1,
+                            result: ""
+                        })),
+                        // Special entries
+                        { floor: 97, ceiling: 98, result: "ACTION + THEME" },
+                        { floor: 99, ceiling: 100, result: "ROLL TWICE" }
+                    ];
+                    return {
+                        sourcePath: "generated",
+                        name: tableName,
+                        tags: [],
+                        headers: ["d100", "Result"],
+                        tableData: tableData,
+                        maxRoll: 100
+                    };
+                }
+                
+                // Manifestation (ASPECT ONLY): 47 entries + special entries
+                if (lowerName.includes('manifestation') && templateType === 'aspect') {
+                    const tableData = [
+                        // 47 regular entries (2-wide ranges)
+                        ...Array.from({ length: 47 }, (_, i) => ({
+                            floor: i * 2 + 1,
+                            ceiling: i * 2 + 2,
+                            result: ""
+                        })),
+                        // Special entries
+                        { floor: 95, ceiling: 96, result: "THE WEAVE" },
+                        { floor: 97, ceiling: 98, result: "ACTION + THEME" },
+                        { floor: 99, ceiling: 100, result: "ROLL TWICE" }
+                    ];
+                    return {
+                        sourcePath: "generated",
+                        name: tableName,
+                        tags: [],
+                        headers: ["d100", "Result"],
+                        tableData: tableData,
+                        maxRoll: 100
+                    };
+                }
+                
+                // Location (DOMAIN ONLY): 47 entries + special entries
+                if (lowerName.includes('location') && templateType === 'domain') {
+                    const tableData = [
+                        // 47 regular entries (2-wide ranges)
+                        ...Array.from({ length: 47 }, (_, i) => ({
+                            floor: i * 2 + 1,
+                            ceiling: i * 2 + 2,
+                            result: ""
+                        })),
+                        // Special entries
+                        { floor: 95, ceiling: 96, result: "THE WEAVE" },
+                        { floor: 97, ceiling: 98, result: "DESCRIPTOR + FOCUS" },
+                        { floor: 99, ceiling: 100, result: "ROLL TWICE" }
+                    ];
+                    return {
+                        sourcePath: "generated",
+                        name: tableName,
+                        tags: [],
+                        headers: ["d100", "Result"],
+                        tableData: tableData,
+                        maxRoll: 100
+                    };
+                }
+                
+                // Discovery: 47 entries + special entries
+                if (lowerName.includes('discovery')) {
+                    const tableData = [
+                        // 47 regular entries (2-wide ranges)
+                        ...Array.from({ length: 47 }, (_, i) => ({
+                            floor: i * 2 + 1,
+                            ceiling: i * 2 + 2,
+                            result: ""
+                        })),
+                        // Special entries
+                        { floor: 95, ceiling: 96, result: "THE WEAVE" },
+                        { floor: 97, ceiling: 98, result: "DESCRIPTOR + FOCUS" },
+                        { floor: 99, ceiling: 100, result: "ROLL TWICE" }
+                    ];
+                    return {
+                        sourcePath: "generated",
+                        name: tableName,
+                        tags: [],
+                        headers: ["d100", "Result"],
+                        tableData: tableData,
+                        maxRoll: 100
+                    };
+                }
+                
+                // Bane: 48 entries + special entries
+                if (lowerName.includes('bane')) {
+                    const tableData = [
+                        // 48 entries covering 1-95 (irregular 2-wide ranges)
+                        ...Array.from({ length: 47 }, (_, i) => ({
+                            floor: i * 2 + 1,
+                            ceiling: i * 2 + 2,
+                            result: ""
+                        })),
+                        // Last regular entry covers 95 only
+                        { floor: 95, ceiling: 95, result: "" },
+                        // Special entries
+                        { floor: 96, ceiling: 98, result: "OBJECTIVES" },
+                        { floor: 99, ceiling: 100, result: "DESCRIPTOR + FOCUS" }
+                    ];
+                    return {
+                        sourcePath: "generated",
+                        name: tableName,
+                        tags: [],
+                        headers: ["d100", "Result"],
+                        tableData: tableData,
+                        maxRoll: 100
+                    };
+                }
+                
+                // Boon: 48 entries + special entries  
+                if (lowerName.includes('boon')) {
+                    const tableData = [
+                        // 48 entries covering 1-95 (irregular 2-wide ranges)
+                        ...Array.from({ length: 47 }, (_, i) => ({
+                            floor: i * 2 + 1,
+                            ceiling: i * 2 + 2,
+                            result: ""
+                        })),
+                        // Last regular entry covers 95 only
+                        { floor: 95, ceiling: 95, result: "" },
+                        // Special entries
+                        { floor: 96, ceiling: 98, result: "OBJECTIVES" },
+                        { floor: 99, ceiling: 100, result: "DESCRIPTOR + FOCUS" }
+                    ];
+                    return {
+                        sourcePath: "generated",
+                        name: tableName,
+                        tags: [],
+                        headers: ["d100", "Result"],
+                        tableData: tableData,
+                        maxRoll: 100
+                    };
+                }
+                
+                // Fallback: standard 50-entry table
+                return {
+                    sourcePath: "generated",
+                    name: tableName,
+                    tags: [],
+                    headers: ["d100", "Result"],
+                    tableData: Array.from({ length: 50 }, (_, i) => ({
+                        floor: i * 2 + 1,
+                        ceiling: i * 2 + 2,
+                        result: ""
+                    })),
+                    maxRoll: 100
+                };
+            };
+            
+            let templateJSON;
+            
+            if (type === 'aspect') {
+                // Aspect has Manifestation table, no Location table
+                templateJSON = {
+                    aspects: {
+                        [name]: {
+                            description: description,
+                            Objective: createEmptyTable("Objective", type),
+                            Atmosphere: createEmptyTable("Atmosphere", type),
+                            Manifestation: createEmptyTable("Manifestation", type),
+                            Discovery: createEmptyTable("Discovery", type),
+                            Bane: createEmptyTable("Bane", type),
+                            Boon: createEmptyTable("Boon", type)
+                        }
+                    }
+                };
+            } else {
+                // Domain has Location table, no Manifestation table
+                templateJSON = {
+                    domains: {
+                        [name]: {
+                            description: description,
+                            Objective: createEmptyTable("Objective", type),
+                            Atmosphere: createEmptyTable("Atmosphere", type),
+                            Location: createEmptyTable("Location", type),
+                            Discovery: createEmptyTable("Discovery", type),
+                            Bane: createEmptyTable("Bane", type),
+                            Boon: createEmptyTable("Boon", type)
+                        }
+                    }
+                };
+            }
+            
+            // Load the template using the new navigation system
+            try {
+                originalJSON = templateJSON;
+                separateAspectAndDomainTables(originalJSON);
+                
+                if (type === 'aspect') {
+                    // Load aspect template
+                    if (aspectTables.length > 0) {
+                        // Update aspect dropdown
+                        const aspectTableSelect = document.getElementById('aspectTableSelect');
+                        aspectTableSelect.innerHTML = '';
+                        aspectTables.forEach((table, index) => {
+                            const option = document.createElement('option');
+                            option.value = index;
+                            option.textContent = `${table.aspectName} - ${table.tableName}`;
+                            aspectTableSelect.appendChild(option);
+                        });
+
+                        // Reset and enable aspect controls
+                        aspectTableIndex = 0;
+                        aspectRowIndex = 0;
+                        aspectTableSelect.disabled = false;
+                        enableAspectControls();
+                        showAspectCurrent();
+                    }
+                } else {
+                    // Load domain template
+                    if (domainTables.length > 0) {
+                        // Update domain dropdown
+                        const domainTableSelect = document.getElementById('domainTableSelect');
+                        domainTableSelect.innerHTML = '';
+                        domainTables.forEach((table, index) => {
+                            const option = document.createElement('option');
+                            option.value = index;
+                            option.textContent = `${table.domainName} - ${table.tableName}`;
+                            domainTableSelect.appendChild(option);
+                        });
+
+                        // Reset and enable domain controls
+                        domainTableIndex = 0;
+                        domainRowIndex = 0;
+                        domainTableSelect.disabled = false;
+                        enableDomainControls();
+                        showDomainCurrent();
+                    }
+                }
+                
+                // Enable global controls
+                startBtn.disabled = false;
+                manualReviewBtn.disabled = false;
+                saveBtn.disabled = false;
+                apiMethodSelect.disabled = false;
+                modelSelect.disabled = false;
+                apiKeyInput.disabled = false;
+                
+                // Clear template inputs
+                document.getElementById('templateName').value = '';
+                document.getElementById('templateDescription').value = '';
+                
+                // Show success message
+                const output = document.getElementById('output');
+                const tableCount = type === 'aspect' ? aspectTables.length : domainTables.length;
+                output.innerHTML = `<div class="success">Successfully created ${type} template "${name}" with ${tableCount} empty tables ready for AI generation.</div>`;
+                
+            } catch (error) {
+                alert('Error creating template: ' + error.message);
+                console.error('Template generation error:', error);
+            }
+        }
+
+        // Toggle API mode when checkbox is checked/unchecked
+        function toggleAPIMode() {
+            const checkbox = document.getElementById('useAPICheckbox');
+            const apiMethodSelect = document.getElementById('apiMethod');
+            const modelSelect = document.getElementById('modelSelect');
+            const apiKeyInput = document.getElementById('apiKey');
+            const startBtn = document.getElementById('startBtn');
+            const pauseBtn = document.getElementById('pauseBtn');
+            const manualReviewBtn = document.getElementById('manualReviewBtn');
+            const generateTableBtn = document.getElementById('generateTableBtn');
+            const saveBtn = document.getElementById('saveBtn');
+            
+            useAPIMode = checkbox.checked;
+            
+            // Enable/disable API controls
+            apiMethodSelect.disabled = !useAPIMode;
+            modelSelect.disabled = !useAPIMode;
+            apiKeyInput.disabled = !useAPIMode;
+            
+            // Update global apiKey variable when mode changes
+            if (useAPIMode) {
+                apiKey = apiKeyInput.value.trim();
+            }
+            
+            // Enable/disable operation buttons
+            const hasData = tables.length > 0;
+            const canUseAPI = useAPIMode && apiKey;
+            startBtn.disabled = !(hasData && canUseAPI);
+            pauseBtn.disabled = !useAPIMode;
+            manualReviewBtn.disabled = !(hasData && canUseAPI);
+            generateTableBtn.disabled = !(hasData && canUseAPI);
+            saveBtn.disabled = !hasData;
+        }
+
+        // Initialize counters display
+        updateCounters();
+
+        function copyTableToClipboard() {
+            const table = getCurrentTable();
+            copyTableToClipboardGeneric(table);
+        }
+
+        function copyAspectTableToClipboard() {
+            const table = getAspectTable();
+            copyTableToClipboardGeneric(table);
+        }
+
+        function copyDomainTableToClipboard() {
+            const table = getDomainTable();
+            copyTableToClipboardGeneric(table);
+        }
+
+        function copyTableToClipboardGeneric(table) {
+            if (!table || !table.tableData) {
+                alert('No table selected or table is empty.');
+                return;
+            }
+
+            // Create tab-separated text for clipboard
+            let clipboardText = '';
+            
+            table.tableData.forEach(row => {
+                // First column: Floor + " - " + Ceiling, unless they're identical, then just Floor
+                let rangeText;
+                if (row.floor === row.ceiling) {
+                    rangeText = row.floor.toString();
+                } else {
+                    rangeText = `${row.floor} - ${row.ceiling}`;
+                }
+                
+                // Second column: Result
+                const result = row.result || '';
+                
+                // Tab-separated for Excel/LibreOffice compatibility
+                clipboardText += `${rangeText}\t${result}\n`;
+            });
+
+            // Copy to clipboard
+            navigator.clipboard.writeText(clipboardText).then(() => {
+                const decisionLabel = document.getElementById('decisionLabel');
+                const originalText = decisionLabel.textContent;
+                decisionLabel.textContent = `Table copied to clipboard (${table.tableData.length} entries)`;
+                setTimeout(() => {
+                    decisionLabel.textContent = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy to clipboard:', err);
+                alert('Failed to copy to clipboard. Your browser may not support this feature.');
+            });
+        }
+
+        function rollOnTable() {
+            const table = getCurrentTable();
+            rollOnTableGeneric(table, 'Current Table');
+        }
+
+        function rollOnAspectTable() {
+            const table = getAspectTable();
+            const tableName = table ? `${table.aspectName} - ${table.tableName}` : 'Aspect Table';
+            rollOnTableGeneric(table, tableName);
+        }
+
+        function rollOnDomainTable() {
+            const table = getDomainTable();
+            const tableName = table ? `${table.domainName} - ${table.tableName}` : 'Domain Table';
+            rollOnTableGeneric(table, tableName);
+        }
+
+        function rollOnTableGeneric(table, displayName) {
+            if (!table || !table.tableData || table.tableData.length === 0) {
+                alert('No table selected or table is empty.');
+                return;
+            }
+
+            // Filter out empty results for rolling
+            const validEntries = table.tableData.filter(row => row.result && row.result.trim() !== '');
+            
+            if (validEntries.length === 0) {
+                alert('No valid entries to roll on. Table appears to be empty.');
+                return;
+            }
+
+            // Generate random roll based on table's max roll or highest ceiling
+            const maxRoll = table.maxRoll || Math.max(...table.tableData.map(row => row.ceiling));
+            const roll = Math.floor(Math.random() * maxRoll) + 1;
+            
+            // Find the entry that matches this roll
+            let rolledEntry = null;
+            for (const entry of validEntries) {
+                if (roll >= entry.floor && roll <= entry.ceiling) {
+                    rolledEntry = entry;
+                    break;
+                }
+            }
+            
+            // If no exact match found (shouldn't happen with proper tables), pick random valid entry
+            if (!rolledEntry) {
+                rolledEntry = validEntries[Math.floor(Math.random() * validEntries.length)];
+            }
+            
+            // Display result in the output area
+            const output = document.getElementById('output');
+            const rollResultDiv = document.createElement('div');
+            rollResultDiv.className = 'success';
+            rollResultDiv.style.marginBottom = '20px';
+            
+            const rangeText = rolledEntry.floor === rolledEntry.ceiling 
+                ? rolledEntry.floor.toString() 
+                : `${rolledEntry.floor}-${rolledEntry.ceiling}`;
+                
+            rollResultDiv.innerHTML = `
+                <strong>🎲 Table Roll Result</strong><br>
+                <strong>Table:</strong> ${displayName}<br>
+                <strong>Rolled:</strong> ${roll} (Range: ${rangeText})<br>
+                <strong>Result:</strong> ${rolledEntry.result}
+            `;
+            
+            // Insert at top of output area
+            output.insertBefore(rollResultDiv, output.firstChild);
+            
+            // Auto-remove after 10 seconds
+            setTimeout(() => {
+                if (rollResultDiv.parentNode) {
+                    rollResultDiv.remove();
+                }
+            }, 10000);
+        }
+
+        function viewTable() {
+            const table = getCurrentTable();
+            viewTableGeneric(table, table ? table.name || 'Current Table' : 'Current Table');
+        }
+
+        function viewAspectTable() {
+            const table = getAspectTable();
+            const tableName = table ? `${table.aspectName} - ${table.tableName}` : 'Aspect Table';
+            viewTableGeneric(table, tableName);
+        }
+
+        function viewDomainTable() {
+            const table = getDomainTable();
+            const tableName = table ? `${table.domainName} - ${table.tableName}` : 'Domain Table';
+            viewTableGeneric(table, tableName);
+        }
+
+        function viewTableGeneric(table, displayName) {
+            if (!table || !table.tableData) {
+                alert('No table selected or table is empty.');
+                return;
+            }
+
+            const dialog = document.getElementById('tableDialog');
+            const title = document.getElementById('dialogTitle');
+            const content = document.getElementById('dialogTableContent');
+            
+            title.textContent = displayName;
+            
+            let html = '<table>';
+            html += '<thead><tr><th>Range</th><th>Result</th></tr></thead>';
+            html += '<tbody>';
+            
+            table.tableData.forEach(row => {
+                const rangeText = row.floor === row.ceiling 
+                    ? row.floor.toString() 
+                    : `${row.floor}-${row.ceiling}`;
+                
+                const result = row.result || '<span class="empty-result">(empty)</span>';
+                html += `<tr><td>${rangeText}</td><td>${result}</td></tr>`;
+            });
+            
+            html += '</tbody></table>';
+            content.innerHTML = html;
+            
+            dialog.style.display = 'block';
+        }
+
+        function closeDialog() {
+            document.getElementById('tableDialog').style.display = 'none';
+        }
+
+        function updateNavigationUI() {
+            const aspectNav = document.getElementById('aspectNavigation');
+            const domainNav = document.getElementById('domainNavigation');
+            const legacyNav = document.getElementById('legacyNavigation');
+            
+            // Always show aspect and domain navigation panels (independent loading)
+            aspectNav.style.display = 'block';
+            domainNav.style.display = 'block';
+            
+            // Hide legacy navigation when using independent loading
+            if (legacyNav) {
+                legacyNav.style.display = 'none';
+            }
+        }
+
+        // Set up event listeners
+        document.getElementById('useAPICheckbox').addEventListener('change', toggleAPIMode);
+        document.getElementById('apiKey').addEventListener('input', function() {
+            apiKey = this.value.trim();
+            // Re-enable buttons if API mode is on and we now have a key
+            if (useAPIMode) {
+                toggleAPIMode();
+            }
+        });
+        document.getElementById('loadBtn').addEventListener('click', loadJSON);
+
+        document.getElementById('generateTemplateBtn').addEventListener('click', generateTemplate);
+        document.getElementById('tableSelect').addEventListener('change', onTableSelect);
+        document.getElementById('prevBtn').addEventListener('click', () => navigateRow(-1));
+        document.getElementById('nextBtn').addEventListener('click', () => navigateRow(1));
+        document.getElementById('copyTableBtn').addEventListener('click', copyTableToClipboard);
+        document.getElementById('rollTableBtn').addEventListener('click', rollOnTable);
+        document.getElementById('viewTableBtn').addEventListener('click', viewTable);
+        
+        // Aspect navigation event listeners
+        document.getElementById('aspectLoadBtn').addEventListener('click', () => {
+            document.getElementById('aspectFileInput').click();
+        });
+        document.getElementById('aspectFileInput').addEventListener('change', loadAspectFile);
+        document.getElementById('aspectTableSelect').addEventListener('change', (e) => {
+            aspectTableIndex = parseInt(e.target.value) || 0;
+            aspectRowIndex = 0;
+            showAspectCurrent();
+        });
+        document.getElementById('aspectPrevBtn').addEventListener('click', () => navigateAspectRow(-1));
+        document.getElementById('aspectNextBtn').addEventListener('click', () => navigateAspectRow(1));
+        document.getElementById('aspectCopyTableBtn').addEventListener('click', copyAspectTableToClipboard);
+        document.getElementById('aspectRollTableBtn').addEventListener('click', rollOnAspectTable);
+        document.getElementById('aspectViewTableBtn').addEventListener('click', viewAspectTable);
+        document.getElementById('aspectGenerateTableBtn').addEventListener('click', generateAspectEntireTable);
+        
+        // Domain navigation event listeners
+        document.getElementById('domainLoadBtn').addEventListener('click', () => {
+            document.getElementById('domainFileInput').click();
+        });
+        document.getElementById('domainFileInput').addEventListener('change', loadDomainFile);
+        document.getElementById('domainTableSelect').addEventListener('change', (e) => {
+            domainTableIndex = parseInt(e.target.value) || 0;
+            domainRowIndex = 0;
+            showDomainCurrent();
+        });
+        document.getElementById('domainPrevBtn').addEventListener('click', () => navigateDomainRow(-1));
+        document.getElementById('domainNextBtn').addEventListener('click', () => navigateDomainRow(1));
+        document.getElementById('domainCopyTableBtn').addEventListener('click', copyDomainTableToClipboard);
+        document.getElementById('domainRollTableBtn').addEventListener('click', rollOnDomainTable);
+        document.getElementById('domainViewTableBtn').addEventListener('click', viewDomainTable);
+        document.getElementById('domainGenerateTableBtn').addEventListener('click', generateDomainEntireTable);
+        
+        // Dialog event listeners
+        document.getElementById('closeDialog').addEventListener('click', closeDialog);
+        document.getElementById('tableDialog').addEventListener('click', (e) => {
+            if (e.target.id === 'tableDialog') closeDialog();
+        });
+        document.getElementById('startBtn').addEventListener('click', startIteration);
+        document.getElementById('pauseBtn').addEventListener('click', pauseIteration);
+        document.getElementById('manualReviewBtn').addEventListener('click', manualReview);
+        document.getElementById('generateTableBtn').addEventListener('click', generateEntireTable);
+        document.getElementById('saveBtn').addEventListener('click', saveJSON);
+        document.getElementById('resetBtn').addEventListener('click', resetCounters);
+        
+        // Generate Entire Table functions for new navigation
+        async function generateAspectEntireTable() {
+            const table = getAspectTable();
+            if (!table) {
+                alert('Please select an aspect table first.');
+                return;
+            }
+            
+            await generateEntireTableGeneric(table, 'aspect', 'aspectGenerateTableBtn');
+        }
+
+        async function generateDomainEntireTable() {
+            const table = getDomainTable();
+            if (!table) {
+                alert('Please select a domain table first.');
+                return;
+            }
+            
+            await generateEntireTableGeneric(table, 'domain', 'domainGenerateTableBtn');
+        }
+
+        async function generateEntireTableGeneric(table, contextType, buttonId) {
+            const tableType = tableTypeFromName(table.name || table.oracle_type);
+            
+            // Extract context from the table
+            let domainContext = null;
+            if (contextType === 'aspect' && table.aspectName) {
+                domainContext = {
+                    name: table.aspectName,
+                    type: 'aspect'
+                };
+                // Get description if available
+                if (originalJSON?.aspects?.[table.aspectName]?.description) {
+                    domainContext.description = originalJSON.aspects[table.aspectName].description;
+                }
+            } else if (contextType === 'domain' && table.domainName) {
+                domainContext = {
+                    name: table.domainName,
+                    type: 'domain'
+                };
+                // Get description if available
+                if (originalJSON?.domains?.[table.domainName]?.description) {
+                    domainContext.description = originalJSON.domains[table.domainName].description;
+                }
+            }
+            
+            if (!domainContext) {
+                alert(`No ${contextType} context found. This feature works best with generated templates.`);
+                return;
+            }
+            
+            // Use real API if enabled and available
+            const useProxy = useAPIMode;
+
+            try {
+                document.getElementById(buttonId).disabled = true;
+                document.getElementById(buttonId).textContent = 'Generating...';
+
+                // Count empty entries that need generation
+                const emptyEntriesCount = table.tableData.filter(row => row.result === "").length;
+                
+                // Always get current API key value
+                apiKey = document.getElementById('apiKey').value.trim();
+                if (useAPIMode && apiKey) {
+                    console.log(`Calling batch generation for ${tableType} table with ${emptyEntriesCount} entries`);
+                    var response = await callBatchGeneration(tableType, table.tableName, domainContext, emptyEntriesCount);
+                    console.log('Batch generation response:', response);
+                } else {
+                    // No API connection - show error instead of simulation
+                    if (!useAPIMode) {
+                        throw new Error('API mode is disabled. Please enable "Use OpenAI API" to generate table content.');
+                    } else if (!apiKey) {
+                        throw new Error('OpenAI API key required. Please enter your API key to generate content.');
+                    }
+                    throw new Error('Unknown API configuration error.');
+                }
+                
+                if (response && response.results && response.results.length > 0) {
+                    // Update only empty table entries (skip pre-filled special entries)
+                    let resultIndex = 0;
+                    table.tableData.forEach((row) => {
+                        if (row.result === "" && resultIndex < response.results.length) {
+                            row.result = response.results[resultIndex];
+                            resultIndex++;
+                        }
+                    });
+                    
+                    // Update counters (only count actually generated entries)
+                    counters.recreate += emptyEntriesCount;
+                    updateCounters();
+                    
+                    // Refresh display
+                    if (contextType === 'aspect') {
+                        showAspectCurrent();
+                    } else {
+                        showDomainCurrent();
+                    }
+                    
+                    // Enable Save JSON button now that data has been generated
+                    document.getElementById('saveBtn').disabled = false;
+                    
+                    // Show success message
+                    const output = document.getElementById('output');
+                    const successMsg = `<div class="success">Generated ${emptyEntriesCount} ${tableType} entries for ${domainContext.name}</div>`;
+                    if (contextType === 'aspect') {
+                        output.innerHTML = successMsg;
+                    } else {
+                        // For domain, append below any existing content
+                        if (aspectTables.length > 0) {
+                            output.innerHTML += successMsg;
+                        } else {
+                            output.innerHTML = successMsg;
+                        }
+                    }
+                } else {
+                    const errorMsg = response?.error || 'No results returned from API. Check your API key and try again.';
+                    console.error('API Response:', response);
+                    throw new Error(errorMsg);
+                }
+                
+            } catch (error) {
+                console.error('Table generation error:', error);
+                alert('Error generating table: ' + error.message);
+            } finally {
+                document.getElementById(buttonId).disabled = false;
+                document.getElementById(buttonId).textContent = 'Generate Entire Table';
+            }
+        }
+
+        // Initialize navigation UI to show both panels
+        updateNavigationUI();
+        updateCounters();
+    </script>
+</body>
+</html>
