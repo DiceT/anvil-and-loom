@@ -1,5 +1,5 @@
 import DiceBox from "@3d-dice/dice-box";
-import { getDiceAppearance } from "../diceEngine";
+import { getDiceAppearance } from "../../core/dice/diceAppearance";
 
 type RollObject = {
   value?: number;

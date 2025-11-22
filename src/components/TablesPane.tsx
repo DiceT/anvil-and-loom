@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Dices, ChevronRight, NotebookPen } from "lucide-react";
 import type { TableDescriptor } from "../types";
 import type { ForgeTable } from "../lib/tables/tableForge";
-import { rollOracleD100 } from "../lib/diceEngine";
+import { rollOracleD100 } from "../core/dice/diceEngine";
 import { fetchTableList, fetchTableById } from "../lib/tables/tableRegistry";
 
 export interface OracleResultCardPayload {

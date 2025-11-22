@@ -1,5 +1,5 @@
 import DiceExpression from "./DiceExpression";
-import { getDiceAppearance } from "../diceEngine";
+import { getDiceAppearance } from "../../core/dice/diceAppearance";
 import type {
   DicePoolComparator,
   DicePoolRules,

@@ -54,11 +54,11 @@ import {
   setDiceScale,
   setDiceTensThemeColor,
   setDiceTexture,
-} from "./lib/diceEngine";
-import { rollDiceBoxValues } from "./lib/dice/diceBoxManager";
+  rollDiceBoxValues,
+} from "./core/dice/diceEngine";
 import TablesPane from "./components/TablesPane";
 import InterpretButton from "./components/InterpretButton";
-import { ORACLE_PERSONAS } from './lib/oraclePersonas';
+import { ORACLE_PERSONAS } from './core/ai/oraclePersonas';
 
 type ActiveTool = "results" | "dice" | "tables" | "diceDev" | "devTools";
 type EntryType = "journal" | "note";

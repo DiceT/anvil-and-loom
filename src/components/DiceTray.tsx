@@ -3,8 +3,8 @@ import DiceExpression, { type DiceExpressionWarning } from "../lib/dice/DiceExpr
 import DiceRoller, { type RollResult, type DiceTermRollResult } from "../lib/dice/DiceRoller";
 import diceBoxValueProvider from "../lib/dice/diceBoxAdapter";
 import { annotateRollResult, type RollHighlight } from "../lib/dice/rollHighlights";
-import { setDiceFadeDuration } from "../lib/diceEngine";
-import type { LogicalRollType, RollAdvantageMode } from "../lib/diceEngine";
+import { setDiceFadeDuration } from "../core/dice/diceEngine";
+import type { LogicalRollType, RollAdvantageMode } from "../core/dice/diceEngine";
 import {
   Triangle,
   Diamond,

@@ -1,13 +1,31 @@
-const DEFAULT_FADE_DURATION_MS = 3000;
+/**
+ * Dice Engine - Centralized dice rolling for Anvil & Loom.
+ *
+ * This module provides the single source of truth for all dice rolling in the app:
+ * - Single dice rolls (d4, d6, d8, d10, d12, d20)
+ * - Percentile rolls (d100 for oracle tables)
+ * - Challenge dice (Ironsworn-style 1d6 + 2d10 mechanic)
+ * - Multi-dice rolls (4d6, custom combinations)
+ * - Advantage/Disadvantage modifiers
+ *
+ * Components should use this module instead of Math.random() directly to ensure
+ * consistent randomness behavior across the app.
+ */
 
-let diceFadeDurationMs = DEFAULT_FADE_DURATION_MS;
-let diceThemeColor = "#ff7f00";
-let diceThemeName = "default";
-let diceTensThemeColor = "#000000";
-let diceTexture = "paper";
-let diceScale = 4;
-const PRELOAD_THEMES = ["default", "rust", "diceOfRolling", "gemstone"];
+// Re-export dice appearance functions from the shared appearance module
+export {
+  setDiceFadeDuration,
+  setDiceThemeName,
+  setDiceThemeColor,
+  setDiceTensThemeColor,
+  setDiceTexture,
+  setDiceScale,
+  getDiceAppearance,
+} from './diceAppearance';
 
+/**
+ * Standard polyhedral die types.
+ */
 export type SingleDieType =
   | "d4"
   | "d6"
@@ -16,30 +34,63 @@ export type SingleDieType =
   | "d12"
   | "d20";
 
+/**
+ * Logical roll types including composite rolls.
+ */
 export type LogicalRollType =
   | SingleDieType
   | "four_d6"
   | "percentile"
   | "challenge";
 
+/**
+ * Result kind indicating the type of roll performed.
+ */
 export type DiceEngineResultKind = "number" | "percentile" | "challenge";
 
+/**
+ * Advantage/Disadvantage mode for d20 rolls.
+ */
 export type RollAdvantageMode = "normal" | "advantage" | "disadvantage";
 
+/**
+ * Options for modifying dice rolls.
+ */
 export interface RollOptions {
+  /** Roll mode: normal, advantage (roll 2 keep highest), or disadvantage (roll 2 keep lowest) */
   mode?: RollAdvantageMode;
+  /** Numeric modifier to add to the result */
   modifier?: number;
 }
 
+/**
+ * Result of a dice roll with metadata.
+ */
 export interface DiceEngineResult {
+  /** Unique identifier for this roll */
   id: string;
+  /** Type of roll performed */
   kind: DiceEngineResultKind;
+  /** Human-readable label (e.g., "1d20", "d100") */
   label: string;
+  /** Final numeric result (may be undefined for invalid rolls) */
   value?: number;
+  /** Detailed explanation of the roll (e.g., "Rolled 2d20 [12, 18] -> highest 18") */
   detail?: string;
+  /** Additional metadata (raw rolls, challenge outcome, etc.) */
   meta?: any;
 }
 
+/**
+ * Simulate dice rolls using Math.random().
+ *
+ * This is the core RNG function used by all dice rolls in the app.
+ * It returns an array of random values, each in the range [1, sides].
+ *
+ * @param count - Number of dice to roll
+ * @param sides - Number of sides on each die
+ * @returns Array of roll results
+ */
 function simulateDice(count: number, sides: number): number[] {
   if (count <= 0 || sides <= 0) return [];
   const rolls: number[] = [];
@@ -59,76 +110,109 @@ const SINGLE_DIE_CONFIG: Record<SingleDieType, { sides: number; label: string }>
   d20: { sides: 20, label: "1d20" },
 };
 
-export function setDiceFadeDuration(durationMs: number) {
-  if (Number.isFinite(durationMs)) {
-    diceFadeDurationMs = Math.max(500, durationMs);
-  }
-}
-
-export function setDiceThemeName(name: string) {
-  if (typeof name === "string" && name.trim().length) {
-    diceThemeName = name.trim();
-  }
-}
-
-export function setDiceThemeColor(color: string) {
-  if (typeof color === "string" && color.trim().length) {
-    diceThemeColor = color.trim();
-  }
-}
-
-export function setDiceTensThemeColor(color: string) {
-  if (typeof color === "string" && color.trim().length) {
-    diceTensThemeColor = color.trim();
-  }
-}
-
-export function setDiceTexture(texture: string) {
-  if (typeof texture === "string" && texture.trim().length) {
-    diceTexture = texture.trim();
-  }
-}
-
-export function setDiceScale(scale: number) {
-  if (Number.isFinite(scale) && scale > 0) {
-    diceScale = Math.max(1, Math.min(12, scale));
-  }
-}
-
-export function getDiceAppearance() {
-  return {
-    fadeDurationMs: diceFadeDurationMs,
-    themeColor: diceThemeColor,
-    themeName: diceThemeName,
-    tensThemeColor: diceTensThemeColor,
-    texture: diceTexture,
-    scale: diceScale,
-  };
-}
-
+/**
+ * Roll multiple dice of the same type using the 3D DiceBox system.
+ *
+ * This delegates to lib/dice/diceBoxManager which handles:
+ * - 3D dice animations and physics
+ * - Audio effects
+ * - Theme and appearance settings
+ *
+ * @param count - Number of dice to roll
+ * @param sides - Number of sides on each die
+ * @returns Promise resolving to array of roll results
+ *
+ * @example
+ * ```ts
+ * const rolls = await rollDiceBoxValues(2, 20); // Roll 2d20 with 3D animation
+ * console.log(rolls); // [12, 18]
+ * ```
+ */
 export async function rollDiceBoxValues(count: number, sides: number): Promise<number[]> {
-  if (count <= 0 || sides <= 0) return [];
-  return simulateDice(count, sides);
+  // Delegate to the DiceBox manager for 3D dice rolls
+  const { rollDiceBoxValues: diceBoxRoll } = await import('../../lib/dice/diceBoxManager');
+  return diceBoxRoll(count, sides);
 }
 
+/**
+ * Roll multiple groups of dice (composite roll) using the 3D DiceBox system.
+ *
+ * Each request is a separate dice pool (count × sides).
+ *
+ * @param requests - Array of dice specs to roll
+ * @returns Promise resolving to array of result arrays (one per request)
+ *
+ * @example
+ * ```ts
+ * const results = await rollDiceBoxComposite([
+ *   { count: 2, sides: 6 },
+ *   { count: 1, sides: 20 }
+ * ]);
+ * console.log(results); // [[3, 5], [12]]
+ * ```
+ */
 export async function rollDiceBoxComposite(
   requests: Array<{ count: number; sides: number }>
 ): Promise<number[][]> {
-  return requests.map((req) => simulateDice(req.count, req.sides));
+  // Delegate to the DiceBox manager for 3D dice rolls
+  const { rollDiceBoxComposite: diceBoxComposite } = await import('../../lib/dice/diceBoxManager');
+  return diceBoxComposite(requests);
 }
 
+/**
+ * Roll a custom list of dice with individual theme colors using the 3D DiceBox system.
+ *
+ * Used for complex rolls with per-die customization.
+ *
+ * @param dice - Array of die specifications
+ * @returns Promise resolving to array of roll results
+ *
+ * @example
+ * ```ts
+ * const results = await rollDiceBoxList([
+ *   { sides: 20, themeColor: "#ff0000" },
+ *   { sides: 6, themeColor: "#00ff00" }
+ * ]);
+ * console.log(results); // [14, 3]
+ * ```
+ */
 export async function rollDiceBoxList(
   dice: Array<{ sides: number; themeColor?: string }>
 ): Promise<number[]> {
-  const filtered = (dice ?? []).filter((die) => die && Number.isFinite(die.sides) && die.sides > 0);
-  if (!filtered.length) return [];
-  const values: number[] = [];
-  filtered.forEach((die) => {
-    values.push(...simulateDice(1, die.sides));
-  });
-  return values;
+  // Delegate to the DiceBox manager for 3D dice rolls
+  const { rollDiceBoxList: diceBoxList } = await import('../../lib/dice/diceBoxManager');
+  return diceBoxList(dice);
 }
 
+/**
+ * Roll dice of a given type with optional modifiers.
+ *
+ * This is the main entry point for dice rolling in the app.
+ * Supports single dice, percentile, challenge, and multi-dice rolls.
+ *
+ * @param type - Type of roll to perform
+ * @param options - Roll options (advantage, modifiers, etc.)
+ * @returns Promise resolving to a dice result with metadata
+ *
+ * @example
+ * ```ts
+ * // Simple d20 roll
+ * const result = await rollDice("d20");
+ * console.log(result.value); // 14
+ *
+ * // d20 with advantage
+ * const adv = await rollDice("d20", { mode: "advantage" });
+ * console.log(adv.value); // 18 (rolled [12, 18], kept highest)
+ *
+ * // Percentile roll for oracle tables
+ * const d100 = await rollDice("percentile");
+ * console.log(d100.value); // 67
+ *
+ * // Challenge roll (Ironsworn)
+ * const challenge = await rollDice("challenge", { modifier: 2 });
+ * console.log(challenge.meta.outcome); // "Strong Hit"
+ * ```
+ */
 export async function rollDice(
   type: LogicalRollType,
   options: RollOptions = {}
@@ -238,6 +322,14 @@ export async function rollDice(
   }
 }
 
+/**
+ * Roll a single die with optional advantage/disadvantage and modifiers.
+ *
+ * @param sides - Number of sides on the die
+ * @param baseLabel - Label for the die (e.g., "1d20")
+ * @param options - Roll options
+ * @returns Promise resolving to a dice result
+ */
 async function rollSingleDie(
   sides: number,
   baseLabel: string,
@@ -300,8 +392,11 @@ async function rollSingleDie(
   };
 }
 
-// --- helpers for percentile semantics ---
-
+/**
+ * Normalize tens die value for percentile rolls.
+ *
+ * Maps raw d100 roll to tens digit (0-9).
+ */
 function normalizeTensIndex(value: number | undefined): number {
   if (value == null || Number.isNaN(value)) return 0;
   if (value === 0 || value === 100) return 0;
@@ -314,6 +409,11 @@ function normalizeTensIndex(value: number | undefined): number {
   return Math.max(0, Math.min(9, Math.floor(value / 10)));
 }
 
+/**
+ * Normalize ones die value for percentile rolls.
+ *
+ * Maps raw d10 roll to ones digit (0-9).
+ */
 function normalizeOnesIndex(value: number | undefined): number {
   if (value == null || Number.isNaN(value)) return 0;
   if (value === 10 || value === 0) return 0;
@@ -324,25 +424,51 @@ function normalizeOnesIndex(value: number | undefined): number {
   return digit < 0 ? digit + 10 : digit;
 }
 
+/**
+ * Create a unique ID for a dice roll.
+ */
 function createId(): string {
   return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 }
 
-// Oracle roll helper: rolls a d100 (percentile) and returns the final face value.
+/**
+ * Context for oracle table rolls.
+ */
 export interface OracleRollContext {
+  /** Unique table identifier */
   tableId: string;
+  /** Human-readable table name */
   tableName: string;
+  /** Optional source file path */
   sourcePath?: string;
 }
 
+/**
+ * Roll a d100 for oracle table lookups.
+ *
+ * This is the primary function used by TablesPane to generate random table results.
+ * It uses the centralized dice engine's percentile roll with fallback to Math.random().
+ *
+ * @param ctx - Oracle roll context (table info)
+ * @returns Promise resolving to a number between 1-100
+ *
+ * @example
+ * ```ts
+ * const roll = await rollOracleD100({
+ *   tableId: "npc-reaction",
+ *   tableName: "NPC Reaction",
+ *   sourcePath: "/tables/npc.json"
+ * });
+ * console.log(roll); // 67
+ * ```
+ */
 export async function rollOracleD100(ctx: OracleRollContext): Promise<number> {
   try {
     const res = await rollDice("percentile");
     if (res && typeof res.value === "number") return Math.max(1, Math.min(100, Math.floor(res.value)));
   } catch (e) {
-    // fall through to fallback
     console.warn("rollOracleD100 failed, falling back to RNG", e);
   }
-  // Fallback deterministic random
+  // Fallback to Math.random()
   return Math.floor(Math.random() * 100) + 1;
 }
