@@ -986,6 +986,7 @@ function App() {
                 setEntries((prev) => prev.map((entry) => entry.id === activeEntryId ? { ...entry, content: updated, updatedAt: Date.now() } : entry));
                 scheduleSave(updated, activeEntryId);
               }}
+              onResultCard={handleAddResultCard}
               getAiSettings={() => {
                 const s = settings.ai?.oracle ?? {} as any;
                 const personaId = s.oraclePersonaId ?? 'loomwright';
@@ -2223,6 +2224,7 @@ const maybePlayDiceDevAudio = useCallback(async () => {
             );
             scheduleSave(newContent, activeEntryId);
           }}
+          onResultCard={handleAddResultCard}
           onOpenTableEditor={(tableId) => {
             console.log("Open table editor for", tableId);
             // TODO: create a Tab kind for Table Editor and open it here

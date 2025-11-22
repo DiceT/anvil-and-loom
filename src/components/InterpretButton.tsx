@@ -3,6 +3,8 @@ import { fetchAppSettings } from '../lib/settingsStore';
 import { interpretEntryOracle } from '../core/ai/oracleService';
 import type { AISettings } from '../core/ai/oraclePersonas';
 import type { OracleResultCardPayload, EntryOracleSnapshot } from '../core/ai/oracleTypes';
+import type { InterpretationResultCard } from '../core/results/resultTypes';
+import { generateResultCardId } from '../core/results/resultTypes';
 
 function parseForgeOracleComments(content: string): OracleResultCardPayload[] {
   const results: OracleResultCardPayload[] = [];
@@ -63,12 +65,14 @@ export default function InterpretButton({
   entryId,
   onAppend,
   onReplace,
+  onResultCard,
   getAiSettings,
 }: {
   entryContent: string;
   entryId: string | null;
   onAppend: (html: string) => void;
   onReplace: (placeholderHtml: string, replacementHtml: string) => void;
+  onResultCard?: (card: InterpretationResultCard) => void;
   getAiSettings: () => AISettings;
 }) {
   const [isWorking, setIsWorking] = useState(false);
@@ -141,6 +145,38 @@ export default function InterpretButton({
           const finalHtml = `<div class="dice-card dice-card-inline dice-log-card"><input type="checkbox" id="${placeholderId}-done" class="dice-log-toggle" /><label for="${placeholderId}-done" class="dice-card-title dice-log-header"><span>INTERPRETATION: ${escapeHtml(settings.oracleName)}</span><span class="dice-log-caret" aria-hidden="true"></span></label><div class="dice-card-body dice-log-body"><div class="dice-card-detail">${escapeHtml(text).replace(/\n/g, '<br/>')}</div></div><div class="dice-card-highlight dice-log-footer"><span class="dice-log-footer-label">Result:</span><span class="dice-card-inline-result">${escapeHtml(text)}</span></div></div>`;
           console.debug('[InterpretButton] replacing placeholder', { placeholderId, placeholderLen: placeholderHtml.length, replacementLen: finalHtml.length, textPreview: (text||'').slice(0,200) });
           onReplace(placeholderHtml, finalHtml);
+
+          // Emit InterpretationResultCard to Results pane if callback is provided
+          if (onResultCard) {
+            // Extract snapshot: look for in-fiction snapshot at the end, or use a summary
+            const lines = text.split('\n').filter(line => line.trim());
+            
+            // Try to find a snapshot-like sentence (typically 1-2 sentences at the end)
+            // Look for the last paragraph that seems like a vivid description
+            let snapshotText = lines[0] || text.slice(0, 100);
+            
+            // Check if the last line looks like an in-fiction snapshot (no bullets, no "Next Moves")
+            const lastLine = lines[lines.length - 1];
+            if (lastLine && !lastLine.match(/^[-•*]/) && !lastLine.toLowerCase().includes('next move')) {
+              // Use last line if it's a reasonable length (not too long)
+              if (lastLine.length <= 150) {
+                snapshotText = lastLine;
+              }
+            }
+
+            const interpretationCard: InterpretationResultCard = {
+              id: generateResultCardId(),
+              kind: "interpretation",
+              createdAt: Date.now(),
+              oracleName: settings.oracleName,
+              personaId: settings.oraclePersonaId as any,
+              headerText: `INTERPRETATION: ${settings.oracleName.toUpperCase()}`,
+              snapshotText,
+              interpretationText: text,
+              theme: "interpretation",
+            };
+            onResultCard(interpretationCard);
+          }
         }
       } else {
         const errorMsg = resp?.error ?? 'Unknown error';

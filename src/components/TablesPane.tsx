@@ -4,6 +4,8 @@ import type { TableDescriptor } from "../types";
 import type { ForgeTable } from "../lib/tables/tableForge";
 import { rollOracleD100 } from "../core/dice/diceEngine";
 import { fetchTableList, fetchTableById } from "../lib/tables/tableRegistry";
+import type { TableResultCard } from "../core/results/resultTypes";
+import { generateResultCardId } from "../core/results/resultTypes";
 
 export interface OracleResultCardPayload {
   tableId: string;
@@ -43,10 +45,12 @@ function getMaxRollForTable(table: ForgeTable): number {
 export default function TablesPane({
   activeEntryId,
   onOracleResult,
+  onResultCard,
   onOpenTableEditor,
 }: {
   activeEntryId: string | null;
   onOracleResult: (payload: OracleResultCardPayload) => void;
+  onResultCard?: (card: TableResultCard) => void;
   onOpenTableEditor: (tableId: string) => void;
 }) {
   const [tableList, setTableList] = useState<TableDescriptor[]>([]);
@@ -166,6 +170,26 @@ export default function TablesPane({
             sourcePath,
           } as OracleResultCardPayload;
           onOracleResult(payload);
+        }
+
+        // Emit TableResultCard to Results pane if callback is provided
+        if (onResultCard && resultText) {
+          const tableCard: TableResultCard = {
+            id: generateResultCardId(),
+            kind: "table",
+            createdAt: Date.now(),
+            tableId,
+            tableName,
+            roll: normalized,
+            resultText,
+            headerText: `TABLE: ${tableName.toUpperCase()}`,
+            contentText: `Roll ${normalized} on ${tableName}${sourcePath ? `
+Source: ${sourcePath}` : ""}`,
+            theme: "table",
+            category: table.category,
+            sourcePath,
+          };
+          onResultCard(tableCard);
         }
       } catch (e) {
         console.error("Oracle roll failed:", e);
