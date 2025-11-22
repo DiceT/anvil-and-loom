@@ -2701,7 +2701,7 @@ function formatOracleHtmlCard(payload: {
   const title = `TABLE ROLL`;
   const body = payload.resultText || "";
   const meta = `<!-- forge:oracle tableId="${payload.tableId}" sourcePath="${payload.sourcePath}" roll=${payload.roll} result="${payload.resultText?.replace(/"/g, '\\"')}" tags='${JSON.stringify(payload.tags || [])}' -->`;
-  const html = `<div class="dice-card dice-card-inline dice-log-card"><input type="checkbox" id="${id}" class="dice-log-toggle" /><label for="${id}" class="dice-card-title dice-log-header"><span>${title}</span><span class="dice-log-caret" aria-hidden="true"></span></label><div class="dice-card-body dice-log-body"><div class="dice-card-detail"><span>ROLL RESULT:</span> <strong>${payload.roll}</strong></div></div><div class="dice-card-highlight dice-log-footer"><span class="dice-log-footer-label">Result:</span><span class="dice-card-inline-result" style="font-weight:600">${escapeHtml(body)}</span></div></div>${meta}`;
+  const html = `<div class="dice-card dice-card-inline dice-log-card"><input type="checkbox" id="${id}" class="dice-log-toggle" /><label for="${id}" class="dice-card-title dice-log-header"><span>${title}</span><span class="dice-log-caret" aria-hidden="true"></span></label><div class="dice-card-body dice-log-body"><div class="dice-card-detail"><span>ROLL RESULT:</span> <strong>${payload.roll}</strong></div></div><div class="dice-card-highlight dice-log-footer"><span class="dice-log-footer-label">Result:</span><span class="dice-card-inline-result">${escapeHtml(body)}</span></div></div>${meta}`;
   return html;
 }
 
