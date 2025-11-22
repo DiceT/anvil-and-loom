@@ -154,8 +154,8 @@ export const RESULT_CARD_THEMES: Record<string, ResultCardTheme> = {
     headerFontColor: "#ffffff",
   },
   interpretation: {
-    headerBgColor: "#3b82f6", // Bright blue
-    headerFontColor: "#1e293b", // Dark font for contrast
+    headerBgColor: "#5f1e56", // Purple/magenta
+    headerFontColor: "#ffffff",
   },
 };
 
