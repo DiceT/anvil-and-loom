@@ -1,0 +1,308 @@
+You are refactoring the Anvil & Loom app for modularity and clarity.
+
+High-level goals
+----------------
+1. Centralize **all AI usage** behind a single wrapper module.
+2. Centralize the **dice engine** behind a single service.
+3. Centralize **result card** types / rendering so dice, tables, and interpretations all use the same system.
+4. Make the **oracle AI (personas + interpretations)** an add-on module that plugs into those cores.
+5. Add clear, concise comments and JSDoc to the main exported APIs so future add-ons can reuse them.
+
+Do NOT change behavior; just reorganize, dedupe, and document.
+
+
+1) AI WRAPPER / ORACLE SERVICE
+------------------------------
+
+Create or refactor into something like:
+
+- `src/core/ai/aiClient.ts`
+- `src/core/ai/oracleService.ts`
+- `src/core/ai/oraclePersonas.ts`
+- `src/core/ai/oraclePrompts.ts`
+
+**aiClient.ts**
+- Single place that knows how to talk to OpenAI.
+- No components or UI should use `fetch("https://api.openai.com/...")` or `new OpenAI(...)` directly.
+
+API example:
+
+```ts
+export interface AIInvokeOptions {
+  system: string;
+  user: string;
+  model: string;        // e.g. "gpt-5.1-mini"
+}
+
+export async function callModel(
+  options: AIInvokeOptions
+): Promise<string> {
+  // Desktop: call OpenAI via settingsAPI or main process.
+  // Web: call /api/oracle/interpret or your existing backend endpoint.
+  // Implementation should be shared with the existing Dev Table AI path.
+}
+Reuse the same OpenAI call path the Dev Table tool already uses.
+
+Remove any duplicated OpenAI calls in other files and point them to callModel.
+
+oraclePersonas.ts
+
+Move ORACLE_PERSONAS, AISettings, OraclePersona here:
+
+ts
+Copy code
+export type OraclePersonaId =
+  | "loomwright"
+  | "archivist"
+  | "trickster"
+  | "veilkeeper"
+  | "harrower"
+  | "architect";
+
+export interface AISettings {
+  oracleName: string;
+  oraclePersonaId: OraclePersonaId;
+  model: string;
+  temperature: number; // may not be sent for mini models but keep in settings
+}
+
+export interface OraclePersona {
+  id: OraclePersonaId;
+  label: string;
+  description: string;
+  systemAddendum: string;
+}
+
+export const ORACLE_PERSONAS: Record<OraclePersonaId, OraclePersona> = { ... };
+Add JSDoc explaining what each persona is for (short description in comments).
+
+oraclePrompts.ts
+
+Move buildOracleSystemPrompt and buildOracleUserPrompt here.
+
+Implement the latest design:
+
+Single “Interpretation” + “Snapshot” format.
+
+Interpretation = 1–2 bullets that fuse all results.
+
+Snapshot = 1 vivid sentence.
+
+Word range depends on persona (Loomwright verbose, others compact).
+
+Add JSDoc at the top explaining their purpose and expected output shape.
+
+oracleService.ts
+
+Public entrypoint used by UI:
+
+ts
+Copy code
+import type { EntryOracleSnapshot } from "../types/oracle";
+import type { AISettings } from "./oraclePersonas";
+
+export async function interpretEntryOracle(
+  snapshot: EntryOracleSnapshot,
+  settings: AISettings
+): Promise<string> {
+  const systemPrompt = buildOracleSystemPrompt(settings);
+  const userPrompt = buildOracleUserPrompt(snapshot, settings.oracleName);
+  return await callModel({ system: systemPrompt, user: userPrompt, model: settings.model });
+}
+UI should call this function only, not the raw AI client.
+
+DICE ENGINE SERVICE
+
+Create or consolidate into:
+
+src/core/dice/diceEngine.ts
+
+Goal: One API for all dice usage (Dice Tool, Challenge rolls, Tables, Oracle triggers).
+
+Example API:
+
+ts
+Copy code
+export type DiceRollKind = "expression" | "challenge" | "d100" | "pool";
+
+export interface DiceRollResult {
+  kind: DiceRollKind;
+  expression: string;  // e.g. "1d100" or "2d10k1+2"
+  total: number;
+  detail?: any;        // structure for pips, challenge dice, etc.
+}
+
+export async function rollD100WithAnimation(): Promise<DiceRollResult> { ... }
+
+export async function rollExpressionWithAnimation(
+  expression: string
+): Promise<DiceRollResult> { ... }
+Refactors:
+
+Tables Pane should not do Math.random directly.
+
+Table rolls should call rollD100WithAnimation() and only map the resulting total → table row after the animation finishes.
+
+Dice Tool and any future mechanics should also use this engine, not roll their own RNG.
+
+Add comments documenting:
+
+Which functions are safe for background logic (no animation).
+
+Which ones trigger UI animations and should be awaited by components.
+
+RESULT CARDS SYSTEM
+
+Create or consolidate into:
+
+src/core/results/resultTypes.ts
+
+src/core/results/resultCards.tsx (or a small component folder)
+
+resultTypes.ts
+
+Unify the shapes for all result cards:
+
+ts
+Copy code
+export type ResultCardKind =
+  | "dice"
+  | "challenge"
+  | "table"
+  | "interpretation";
+
+export interface BaseResultCard {
+  id: string;
+  kind: ResultCardKind;
+  createdAt: number;
+}
+
+export interface DiceResultCard extends BaseResultCard {
+  kind: "dice" | "challenge";
+  expression: string;
+  total: number;
+  detail?: any;
+}
+
+export interface TableResultCard extends BaseResultCard {
+  kind: "table";
+  tableId: string;
+  tableName: string;
+  roll: number;
+  resultText: string;
+}
+
+export interface InterpretationResultCard extends BaseResultCard {
+  kind: "interpretation";
+  oracleName: string;
+  personaId: OraclePersonaId;
+  interpretationText: string; // bullet lines
+  snapshotText: string;       // one-liner used as the collapsed result
+}
+Export a union type and type guards.
+
+Add JSDoc explaining each kind.
+
+resultCards.tsx
+
+Central React components for rendering these cards in the Entry.
+
+Card rendering should switch on kind and keep consistent visual language:
+
+Dice / Challenge → existing style.
+
+Table → existing TABLE ROLL style.
+
+Interpretation → header: INTERPRETATION: {ORACLE_NAME}, collapsed shows snapshotText, expanded shows Interpretation bullets + Snapshot.
+
+Make sure:
+
+Table tool uses TableResultCard.
+
+Oracle interpretation uses InterpretationResultCard.
+
+Existing dice logs are refactored to use DiceResultCard / Challenge rather than ad-hoc HTML snippets.
+
+TABLES / ORACLES PANE CLEANUP
+
+Confirm TablesPane:
+
+Uses the shared dice engine for rolls.
+
+Emits TableResultCard payloads only; no custom ad-hoc shapes.
+
+No direct OpenAI calls here.
+
+Layout:
+
+Root container is display:flex; flex-direction:column; height:100%.
+
+Top: log-toggle + search.
+
+Middle: scrollable tree.
+
+Bottom: latest TABLE result card “summary” bar.
+
+This layout should now rely on CSS classes, not inline maxHeights.
+
+COMMENTS & DOCS
+
+Across all new/central modules (aiClient.ts, oracleService.ts, oraclePersonas.ts, oraclePrompts.ts, diceEngine.ts, resultTypes.ts, resultCards.tsx):
+
+Add JSDoc before each exported function/type explaining:
+
+What it does.
+
+What layers are allowed to call it (UI vs core).
+
+Any assumptions (e.g., model must support chat/completions, dice results are integers 1–100, etc).
+
+Example:
+
+ts
+Copy code
+/**
+ * High-level oracle interpreter.
+ * Given all table results for a journal entry and the current AI settings,
+ * returns a short Interpretation + Snapshot text block for use in an InterpretationResultCard.
+ *
+ * This is the ONLY function UI components should use to talk to the oracle AI.
+ */
+export async function interpretEntryOracle(...) { ... }
+For complex logic (parsing model output, mapping dice roll → table row, persona word-range behavior), add brief inline comments explaining the reasoning.
+
+GENERAL REFACTOR RULES
+
+No direct OpenAI calls or random dice math in React components.
+
+Components should call:
+
+interpretEntryOracle for oracle AI.
+
+diceEngine functions for rolls.
+
+Result Card creation helpers for logging.
+
+Keep add-ons modular:
+
+New “AI features” should be added as new functions in oracleService.ts or new services under core/ai, not as inline logic in components.
+
+New dice mechanics should extend diceEngine.ts, not bypass it.
+
+New card types should extend resultTypes.ts and resultCards.tsx.
+
+Preserve current behavior:
+
+Same visual appearance (except where layout has already been intentionally adjusted).
+
+Same table roll results and logging behavior.
+
+Oracle interpretations still triggered from the same button, just going through the new service.
+
+When you’re finished, summarize:
+
+Which files were created/renamed.
+
+Which old AI/dice/result code paths were removed or replaced.
+
+Any TODOs left for later (e.g., better typing for dice detail, more persona tuning).
