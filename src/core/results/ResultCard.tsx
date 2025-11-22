@@ -15,6 +15,7 @@
 
 import { useState } from "react";
 import type { ResultCardModel } from "./resultTypes";
+import { getCardTheme } from "./resultTypes";
 
 export type ResultCardVariant = "standard" | "entry";
 
@@ -40,6 +41,9 @@ export function ResultCard({ card, variant }: ResultCardProps) {
   // Get card-specific data
   const { headerText, contentLines, resultText, resultColor, themeClass } = getCardDisplay(card);
   
+  // Get theme colors for header
+  const theme = getCardTheme(card);
+  
   // Header is clickable only in "entry" variant
   const headerClass = variant === "entry" 
     ? "dice-card-title dice-log-header"
@@ -60,7 +64,11 @@ export function ResultCard({ card, variant }: ResultCardProps) {
       <label
         htmlFor={variant === "entry" ? toggleId : undefined}
         className={headerClass}
-        style={{ cursor: variant === "entry" ? "pointer" : "default" }}
+        style={{ 
+          cursor: variant === "entry" ? "pointer" : "default",
+          backgroundColor: theme.headerBgColor,
+          color: theme.headerFontColor,
+        }}
       >
         <span>{headerText}</span>
         {variant === "entry" && (

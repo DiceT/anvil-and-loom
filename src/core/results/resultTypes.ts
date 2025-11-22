@@ -124,6 +124,57 @@ export type ResultCardModel =
   | InterpretationResultCard;
 
 /**
+ * Theme configuration for result card headers.
+ */
+export interface ResultCardTheme {
+  /** Background color for header */
+  headerBgColor: string;
+  /** Font color for header text */
+  headerFontColor: string;
+}
+
+/**
+ * Predefined theme colors for different card types.
+ */
+export const RESULT_CARD_THEMES: Record<string, ResultCardTheme> = {
+  dice: {
+    headerBgColor: "#4a5568", // Gray-blue (default)
+    headerFontColor: "#ffffff",
+  },
+  challenge: {
+    headerBgColor: "#4a5568", // Gray-blue (same as dice)
+    headerFontColor: "#ffffff",
+  },
+  table: {
+    headerBgColor: "#10b981", // Green
+    headerFontColor: "#ffffff",
+  },
+  oracle: {
+    headerBgColor: "#8b5cf6", // Purple
+    headerFontColor: "#ffffff",
+  },
+  interpretation: {
+    headerBgColor: "#3b82f6", // Bright blue
+    headerFontColor: "#1e293b", // Dark font for contrast
+  },
+};
+
+/**
+ * Get theme for a result card.
+ */
+export function getCardTheme(card: ResultCardModel): ResultCardTheme {
+  switch (card.kind) {
+    case "dice":
+    case "challenge":
+      return RESULT_CARD_THEMES.dice;
+    case "table":
+      return RESULT_CARD_THEMES.table;
+    case "interpretation":
+      return RESULT_CARD_THEMES.interpretation;
+  }
+}
+
+/**
  * Generate a unique ID for result cards.
  */
 export function generateResultCardId(): string {
