@@ -751,6 +751,9 @@ export function DiceTray({ onRollResult, onResultCard, fadeDurationMs = 3000 }: 
 
   return (
     <div className="dice-tray">
+      <div className="oracles-title" style={{ marginBottom: '0.25rem' }}>
+        <span className="settings-section-subtitle">DICE TRAY</span>
+      </div>
       <div className="dice-button-row">
         {diceOptions.map((option) => (
           <button
