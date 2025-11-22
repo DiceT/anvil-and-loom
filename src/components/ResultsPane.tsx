@@ -38,8 +38,8 @@ export function ResultsPane({ results, onClearResults, onCopyToEntry }: ResultsP
 
   return (
     <div className="pane">
-      <div className="pane-header">
-        <h2>Results (Testing)</h2>
+      <div className="pane-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <h2>RESULTS</h2>
         {results.length > 0 && onClearResults && (
           <button
             onClick={onClearResults}
