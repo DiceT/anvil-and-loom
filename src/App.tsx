@@ -2283,7 +2283,9 @@ const maybePlayDiceDevAudio = useCallback(async () => {
 
   const gridTemplateColumns = `
     ${leftPane.visible ? `${leftPane.width}px` : "0px"}
+    ${leftPane.visible ? "10px" : "0px"}
     1fr
+    ${isToolPaneOpen ? "10px" : "0px"}
     ${isToolPaneOpen ? `${toolsWidth}px` : "0px"}
   `.trim();
 
@@ -2391,10 +2393,13 @@ const maybePlayDiceDevAudio = useCallback(async () => {
         </div>
       </aside>
 
-      <div
-        className="app-resize-handle app-resize-handle-left"
-        onMouseDown={() => setIsResizingLeft(true)}
-      />
+      {leftPane.visible && (
+        <div
+          className="app-resize-handle app-resize-handle-left"
+          onMouseDown={() => setIsResizingLeft(true)}
+          style={{ gridColumn: 2 }}
+        />
+      )}
 
       {/* CENTER: main content pane */}
       <main className="app-main">
@@ -2488,8 +2493,9 @@ const maybePlayDiceDevAudio = useCallback(async () => {
         <div
           className="app-resize-handle app-resize-handle-right"
           onMouseDown={() => setIsResizingRight(true)}
+          style={{ gridColumn: 4 }}
         />
-        <div className="app-tools-expanded" style={{ width: toolsWidth }}>
+        <div className="app-tools-expanded">
           <div className="app-tools-header">
             <div className="app-tools-tabs">
               <button

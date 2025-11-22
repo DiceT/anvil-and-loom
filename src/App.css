@@ -89,6 +89,7 @@ body {
   width: 10px;
   cursor: col-resize;
   position: relative;
+  z-index: 5;
   flex-shrink: 0;
   background: transparent;
 }
@@ -194,7 +195,7 @@ body {
 /* LEFT PANE */
 
 .app-sidebar {
-  width: 260px;
+  grid-column: 1;
   background-color: var(--bg-panel);
   border-right: 1px solid var(--border-muted);
   padding: 12px;
@@ -302,10 +303,11 @@ body {
 /* CENTER PANE */
 
 .app-main {
-  flex: 1;
+  grid-column: 3;
   display: flex;
   flex-direction: column;
   min-height: 0;
+  min-width: 0;
   padding: 0;
   background: linear-gradient(135deg, var(--bg-deep), var(--bg-panel-alt));
   color: var(--text-main);
@@ -573,7 +575,7 @@ body {
 }
 
 .app-tools-expanded {
-  width: 320px;
+  grid-column: 5;
   background-color: var(--bg-panel);
   border-left: 1px solid var(--border-muted);
   display: flex;
