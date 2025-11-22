@@ -34,6 +34,14 @@ export interface AppSettings {
   developerMode: boolean;
   openaiApiKey: string | null;
   openaiModel: string | null;
+  ai: {
+    oracle: {
+      oracleName: string;
+      oraclePersonaId: string;
+      model: string;
+      temperature: number;
+    };
+  };
 }
 
 const LOCAL_STORAGE_KEY = "anvil-and-loom:settings";

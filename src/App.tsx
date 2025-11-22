@@ -57,6 +57,8 @@ import {
 } from "./lib/diceEngine";
 import { rollDiceBoxValues } from "./lib/dice/diceBoxManager";
 import TablesPane from "./components/TablesPane";
+import InterpretButton from "./components/InterpretButton";
+import { ORACLE_PERSONAS } from './lib/oraclePersonas';
 
 type ActiveTool = "results" | "dice" | "tables" | "diceDev" | "devTools";
 type EntryType = "journal" | "note";
@@ -922,6 +924,78 @@ function App() {
               View Mode
             </button>
           </div>
+          {/* Interpret Oracle Results button */}
+          <div style={{ marginLeft: 'auto' }}>
+            <InterpretButton
+              entryContent={activeEntryDraftContent}
+              entryId={activeEntryId}
+              onAppend={(html) => {
+                // append interpreted HTML to entry content
+                if (!activeEntryId) return;
+                const baseContent = activeEntryDraftContent.length > 0 ? activeEntryDraftContent : activeEntry?.content ?? "";
+                const separator = baseContent.trim().length ? "\n\n" : "";
+                const newContent = `${baseContent}${separator}${html}`;
+                setActiveEntryDraftContent(newContent);
+                setEntries((prev) => prev.map((entry) => entry.id === activeEntryId ? { ...entry, content: newContent, updatedAt: Date.now() } : entry));
+                scheduleSave(newContent, activeEntryId);
+              }}
+              onReplace={(placeholderOrId, replacementHtml) => {
+                if (!activeEntryId) return;
+                const current = activeEntryDraftContent.length > 0 ? activeEntryDraftContent : activeEntry?.content ?? "";
+                let updated = current;
+
+                // Helper to escape for RegExp
+                const escapeReg = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+                // If the caller passed the whole placeholder HTML, try to extract an id from it
+                if (typeof placeholderOrId === 'string' && placeholderOrId.includes('<!--')) {
+                  const idMatch = /<!--\s*interpret:start\s+id="([^\"]+)"\s*-->/.exec(placeholderOrId || '');
+                  if (idMatch && idMatch[1]) {
+                    const id = idMatch[1];
+                    const blockRe = new RegExp(`<!--\\s*interpret:start\\s+id=\\"${escapeReg(id)}\\"\\s*-->[\\s\\S]*?<!--\\s*interpret:end\\s+id=\\"${escapeReg(id)}\\"\\s*-->`, 'g');
+                    if (blockRe.test(current)) {
+                      updated = current.replace(blockRe, replacementHtml);
+                    } else if (current.includes(placeholderOrId)) {
+                      updated = current.replace(placeholderOrId, replacementHtml);
+                    }
+                  } else if (current.includes(placeholderOrId)) {
+                    updated = current.replace(placeholderOrId, replacementHtml);
+                  }
+                } else if (typeof placeholderOrId === 'string') {
+                  // If placeholderOrId looks like an id (no HTML), replace the marked block by id
+                  const id = placeholderOrId;
+                  const blockRe = new RegExp(`<!--\\s*interpret:start\\s+id=\\"${escapeReg(id)}\\"\\s*-->[\\s\\S]*?<!--\\s*interpret:end\\s+id=\\"${escapeReg(id)}\\"\\s*-->`, 'g');
+                  if (blockRe.test(current)) {
+                    updated = current.replace(blockRe, replacementHtml);
+                  } else if (current.includes(placeholderOrId)) {
+                    updated = current.replace(placeholderOrId, replacementHtml);
+                  }
+                }
+
+                // Last-resort: append the replacement so nothing is lost
+                if (updated === current) {
+                  updated = `${current}\n\n${replacementHtml}`;
+                }
+
+                console.debug('[App:onReplace] updatedLen', updated.length, 'currentLen', current.length, 'containsReplacement', updated.includes(replacementHtml));
+
+                setActiveEntryDraftContent(updated);
+                setEntries((prev) => prev.map((entry) => entry.id === activeEntryId ? { ...entry, content: updated, updatedAt: Date.now() } : entry));
+                scheduleSave(updated, activeEntryId);
+              }}
+              getAiSettings={() => {
+                const s = settings.ai?.oracle ?? {} as any;
+                const personaId = s.oraclePersonaId ?? 'loomwright';
+                return {
+                  oracleName: s.oracleName ?? 'The Loomwright',
+                  oraclePersonaId: personaId,
+                  model: s.model ?? 'gpt-5.1-mini',
+                  temperature: typeof s.temperature === 'number' ? s.temperature : 0.7,
+                  personaAddendum: ORACLE_PERSONAS[personaId]?.systemAddendum ?? '',
+                };
+              }}
+            />
+          </div>
         </div>
         {activeEntryMode === "view" ? (
           <div
@@ -1677,11 +1751,12 @@ function App() {
         return (
           <section className="settings-section">
             <h2>AI</h2>
-            <p className="settings-section-subtitle">Configure your OpenAI credentials used by Dev Tools (Table Forge).</p>
+            <p className="settings-section-subtitle">Configure OpenAI and Oracle settings used by Dev Tools.</p>
+
             <div className="settings-option settings-option-column">
               <div>
                 <p className="settings-option-label">OpenAI API Key</p>
-                <p className="settings-option-description">Stored locally; used only by Dev Tools in Developer Mode.</p>
+                <p className="settings-option-description">Stored locally (desktop) or provided server-side (web). Never commit your key.</p>
               </div>
               <input
                 type="password"
@@ -1691,19 +1766,69 @@ function App() {
                 onChange={(e) => applySettingsPatch({ openaiApiKey: e.target.value })}
               />
             </div>
+
             <div className="settings-option settings-option-column">
               <div>
                 <p className="settings-option-label">OpenAI Model</p>
-                <p className="settings-option-description">E.g., gpt-4.1, gpt-4o, gpt-5.1 (adjustable later).</p>
+                <p className="settings-option-description">E.g., gpt-5.1-mini (desktop/web can differ).</p>
               </div>
               <input
                 type="text"
                 className="settings-text-input"
-                placeholder="gpt-4.1"
-                value={(settings as any).openaiModel ?? ""}
-                onChange={(e) => applySettingsPatch({ openaiModel: e.target.value })}
+                placeholder="gpt-5.1-mini"
+                value={(settings.ai?.oracle?.model) ?? "gpt-5.1-mini"}
+                onChange={(e) => applySettingsPatch({ ai: { ...(settings.ai ?? {}), oracle: { ...(settings.ai?.oracle ?? {}), model: e.target.value } } })}
               />
             </div>
+
+            <hr />
+            <h3>Oracle</h3>
+            <div className="settings-option settings-option-column">
+              <div>
+                <p className="settings-option-label">Oracle Name</p>
+                <p className="settings-option-description">Friendly name shown in the Interpret button and card headers.</p>
+              </div>
+              <input
+                type="text"
+                className="settings-text-input"
+                placeholder="The Loomwright"
+                value={(settings.ai?.oracle?.oracleName) ?? "The Loomwright"}
+                onChange={(e) => applySettingsPatch({ ai: { ...(settings.ai ?? {}), oracle: { ...(settings.ai?.oracle ?? {}), oracleName: e.target.value } } })}
+              />
+            </div>
+
+            <div className="settings-option settings-option-column">
+              <div>
+                <p className="settings-option-label">Oracle Persona</p>
+                <p className="settings-option-description">Choose how the oracle will interpret results.</p>
+              </div>
+              <select
+                className="settings-select"
+                value={(settings.ai?.oracle?.oraclePersonaId) ?? 'loomwright'}
+                onChange={(e) => applySettingsPatch({ ai: { ...(settings.ai ?? {}), oracle: { ...(settings.ai?.oracle ?? {}), oraclePersonaId: e.target.value } } })}
+              >
+                {Object.values(ORACLE_PERSONAS).map((p) => (
+                  <option key={p.id} value={p.id}>{p.label}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="settings-option settings-option-column">
+              <div>
+                <p className="settings-option-label">Oracle temperature</p>
+                <p className="settings-option-description">Creativity / randomness for the oracle output (0.0-1.2).</p>
+              </div>
+              <input
+                type="number"
+                min={0}
+                max={1.2}
+                step={0.05}
+                className="settings-number-input"
+                value={(settings.ai?.oracle?.temperature) ?? 0.7}
+                onChange={(e) => applySettingsPatch({ ai: { ...(settings.ai ?? {}), oracle: { ...(settings.ai?.oracle ?? {}), temperature: Number.parseFloat(e.target.value) } } })}
+              />
+            </div>
+
           </section>
         );
       default:
@@ -2556,7 +2681,8 @@ function formatOracleHtmlCard(payload: {
   const id = `dice-log-${Date.now()}-${Math.floor(Math.random() * 100000)}`;
   const title = `TABLE ROLL`;
   const body = payload.resultText || "";
-  const html = `<div class="dice-card dice-card-inline dice-log-card"><input type="checkbox" id="${id}" class="dice-log-toggle" /><label for="${id}" class="dice-card-title dice-log-header"><span>${title}</span><span class="dice-log-caret" aria-hidden="true"></span></label><div class="dice-card-body dice-log-body"><div class="dice-card-detail"><span>ROLL RESULT:</span> <strong>${payload.roll}</strong></div></div><div class="dice-card-highlight dice-log-footer"><span class="dice-log-footer-label">Result:</span><span class="dice-card-inline-result" style="font-weight:600">${escapeHtml(body)}</span></div></div>`;
+  const meta = `<!-- forge:oracle tableId="${payload.tableId}" sourcePath="${payload.sourcePath}" roll=${payload.roll} result="${payload.resultText?.replace(/"/g, '\\"')}" tags='${JSON.stringify(payload.tags || [])}' -->`;
+  const html = `<div class="dice-card dice-card-inline dice-log-card"><input type="checkbox" id="${id}" class="dice-log-toggle" /><label for="${id}" class="dice-card-title dice-log-header"><span>${title}</span><span class="dice-log-caret" aria-hidden="true"></span></label><div class="dice-card-body dice-log-body"><div class="dice-card-detail"><span>ROLL RESULT:</span> <strong>${payload.roll}</strong></div></div><div class="dice-card-highlight dice-log-footer"><span class="dice-log-footer-label">Result:</span><span class="dice-card-inline-result" style="font-weight:600">${escapeHtml(body)}</span></div></div>${meta}`;
   return html;
 }
 

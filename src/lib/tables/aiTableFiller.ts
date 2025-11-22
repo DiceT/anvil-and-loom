@@ -74,36 +74,20 @@ Return: JSON array of ${N} strings.`;
 }
 
 async function fetchOpenAI(model: string, apiKey: string, system: string, user: string): Promise<string[]> {
-  const url = "https://api.openai.com/v1/chat/completions";
-  const body = {
-    model,
-    messages: [
-      { role: "system", content: system },
-      { role: "user", content: user },
-    ],
-    temperature: 0.9,
-    top_p: 0.95,
-  };
-  const res = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify(body),
-  });
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`OpenAI API error (${res.status}): ${text}`);
-  }
-  const json = await res.json();
-  const content: string = json?.choices?.[0]?.message?.content ?? "";
+  // Use the same client-side chat/completions call the Dev Table used originally.
+  const { callChatModelRenderer } = await import('../openaiClient');
+  const messages = [
+    { role: 'system', content: system },
+    { role: 'user', content: user },
+  ];
+  const text = await callChatModelRenderer(apiKey, model, messages);
+
   let parsed: unknown;
   try {
-    parsed = JSON.parse(content);
+    parsed = JSON.parse(text);
   } catch (e) {
     // Try to extract JSON array from content that may have text around it
-    const match = content.match(/\[[\s\S]*\]/);
+    const match = text.match(/\[[\s\S]*\]/);
     if (!match) {
       throw new Error("Failed to parse AI response as JSON array");
     }

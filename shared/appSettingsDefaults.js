@@ -30,6 +30,14 @@ export const appSettingsDefaults = {
   developerMode: false,
   openaiApiKey: null,
   openaiModel: null,
+  ai: {
+    oracle: {
+      oracleName: "The Loomwright",
+      oraclePersonaId: "loomwright",
+      model: "gpt-5.1-mini",
+      temperature: 0.7,
+    },
+  },
 };
 
 export function cloneDefaultSettings() {

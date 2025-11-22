@@ -86,6 +86,44 @@ ipcMain.handle("tapestries:saveEntry", async (_event, payload) =>
   saveTapestryEntry(payload?.path ?? "", payload?.content ?? "")
 );
 
+// Interpret bridge: securely call OpenAI from main process
+ipcMain.handle('interpretEntryOracle', async (_event, snapshot, settings) => {
+  try {
+    const current = getCachedSettings();
+    const apiKey = current.openaiApiKey || process.env.OPENAI_API_KEY || null;
+    if (!apiKey) return { success: false, error: 'OpenAI API key not set' };
+
+    // Build system prompt using persona addendum if provided
+    const oracleName = settings?.oracleName || 'The Loomwright';
+    const personaAddendum = settings?.personaAddendum ?? '';
+    const systemPrompt = `You are ${oracleName}, the in-app oracle interpreter for the Anvil & Loom TTRPG.\n${personaAddendum}`;
+
+    // Build user prompt from snapshot
+    const list = (snapshot?.oracleResults || []).map((r, i) => `#${i+1}\nTABLE: ${r.tableName}\nROLL: ${r.roll}\nRESULT: ${r.resultText}`).join('\n\n') || 'No oracle results were rolled.';
+    const userPrompt = `You are ${oracleName} inside the Anvil & Loom app.\nHere are the oracle results for the current journal entry:\n${list}\nUsing your system instructions, provide:\n1) A brief interpretation tying these results together (they may be literal, symbolic, or allusive).\n2) 1-3 concrete "Next Moves" the player or GM could take.\n3) An optional 1-2 sentence in-fiction snapshot of the current situation.`;
+
+    // Reuse shared OpenAI client helper (to match Dev Table)
+    // Load the CJS helper via dynamic import for maximum compatibility with Electron's Node.
+    const mod = await import('./openaiClient.cjs');
+    const callChatModel = mod.callChatModel || (mod.default && mod.default.callChatModel) || (mod.default || mod).callChatModel;
+    const apiKeyToUse = current.openaiApiKey || process.env.OPENAI_API_KEY || null;
+    const settingsForChat = { ...(settings || {}) };
+    const model = settingsForChat?.model || current.openaiModel || process.env.OPENAI_MODEL || 'gpt-4o-mini';
+    const messages = [
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: userPrompt },
+    ];
+    try {
+      const text = await callChatModel({ apiKey: apiKeyToUse, model, messages });
+      return { success: true, text };
+    } catch (err) {
+      return { success: false, error: err?.message ?? String(err) };
+    }
+  } catch (err) {
+    return { success: false, error: err?.message || String(err) };
+  }
+});
+
 ipcMain.handle("dev:saveTableJson", async (_event, payload) => {
   const type = (payload?.type ?? "").toString();
   const name = (payload?.name ?? "").toString();
