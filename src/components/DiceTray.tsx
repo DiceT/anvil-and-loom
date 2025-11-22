@@ -764,7 +764,7 @@ export function DiceTray({ onRollResult, onResultCard, fadeDurationMs = 3000 }: 
             aria-label={`Insert ${option.label}`}
             data-tooltip={option.label.toUpperCase()}
           >
-            <option.icon size={22} strokeWidth={2.6} />
+            <option.icon size={24} strokeWidth={2.8} />
           </button>
         ))}
       </div>
@@ -832,7 +832,7 @@ export function DiceTray({ onRollResult, onResultCard, fadeDurationMs = 3000 }: 
             aria-label="Toggle log to entry"
             data-tooltip={logToEntry ? "Logging to entry" : "Not logging to entry"}
           >
-            <NotebookPen size={40} strokeWidth={2.4} />
+            <NotebookPen size={44} strokeWidth={2.6} />
           </button>
           <div className="dice-expression-actions-right">
             <button
@@ -843,7 +843,7 @@ export function DiceTray({ onRollResult, onResultCard, fadeDurationMs = 3000 }: 
               aria-label="Roll Dice!"
               data-tooltip="Roll Dice!"
             >
-              <CirclePlay size={40} strokeWidth={2.4} />
+              <CirclePlay size={44} strokeWidth={2.6} />
             </button>
           </div>
         </div>
@@ -861,7 +861,7 @@ export function DiceTray({ onRollResult, onResultCard, fadeDurationMs = 3000 }: 
             aria-label="Clear expression"
             data-tooltip="Clear expression"
           >
-            <Eraser size={40} strokeWidth={2.4} />
+            <Eraser size={44} strokeWidth={2.6} />
         </button>
         <div className="dice-template-group">
         <button
@@ -871,7 +871,7 @@ export function DiceTray({ onRollResult, onResultCard, fadeDurationMs = 3000 }: 
           aria-label="Challenge template"
           data-tooltip="Challenge Template"
         >
-          <Swords size={22} strokeWidth={2.6} />
+          <Swords size={24} strokeWidth={2.8} />
         </button>
         <button
           type="button"
@@ -880,7 +880,7 @@ export function DiceTray({ onRollResult, onResultCard, fadeDurationMs = 3000 }: 
           aria-label="Dice pool template"
           data-tooltip="Dice Pool Template"
         >
-          <Blocks size={22} strokeWidth={2.6} />
+          <Blocks size={24} strokeWidth={2.8} />
         </button>
         <button
           type="button"
@@ -889,7 +889,7 @@ export function DiceTray({ onRollResult, onResultCard, fadeDurationMs = 3000 }: 
           aria-label="Degrading die template"
           data-tooltip="Degrading Die Template"
         >
-          <TrendingDown size={22} strokeWidth={2.6} />
+          <TrendingDown size={24} strokeWidth={2.8} />
         </button>
         <button
           type="button"
@@ -898,7 +898,7 @@ export function DiceTray({ onRollResult, onResultCard, fadeDurationMs = 3000 }: 
           aria-label="Exploding dice template"
           data-tooltip="Exploding Dice Template"
         >
-          <Bomb size={22} strokeWidth={2.6} />
+          <Bomb size={24} strokeWidth={2.8} />
         </button>
         </div>
       </div>
@@ -913,7 +913,7 @@ export function DiceTray({ onRollResult, onResultCard, fadeDurationMs = 3000 }: 
               aria-label="Save expression"
               data-tooltip="Save expression"
             >
-              <Save size={38} strokeWidth={2.4} />
+              <Save size={42} strokeWidth={2.6} />
             </button>
             <input
               type="text"
@@ -931,7 +931,7 @@ export function DiceTray({ onRollResult, onResultCard, fadeDurationMs = 3000 }: 
               aria-label="Delete saved expression"
               data-tooltip="Delete saved expression"
             >
-              <Trash2 size={38} strokeWidth={2.4} />
+              <Trash2 size={42} strokeWidth={2.6} />
             </button>
             <select
               value={selectedSaveId ?? ""}
