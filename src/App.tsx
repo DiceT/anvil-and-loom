@@ -34,6 +34,8 @@ marked.setOptions({
   breaks: true,
 });
 import { DiceTray } from "./components/DiceTray";
+import { ResultsPane } from "./components/ResultsPane";
+import type { ResultCardModel } from "./core/results/resultTypes";
 import {
   fetchAppSettings,
   getDefaultSettings,
@@ -162,6 +164,7 @@ function App() {
   const saveTimerRef = useRef<number | null>(null);
   const [isToolPaneOpen, setToolPaneOpen] = useState(false);
   const [activeTool, setActiveTool] = useState<ActiveTool>("results");
+  const [resultCards, setResultCards] = useState<ResultCardModel[]>([]);
   const [entries, setEntries] = useState<Entry[]>(initialEntries);
   const [activeEntryDraftTitle, setActiveEntryDraftTitle] = useState("");
   const [activeEntryDraftContent, setActiveEntryDraftContent] = useState("");
@@ -2040,6 +2043,14 @@ function App() {
     [activeEntry, activeEntryDraftContent, activeEntryId, scheduleSave]
   );
 
+  const handleAddResultCard = useCallback((card: ResultCardModel) => {
+    setResultCards((prev) => [...prev, card]);
+  }, []);
+
+  const handleClearResults = useCallback(() => {
+    setResultCards([]);
+  }, []);
+
   const handleEntryContentChange = useCallback(
     (nextValue: string) => {
       if (!activeEntryId) return;
@@ -2182,7 +2193,12 @@ const maybePlayDiceDevAudio = useCallback(async () => {
 
   const renderToolContent = () => (
     <div className="app-tools-content">
-      {activeTool === "results" && <p>Results tool will go here.</p>}
+      {activeTool === "results" && (
+        <ResultsPane
+          results={resultCards}
+          onClearResults={handleClearResults}
+        />
+      )}
 
       {activeTool === "tables" && (
         <TablesPane
@@ -2226,6 +2242,7 @@ const maybePlayDiceDevAudio = useCallback(async () => {
         <div style={{ display: activeTool === "dice" ? "block" : "none" }}>
           <DiceTray
             onRollResult={handleDiceRollLog}
+            onResultCard={handleAddResultCard}
             fadeDurationMs={settings.diceFadeDurationMs}
           />
         </div>

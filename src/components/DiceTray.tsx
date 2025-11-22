@@ -5,6 +5,9 @@ import diceBoxValueProvider from "../lib/dice/diceBoxAdapter";
 import { annotateRollResult, type RollHighlight } from "../lib/dice/rollHighlights";
 import { setDiceFadeDuration } from "../core/dice/diceEngine";
 import type { LogicalRollType, RollAdvantageMode } from "../core/dice/diceEngine";
+import type { DiceResultCard } from "../core/results/resultTypes";
+import { generateResultCardId } from "../core/results/resultTypes";
+import { getChallengeOutcomeColor } from "../core/results/ResultCard";
 import {
   Triangle,
   Diamond,
@@ -23,10 +26,11 @@ import {
 
 interface DiceTrayProps {
   onRollResult?: (html: string) => void;
+  onResultCard?: (card: DiceResultCard) => void;
   fadeDurationMs?: number;
 }
 
-type DiceIcon = (props: { size?: number; strokeWidth?: number }) => JSX.Element;
+type DiceIcon = (props: { size?: number; strokeWidth?: number }) => React.ReactElement;
 
 const LOCAL_STORAGE_KEY = "anvil-dice-saved-expressions";
 
@@ -255,21 +259,177 @@ function formatResultAsHtml(result: RollResult): string {
   return "";
 }
 
-function getPrimaryTerm(result: RollResult) {
-  return result.terms.find((term) => term.type !== "constant") ?? result.terms[0] ?? null;
+function convertResultToCard(result: RollResult): DiceResultCard | null {
+  const term = getPrimaryTerm(result);
+  if (!term) return null;
+  const constantTotal = getConstantSum(result.terms);
+
+  if (term.type === "challenge") {
+    const actionSegments: string[] = [`${term.actionDie}`];
+    if (term.actionModifier) {
+      actionSegments.push(`${term.actionModifier >= 0 ? "+" : ""}${term.actionModifier}`);
+    }
+    if (typeof term.actionScore === "number") {
+      actionSegments.push(`= ${term.actionScore}`);
+    }
+    const actionText = actionSegments.join(" ");
+    const challengeText = term.challengeScore.length ? term.challengeScore.join(", ") : "-";
+    const resultText = `${term.outcome}${term.boon ? " (Boon)" : ""}${
+      term.complication ? " (Complication)" : ""
+    }`;
+    const outcomeColor = getChallengeOutcomeColor(term.outcome);
+
+    return {
+      id: generateResultCardId(),
+      kind: "challenge",
+      createdAt: Date.now(),
+      headerText: "CHALLENGE ROLL",
+      contentText: `Action Roll: ${actionText || "-"}\nChallenge Roll: ${challengeText}`,
+      resultText,
+      resultColor: outcomeColor,
+      theme: "challenge",
+    };
+  }
+
+  if (term.type === "dice") {
+    const simpleDiceTerms = result.terms.filter(
+      (t): t is DiceTermRollResult =>
+        t.type === "dice" && !t.term.pool && !t.term.explode && !t.term.degrade
+    );
+    const constantTerms = result.terms.filter((t) => t.type === "constant");
+    
+    if (simpleDiceTerms.length > 1) {
+      const header = result.expression?.original
+        ? `ROLLED ${humanizeSelectionShorthand(result.expression.original)}`
+        : "ROLL RESULT";
+      const diceLines = simpleDiceTerms.map((t) => {
+        const rollsDisplay = t.dice
+          .map((die) => (die.dropped ? `(${die.value})` : `${die.value}`))
+          .join(", ");
+        const label = `${t.term.count}d${t.term.sides}${
+          t.term.selection ? ` (${t.term.selection.mode.replace("-", " ")})` : ""
+        }`;
+        return `${label}: ${rollsDisplay || "-"} = ${t.total}`;
+      });
+      const constantLines = constantTerms.map((c) => `Modifier: ${c.value}`);
+      const contentText = [...diceLines, ...constantLines].join("\n");
+
+      return {
+        id: generateResultCardId(),
+        kind: "dice",
+        createdAt: Date.now(),
+        headerText: header,
+        contentText,
+        resultText: `${result.total}`,
+        theme: "dice",
+      };
+    }
+
+    if (term.term.pool) {
+      const pool = term.term.pool;
+      const threshold = `${pool.successThreshold}`;
+      const needed =
+        typeof pool.targetSuccesses === "number" ? pool.targetSuccesses : undefined;
+      const successes = term.successes ?? 0;
+      const met = term.metTarget ?? (typeof needed === "number" ? successes >= needed : successes > 0);
+      const statusText = met ? "PASS" : "FAIL";
+      const statusColor = met ? "#22c55e" : "#ef4444";
+      const successLabel = `${successes} success${successes === 1 ? "" : "es"}`;
+      const poolHeader = `DICE POOL - ${term.term.count}d${term.term.sides} T:${threshold} S:${
+        needed !== undefined ? needed : "-"
+      }`;
+      
+      const rollsDisplay = term.dice.map(d => d.value).join(", ");
+      const contentText = `Rolls: ${rollsDisplay}\nTarget: ${threshold}\nSuccesses Needed: ${needed !== undefined ? needed : "-"}`;
+
+      return {
+        id: generateResultCardId(),
+        kind: "dice",
+        createdAt: Date.now(),
+        headerText: poolHeader,
+        contentText,
+        resultText: `${successLabel} - ${statusText}`,
+        resultColor: statusColor,
+        theme: "dice",
+      };
+    }
+
+    if (term.term.degrade) {
+      const threshold = term.term.degrade?.threshold ?? "-";
+      const triggered = term.degradeTriggered ?? false;
+      const statusText = triggered ? `${term.total} - DEGRADE` : `${term.total}`;
+      const statusColor = triggered ? "#ef4444" : undefined;
+      const headerText = `DEGRADATION ROLL ${term.term.count}d${term.term.sides} D:${threshold}`;
+      const rollsDisplay = term.dice.map(d => d.value).join(", ");
+      const contentText = `Roll: ${rollsDisplay}\nThreshold: ${threshold}`;
+
+      return {
+        id: generateResultCardId(),
+        kind: "dice",
+        createdAt: Date.now(),
+        headerText,
+        contentText,
+        resultText: statusText,
+        resultColor: statusColor,
+        theme: "dice",
+      };
+    }
+
+    if (term.explosions && term.explosions.length) {
+      const threshold = term.term.explode?.threshold ?? term.term.sides;
+      const explosionCount = term.explosionCount ?? Math.max(0, term.explosions.length - 1);
+      const statusColor = explosionCount > 0 ? "#22c55e" : undefined;
+      const lines = term.explosions.map((group, index) => {
+        const label = index === 0 ? "ROLL" : "EXPLOSION";
+        const values = group.join(", ");
+        return `${label}: ${values}`;
+      });
+      const header = `EXPLODING ROLL ${term.term.count}d${term.term.sides} T:${threshold}`;
+      const resultText = `${term.total}${
+        explosionCount > 0 ? ` - ${explosionCount} Explosions` : ""
+      }`;
+
+      return {
+        id: generateResultCardId(),
+        kind: "dice",
+        createdAt: Date.now(),
+        headerText: header,
+        contentText: lines.join("\n"),
+        resultText,
+        resultColor: statusColor,
+        theme: "dice",
+      };
+    }
+
+    const label = formatDiceLabel(term, {
+      modifier: constantTotal,
+      expression: result.expression?.original,
+    });
+    const rollsDisplay = term.dice
+      .map((die) => (die.dropped ? `(${die.value})` : `${die.value}`))
+      .join(", ");
+    const rollsText = rollsDisplay || "-";
+    const contentLines = [`Rolls: ${rollsText}`];
+    if (constantTotal !== 0) {
+      contentLines.push(`Modifier: ${constantTotal > 0 ? "+" : ""}${constantTotal}`);
+    }
+
+    return {
+      id: generateResultCardId(),
+      kind: "dice",
+      createdAt: Date.now(),
+      headerText: label,
+      contentText: contentLines.join("\n"),
+      resultText: `${result.total}`,
+      theme: "dice",
+    };
+  }
+
+  return null;
 }
 
-function getChallengeOutcomeColor(outcome: string) {
-  switch (outcome) {
-    case "Strong Hit":
-      return "#22c55e";
-    case "Weak Hit":
-      return "#d97706";
-    case "Miss":
-      return "#ef4444";
-    default:
-      return "var(--text-main)";
-  }
+function getPrimaryTerm(result: RollResult) {
+  return result.terms.find((term) => term.type !== "constant") ?? result.terms[0] ?? null;
 }
 
 function getConstantSum(terms: RollResult["terms"]): number {
@@ -418,7 +578,7 @@ const HexagonIcon: DiceIcon = ({ size = 20, strokeWidth = 2 }) => (
   </svg>
 );
 
-export function DiceTray({ onRollResult, fadeDurationMs = 3000 }: DiceTrayProps) {
+export function DiceTray({ onRollResult, onResultCard, fadeDurationMs = 3000 }: DiceTrayProps) {
   const [expressionText, setExpressionText] = useState("1d20");
   const [builderMode, setBuilderMode] = useState<RollAdvantageMode>("normal");
   const [isRolling, setIsRolling] = useState(false);
@@ -543,6 +703,12 @@ export function DiceTray({ onRollResult, fadeDurationMs = 3000 }: DiceTrayProps)
         const html = formatResultAsHtml(result);
         if (html.trim().length) {
           onRollResult(html);
+        }
+      }
+      if (onResultCard) {
+        const card = convertResultToCard(result);
+        if (card) {
+          onResultCard(card);
         }
       }
     } catch (error) {
