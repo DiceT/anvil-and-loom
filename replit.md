@@ -104,6 +104,12 @@ npm run electron
 - This is a fresh import - no user preferences yet defined
 
 ## Recent Changes
+- **November 22, 2025**: Tools launcher repositioned to top-right of canvas
+  - **Moved vertical toolbar**: Tools launcher (Results/Dice/Tables/etc.) relocated from right edge to top-right corner of center canvas
+  - **Absolute positioning**: Launcher floats over canvas with shadow and rounded border
+  - **Grid layout updated**: Right pane column only appears when tools are expanded
+  - **Clean visual**: Tools launcher is compact and non-intrusive in top-right corner
+
 - **November 22, 2025**: Windows-style collapsible panes and global UI settings
   - **CSS Grid Layout**: Converted app shell from flexbox to CSS Grid with dynamic column widths
     - Left pane (Tome): Collapsible with visibility state and width management

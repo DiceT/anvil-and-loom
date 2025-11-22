@@ -2284,7 +2284,7 @@ const maybePlayDiceDevAudio = useCallback(async () => {
   const gridTemplateColumns = `
     ${leftPane.visible ? `${leftPane.width}px` : "0px"}
     1fr
-    ${rightPane.visible ? `${rightPane.width}px` : "0px"}
+    ${isToolPaneOpen ? `${toolsWidth}px` : "0px"}
   `.trim();
 
   return (
@@ -2398,6 +2398,53 @@ const maybePlayDiceDevAudio = useCallback(async () => {
 
       {/* CENTER: main content pane */}
       <main className="app-main">
+        {/* Tools launcher - top right */}
+        {!isToolPaneOpen && (
+          <div className="app-tools-launcher">
+            <button
+              className="tool-icon-button icon-button"
+              onClick={() => openTool("results")}
+              aria-label="Results"
+              data-tooltip="Results"
+            >
+              <ScrollText size={32} strokeWidth={2.5} />
+            </button>
+            <button
+              className="tool-icon-button icon-button"
+              onClick={() => openTool("dice")}
+              aria-label="Dice"
+              data-tooltip="Dice"
+            >
+              <Dices size={32} strokeWidth={2.5} />
+            </button>
+            <button
+              className="tool-icon-button icon-button"
+              onClick={() => openTool("tables")}
+              aria-label="Tables"
+              data-tooltip="Tables"
+            >
+              <LayoutPanelTop size={32} strokeWidth={2.5} />
+            </button>
+            <button
+              className="tool-icon-button icon-button"
+              onClick={() => openTool("diceDev")}
+              aria-label="Dice dev"
+              data-tooltip="Dice Dev"
+            >
+              <FlaskConical size={32} strokeWidth={2.5} />
+            </button>
+            {settings.developerMode && (
+              <button
+                className="tool-icon-button icon-button"
+                onClick={() => openTool("devTools")}
+                aria-label="Dev Tools"
+                data-tooltip="Dev Tools"
+              >
+                <FlaskConical size={32} strokeWidth={2.5} />
+              </button>
+            )}
+          </div>
+        )}
         <div className="app-main-tabbar">
           {tabs.map((tab) => (
             <button
@@ -2435,53 +2482,8 @@ const maybePlayDiceDevAudio = useCallback(async () => {
         </div>
       </main>
 
-      {/* RIGHT: tools launcher / pane */}
-      {!isToolPaneOpen ? (
-        <div className="app-tools-launcher">
-          <button
-            className="tool-icon-button icon-button"
-            onClick={() => openTool("results")}
-            aria-label="Results"
-            data-tooltip="Results"
-          >
-            <ScrollText size={32} strokeWidth={2.5} />
-          </button>
-          <button
-            className="tool-icon-button icon-button"
-            onClick={() => openTool("dice")}
-            aria-label="Dice"
-            data-tooltip="Dice"
-          >
-            <Dices size={32} strokeWidth={2.5} />
-          </button>
-          <button
-            className="tool-icon-button icon-button"
-            onClick={() => openTool("tables")}
-            aria-label="Tables"
-            data-tooltip="Tables"
-          >
-            <LayoutPanelTop size={32} strokeWidth={2.5} />
-          </button>
-          <button
-            className="tool-icon-button icon-button"
-            onClick={() => openTool("diceDev")}
-            aria-label="Dice dev"
-            data-tooltip="Dice Dev"
-          >
-            <FlaskConical size={32} strokeWidth={2.5} />
-          </button>
-          {settings.developerMode && (
-            <button
-              className="tool-icon-button icon-button"
-              onClick={() => openTool("devTools")}
-              aria-label="Dev Tools"
-              data-tooltip="Dev Tools"
-            >
-              <FlaskConical size={32} strokeWidth={2.5} />
-            </button>
-          )}
-        </div>
-      ) : (
+      {/* RIGHT: tools pane */}
+      {isToolPaneOpen && (
         <>
         <div
           className="app-resize-handle app-resize-handle-right"
