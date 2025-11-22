@@ -1,0 +1,1611 @@
+[
+  {
+    "sourcePath": "forge",
+    "category": "Domain",
+    "name": "Objectives",
+    "tags": [
+      "domain",
+      "objective"
+    ],
+    "description": "Catacombs are deliberate, layered dead-space: tunnels, ossuaries, and chambers built to store what the living couldn’t bear to keep nearby. Down here, air moves like it’s remembering old prayers, and every wall of bones feels one bad decision away from joining the living again.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Trace the oldest tunnel to its shame"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Seal the restless tier before it bursts"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Smuggle a living soul into the stacks"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Return stolen skulls to their bitter niches"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Chart forbidden corridors the priests deny exist"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Silence the hymn echoing from empty ribs"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Steal the jawbone that still whispers oaths"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Plant false relics to mislead future mourners"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Wake a chosen skeleton to bargain guidance"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Collapse a haunted gallery without angering it"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Escort a cowardly gravedigger to ancestral depths"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Hide a cursed relic among anonymous femurs"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Find where the catacombs outgrow their builders"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Rebind a loosened spirit to its ossuary"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Track stolen bones traded for forbidden favors"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Bury a secret name beneath unmarked skulls"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Snuff every lantern before the dead notice"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Replace a missing spine to complete the pattern"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Follow the coldest draft to its keeper"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Smuggle contraband prayers past listening skulls"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Recover the tongue that still tastes confessions"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Mark safe paths without insulting the dead"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Guide a lost mourner out before dawn"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Offer your blood to unlock sealed stairs"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Prove the catacombs are still expanding"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Divert floodwater from drowning the quiet dead"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Destroy the sigil holding the bones obedient"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Lead hunters into a corridor that erases"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Exchange your shadow for passage deeper down"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Rearrange an ossuary to break an old curse"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Steal the candle that never burns out"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Soothe the wall of skulls mid-argument"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Smuggle a forbidden corpse past vigilant caretakers"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Test whether the bones recognize your lineage"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Deliver contraband incense to a hidden chapel"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Guide a vengeful ghost toward its true grave"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Barter with the bone-masons for safe refuge"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Witness the birth of a new ossuary"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Erase all maps so only you navigate"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Harvest teeth needed for a necromantic tithe"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Escort a relic-thief to their promised punishment"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Wake an ossified oracle for one answer"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Trace footsteps that never leave any dust"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Sabotage the mortuary bells that rouse sleepers"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Protect a single coffin from the hungry walls"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Test rumors of a pit that forgets"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Bind a wandering skeleton back into formation"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Lure something living to appease the catacombs"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "ACTION + THEME"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Objectives",
+    "summary": "Catacombs — Objectives"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Domain",
+    "name": "Atmosphere",
+    "tags": [
+      "domain"
+    ],
+    "description": "Catacombs are deliberate, layered dead-space: tunnels, ossuaries, and chambers built to store what the living couldn’t bear to keep nearby. Down here, air moves like it’s remembering old prayers, and every wall of bones feels one bad decision away from joining the living again.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Air tastes of candle soot and regret"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Ceiling sweats mineral tears onto skulls"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Lantern light smears across damp bone"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Whispers move where no mouths remain"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Dust hangs heavy like unsaid names"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Shallow drafts carry the scent of iron"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Echoes arrive before the sound itself"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Every footstep sounds like distant digging"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Cold presses in with patient hands"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Silence hums like buried insects"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Moist stone breathes a slow confession"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Shadows knot between stacked femurs"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Air vibrates with half-remembered hymns"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "The dark feels layered, watching, waiting"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Bone walls lean as if listening"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Faint scraping, then absolute stillness again"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Smell of wet linen and old incense"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Drips mark time older than kingdoms"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Ceiling arches like a frozen wave"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Your breath blooms white in stale gloom"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Far-off chains rattle without rhythm"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Lantern sputter sounds almost like speech"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "A low wind circles without source"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Floor dust curls around your boots"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Every corridor narrows into choking dread"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "The quiet tastes sour and metallic"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Shadows cling to skull sockets hungrily"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Darkness seems layered, thick as cloth"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Air presses words back into your throat"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Smell of charred bone clings to stone"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Old wax veins the walls like fungus"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Your heartbeat feels impolite, too loud"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Ceiling seems lower with each exhale"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Invisible drafts paw at your ankles"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "The gloom feels greasy on skin"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Every bone stack leans toward your heat"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Far-off chanting swallowed mid-syllable"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Silence feels rehearsed, expectant, deliberate"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Cold breath brushes ear, then nothing"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Pale fungi glow like failing stars"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Air tastes like pages left underwater"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "A murmur rides every shifting shadow"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Stale incense battles stubborn grave-musk"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Walls seem to tighten with each step"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Darkness curls around light like smoke"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Moans echo with no clear direction"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "The air feels recently disturbed"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Uneasy stillness hums beneath every stone"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "ACTION + THEME"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Atmosphere",
+    "summary": "Catacombs — Atmosphere"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Domain",
+    "name": "Locations",
+    "tags": [
+      "domain"
+    ],
+    "description": "Catacombs are deliberate, layered dead-space: tunnels, ossuaries, and chambers built to store what the living couldn’t bear to keep nearby. Down here, air moves like it’s remembering old prayers, and every wall of bones feels one bad decision away from joining the living again.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Ossuary hall where skulls whisper directions"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Collapsed gallery flooded with black, still water"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Bone-pillared nave lit by guttering tallow"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Narrow crawlway choked with broken femurs"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Charnel crossroads marked by gnawed lantern posts"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Sunken rotunda where coffins hang like fruit"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Candle-choked vigil chamber abandoned mid-prayer"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Spiral stair drilled through stacked ribcages"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Flooded crypt patrolled by blind, pale eels"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Dust-drowned archive of nameplates and shackles"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Grave-robbers’ den stitched from stolen mausoleums"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Hollowed saint’s tomb now a sleeping maw"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Processional ramp lined with watching jawbones"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Ceiling of fused skulls weeping cold brine"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Secret ossuary behind swiveling sarcophagus lid"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Bone-char kiln still warm without fuel"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Chapel of empty reliquaries and fresh dust"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Choked incense vault that never fully clears"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Forgotten pit where coffins are stacked upright"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Mosaic floor of teeth crunching underfoot"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Embalmer’s alcove cluttered with rusted hooks"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Catwalk over abyss of rattling caskets"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Collapsed shrine buried in hair and wax"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Plague trench converted into cramped sleeping niches"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Echoing bell chamber with no visible bell"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Rotten ladder descending into skull-lined shaft"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Carved niche garden of fingerbone idols"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Ancient wellhead sealed by fused vertebrae"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Scribe’s cell wallpapered with flayed memorial scripts"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Cracked mirror gallery reflecting only the dead"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Vent shaft exhaling warm, funereal breath"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Charcoal-scrawled refuge of a paranoid mourner"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Bone-locked gate humming with muffled heartbeats"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Abandoned feast hall set for dead guests"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Coffin barge dock on underground black river"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Mummifier’s theater with audience of stitched corpses"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Low tunnel stuffed with discarded funeral masks"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Icon wall where eyes have been gouged"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Landslide of coffins frozen mid-collapse"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Charnel wind tunnel playing ribs like flutes"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Rot-pocked ladder up to sealed ossuary"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Ossified garden where roots grip skulls tight"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Crypt market marked by silent hooded figures"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Catacomb nursery of tiny stone sarcophagi"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Vault of chained sarcophagi straining outward"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Mud-slick trench of half-buried jawbones"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Gatehouse of skulls arranged as snarling sentries"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "CONNECTION WEB"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "ACTION + THEME"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Locations",
+    "summary": "Catacombs — Locations"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Domain",
+    "name": "Discoveries",
+    "tags": [
+      "domain"
+    ],
+    "description": "Catacombs are deliberate, layered dead-space: tunnels, ossuaries, and chambers built to store what the living couldn’t bear to keep nearby. Down here, air moves like it’s remembering old prayers, and every wall of bones feels one bad decision away from joining the living again.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Lanterns burning with colorless, sour light"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Bone wall flexes, exhaling stale hymns"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Locked ossuary door, hinges grown with teeth"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Sarcophagus lid sealed with black wax"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Footprints circling endlessly, never overlapping once"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Skull altar arranged facing a single crack"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Pale roots threading eye sockets, faintly pulsing"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Stone lips whisper names you never owned"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Chalice brimming with still-warm shadow"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Mummified hands clutching a rustless key"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Charcoal map on bone, routes crossed out"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Candles made from unblinking tallow eyes"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Collapsed niche revealing fresh, breathing soil"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Mortuary tools humming softly in unison"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Cage of ribs imprisoning flickering darkness"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Ossuary mural slowly rearranging its dead"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Hooded statue weeping grains of grave sand"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Coffin filled with molted, empty skins"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Jawbones wired into a chattering crown"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Funerary mask that mirrors your exposed skull"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Chain of vertebrae descending into black water"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Crumbling prayer scroll wrapped around a femur"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Candled skull whose flame shuns your touch"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Stairwell spiraling down into inverted stars"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Catacomb wind carrying someone else's breath"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Bone dice still rolling, never settling"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Carved niche stocked with labeled heart-jars"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Mausoleum door opening onto sideways gravity"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Veil of cobwebs stitched with tiny teeth"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Stacked skulls aligning to track your steps"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Funeral barge stranded on a stone tide"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Pit of loose teeth grinding like sand"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Embalmer's bench warm, stains still glistening wet"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Coffin garden sprouting fingerbone saplings"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Wall of masks silently mouthing lost rites"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Hourglass filled with flaking grave dust"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Bronze bell that rings without a sound"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Shrine where bones kneel on their own"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Ceiling fresco of corpses devouring daylight"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Ossuary door breathing slow, patient drafts"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Unmarked urn rattling with many small heartbeats"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Floor mosaic shifting to avoid your gaze"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Fungus glowing gently between stacked skulls"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Mortuary ledger writing new names in blood"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Rope of hair descending into whispering dark"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Narrow crawlspace lined with listening jaws"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Lanternlight revealing footprints made of absence"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "CONNECTION WEB"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "DESCRIPTOR + FOCUS"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Discoveries",
+    "summary": "Catacombs — Discoveries"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Domain",
+    "name": "Banes",
+    "tags": [
+      "domain"
+    ],
+    "description": "Catacombs are deliberate, layered dead-space: tunnels, ossuaries, and chambers built to store what the living couldn’t bear to keep nearby. Down here, air moves like it’s remembering old prayers, and every wall of bones feels one bad decision away from joining the living again.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Coffins bleed tar that whispers names"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Skulls gnash stone whenever light appears"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Bone-dust storms flay memory from flesh"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Funerary bells toll inside your teeth"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Ossuary murals crawl to avoid notice"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Air thickens into suffocating funeral veils"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Lantern flames recoil from unseen breath"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Burial niches exhale swarms of gnawing beetles"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Footsteps echo wrong, summoning buried sentries"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Corpse-wax candles burn with accusing faces"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Murmured litanies twist into binding curses"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Ceiling roots drink blood instead of water"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Marrow-slick floors drag feet toward chasms"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Names carved in stone rewrite themselves"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Grave-robbed relics hunger for former owners"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Tunnels fold, returning you to fresh graves"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Dust motes sharpen into drifting bone shards"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Feral prayers gnaw holes in your luck"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Locked ossuaries unlock when backs are turned"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Charred burial shrouds cling like drowning hands"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Fossilized jaws snap at passing shadows"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Rot-sweet drafts carry sleep that kills"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Pale fungi bloom inside open mouths"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Echoed sobs bend bone into cages"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Rusty chains tighten with each spoken secret"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Grave markers trade places while you blink"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Crypt doors open only for spilled blood"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Carved saints avert eyes from coming doom"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Sarcophagus lids slam at approaching heartbeats"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Bone piles rearrange to block every exit"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Faint hymns command corpses to stand"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Skittering vertebrae assemble stalking centipedes"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Shadows detach, prowling for warmer hosts"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Mausoleum steps sink under guilty weight"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Noxious miasma erases tracks and trails"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Burial charms ignite, cursing the living"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Cold hands imprint bruises beneath your clothes"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Catacomb maps sprout new, impossible passages"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Inscribed skulls debate your manner of death"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Dripping ceilings dissolve metal, spare bone"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Cairn stones topple, releasing choking swarms"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Mortuary slabs tilt toward bottomless vents"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Corpse-blooms release spores that mimic voices"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Ancestral masks fuse to any bare face"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Embalming salts leach courage from the heart"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Grinning niches demand offerings of fresh teeth"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Bone wind extinguishes fire, nourishes decay"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Every prayer spoken here feeds something listening"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "DESCRIPTOR + FOCUS"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Banes",
+    "summary": "Catacombs — Banes"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Domain",
+    "name": "Boons",
+    "tags": [
+      "domain"
+    ],
+    "description": "Catacombs are deliberate, layered dead-space: tunnels, ossuaries, and chambers built to store what the living couldn’t bear to keep nearby. Down here, air moves like it’s remembering old prayers, and every wall of bones feels one bad decision away from joining the living again.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Skull reliquary whispers forgotten healing rite"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Bone dust salve knits torn flesh"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Lantern flame reveals hidden bone passage"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Ossuary mural maps safe return path"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Cairn stone shifts revealing blessed cache"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Funerary mask shields from deathly gaze"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Charnel incense calms restless dead"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Silvered femur glows near secret exits"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Grave wax candles banish gnawing shadows"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Mortuary bell rings warning before collapse"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Rustless key opens untouched burial vault"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Ancestor shade grants passage without tithe"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Sarcophagus lid slides silently at touch"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Tomb moss cures creeping tomb-rot"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Charcoal epitaph reveals true name of curse"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Urn of ash devours hostile spirits"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Ivory rosary wards against bone puppetry"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Embalmer’s needle stitches soul to body"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Liminal draft carries scent of daylight"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Reliquary shard blinds hungry wraiths"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Grave shroud renders wearer unseen by dead"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Crypt spider silk mends frayed lifelines"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Bone chimes guide you toward safest tunnel"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Ossified roots share buried memories"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Funeral coin buys mercy from underkeepers"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Mortcloth muffles all betraying sounds"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Charred coffin board absorbs stray hexes"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Votive niche shelters from prowling horrors"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Black salt line seals broken ward"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Ancestor jawbone bites through spectral chains"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Lantern oil burns twice as long"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Stone bier rises revealing hidden stair"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Coffin nail glows near consecrated ground"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Skull’s empty eye reveals unseen paths"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Whispering plaque answers one dire question"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Pale centipede leads you from labyrinth"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Tarnished censer forces specters to kneel"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Graveclay handprint marks false sarcophagus"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Corpse-light hovers over safest footing"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Dust-dry bouquet quenches hunger pangs"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Phosphor lichen outlines lurking ambushers"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Sacred jaw harp silences echoing screams"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Bone dice predict next lurking hazard"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Crypt idol trades secrets for blood"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Lead-lined coffer hides you from divination"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Mortuary ribbon binds oathbreakers’ tongues"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Skull cup fills with clean water"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Grinning ossuary face opens shortcut"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "DESCRIPTOR + FOCUS"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Boons",
+    "summary": "Catacombs — Boons"
+  }
+]

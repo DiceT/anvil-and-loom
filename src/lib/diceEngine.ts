@@ -327,3 +327,22 @@ function normalizeOnesIndex(value: number | undefined): number {
 function createId(): string {
   return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 }
+
+// Oracle roll helper: rolls a d100 (percentile) and returns the final face value.
+export interface OracleRollContext {
+  tableId: string;
+  tableName: string;
+  sourcePath?: string;
+}
+
+export async function rollOracleD100(ctx: OracleRollContext): Promise<number> {
+  try {
+    const res = await rollDice("percentile");
+    if (res && typeof res.value === "number") return Math.max(1, Math.min(100, Math.floor(res.value)));
+  } catch (e) {
+    // fall through to fallback
+    console.warn("rollOracleD100 failed, falling back to RNG", e);
+  }
+  // Fallback deterministic random
+  return Math.floor(Math.random() * 100) + 1;
+}

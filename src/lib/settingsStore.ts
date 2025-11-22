@@ -31,6 +31,9 @@ export interface AppSettings {
   diceEnableExploding: boolean;
   diceEnableDegrade: boolean;
   diceEnablePools: boolean;
+  developerMode: boolean;
+  openaiApiKey: string | null;
+  openaiModel: string | null;
 }
 
 const LOCAL_STORAGE_KEY = "anvil-and-loom:settings";

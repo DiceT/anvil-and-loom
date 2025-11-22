@@ -10,6 +10,15 @@ We’ll expand and revise this file as we go.
 
 ---
 
+## Architecture & Intent
+
+Anvil & Loom treats a Tapestry as a world or campaign container, with structure and settings managed in Electron rather than as a bare folder on disk. Within a Tapestry, Entries are the primary surface for play and lore: Dice outcomes already log into Entries as collapsible Result Cards, and the same pattern will power future Table/Oracle results so play artifacts accumulate in-session.
+
+The right tools pane (Dice today, Tables soon) and the tabbed center pane lay the groundwork for a Play Mode where a designated Session Entry stays active while Dice and Table tools stream Result Cards into it in real time. Aspects/Domains and Tables/Oracles (e.g., Haunted, Overgrown, Cemetery, Forest) are the engine for “discover what happens next,” and the existing tables directory plus table_creator tooling foreshadow those generators being wired into the UI like Dice is now.
+
+The Dice pipeline (DiceExpression parser, DiceRoller, DiceBox adapter, rollHighlights, and the Result Card format in DiceTray) serves as a reference implementation for Tables: parse/generate, annotate, and render a standard Result Card with header, summary, and expandable meta. App.tsx’s state model (active Tapestry, open tabs, right-pane tools, IPC-backed persistence) already supports this event-log flow and will evolve by formalizing a “current Session Entry” and composing shared Result Card components for Dice and Tables, turning Entries into living play logs where dice, oracles, and world aspects drive emergent gameplay.
+
+
 ## Priority Legend
 
 - **P0 – Core**: Must-have for the first public release.

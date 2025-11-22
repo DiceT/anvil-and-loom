@@ -1,0 +1,1611 @@
+[
+  {
+    "sourcePath": "forge",
+    "category": "Aspect",
+    "name": "Objectives",
+    "tags": [
+      "aspect",
+      "objective"
+    ],
+    "description": "Blighted marks places where something vital has been quietly poisoned: soil, flesh, faith, or all three at once. In a Blighted environment, growth still happens, but wrong; colors sour, smells cling, and anything that lingers too long starts to share the sickness.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Trace the first source of rot"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Seal the cracked vein of poison"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Harvest tainted fruit for dark rites"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Burn the fields before roots awaken"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Lure the blight into a single host"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Feed the soil a willing sacrifice"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Break the curse binding ash to flesh"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Smother the last healthy seed"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Protect the one unspoiled spring"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Map how far the sickness walks"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Test how much corruption you endure"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Turn the blight against its maker"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Teach the villagers to love decay"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Bottle the reek for future torment"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Kill whatever still refuses to wither"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Replace holy relics with infected fakes"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Infect the dreams of the hopeful"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Breed a new plague from this soil"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Hunt the creature that feeds on rot"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Offer your blood to guide the blight"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Silence those who preach cleansing"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Smuggle blighted grain past the guards"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Convince the desperate to drink here"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Hide the last untainted child"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Twist a sacred festival into contagion"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Nurture one perfect, poisonous garden"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Corrupt a healing spring into bile"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Drive the migrating blight toward war"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Trap the creeping mold in a vessel"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Mark the doomed with invisible spores"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Steal the relic that slows the rot"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Sabotage the ritual meant to purify"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Prove the blight can think and choose"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Awaken whatever sleeps beneath the sludge"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Trade safe passage for a piece of soul"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Splice blighted roots into living flesh"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Harvest memories from the dying soil"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Restore color to one cursed blossom"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Test new prayers against the creeping stain"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Offer false cures to spread despair"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Guide pilgrims through the sickened valley"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Inscribe wards with pus and soot"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Bind the blight into your shadow"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Graft a blighted limb onto yourself"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Conceal evidence of spreading corruption"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Tempt a healer to abandon mercy"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Record the voices whispering from mildew"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Abandon someone here and watch them change"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "ACTION + THEME"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Objectives",
+    "summary": "Blighted — Objectives"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Aspect",
+    "name": "Atmosphere",
+    "tags": [
+      "aspect"
+    ],
+    "description": "Blighted marks places where something vital has been quietly poisoned: soil, flesh, faith, or all three at once. In a Blighted environment, growth still happens, but wrong; colors sour, smells cling, and anything that lingers too long starts to share the sickness.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Wind tastes of rusted blossoms"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Soil exhales a slow, sweet reek"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Shadows cling like damp bruises"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Mist coils with leprous colors"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Every breath feels slightly borrowed"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Distant birdsong warps mid-note"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Pale spores drift in lazy spirals"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Footsteps leave stains that pulse faintly"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Roots twitch beneath the cracked earth"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Light arrives dulled, already tired"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Rot perfumes the air like incense"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Silence hangs swollen and expectant"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Leaves shimmer with an oily sheen"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Ground squelches though it appears dry"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Faint sobbing rides the evening breeze"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Insects move in erratic, fevered patterns"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Shallow puddles reflect unfamiliar skies"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Your tongue tingles, tasting metal"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Clouds sag, streaked with bruised yellows"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Old wounds ache with remembered poison"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Breath steams even in summer heat"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Every echo returns slightly corrupted"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Faint humming undercuts all other sounds"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Air feels thick, reluctant to enter"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Colors smear at the edge of vision"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Distant laughter ends in a choke"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "The horizon wobbles like bad glass"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Stone sweats a thin black moisture"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Shadows arrive before their owners"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "A low itch crawls beneath skin"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Dew beads like cloudy milky tears"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Faint ash drifts though nothing burns"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Heartbeat sounds louder than it should"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "The sky smells faintly of vinegar"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Every surface feels faintly sticky"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Whispers rise from otherwise still water"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Air thrums with slow, sick resonance"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Your reflection lags a heartbeat behind"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Distant bells ring with muffled gurgles"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Sweat chills into a waxy film"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Twigs snap with a wet crunch"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Taste of overripe fruit haunts breath"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Breathing here feels like mild drowning"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "A constant almost-rain never quite falls"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Dust motes crawl instead of drifting"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "The wind forgets how to be cold"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Every smell carries a hint of burial"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Silhouettes blur, edges refusing to stay"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "ACTION + THEME"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Atmosphere",
+    "summary": "Blighted — Atmosphere"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Aspect",
+    "name": "Manifestations",
+    "tags": [
+      "aspect"
+    ],
+    "description": "Blighted marks places where something vital has been quietly poisoned: soil, flesh, faith, or all three at once. In a Blighted environment, growth still happens, but wrong; colors sour, smells cling, and anything that lingers too long starts to share the sickness.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Moss blooms teeth along fallen logs"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Wheat bows heavy with blackened grain"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Goats graze, udders dripping gray milk"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "River stones sweat an oil-slick sheen"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Children’s shadows cough spores at dusk"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Every footprint fills with writhing roots"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Fruit splits early, seething with pale larvae"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Crows peck corpses, feathers slough like ash"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Rain falls thick, tasting of cold iron"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Tree bark peels away in wet curls"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Lambs are born with translucent skin"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Graves sink as if swallowing themselves"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Ivy climbs backwards, burrowing into soil"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Flies die midair, tiny husks humming"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Wells reflect unfamiliar constellations at noon"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Mushrooms pulse faintly, exhaling warm breath"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Old scars reopen, bleeding thin sap"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Milk sours in the cow’s veins"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Wind carries whispers of dry retching"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Lichen spreads in handprint-shaped patches"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Tongues stain purple after speaking prayers"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Wooden icons weep clotted black resin"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Puddles breed eyeless, gasping tadpoles"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Smoke from hearths curls downward, seeking mouths"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Thorns grow inward on every rose"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Candles burn cold, wicks never shrinking"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Roots grope aboveground like blind fingers"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Rot advances against the flow of time"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Cattle hooves leave bruises in stone"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Spiderwebs sag under invisible, twitching weight"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Berries taste sweet, then numb all color"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Church bells toll, metal visibly corroding"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Fallen leaves crawl back onto branches"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Maggots arrange themselves into moving sigils"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Shadows drip from walls like tar"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Snow falls as warm, fibrous ash"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Birdsong returns as hoarse human coughing"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Sickles rust only where they cut"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Bread molds into tiny, grasping hands"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Eyes of portraits swell, leaking brine"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Fish swim belly-up yet never die"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Fresh graves bloom with meat-pink flowers"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Sunlight bends away from certain doorways"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Roots tap hollow beneath unmarked paths"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Chimneys exhale the stench of hospitals"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Lantern light reveals bruises on air"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Bare feet leave trails of budding fungus"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "CONNECTION WEB"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "ACTION + THEME"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Manifestations",
+    "summary": "Blighted — Manifestations"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Aspect",
+    "name": "Discoveries",
+    "tags": [
+      "aspect"
+    ],
+    "description": "Blighted marks places where something vital has been quietly poisoned: soil, flesh, faith, or all three at once. In a Blighted environment, growth still happens, but wrong; colors sour, smells cling, and anything that lingers too long starts to share the sickness.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Tree bleeds tar, saplings drink greedily"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Wheat heads whisper, kernels filled with teeth"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Well water oily, reflections look away"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Dead crow takes flight, maggots steering it"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Fungus blossoms from footprints, pulsing slowly"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Pond lilies open, each cradling an eye"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Stone idol sweats blood that never dries"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Goat born eyeless, still staring inside you"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Rot climbs the walls like ivy"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Fruit hangs heavy, crawling under the skin"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Scarecrow stuffed with moving, whispering tongues"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Roots exposed, knotted into grasping hands"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Rain falls black, leaves drink and scream"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Skin of the earth sloughs, revealing veins"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Wind carries ash that clings like leeches"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "River fish upside down, still breathing air"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Shadows grow mold, creeping across light"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Broken altar, offerings fused into flesh"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Moss etches prayers into damp stone"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Flock of flies forms pleading words"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Village well ringed with toothlike stones"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Cracked icon weeps larvae instead of tears"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Crop rows twist into a spiral maze"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Bones in field sprout pale antlers"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Sickly moon reflected as a wound"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Torn scarecloth crawls with orphaned hands"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Wilted garlands hum with trapped voices"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Barn rafters dripping slow, warm milk"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Cattle eyes clouded, showing other skies"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Blistered earth beats like a buried heart"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Thorns bear little mouths, tasting the air"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Dead orchard blossoms, petals like scabs"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Campfire smoke curls into choking nooses"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Grain silos echo with distant chewing"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Mud bubbles, exhaling soft human names"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Fieldstones rearrange nightly into warning sigils"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Children's toys half-buried, quietly breathing"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Church bell rope slick with living mold"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Plague scars on trees form grasping silhouettes"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Plow rusts overnight, handle sprouts hair"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Ravens pick at crops, vomiting seeds"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Abandoned cradle rocking, lined with mushrooms"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Skinlike bark peels, revealing blinking knots"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Pathside shrine overgrown with thorny tongues"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Hanging herbs inverted, dripping black dew"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Old scarecrow's shadow moves without wind"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Scattered teeth embedded in sprouting potatoes"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "CONNECTION WEB"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "DESCRIPTOR + FOCUS"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Discoveries",
+    "summary": "Blighted — Discoveries"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Aspect",
+    "name": "Banes",
+    "tags": [
+      "aspect"
+    ],
+    "description": "Blighted marks places where something vital has been quietly poisoned: soil, flesh, faith, or all three at once. In a Blighted environment, growth still happens, but wrong; colors sour, smells cling, and anything that lingers too long starts to share the sickness.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Pale fruit oozes ink-thick sap"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Roots writhe away from holy water"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Flies hatch from every open wound"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Shadows blister where torchlight falls"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Breath steams with crawling black spores"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Tongues forget the taste of sweetness"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Milk inverts, clots into writhing grubs"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Footsteps leave bruises in living earth"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Eyes bloom with mold beneath lids"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Rain falls as sour, stinging brine"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Bones hum softly with buried rot"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Reflections smear, faces sag and slough"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Thorns sprout from healed scar tissue"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Whispers ferment into choking laughter"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Rot spreads against the pull of gravity"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Blood thickens, crawling toward unseen mouths"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Flesh flowers open, seeding pale maggots"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Teeth tarnish, then sprout hairlike roots"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Soil drinks light, exhaling cold dust"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Every prayer leaves a bitter aftertaste"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Flowers bloom meat-red, dripping clear ichor"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Distant bells ring with wet coughing"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Shattered glass scabs over like skin"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Wounds close around splinters of shadow"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Moss stains fingers with unhealing bruises"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Breathing here tastes of stale graves"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Water reflects sky as rotting meat"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Roots pulse, dragging corpses deeper down"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Crows peck eyes that still can see"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Echoes return weaker, stained with gurgling"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Footprints fill slowly with clotted blood"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Veins trace black sigils beneath skin"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Trees exhale smoke that whispers names"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Laughter curdles into fly-buzzing sobs"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Rust crawls faster than time here"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Candles burn cold, dripping grey fat"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Tongues sprout tiny teeth along underside"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Shadows cough up beetles and ash"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Every heartbeat sounds like tearing cloth"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Spiders weave webs of flaking scabs"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Sweat beads black, smelling of iron"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Hair twists into brittle thorny coils"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Hunger never ends, only deepens"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Dreams taste of copper and mildew"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Roots tap hollow, bone-choked chambers"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Clouds bruise purple, never quite raining"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Hands leave greasy prints on souls"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Silence ferments, birthing thin, distant sobbing"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "DESCRIPTOR + FOCUS"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Banes",
+    "summary": "Blighted — Banes"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Aspect",
+    "name": "Boons",
+    "tags": [
+      "aspect"
+    ],
+    "description": "Blighted marks places where something vital has been quietly poisoned: soil, flesh, faith, or all three at once. In a Blighted environment, growth still happens, but wrong; colors sour, smells cling, and anything that lingers too long starts to share the sickness.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Wilted harvest hides a single pure seed"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Drink tainted spring, see through withered eyes"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Blight gnaws disease that once plagued you"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Rot-slick roots whisper forgotten safe paths"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Sour blossoms lure away hungering beasts"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Carrion flies circle, ignoring your scent"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Corrupted soil rejects your spilled blood"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Blistered bark opens to reveal shelter"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Pale fungus maps secret tunnels below"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Your wounds bloom with painless hardened scar"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Spoiled fruit restores vigor, stains the soul"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Toxic miasma clings, masking your presence"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Blighted worms devour tracking footprints behind"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Sickly moss drinks poison from your veins"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Cankerous thorns drink fear, not flesh"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Rotting idols answer with crooked miracles"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Withered grass muffles every hurried footstep"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Your shadow feeds on blight, grows strong"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Stale air preserves whispered oaths unbroken"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Blackened roots strangle approaching hostile spirits"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Cancerous growth on wall opens passage"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Festering rain washes away cursed marks"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Plague-scarred ravens guide toward safe ruin"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Your reflection in pus predicts near danger"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Blight-touched tongue tastes lies like ash"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Ghastly mildew outlines unseen doorways"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Cracked idols weep ichor that heals"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Spores crown your brow, command lesser vermin"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Putrid mud swallows traps laid for you"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Dead crops rise briefly to bear warnings"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Gangrenous fog parts at your gesture"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Warped seedlings mimic keys you require"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Your tears curdle, breaking gentle enchantments"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Sour winds carry your scent to none"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Blightworms knit shattered bone overnight"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Rancid blossoms open only for your blood"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Seeping sludge hardens into crude armor"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Maggot-songs lull restless dead to sleep"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Bruised sky dims, hiding your movement"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Your breath clouds metal with protective rust"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Lichen sigils absorb stray hostile magic"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Crawling mold reshapes itself into crude tools"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Poxed animals obey brief, hoarse commands"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Stained halos of rot mark safe circles"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Sick earth swallows your unwanted memories"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Warped branches bend, shielding from prying gaze"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Blight echoes footsteps far from your trail"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Putrefying touch opens locks like soft fruit"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "DESCRIPTOR + FOCUS"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Boons",
+    "summary": "Blighted — Boons"
+  }
+]

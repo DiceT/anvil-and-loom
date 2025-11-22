@@ -1,5 +1,6 @@
 const { contextBridge, ipcRenderer } = require("electron");
 
+
 const settingsAPI = {
   getSettings: () => ipcRenderer.invoke("settings:get"),
   updateSettings: (partial) => ipcRenderer.invoke("settings:update", partial),
@@ -25,6 +26,9 @@ const settingsAPI = {
     ipcRenderer.invoke("tapestries:deletePath", payload),
   saveTapestryEntry: (payload) =>
     ipcRenderer.invoke("tapestries:saveEntry", payload),
+  devSaveTableJson: (payload) => ipcRenderer.invoke("dev:saveTableJson", payload),
+  listTables: () => ipcRenderer.invoke("tables:list"),
+  getTableById: (id) => ipcRenderer.invoke("tables:get", { id }),
 };
 
 contextBridge.exposeInMainWorld("settingsAPI", settingsAPI);

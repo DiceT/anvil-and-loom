@@ -28,6 +28,7 @@ import {
   FlaskConical,
 } from "lucide-react";
 import { marked } from "marked";
+import DevTableForgePane from "./components/DevTableForgePane";
 
 marked.setOptions({
   breaks: true,
@@ -55,8 +56,9 @@ import {
   setDiceTexture,
 } from "./lib/diceEngine";
 import { rollDiceBoxValues } from "./lib/dice/diceBoxManager";
+import TablesPane from "./components/TablesPane";
 
-type ActiveTool = "results" | "dice" | "tables" | "diceDev";
+type ActiveTool = "results" | "dice" | "tables" | "diceDev" | "devTools";
 type EntryType = "journal" | "note";
 type DocKind = "home" | "journal" | "tables" | "tome" | "oracle";
 
@@ -120,7 +122,8 @@ type SettingsCategory =
   | "appearance"
   | "hotkeys"
   | "corePlugins"
-  | "communityPlugins";
+  | "communityPlugins"
+  | "ai";
 
 const settingsNav: { id: SettingsCategory; label: string }[] = [
   { id: "general", label: "General" },
@@ -132,6 +135,7 @@ const settingsNav: { id: SettingsCategory; label: string }[] = [
   { id: "hotkeys", label: "Hotkeys" },
   { id: "corePlugins", label: "Core Plugins" },
   { id: "communityPlugins", label: "Community Plugins" },
+  { id: "ai", label: "AI" },
 ];
 
 const initialEntries: Entry[] = [];
@@ -1035,6 +1039,22 @@ function App() {
                 <span />
               </label>
             </div>
+            <div className="settings-option">
+              <div>
+                <p className="settings-option-label">Developer Mode (show Dev Tools)</p>
+                <p className="settings-option-description">
+                  Enables in-app development panes like Table Forge.
+                </p>
+              </div>
+              <label className="settings-toggle">
+                <input
+                  type="checkbox"
+                  checked={!!(settings as any).developerMode}
+                  onChange={(e) => applySettingsPatch({ developerMode: e.target.checked })}
+                />
+                <span />
+              </label>
+            </div>
           </section>
         );
       case "editor":
@@ -1641,6 +1661,51 @@ function App() {
           </section>
         );
       case "communityPlugins":
+        return (
+          <section className="settings-section">
+            <h2>Community Plugins</h2>
+            <p className="settings-section-subtitle">
+              Install experimental add-ons crafted by fellow storytellers.
+            </p>
+            <div className="community-callout">
+              Browse the curated catalog once you connect your creator profile.
+            </div>
+            <button className="app-primary-button">Open plugin browser</button>
+          </section>
+        );
+      case "ai":
+        return (
+          <section className="settings-section">
+            <h2>AI</h2>
+            <p className="settings-section-subtitle">Configure your OpenAI credentials used by Dev Tools (Table Forge).</p>
+            <div className="settings-option settings-option-column">
+              <div>
+                <p className="settings-option-label">OpenAI API Key</p>
+                <p className="settings-option-description">Stored locally; used only by Dev Tools in Developer Mode.</p>
+              </div>
+              <input
+                type="password"
+                className="settings-text-input"
+                placeholder="sk-..."
+                value={(settings as any).openaiApiKey ?? ""}
+                onChange={(e) => applySettingsPatch({ openaiApiKey: e.target.value })}
+              />
+            </div>
+            <div className="settings-option settings-option-column">
+              <div>
+                <p className="settings-option-label">OpenAI Model</p>
+                <p className="settings-option-description">E.g., gpt-4.1, gpt-4o, gpt-5.1 (adjustable later).</p>
+              </div>
+              <input
+                type="text"
+                className="settings-text-input"
+                placeholder="gpt-4.1"
+                value={(settings as any).openaiModel ?? ""}
+                onChange={(e) => applySettingsPatch({ openaiModel: e.target.value })}
+              />
+            </div>
+          </section>
+        );
       default:
         return (
           <section className="settings-section">
@@ -1994,9 +2059,43 @@ const maybePlayDiceDevAudio = useCallback(async () => {
     <div className="app-tools-content">
       {activeTool === "results" && <p>Results tool will go here.</p>}
 
-      {activeTool === "tables" && <p>Oracles / Tables tool will go here.</p>}
+      {activeTool === "tables" && (
+        <TablesPane
+          activeEntryId={activeEntryId}
+          onOracleResult={(payload) => {
+            // Append an Oracle-style HTML Result Card to the active entry (tables only)
+            if (!activeEntryId) return;
+            const baseContent =
+              activeEntryDraftContent.length > 0
+                ? activeEntryDraftContent
+                : activeEntry?.content ?? "";
+            const separator = baseContent.trim().length ? "\n\n" : "";
+            const card = formatOracleHtmlCard(payload);
+            const newContent = `${baseContent}${separator}${card}`;
+            setActiveEntryDraftContent(newContent);
+            setEntries((prev) =>
+              prev.map((entry) =>
+                entry.id === activeEntryId
+                  ? { ...entry, content: newContent, updatedAt: Date.now() }
+                  : entry
+              )
+            );
+            scheduleSave(newContent, activeEntryId);
+          }}
+          onOpenTableEditor={(tableId) => {
+            console.log("Open table editor for", tableId);
+            // TODO: create a Tab kind for Table Editor and open it here
+          }}
+        />
+      )}
 
       {activeTool === "diceDev" && renderDiceDevPanel()}
+
+      {activeTool === "devTools" && settings.developerMode && (
+        <div style={{ padding: "0.5rem" }}>
+          <DevTableForgePane />
+        </div>
+      )}
 
       {/* DiceTray stays mounted, just hidden when not active */}
         <div style={{ display: activeTool === "dice" ? "block" : "none" }}>
@@ -2185,6 +2284,16 @@ const maybePlayDiceDevAudio = useCallback(async () => {
           >
             <FlaskConical size={32} strokeWidth={2.5} />
           </button>
+          {settings.developerMode && (
+            <button
+              className="tool-icon-button icon-button"
+              onClick={() => openTool("devTools")}
+              aria-label="Dev Tools"
+              data-tooltip="Dev Tools"
+            >
+              <FlaskConical size={32} strokeWidth={2.5} />
+            </button>
+          )}
         </div>
       ) : (
         <>
@@ -2235,6 +2344,18 @@ const maybePlayDiceDevAudio = useCallback(async () => {
               >
                 <FlaskConical size={24} strokeWidth={2.5} />
               </button>
+              {settings.developerMode && (
+                <button
+                  className={`tool-tab icon-button${
+                    activeTool === "devTools" ? " tool-tab-active" : ""
+                  }`}
+                  onClick={() => setActiveTool("devTools")}
+                  aria-label="Dev Tools"
+                  data-tooltip="Dev Tools"
+                >
+                  <FlaskConical size={24} strokeWidth={2.5} />
+                </button>
+              )}
             </div>
             <button
               className="app-tools-close"
@@ -2408,6 +2529,46 @@ const maybePlayDiceDevAudio = useCallback(async () => {
 }
 
 export default App;
+
+function formatOracleCard(payload: {
+  tableId: string;
+  tableName: string;
+  roll: number;
+  resultText: string;
+  tags: string[];
+  sourcePath: string;
+}): string {
+  const header = `> 🧵 Oracle – ${payload.tableName} (${payload.roll})`;
+  const body = payload.resultText ? `\n> ${payload.resultText}` : "";
+  const meta = `\n<!-- forge:oracle tableId="${payload.tableId}" sourcePath="${payload.sourcePath}" roll=${payload.roll} result="${payload.resultText?.replace(/"/g, '\\"')}" tags="${JSON.stringify(payload.tags || []).replace(/"/g, '\\"')}" -->`;
+  return `${header}${body}${meta}`;
+}
+
+function formatOracleHtmlCard(payload: {
+  tableId: string;
+  tableName: string;
+  roll: number;
+  resultText: string;
+  tags: string[];
+  sourcePath: string;
+}): string {
+  // Mirrors the Dice Tool CHALLENGE ROLL HTML card used inside entries, but for table rolls
+  const id = `dice-log-${Date.now()}-${Math.floor(Math.random() * 100000)}`;
+  const title = `TABLE ROLL`;
+  const body = payload.resultText || "";
+  const html = `<div class="dice-card dice-card-inline dice-log-card"><input type="checkbox" id="${id}" class="dice-log-toggle" /><label for="${id}" class="dice-card-title dice-log-header"><span>${title}</span><span class="dice-log-caret" aria-hidden="true"></span></label><div class="dice-card-body dice-log-body"><div class="dice-card-detail"><span>ROLL RESULT:</span> <strong>${payload.roll}</strong></div></div><div class="dice-card-highlight dice-log-footer"><span class="dice-log-footer-label">Result:</span><span class="dice-card-inline-result" style="font-weight:600">${escapeHtml(body)}</span></div></div>`;
+  return html;
+}
+
+function escapeHtml(text: string) {
+  if (!text) return "";
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
 
   const renderDiceDevHighlights = (result: RollResult) => {
     const highlights = annotateRollResult(result);

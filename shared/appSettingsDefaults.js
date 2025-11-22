@@ -27,6 +27,9 @@ export const appSettingsDefaults = {
   diceEnableExploding: true,
   diceEnableDegrade: true,
   diceEnablePools: true,
+  developerMode: false,
+  openaiApiKey: null,
+  openaiModel: null,
 };
 
 export function cloneDefaultSettings() {

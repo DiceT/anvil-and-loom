@@ -86,6 +86,33 @@ ipcMain.handle("tapestries:saveEntry", async (_event, payload) =>
   saveTapestryEntry(payload?.path ?? "", payload?.content ?? "")
 );
 
+ipcMain.handle("dev:saveTableJson", async (_event, payload) => {
+  const type = (payload?.type ?? "").toString();
+  const name = (payload?.name ?? "").toString();
+  const json = (payload?.json ?? "").toString();
+  if (type !== "aspect" && type !== "domain") {
+    throw new Error("Invalid type; expected 'aspect' or 'domain'");
+  }
+  const tablesBase = await ensureTablesBaseDir();
+  const targetDir = path.join(tablesBase, type === "aspect" ? "aspects" : "domains");
+  await mkdir(targetDir, { recursive: true });
+  const slug = slugify(name);
+  if (!slug) throw new Error("Name required");
+  let parsed;
+  try {
+    parsed = JSON.parse(json);
+  } catch (e) {
+    throw new Error("Invalid JSON payload");
+  }
+  const filePath = path.join(targetDir, `${slug}.json`);
+  await writeFile(filePath, JSON.stringify(parsed, null, 2), "utf-8");
+  return { ok: true, path: filePath };
+});
+
+// Tables registry IPC
+ipcMain.handle("tables:list", async () => listAllTables());
+ipcMain.handle("tables:get", async (_event, payload) => getTableById(payload?.id ?? ""));
+
 app.whenReady().then(async () => {
   await initSettingsStore();
   createWindow();
@@ -302,6 +329,220 @@ function resolveWithinTapestry(baseDir, relativePath = "") {
     throw new Error("Path escapes the active Tapestry");
   }
   return target;
+}
+
+function slugify(value = "") {
+  return value
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+}
+
+async function ensureTablesBaseDir() {
+  // Prefer electron/tables first (where current repo stores tables), then repo-root tables
+  const candidatesInOrder = [
+    path.join(__dirname, "tables"),
+    path.join(__dirname, "..", "tables"),
+    path.join(process.cwd(), "tables"),
+    path.join(app.getAppPath(), "tables"),
+  ];
+  for (const dir of candidatesInOrder) {
+    try {
+      if (existsSync(dir)) {
+        await mkdir(dir, { recursive: true });
+        return dir;
+      }
+    } catch {
+      // continue
+    }
+  }
+  // Fallback: create under electron/tables
+  const preferred = path.join(__dirname, "tables");
+  try {
+    await mkdir(preferred, { recursive: true });
+    return preferred;
+  } catch {}
+  const fallback = path.join(app.getPath("userData"), "tables");
+  await mkdir(fallback, { recursive: true });
+  return fallback;
+}
+
+async function listAllTables() {
+  const base = await ensureTablesBaseDir();
+  const roots = [
+    // Explicitly include electron/tables and common subfolders
+    path.join(__dirname, "tables"),
+    path.join(__dirname, "tables", "core"),
+    path.join(__dirname, "tables", "custom"),
+    path.join(__dirname, "tables", "aspects"),
+    path.join(__dirname, "tables", "domains"),
+    // Also include the resolved base and its likely subfolders
+    base,
+    path.join(base, "core"),
+    path.join(base, "custom"),
+    path.join(base, "aspects"),
+    path.join(base, "domains"),
+  ];
+  const files = new Set();
+  for (const root of roots) {
+    if (!existsSync(root)) continue;
+    await collectJsonFiles(root, files);
+  }
+  const descriptors = [];
+  for (const filePath of files) {
+    try {
+      const normalized = await loadForgeTablesFromFile(filePath);
+      for (const t of normalized) {
+        const rel = path.relative(path.join(__dirname, ".."), filePath).replace(/\\/g, "/");
+        const parent = t.parent || inferParentName(filePath) || inferCategoryFromPath(filePath);
+        const oracleType = t.oracle_type || t.name || "Table";
+        const displayName = `${parent}: ${oracleType}`;
+        const id = `${rel}::${displayName}`;
+        descriptors.push({
+          id,
+          name: displayName,
+          parent,
+          category: t.category || inferCategoryFromPath(filePath),
+          oracle_type: t.oracle_type,
+          tags: Array.isArray(t.tags) ? t.tags : [],
+          sourcePath: rel,
+        });
+      }
+    } catch {
+      // skip invalid files
+    }
+  }
+  // Sort by category then parent display grouping for nicer UX
+  descriptors.sort((a, b) => (a.category === b.category ? a.name.localeCompare(b.name) : a.category.localeCompare(b.category)));
+  return descriptors;
+}
+
+async function getTableById(id) {
+  const idStr = String(id || "");
+  if (!idStr.includes("::")) {
+    throw new Error("Invalid table id");
+  }
+  const [rel, displayName] = idStr.split("::");
+  const filePath = path.join(path.join(__dirname, ".."), rel);
+  const tables = await loadForgeTablesFromFile(filePath);
+  const match = tables.find((t) => t.name === displayName) || tables[0];
+  return match;
+}
+
+async function collectJsonFiles(dir, files) {
+  const entries = await readdir(dir, { withFileTypes: true });
+  for (const e of entries) {
+    const full = path.join(dir, e.name);
+    if (e.isDirectory()) {
+      await collectJsonFiles(full, files);
+    } else if (e.isFile() && e.name.toLowerCase().endsWith(".json")) {
+      files.add(full);
+    }
+  }
+}
+
+async function loadForgeTablesFromFile(filePath) {
+  const raw = await readFile(filePath, "utf-8");
+  const json = JSON.parse(raw);
+  const rel = path.relative(path.join(__dirname, ".."), filePath).replace(/\\/g, "/");
+
+  function normalizeSubtableName(key) {
+    const k = String(key || "").toLowerCase();
+    if (k.includes("objective")) return "Objectives";
+    if (k.includes("atmosphere")) return "Atmosphere";
+    if (k.includes("manifestation")) return "Manifestations";
+    if (k.includes("location")) return "Locations";
+    if (k.includes("discover")) return "Discoveries";
+    if (k.includes("bane")) return "Banes";
+    if (k.includes("boon")) return "Boons";
+    // fallback capitalize
+    return String(key || "").replace(/_/g, " ");
+  }
+
+  function normalizeTags(tags, category) {
+    const t = Array.isArray(tags) ? [...tags] : [];
+    if (category === "Aspect" && !t.includes("aspect")) t.push("aspect");
+    if (category === "Domain" && !t.includes("domain")) t.push("domain");
+    return t;
+  }
+
+  // Case: Already canonical ForgeTable[]
+  if (Array.isArray(json) && json.every((t) => t && t.headers && t.tableData)) {
+    return json.map((t) => ({
+      ...t,
+      sourcePath: t.sourcePath || rel,
+      category: t.category || undefined,
+      tags: normalizeTags(t.tags, t.category),
+      oracle_type: t.oracle_type || t.name,
+    }));
+  }
+
+  // Case: Single ForgeTable
+  if (json && json.headers && json.tableData) {
+    return [{
+      ...json,
+      sourcePath: json.sourcePath || rel,
+      category: json.category || undefined,
+      tags: normalizeTags(json.tags, json.category),
+      oracle_type: json.oracle_type || json.name,
+    }];
+  }
+
+  // Legacy nested structure under aspects/domains
+  const out = [];
+  const addFromGroup = (groupObj, categoryLabel) => {
+    if (!groupObj || typeof groupObj !== "object") return;
+    for (const topName of Object.keys(groupObj)) {
+      const pack = groupObj[topName];
+      if (!pack || typeof pack !== "object") continue;
+      const parentDesc = pack.description ?? "";
+      for (const key of Object.keys(pack)) {
+        if (key === "description") continue;
+        const node = pack[key];
+        if (node && node.headers && node.tableData) {
+          const tableName = normalizeSubtableName(key);
+          out.push({
+            sourcePath: rel,
+            category: categoryLabel,
+            name: tableName,
+            parent: topName,
+            tags: normalizeTags(node.tags, categoryLabel),
+            summary: `${topName} — ${tableName}`,
+            description: node.description ?? parentDesc ?? "",
+            headers: node.headers,
+            tableData: node.tableData,
+            maxRoll: node.maxRoll || 100,
+            oracle_type: node.oracle_type || tableName,
+          });
+        }
+      }
+    }
+  };
+  if (json.aspects) addFromGroup(json.aspects, "Aspect");
+  if (json.domains) addFromGroup(json.domains, "Domain");
+  if (out.length) return out;
+
+  // Unrecognized
+  return [];
+}
+
+function inferCategoryFromPath(p) {
+  const lower = p.toLowerCase();
+  if (lower.includes("aspects")) return "Aspect";
+  if (lower.includes("domains")) return "Domain";
+  return "Other";
+}
+
+function inferParentName(filePath) {
+  // Try to derive parent from filename for nested legacy files
+  const base = path.basename(filePath, ".json");
+  // Title case
+  return base
+    .split(/[-_\s]+/)
+    .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+    .join(" ");
 }
 
 async function readTapestryEntry(relativePath) {

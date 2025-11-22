@@ -611,6 +611,54 @@ body {
   gap: 0.75rem;
 }
 
+/* ORACLES/TABLES specific styles */
+.oracles-pane-root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 0.5rem;
+}
+.oracles-header {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.oracles-search {
+  flex: 1 1 auto;
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border-muted);
+  background: var(--bg-panel-alt);
+  color: var(--text-main);
+}
+.oracles-tree {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+.oracles-footer {
+  flex: 0 0 auto;
+}
+.oracles-footer-card {
+  width: 100%;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  background: var(--surface-card);
+  border: 1px solid var(--surface-card-border);
+}
+.oracles-footer-header {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+  opacity: 0.9;
+}
+.oracles-footer-body {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--text-main);
+}
 .dice-dev-controls label {
   font-size: 0.8rem;
   text-transform: uppercase;
@@ -898,21 +946,21 @@ body {
 }
 
 .dice-action-icon,
-.dice-icon-button,
-.dice-template-button,
-.dice-save-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 999px;
+  .dice-icon-button,
+  .dice-template-button,
+  .dice-save-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
   border: none;
   background-color: transparent !important;
   color: var(--text-main);
-  padding: 4px;
+  padding: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition: color 0.15s ease;
   outline: none;
 }
 
@@ -924,15 +972,16 @@ body {
 .dice-icon-button svg,
 .dice-template-button svg,
 .dice-save-icon svg {
-  width: 32px;
-  height: 32px;
-  stroke-width: 2.3px;
-  transition: stroke-width 0.15s ease;
+  width: 18px;
+  height: 18px;
+  stroke-width: 2px;
+  transition: stroke-width 0.12s ease;
+  fill: none !important;
 }
 
 .dice-icon-button svg,
 .dice-template-button svg {
-  stroke-width: 2.4px;
+  stroke-width: 2.2px;
 }
 
 .dice-action-icon:hover:not(:disabled),
@@ -954,7 +1003,38 @@ body {
 .dice-template-button:focus-visible svg,
 .dice-save-icon:hover svg,
 .dice-save-icon:focus-visible svg {
-  stroke-width: 2.6px;
+  stroke-width: 2.4px;
+}
+
+/* Make sure dice icon has no visible background or fill */
+.dice-icon-button,
+.dice-action-icon,
+.dice-template-button,
+.dice-save-icon {
+  background: transparent !important;
+}
+
+/* smaller variant used in table rows */
+.dice-icon-small {
+  width: 26px !important;
+  height: 26px !important;
+  padding: 0 !important;
+  border-radius: 6px !important;
+}
+
+/* tighten spacing for table entries */
+.tapestry-tree-entry {
+  padding: 2px 4px;
+}
+
+/* use same font-sizing as other compact lists */
+.tapestry-tree-row,
+.tapestry-tree-row .settings-section-subtitle {
+  font-size: 0.85rem;
+}
+
+.tapestry-tree-row span {
+  line-height: 1.25rem;
 }
 
 .dice-action-icon:disabled,

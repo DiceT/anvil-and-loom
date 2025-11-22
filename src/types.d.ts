@@ -1,5 +1,7 @@
 import type { AppSettings } from "./lib/settingsStore";
 
+
+
 type TapestryNode = {
   type: "folder" | "file";
   name: string;
@@ -40,8 +42,22 @@ declare global {
         path: string;
         content: string;
       }) => Promise<{ path: string }>;
+      devSaveTableJson?: (payload: { type: "aspect" | "domain"; name: string; json: string }) => Promise<{ ok: boolean; path: string } | { ok: false; error: string }>;
+      listTables?: () => Promise<TableDescriptor[]>;
+      getTableById?: (id: string) => Promise<any>;
     };
   }
 }
 
+export interface TableDescriptor {
+  id: string;                // unique per subtable (e.g. "Domain:Catacombs:Objectives")
+  name: string;              // full label, e.g. "Catacombs: Objectives"
+  category?: string;         // "Aspect" | "Domain" | ...
+  oracle_type?: string;      // "Objectives" | "Atmosphere" | "Banes" | ...
+  tags?: string[];
+  sourcePath: string;
+
+  // NEW: parent branch for the tree view: "Blighted", "Catacombs", etc.
+  parentName?: string;       // e.g. "Catacombs"
+}
 export {};

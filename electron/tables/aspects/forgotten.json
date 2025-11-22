@@ -1,0 +1,1611 @@
+[
+  {
+    "sourcePath": "forge",
+    "category": "Aspect",
+    "name": "Objectives",
+    "tags": [
+      "aspect",
+      "objective"
+    ],
+    "description": "Forgotten hangs over places the world has decided not to remember, where roads fall off maps and stories stop mid-sentence. In a Forgotten environment, dust and silence are never quite undisturbed; clues of past lives surface just long enough to suggest that someone, or something, still cares.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Recover a name erased from memory"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Awaken the shrine nobody visits anymore"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Map the road that no chart admits"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Rekindle a vow abandoned by time"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Claim the heirloom left in locked dust"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Translate a diary written to be unread"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Return a bone token to its rightful grave"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Prove the village once stood on this soil"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Summon the caretaker who never left"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Seal away what oblivion refused to take"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Restore a festival the world outgrew"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Gather rumors about a place without echoes"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Unbury a door beneath layered footsteps"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Protect the last witness of a lost war"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Hide your tracks from the remembering wind"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Break the spell that keeps history mute"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Return stolen hours to their rightful night"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Guide a wandering house back onto maps"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Carry a message to those never born"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Extinguish a lantern that outlived its keeper"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Convince the dead they were forgotten"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Smuggle memories across a border of silence"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Rebuild a shrine from its lingering shadow"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Teach an abandoned idol a new prayer"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Steal secrets from cobwebbed confessionals"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Track a rumor that refuses to exist"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Anchor a fading alley to the present"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Silence the bell that rings for nobody"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Offer comfort to a neglected storm spirit"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Document footprints that appear without walkers"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Free a prisoner history never recorded"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Erase the last mention of your own name"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Feed a hungry archive dust and blood"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Bargain with a memory that will not fade"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Haunt the house that refuses to remember"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Guard a relic that forgets its purpose"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Rewind a clock sealed in spiderglass"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Plant a story where maps have holes"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Lead a procession for the unsung dead"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Teach a ruined street its former songs"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Reclaim a throne no legend acknowledges"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Ignite a beacon meant to stay dark"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Convince a relic to remember its maker"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Wake the hibernating rumor beneath tavern talk"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Hide an atrocity in already lost ruins"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Collect dreams abandoned by their dreamers"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Return a wandering story to its birthplace"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Cut a path through deliberately missing years"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "ACTION + THEME"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Objectives",
+    "summary": "Forgotten — Objectives"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Aspect",
+    "name": "Atmosphere",
+    "tags": [
+      "aspect"
+    ],
+    "description": "Forgotten hangs over places the world has decided not to remember, where roads fall off maps and stories stop mid-sentence. In a Forgotten environment, dust and silence are never quite undisturbed; clues of past lives surface just long enough to suggest that someone, or something, still cares.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Dust motes drift like abandoned prayers"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Footprints fade as you watch them"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Whispers remember names no tongue recalls"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Cobwebs veil doorways never opened again"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Lanternlight reveals shelves of unread years"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Wind rearranges ash into half-words"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Ceiling cracks trace obsolete constellations"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Every echo arrives a beat late"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Mildew blooms over flaking family crests"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Floorboards sigh with unspent confessions"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Portrait eyes track you without recognition"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Chill hangs where warmth once gathered"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Old incense clings to breathless air"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Rust gnaws through locks long unnecessary"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Wallpaper peels like forgotten skin"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Rain finds its way through lost roofs"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Shadows occupy seats of absent guests"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Clocks tick toward no appointed hour"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Curtains sag, heavy with stale seasons"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Books crumble when their titles are spoken"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Faded embroidery shows faces nobody knows"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Door handles cold from eternal disuse"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Ash-filled hearth remembers unspoken arguments"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Distant bells ring for empty streets"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Smudged letters drift beneath frozen ink"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Smell of old smoke without fire"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Silence deepens after every small sound"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Chairs stand slightly askew, awaiting return"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Moss swallows paths erased from memory"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Dried flowers keep vigil over dust"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Ceaseless dripping marks a patient erasure"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Light falls dull, refusing to sparkle"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Statues wear lichen like burial shrouds"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Staircase ends abruptly in boarded void"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Cobblestones remember footsteps that never left"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Murmurs seep from walls without mouths"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Windows stare outward, filmed with forgetting"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Keys hang labeled for missing doors"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Air tastes of locked trunks opened once"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Bent nails mark where portraits vanished"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Long-cooled teacups wait beside empty chairs"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Motes swirl when unseen shapes pass"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Laughter lingers, stripped of its owners"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Tapestries sag, scenes half-eaten by shadow"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Cradles rock faintly with no breeze"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Old bloodstains softened to harmless rose"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Lantern hooks sway, yet nothing hangs"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Rotting beams carry weightless memories"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "ACTION + THEME"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Atmosphere",
+    "summary": "Forgotten — Atmosphere"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Aspect",
+    "name": "Manifestations",
+    "tags": [
+      "aspect"
+    ],
+    "description": "Forgotten hangs over places the world has decided not to remember, where roads fall off maps and stories stop mid-sentence. In a Forgotten environment, dust and silence are never quite undisturbed; clues of past lives surface just long enough to suggest that someone, or something, still cares.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Names scratched off every surviving headstone"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Footprints circling a well with no rope"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Candles burned to stubs in abandoned chapel"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "A door knocker polished amid thick dust"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Dining table set for guests long vanished"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Faint lullaby echoes without a singer"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Portrait eyes freshly wiped free of cobwebs"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Cold teacup steaming once you look away"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Curtains sway though windows are long boarded"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "A single path swept through choking ivy"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Letters rearrange themselves on moldy pages"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Fresh flowers wilt atop crumbled foundation stones"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Bell tower tolls but gears lie broken"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Locked chest moved slightly between each visit"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Children’s toys arranged facing the darkest corner"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Lanterns lit in streets no map records"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Names whispered from wells long declared dry"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Shadow of a crowd in an empty square"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Unmarked graves exhale frost in summer heat"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Wallpaper peels revealing frantic scratched messages beneath"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Dusty cradle gently rocks with no breeze"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Ashes in hearth still warm beneath cinders"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Invisible hands erase your footprints behind you"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Bloodstain grows brighter whenever it is ignored"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Statues gain new cracks shaped like pleading mouths"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Cobwebs carefully woven around a single chair"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Rusty gate always found slightly more open"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Rain avoids a forgotten doorstep entirely"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Wind carries laughter from houses long collapsed"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "A book rewrites its own missing chapters"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Mirrors cloud over whenever names are spoken"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Old road signs point toward erased villages"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Moss outlines vanished doors on blank walls"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "A clock ticks only when unobserved"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Empty shoes wait beside a freshly swept bed"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Prayer beads worn smooth by unseen fingers"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Well bucket returns wet in drought season"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Invisible host sets places at broken table"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Shallow scratches tally years on cellar stones"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Lantern soot spells out unfamiliar pleas"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Clothes hang to dry yet never dampen"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "A music box plays only unfinished tunes"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Keys rust on hooks for doors now missing"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Chalk circles renewed each time rain falls"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Cold breath fogs glass from the wrong side"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Forgotten shrine stacked with fresh but rotting offerings"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Footprints lead into walls where doors once stood"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "CONNECTION WEB"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "ACTION + THEME"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Manifestations",
+    "summary": "Forgotten — Manifestations"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Aspect",
+    "name": "Discoveries",
+    "tags": [
+      "aspect"
+    ],
+    "description": "Forgotten hangs over places the world has decided not to remember, where roads fall off maps and stories stop mid-sentence. In a Forgotten environment, dust and silence are never quite undisturbed; clues of past lives surface just long enough to suggest that someone, or something, still cares.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Dusty cradle rocking with no wind"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Wall of portraits, every face scraped smooth"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Extinguished lantern still warm to touch"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Footprints circling, none entering or leaving"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Letter half-written, ink forever wet"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Locked door, key rusted into floorboards"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Murmuring well that knows your name"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Shrine of offerings to erased symbols"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Table set for guests who never arrived"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Torn map missing only this place"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Bone dice still rolling in slow circles"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Cobwebbed harp plucking itself faintly"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Staircase worn by feet not in records"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Gravestone with chiseled name carefully removed"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Garden thriving beneath a ceiling of dust"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Bloodstain shaped like a sleeping figure"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Child's toy freshly moved through grime"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Mirror reflecting a different abandoned room"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Curtains breathe as if remembering storms"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Handprints in soot lead into solid wall"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Clockworks ticking with no visible clock"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Half-burned diary that omits every date"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Chalkboard of lessons in a dead language"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Chain of keys labeled with missing doors"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Well-preserved feast beneath layers of ash"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Empty shoes standing heel-deep in dust"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Whispering footprints appearing beside your own"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Rustless blade laid across rotted altar"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Ceiling mural repainted over countless times"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Locked chest filled with carefully folded dust"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Lullaby hummed by no discernible throat"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Fresh candle stubs in a cobwebbed sconce"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Moth-eaten banner of a nameless cause"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Threshold worn smooth by unrecorded visitors"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Bones arranged as if mid-conversation"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Houseplants watered by no visible source"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Name tags hanging where bodies should be"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Chair facing corner, grooves from gripping hands"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Weathered road sign pointing toward blank space"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Crumbling statue whose face matches yours"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Library of blank books, spines fingerworn"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Grain still warm inside ancient mill"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Window showing a lively, impossible street"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Lanterns lit along a road not drawn"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Echo answers questions never spoken aloud"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Doorframe with hinges but no door"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Prayer beads counting down to nothing"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "CONNECTION WEB"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "DESCRIPTOR + FOCUS"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Discoveries",
+    "summary": "Forgotten — Discoveries"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Aspect",
+    "name": "Banes",
+    "tags": [
+      "aspect"
+    ],
+    "description": "Forgotten hangs over places the world has decided not to remember, where roads fall off maps and stories stop mid-sentence. In a Forgotten environment, dust and silence are never quite undisturbed; clues of past lives surface just long enough to suggest that someone, or something, still cares.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Whispers recall the name you buried"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Your reflection shows a stranger’s childhood"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Letters rewrite themselves, erasing your deeds"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Footprints behind you fade mid-step"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Beloved faces blur in your memory"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Maps curl, your homeland smears blank"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Your voice echoes, but says nothing"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Old scars vanish, wounds reopen fresh"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Dreams misplace your past each night"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Photographs peel away your presence"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Gravestones shed your family names"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Key memories trade places, unmoored"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "You reread journals written by nobody"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Shadows mime forgotten atrocities nearby"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Birthmarks shift, forming lost sigils"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Your prayers arrive stripped of meaning"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Once-familiar songs twist into static"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Shared secrets lose all participants"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Your scent vanishes from loved places"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Mirrors fog whenever you seek recognition"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Heirlooms reject your touch, grow cold"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Your handwriting morphs into archaic script"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Spoken oaths unravel mid-syllable"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Companions forget conversations as they end"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Your shadow lags, remembering different movements"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Old wounds ache for unknown reasons"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Names slip your tongue, replaced by silence"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Your bed remembers another sleeper"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Portrait eyes track someone behind you"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Footsteps lead to doors that never were"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "You choke on dust tasting like memories"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Timepieces stop whenever you are noticed"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "You find belongings of people unremembered"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Weather shifts to seasons never lived"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Your tears leave no trace on earth"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Paths home reroute into half-built streets"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Your heartbeat falls out of rhythm with time"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Echoes return words you never spoke"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Smiles directed at you slide past"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Old wounds bleed when your name spoken"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Your shadow forgets to follow in daylight"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Written history contradicts your living presence"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "You taste familiar meals without flavor"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Doors close softly against your existence"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Your dreams are footnotes in others’ nightmares"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Once-precious objects crumble when remembered"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "The air mispronounces your every breath"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Silence grows heavier where you stand"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "DESCRIPTOR + FOCUS"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Banes",
+    "summary": "Forgotten — Banes"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Aspect",
+    "name": "Boons",
+    "tags": [
+      "aspect"
+    ],
+    "description": "Forgotten hangs over places the world has decided not to remember, where roads fall off maps and stories stop mid-sentence. In a Forgotten environment, dust and silence are never quite undisturbed; clues of past lives surface just long enough to suggest that someone, or something, still cares.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Dust-sheathed relic remembers your true name"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Faded mural shifts, revealing hidden passage"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Forgotten shrine accepts your clumsy offering"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Cobwebbed ledger erases your worst debts"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Abandoned cradle quiets the gnawing hunger"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Mossy milestone shows shortcuts no map holds"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Dead language on the wall answers you"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Deserted well reflects a kinder future"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Unmarked grave grants you a night’s peace"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Lost lullaby drives restless spirits away"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Cracked idol whispers a safe direction"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Collapsed archive yields one perfect secret"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Dusty marionette mimics unseen enemy’s moves"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Empty stocks break your lingering shackles"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Rot-soft door swings for you alone"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Mildewed banner hides a sharpened memory"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Forgotten oath binds ghostly guardians to you"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Abandoned watchtower lights for your approach"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Unvisited altar heals wounds without question"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Ruined bell tolls warning only you hear"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Long-cold hearth burns for your weary bones"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Shunned milestone marks enemies soon to fall"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Obsolete sigil turns blades aside once"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Torn diary page predicts tonight’s mercy"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Crumbling stair bears your weight, not theirs"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Deaf dust muffles every betraying footstep"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Lost recipe brews a sleep without dreams"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Discarded mask hides your scent from hunters"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Forgotten lull quiets the whispers within"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Faded wanted poster blurs your likeness"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Unremembered path loops you behind pursuers"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Buried key rises to your reaching hand"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Cracked mirror refuses to show your sins"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Old bloodstain marks where not to stand"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Abandoned scarecrow frightens off prowling nightmares"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Silent bell-rope rings only in minds"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Unfinished tapestry rearranges to reveal answers"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Dusty music box lures danger elsewhere"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Extinguished lantern glows at unseen peril"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Weathered milestone adds hours to your night"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Forgotten nursery rhyme wards the threshold"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Neglected milestone grants safe rest this once"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Obscured inscription burns bright under your touch"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Discarded charm absorbs one miscast spell"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Unvisited pew hides a consecrated blade"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Collapsed cellar opens into untouched cache"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Forsaken garden bears one unspoiled fruit"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Forgotten footprint points toward a needed ally"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "DESCRIPTOR + FOCUS"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Boons",
+    "summary": "Forgotten — Boons"
+  }
+]

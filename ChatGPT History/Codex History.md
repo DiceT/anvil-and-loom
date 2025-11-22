@@ -24,6 +24,14 @@
 <!-- Actual Entries -->
 
 <div style="margin-bottom:12px;padding:6px 10px;border-radius:8px;background:rgba(60,190,120,0.2);border:1px solid rgba(60,190,120,0.35);">
+  <strong style="color:#7CFF8C;">2025-11-22 12:45:00</strong> &ndash; Release Note: Tables & Oracles pane revamp — three-zone layout (top: ORACLES AND TABLES header + search/log controls; middle: scrollable table tree; bottom: anchored Result Card). Table rolls now go through the dice engine via rollOracleD100, per-row Dices icon triggers the engine, and results map to table rows and the anchored Result Card. When "Log to Entry" is enabled, the same dice-log-card HTML used by the Dice Tool is appended into the active Entry for consistent logging. UX polish: tighter row spacing, smaller per-row icons, and consistent Result Card styling to match Dice Tray results.
+</div>
+
+<div style="margin-bottom:6px;padding:6px 10px;border-radius:8px;background:rgba(80,180,180,0.2);border:1px solid rgba(80,180,180,0.4);">
+  <strong style="color:#9FEAEA;">2025-11-21 12:00:00</strong> &ndash; Completed: Dev-only Table Forge (Developer Mode) added to the right tools&mdash;empty Aspect/Domain generators with correct macro ranges, AI fill via OpenAI (one request per table, preserves macros), new Settings &rarr; AI (API key + model), and IPC save to repo tables (aspects/domains). Also renamed the macro label to ACTION + THEME across code and hard-fixed existing JSON files. UI polished to match Dice Tray components.
+</div>
+
+<div style="margin-bottom:12px;padding:6px 10px;border-radius:8px;background:rgba(60,190,120,0.2);border:1px solid rgba(60,190,120,0.35);">
   <strong style="color:#7CFF8C;">2025-11-20 17:30:00</strong> &ndash; Release Note: Dice overhaul v0.1.5&mdash;single shared DiceBox manager with appearance controls (theme/tens color, scale, fade), crate pruning and audio cues; native d100 plus colored d%66/d%88 tens rolls; unified Result Cards (challenge, pool, degrade, exploding, percentile, mixed dice) now mirror the live tray in Entries with headers/results always visible; fixed multi-die logging/markup and raised fade floor to stop mid-roll disappearances.
 </div>
 

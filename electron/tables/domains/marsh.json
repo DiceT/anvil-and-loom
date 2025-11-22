@@ -1,0 +1,1611 @@
+[
+  {
+    "sourcePath": "forge",
+    "category": "Domain",
+    "name": "Objectives",
+    "tags": [
+      "domain",
+      "objective"
+    ],
+    "description": "Marsh is land that never decided whether it wanted to be earth or water and resents anyone who tries to cross it. Ground sucks at boots, fog hides distance, and every pool might be a shallow puddle or a bottomless, root-choked grave.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Find the safe path before night"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Harvest the glowing reeds without waking things"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Drive stakes to claim this sinking ground"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Drown a rival where marsh remembers"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Follow the corpse-lights to their source"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Drag a wagon through without losing wheels"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Sink an idol deep beneath the peat"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Track the vanished hunters into blind fog"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Appease the mud with blood and song"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Recover bones swallowed by jealous roots"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Burn back the reeds to reveal truth"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Carry a message where roads have drowned"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Guard the ferry as shadows gather"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Lead the lost child out of the mire"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Smother the campfire before fog notices"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Cut a causeway from dead timber"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Poison the pools with sacred rot"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Find the whispering spring under black water"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Anchor the drifting shrine to firm ground"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Hunt the thing that walks on lilies"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Silence the frogs that chant your name"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Bury forbidden cargo where footprints vanish"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Rescue the sinking horse before it screams"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Chart the hidden sinkholes with sacrificed birds"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Steal eggs from the great marsh predator"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Escort pilgrims across during rising flood"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Test each step for hollow lies"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Confront the hermit who drinks the fog"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Collect rare moss that grows on corpses"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Lure pursuers into the hungry quagmire"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Cut loose the boat haunted by weeds"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Hide until the mist forgets you"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Reach the stone circle before tide returns"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Sever the roots strangling the old well"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Smuggle contraband through leech-choked channels"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Light beacons to mislead approaching strangers"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Recover the drowned book of bindings"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Capture the will-o-wisp in iron glass"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Trace the distant bell through shifting bog"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Survive the night on the sinking islet"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Dam the black runoff from deeper swamps"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Deliver offerings to the mud-buried altar"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Plant cursed seeds in the wet furrows"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Unmask the shape moving beneath the surface"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Scout for higher ground before stormbreak"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Free the prisoner staked in rising water"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Follow blood trails that float on puddles"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Lead monsters astray through mirrored pools"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "ACTION + THEME"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Objectives",
+    "summary": "Marsh — Objectives"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Domain",
+    "name": "Atmosphere",
+    "tags": [
+      "domain"
+    ],
+    "description": "Marsh is land that never decided whether it wanted to be earth or water and resents anyone who tries to cross it. Ground sucks at boots, fog hides distance, and every pool might be a shallow puddle or a bottomless, root-choked grave.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Breath thickens to drinkable fog"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Mud sighs like something half asleep"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Rot-sweet wind clings to tongues"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Silence drowns even whispered prayers"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Distant croaks echo like mocking laughter"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Lantern light swallowed by crawling mist"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Every step answers with a gurgle"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Cold vapors bead on bare steel"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Reeds shiver without a hint of breeze"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Stagnant pools exhale feverish warmth"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Sky reduced to a smudged smear"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "The world ends five paces ahead"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Shadows drift across water without source"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Air reeks of drowned, forgotten seasons"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Insects hum a single, needling note"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Wet earth pulses beneath your tread"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Faint glow worms sketch treacherous paths"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Muck clutches like grasping, jealous hands"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Fog rolls in slow, deliberate curls"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Distant lights bob with predatory patience"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Every ripple hints at something rising"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Wind carries muffled, pleading sobs"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Moss-slick trunks lean in to listen"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Dark water mirrors only a stranger"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "The hush feels watchful, newly broken"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Reeds hiss secrets in a dead tongue"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Air tastes of iron and mildew"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Frogs fall suddenly, impossibly, silent"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Bubbles break mud like stifled screams"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Twisting vapors coil around exposed skin"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "The horizon dissolves into colorless haze"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Damp cold settles inside your bones"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Every smell is rot in new shapes"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Uneven ground shifts like a breathing chest"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Soft rain disturbs nothing, changes nothing"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Mist swallows sound, births strange echoes"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Pools gleam like open, watching eyes"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Darkness gathers early between leaning reeds"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Sucking mud mimics the beat of hearts"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Low thunder rumbles beneath the surface"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Pale fungi cast bruised, sickly halos"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Air thrums with unseen wingbeats overhead"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Roots knot into suggestive, broken shapes"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Stillness presses down, heavy as water"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Your breath steams in oddly colored plumes"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Far splashes mark slow, circling approaches"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Distant marsh lights flicker, then wait"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Every direction smells faintly of graves"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "ACTION + THEME"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Atmosphere",
+    "summary": "Marsh — Atmosphere"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Domain",
+    "name": "Locations",
+    "tags": [
+      "domain"
+    ],
+    "description": "Marsh is land that never decided whether it wanted to be earth or water and resents anyone who tries to cross it. Ground sucks at boots, fog hides distance, and every pool might be a shallow puddle or a bottomless, root-choked grave.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Broken causeway sinking into jealous mud"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Willow-choked island whispering with trapped breath"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Black reeds circling a blind, warm pool"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Sunken shrine tilting in peat-stained water"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Rotten boardwalk vanishing into milk-white fog"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Stone cairns half-swallowed by hungry bog"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Lantern-lit ferry tied to no shore"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Abandoned camp, footprints filling slowly with ooze"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Drowned field of scarecrows grown moldy tongues"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Croaking pit where frogs echo human words"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Hollow hill weeping rust from buried chains"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Bleached ribcage arching above stagnant channel"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Quaking mire humming with unseen wings"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Lean-to shack perched on root-knotted stilts"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Thorn-walled islet carpeted in bone-white moss"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Slick stepping-stones that shift under blood"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Fog-locked crossroads marked by sinking stones"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Dead tree bridge sagging over black rill"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Slumped watchtower listing into reed-clogged ditch"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Cluster of skulls stacked as waymarkers"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Fungal meadow breathing out sweet rot"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Whirlpool disguised as placid rain-pocked pool"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Buried road glimpsed between sucking footprints"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Ring of cattails hiding still, glassy eye"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Collapsed burrow exhaling cold, graveyard air"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Tangle of roots cradling a drowned altar"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Circle of stepping logs, some not wood"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Mudflat veined with faintly glowing veins"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Leaning gallows post wrapped in strangler vines"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Drift of bloated carcasses forming a causeway"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Shimmering mirage of dry land, always distant"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Sunken bell tower tolling beneath the water"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Leech-thick channel where current pulls upward"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Isolated knoll crowned with whispering reed idols"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Sodden battlefield, weapons rusted into peat"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Burial mound leaking candle-yellow swampfire"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Cluster of huts on stilts, all empty"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Pool ringed with footprints facing inward"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Chasm of roots yawning beneath thin crust"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Patch of unnaturally still, reflectionless bog"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Trail of woven reeds spanning bottomless slough"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Sinkhole gulping down a slowly tilting tree"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Moss-draped archway leading into green twilight"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Narrow ridge of firmer ground, recently chewed"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Stone circle sinking one pillar each dusk"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Ferry landing without river, boat, or tracks"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Shattered idol face half-buried in sucking mire"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "CONNECTION WEB"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "ACTION + THEME"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Locations",
+    "summary": "Marsh — Locations"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Domain",
+    "name": "Discoveries",
+    "tags": [
+      "domain"
+    ],
+    "description": "Marsh is land that never decided whether it wanted to be earth or water and resents anyone who tries to cross it. Ground sucks at boots, fog hides distance, and every pool might be a shallow puddle or a bottomless, root-choked grave.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Lantern half-sunk, still burning underwater"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Bleached antlers tangled in black reeds"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Stone path ending at a drowned altar"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Footprints fill slowly with pale fire"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Wicker cage bobbing, bones rattling softly"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Rusting helm cradled by carnivorous lilies"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Tree hollow exhaling warm carrion breath"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Sunken doorway framed by grasping roots"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Leeches spelling crude runes on skin"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Hung charms of teeth clacking in wind"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Corpse-light hovering over an unseen drop"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Boat overturned, inside dry and dusty"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Mirror-flat pool reflecting a different sky"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Trail of shed skin leading nowhere"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Totem of stitched frogs and feathers"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Pile of stones bleeding dark water"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Mud bubbling with distant whispered arguments"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Fallen idol, face eroded into skull"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Web of veins pulsing beneath water"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Rope bridge woven from human hair"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Croaking chorus chanting in unfamiliar cadence"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Tree grown around an armored skeleton"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Cairn of skulls crowned with moss"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Obsidian shard humming when near water"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Footpath bordered by jars of eyes"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Giant lily pad bearing fresh footprints"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Reeds carved with tally marks and prayers"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Frozen patch of water in summer"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Abandoned camp, stew still gently steaming"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Sinkhole ringed with grasping skeletal hands"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Tadpoles with human faces watching silently"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Half-buried bell that rings underwater"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Faintly glowing fungus marking a spiral"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Torn banner nailed to a living tree"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Bridge of ribs arching over sludge"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Cracked mask floating against the current"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Stone well overflowing with black feathers"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Cluster of eggs pulsing with heartbeats"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Shadow of a tower, no tower"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Single dry hill crowned with fresh grave"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Chain disappearing into bottomless, silent pool"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Reed flute playing itself in still air"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Trail of blood that never dilutes"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Sunken statue weeping clear, drinkable water"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Carved plank walkway ending in severed rope"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Swarm of fireflies forming accusing faces"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Mud idol wearing a familiar expression"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "CONNECTION WEB"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "DESCRIPTOR + FOCUS"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Discoveries",
+    "summary": "Marsh — Discoveries"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Domain",
+    "name": "Banes",
+    "tags": [
+      "domain"
+    ],
+    "description": "Marsh is land that never decided whether it wanted to be earth or water and resents anyone who tries to cross it. Ground sucks at boots, fog hides distance, and every pool might be a shallow puddle or a bottomless, root-choked grave.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Leeches spell forgotten names in blood"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Sodden ground exhales choking grave gas"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Fog hides antlered shapes that listen"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Roots knot around ankles, tasting pulse"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Black water mirrors a rotting future"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Will-o-wisps lure breath from lungs"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Bog bubbles whisper bargains to bones"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Reeds slice skin like hungry tongues"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Pale hands reach from peat below"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Insects crawl beneath eyelids, drinking sight"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Mud hardens suddenly, stone around feet"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Every splash calls something watching nearer"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Sunlight drowns before touching the water"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Rot-sweet air dulls thought, sharpens hunger"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Ghost lights circle, tightening like noose"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Croaking chorus speaks in cursed omens"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Thin crust collapses into sucking void"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Vines slither, imitating warmth and veins"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Dead trees lean closer with each breath"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Shallow puddle opens into endless drop"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Blood dripped here grows whispering lilies"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Mist clings, feeding on warmth and courage"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Fetid pools hatch glass-toothed tadpoles"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Lost paths rearrange while backs are turned"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Every footprint fills with watching eyes"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Carrion birds roost on still-living shoulders"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Waterlogged corpses rise, bloated yet eager"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Rusting weapons fuse to grasping cattails"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Marsh gas ignites around spoken secrets"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Shadowed ripples follow, never breaking surface"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Thorns inject dreams of drowning slowly"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Sludge creeps higher, craving open mouths"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Invisible insects hum loud inside skull"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Tangled roots drink memories through bare skin"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Lurking shapes move only when unobserved"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Slick stones tilt toward hidden chasms"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Every breath tastes of someone else's death"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Dragonflies stitch eyelids shut while sleeping"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Reeds whisper true names to the mire"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Black lilies bloom where courage fails"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Footsteps echo from beneath the water"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Marshlight reveals wounds never actually suffered"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Slime molds sketch maps to shallow graves"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Distant splashing mimics familiar loved voices"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Hands emerge offering help, demanding flesh"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Crawling mist erases tracks and memories"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Something laughs softly beneath each bubbling"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "The marsh remembers every trespass in blood"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "DESCRIPTOR + FOCUS"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Banes",
+    "summary": "Marsh — Banes"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Domain",
+    "name": "Boons",
+    "tags": [
+      "domain"
+    ],
+    "description": "Marsh is land that never decided whether it wanted to be earth or water and resents anyone who tries to cross it. Ground sucks at boots, fog hides distance, and every pool might be a shallow puddle or a bottomless, root-choked grave.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Reedmask that filters poison and whispers"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Leech-kissed blood now rejects all venoms"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Mud hardens to stone beneath your step"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Boglight hovers, loyal as a hound"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Reeds part for you like sullen curtains"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "You breathe fog as others breathe air"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Marsh insects ignore your warm flesh"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Roots cradle your fall like patient hands"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Your voice carries clearly through choking mist"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "You read omens in bubble patterns"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Hands draw strength from cold sucking mud"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Your shadow distracts hungry things below"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Silt drinks your scent, erasing your trail"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "You stride waterlogged ground as weightless"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Bog gas bends from your open flame"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Hidden stepping-stones glow faintly at dusk"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Slime that coats you dulls all pain"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Every cattail hides a nourishing core"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Frogs fall silent to warn of danger"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "You always find the firmest footing"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Muck loosens its grip at your curse"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Marsh birds guide you from unseen snares"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Your reflection in black water lies"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "You feel corpses buried in the mire"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Insects carry your whispered words afar"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Your skin chills, untempting to parasites"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Bogwater in your mouth becomes sweet"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "You sink without trace when you choose"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "When still, you resemble a rotted stump"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Your footsteps sound like distant dripping"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Snapping roots recoil from your bare feet"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "You taste iron whenever storm approaches"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Marsh remembers your blood and spares it"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Ghostly heron circles above your path"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "You walk all night without tiring"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Cold vapors hide you from searching eyes"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Sludge forms crude tools at your touch"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Your spit sprouts fast-growing reed barriers"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "You hear drowning cries hours before"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Glimmering beetles swarm to light your way"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Your wounds close when washed in peat"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "You never misjudge depth of dark pools"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Hungry leeches drop away at your hiss"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Your breath summons harmless guiding will-o-wisps"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Marsh beasts mistake you for their own"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Rotting logs bear your weight unquestioning"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "You can drink any standing water"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Thick fog opens a narrow corridor"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "DESCRIPTOR + FOCUS"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Boons",
+    "summary": "Marsh — Boons"
+  }
+]
