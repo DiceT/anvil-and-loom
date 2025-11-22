@@ -1,0 +1,97 @@
+Yeah, your instincts were basically right. I’d answer Replit like this (in your own words if you want):
+
+---
+
+### 1. Existing OpenAI integration
+
+> **Should the new aiClient.ts wrapper use these existing endpoints, or should I create a new unified approach?**
+
+**Answer:**
+**Yes, use the existing integration.**
+
+* `electron/openaiClient.cjs` and `/api/ai/chat` are the *one true* way to talk to OpenAI right now.
+* `aiClient.ts` should be a **thin wrapper around those**, not a brand-new pipeline.
+* Goal: every feature (Dev Table, Oracles, future stuff) calls **aiClient**, and aiClient internally uses the existing OpenAI client / `/api/ai/chat` middleware.
+
+If you want to rename/reorganize them later, that’s a separate, deliberate refactor. For now: **no second endpoint, no second client.**
+
+---
+
+### 2. DiceBox 3D animations
+
+> **Preserve diceBoxAdapter.ts and diceBoxManager.ts, just have diceEngine.ts call them?**
+
+**Answer:**
+**Yes. Preserve them and call them from a new diceEngine.**
+
+* `diceEngine.ts` should be the **central dice API**.
+* It can:
+
+  * Use pure RNG helpers for logic-only rolls.
+  * Call `diceBoxManager` / `diceBoxAdapter` when an animated roll is requested.
+* UI components should *not* talk directly to DiceBox anymore; they call diceEngine, which decides whether/how to trigger the animation.
+
+So: keep the existing DiceBox plumbing, just put it **behind** the dice engine instead of sprinkling it everywhere.
+
+---
+
+### 3. Backward compatibility (localStorage, saved data)
+
+> **Any localStorage keys/data structures I need to preserve?**
+
+**Answer:**
+Treat this as **“yes, assume there are and don’t break them”** even if we’re not certain.
+
+Concretely:
+
+* Search the codebase for:
+
+  * `localStorage.setItem`, `localStorage.getItem`
+  * anything like `settingsStore`, `loadSettings`, `saveSettings`
+* Whatever keys/structures you find:
+
+  * **Do not** change their shapes casually.
+  * If you *must* change a structure, add a tiny migration:
+
+    * Detect old shape → convert → save new shape.
+* At the end, please list:
+
+  * Which keys you found,
+  * Whether any structure changed,
+  * Whether any migration was needed.
+
+So: Replit should **audit and preserve**. Assume backward compatibility matters.
+
+---
+
+### 4. Testing between stages
+
+> **Restart workflow and verify app still works before next stage?**
+
+**Answer:**
+**Yes, 100%.**
+
+Refactor plan:
+
+1. Do **AI wrapper** first.
+
+   * Run app, verify Dev Table + Oracle interpretations still work.
+2. Then centralize **dice engine**.
+
+   * Run app, test Dice Tool + table rolls + animations.
+3. Then unify **result cards**.
+
+   * Run app, ensure dice rolls, table rolls, and interpretations all still render correctly.
+
+After each stage: restart dev server / Electron, click through the main flows, and only then move forward.
+
+---
+
+If you want a one-liner to send them:
+
+> Answers:
+>
+> 1. Use the existing OpenAI client + `/api/ai/chat` and wrap them in `aiClient.ts` (no new endpoint).
+> 2. Keep DiceBox adapter/manager; have `diceEngine.ts` call them so UI never talks to DiceBox directly.
+> 3. Assume backward compatibility matters; audit localStorage/settings and don’t break existing shapes without migration.
+> 4. Yes, restart and manually test after each refactor stage.
