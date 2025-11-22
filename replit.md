@@ -104,6 +104,18 @@ npm run electron
 - This is a fresh import - no user preferences yet defined
 
 ## Recent Changes
+- **November 22, 2025**: Complete 3D dice integration for all rolls
+  - **All Dice Rolls Now Use 3D Physics**: Every dice roll in the app now goes through the 3D DiceBox system
+    - Single die rolls (d4, d6, d8, d10, d12, d20) with advantage/disadvantage support
+    - Four d6 rolls for character generation
+    - **Table rolls** (d100 percentile) now show 3D dice animations
+    - Challenge rolls (Ironsworn 1d6+2d10) with full 3D physics
+  - **Animation Awaiting**: Results are not displayed until after the 3D dice animation completes
+    - Uses async/await pattern to wait for Promise resolution
+    - Ensures users see the dice roll before seeing the result
+  - **Robust Fallbacks**: Defensive code with RNG fallbacks maintains uniform probability distribution if 3D system fails
+  - **Removed Math.random() stubs**: Eliminated unused `simulateDice()` function, all rolls use DiceBox or fallback RNG
+
 - **November 22, 2025**: Major refactoring for modularity and code clarity
   - **AI Module Consolidation**: Created `src/core/ai/` with centralized AI client and oracle service
     - `aiClient.ts` - Single wrapper for all OpenAI API calls via `/api/ai/chat` endpoint
