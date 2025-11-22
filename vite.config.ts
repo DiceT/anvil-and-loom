@@ -19,7 +19,15 @@ function formatOracleResultsForPrompt(snapshot) {
 export default defineConfig({
   plugins: [react()],
   server: {
+    host: '0.0.0.0',
+    port: 5000,
+    strictPort: true,
     middlewareMode: false,
+  },
+  preview: {
+    host: '0.0.0.0',
+    port: 5000,
+    strictPort: true,
   },
   configureServer(server) {
     server.middlewares.use(async (req, res, next) => {
