@@ -335,7 +335,7 @@ Source: ${sourcePath}` : ""}`,
           <div className="dice-card-highlight">
             Result:{" "}
             <span className="dice-card-inline-result">
-              <strong>{latest ? latest.resultText : 'No rolls yet.'}</strong>
+              {latest ? latest.resultText : 'No rolls yet.'}
             </span>
           </div>
         </div>
