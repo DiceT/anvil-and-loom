@@ -104,6 +104,25 @@ npm run electron
 - This is a fresh import - no user preferences yet defined
 
 ## Recent Changes
+- **November 22, 2025**: Windows-style collapsible panes and global UI settings
+  - **CSS Grid Layout**: Converted app shell from flexbox to CSS Grid with dynamic column widths
+    - Left pane (Tome): Collapsible with visibility state and width management
+    - Center pane (Canvas): Always visible, expands to fill available space
+    - Right pane (Tools): Collapsible with visibility state and width management
+  - **Collapse/Expand Buttons**: Added panel toggle buttons to each pane header
+    - Left pane: PanelLeftClose/Open button in top-right of Tome header
+    - Right pane: PanelRightClose/Open button in top-right of Tools header
+    - Styled with hover effects and proper positioning
+  - **Global Log to Entry Toggle**: Centralized logging control in master toolbar
+    - Created UiSettingsContext for global UI state management
+    - Added NotebookPen toggle button in footer (next to Account icon)
+    - Removed individual Log to Entry toggles from DiceTray and TablesPane
+    - All components now use global uiSettings.logToEntry state
+  - **State Management**: Pane visibility and width managed in App.tsx
+    - Grid template columns adjust dynamically based on pane visibility
+    - Collapsed panes render with 0px width
+  - **Architect Review**: PASSED - All changes verified for correct implementation
+
 - **November 22, 2025**: Results Pane enhancements
   - **Auto-scroll to bottom**: New entries automatically scroll into view
   - **Copy to Entry button**: Each result card has a copy button (desktop-ready)
