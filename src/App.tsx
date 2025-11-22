@@ -2695,12 +2695,14 @@ function formatOracleHtmlCard(payload: {
   resultText: string;
   tags: string[];
   sourcePath: string;
+  category?: string;
 }): string {
   // Mirrors the Dice Tool CHALLENGE ROLL HTML card used inside entries, but for table rolls
   const id = `dice-log-${Date.now()}-${Math.floor(Math.random() * 100000)}`;
-  const title = `TABLE ROLL`;
+  const categoryLabel = payload.category === "Aspect" ? "ASPECT" : payload.category === "Domain" ? "DOMAIN" : "ORACLE";
+  const title = `${categoryLabel}: ${payload.tableName.toUpperCase()}`;
   const body = payload.resultText || "";
-  const meta = `<!-- forge:oracle tableId="${payload.tableId}" sourcePath="${payload.sourcePath}" roll=${payload.roll} result="${payload.resultText?.replace(/"/g, '\\"')}" tags='${JSON.stringify(payload.tags || [])}' -->`;
+  const meta = `<!-- forge:oracle tableId="${payload.tableId}" sourcePath="${payload.sourcePath}" roll=${payload.roll} result="${payload.resultText?.replace(/"/g, '\\"')}" tags='${JSON.stringify(payload.tags || [])}' category="${payload.category || ""}" -->`;
   const html = `<div class="dice-card dice-card-inline dice-log-card"><input type="checkbox" id="${id}" class="dice-log-toggle" /><label for="${id}" class="dice-card-title dice-log-header"><span>${title}</span><span class="dice-log-caret" aria-hidden="true"></span></label><div class="dice-card-body dice-log-body"><div class="dice-card-detail"><span>ROLL RESULT:</span> <strong>${payload.roll}</strong></div></div><div class="dice-card-highlight dice-log-footer"><span class="dice-log-footer-label">Result:</span><span class="dice-card-inline-result">${escapeHtml(body)}</span></div></div>${meta}`;
   return html;
 }

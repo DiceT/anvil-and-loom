@@ -14,6 +14,7 @@ export interface OracleResultCardPayload {
   resultText: string;
   tags: string[];
   sourcePath: string;
+  category?: string;
 }
 
 interface OracleRollResult {
@@ -168,12 +169,14 @@ export default function TablesPane({
             resultText,
             tags: tableTags,
             sourcePath,
+            category: table.category,
           } as OracleResultCardPayload;
           onOracleResult(payload);
         }
 
         // Emit TableResultCard to Results pane if callback is provided
         if (onResultCard && resultText) {
+          const categoryLabel = table.category === "Aspect" ? "ASPECT" : table.category === "Domain" ? "DOMAIN" : "ORACLE";
           const tableCard: TableResultCard = {
             id: generateResultCardId(),
             kind: "table",
@@ -182,7 +185,7 @@ export default function TablesPane({
             tableName,
             roll: normalized,
             resultText,
-            headerText: `TABLE: ${tableName.toUpperCase()}`,
+            headerText: `${categoryLabel}: ${tableName.toUpperCase()}`,
             contentText: `Roll ${normalized} on ${tableName}${sourcePath ? `
 Source: ${sourcePath}` : ""}`,
             theme: "table",
@@ -325,7 +328,7 @@ Source: ${sourcePath}` : ""}`,
       <div className="oracles-footer">
         <div className="dice-card">
           <div className="dice-card-title" style={{ backgroundColor: "#255f1e", color: "#ffffff" }}>
-            TABLE: {latest ? latest.tableName.toUpperCase() : '—'}
+            {latest ? `${latest.category === "Aspect" ? "ASPECT" : latest.category === "Domain" ? "DOMAIN" : "ORACLE"}: ${latest.tableName.toUpperCase()}` : 'TABLE: —'}
           </div>
           <div className="dice-card-body">
             <div className="dice-card-detail">
