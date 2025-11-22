@@ -80,7 +80,8 @@ body {
 
 .app-shell {
   flex: 1;
-  display: flex;
+  display: grid;
+  grid-template-rows: 1fr;
   min-height: 0;
 }
 
@@ -206,6 +207,29 @@ body {
   align-items: center;
   gap: 8px;
   margin-bottom: 16px;
+  position: relative;
+}
+
+.pane-collapse-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.pane-collapse-button:hover {
+  background: var(--surface-hover);
+  color: var(--text-main);
 }
 
 .app-logo-mark {
@@ -556,6 +580,7 @@ body {
   justify-content: space-between;
   padding: 8px;
   border-bottom: 1px solid var(--border-muted);
+  position: relative;
 }
 
 .app-tools-tabs {

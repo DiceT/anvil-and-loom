@@ -26,6 +26,11 @@ import {
   ChevronRight,
   ChevronDown,
   FlaskConical,
+  PanelLeftClose,
+  PanelLeftOpen,
+  PanelRightClose,
+  PanelRightOpen,
+  NotebookPen,
 } from "lucide-react";
 import { marked } from "marked";
 import DevTableForgePane from "./components/DevTableForgePane";
@@ -36,6 +41,7 @@ marked.setOptions({
 import { DiceTray } from "./components/DiceTray";
 import { ResultsPane } from "./components/ResultsPane";
 import type { ResultCardModel } from "./core/results/resultTypes";
+import { useUiSettings } from "./contexts/UiSettingsContext";
 import {
   fetchAppSettings,
   getDefaultSettings,
@@ -144,7 +150,13 @@ const settingsNav: { id: SettingsCategory; label: string }[] = [
 
 const initialEntries: Entry[] = [];
 
+interface PaneState {
+  visible: boolean;
+  width: number;
+}
+
 function App() {
+  const { settings: uiSettings, setSettings: setUiSettings } = useUiSettings();
   const [settings, setSettings] = useState<AppSettings>(getDefaultSettings());
   const [settingsLoaded, setSettingsLoaded] = useState(false);
   const [appVersion, setAppVersion] = useState(
@@ -165,6 +177,8 @@ function App() {
   const [isToolPaneOpen, setToolPaneOpen] = useState(false);
   const [activeTool, setActiveTool] = useState<ActiveTool>("results");
   const [resultCards, setResultCards] = useState<ResultCardModel[]>([]);
+  const [leftPane, setLeftPane] = useState<PaneState>({ visible: true, width: 260 });
+  const [rightPane, setRightPane] = useState<PaneState>({ visible: false, width: 360 });
   const [entries, setEntries] = useState<Entry[]>(initialEntries);
   const [activeEntryDraftTitle, setActiveEntryDraftTitle] = useState("");
   const [activeEntryDraftContent, setActiveEntryDraftContent] = useState("");
@@ -417,6 +431,7 @@ function App() {
   const openTool = (tool: ActiveTool) => {
     setActiveTool(tool);
     setToolPaneOpen(true);
+    setRightPane(p => ({ ...p, visible: true }));
   };
 
   const applySettingsPatch = useCallback(
@@ -837,6 +852,19 @@ function App() {
 
   const closeTools = () => {
     setToolPaneOpen(false);
+    setRightPane(p => ({ ...p, visible: false }));
+  };
+
+  const toggleLeftPane = () => {
+    setLeftPane(p => ({ ...p, visible: !p.visible }));
+  };
+
+  const toggleRightPane = () => {
+    if (rightPane.visible) {
+      closeTools();
+    } else {
+      openTool(activeTool);
+    }
   };
 
   const activeEntry =
@@ -2253,17 +2281,31 @@ const maybePlayDiceDevAudio = useCallback(async () => {
 
   const statusText = "Connected to local workspace";
 
+  const gridTemplateColumns = `
+    ${leftPane.visible ? `${leftPane.width}px` : "0px"}
+    1fr
+    ${rightPane.visible ? `${rightPane.width}px` : "0px"}
+  `.trim();
+
   return (
     <div className="app-root">
-      <div className="app-shell">
+      <div className="app-shell" style={{ gridTemplateColumns }}>
       {/* LEFT: Tome / library pane */}
-      <aside className="app-sidebar" style={{ width: sidebarWidth }}>
+      <aside className="app-sidebar" style={{ width: leftPane.visible ? leftPane.width : 0, display: leftPane.visible ? "flex" : "none" }}>
         <div className="app-sidebar-header">
           <div className="app-logo-mark" />
           <div className="app-logo-text">
             <div className="app-logo-title">Anvil &amp; Loom</div>
             <div className="app-logo-subtitle">TOME</div>
           </div>
+          <button
+            className="pane-collapse-button"
+            onClick={toggleLeftPane}
+            aria-label="Collapse sidebar"
+            title="Collapse sidebar"
+          >
+            <PanelLeftClose size={18} strokeWidth={2} />
+          </button>
         </div>
 
         <div className="app-sidebar-toolbar">
@@ -2502,6 +2544,15 @@ const maybePlayDiceDevAudio = useCallback(async () => {
               )}
             </div>
             <button
+              className="pane-collapse-button"
+              onClick={toggleRightPane}
+              aria-label="Collapse tools"
+              title="Collapse tools"
+              style={{ position: "absolute", top: "8px", right: "40px" }}
+            >
+              <PanelRightClose size={18} strokeWidth={2} />
+            </button>
+            <button
               className="app-tools-close"
               onClick={closeTools}
               title="Close tools"
@@ -2524,6 +2575,16 @@ const maybePlayDiceDevAudio = useCallback(async () => {
             data-tooltip="Account"
           >
             <User size={24} strokeWidth={2} />
+          </button>
+          <button
+            className={`status-icon-button icon-button${
+              uiSettings.logToEntry ? " sidebar-icon-button--active" : ""
+            }`}
+            aria-label="Log to Entry"
+            data-tooltip={uiSettings.logToEntry ? "Logging to Entry: ON" : "Logging to Entry: OFF"}
+            onClick={() => setUiSettings(s => ({ ...s, logToEntry: !s.logToEntry }))}
+          >
+            <NotebookPen size={24} strokeWidth={2} />
           </button>
           <button
             className="status-icon-button icon-button"

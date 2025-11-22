@@ -8,6 +8,7 @@ import type { LogicalRollType, RollAdvantageMode } from "../core/dice/diceEngine
 import type { DiceResultCard } from "../core/results/resultTypes";
 import { generateResultCardId } from "../core/results/resultTypes";
 import { getChallengeOutcomeColor } from "../core/results/ResultCard";
+import { useUiSettings } from "../contexts/UiSettingsContext";
 import {
   Triangle,
   Diamond,
@@ -588,7 +589,7 @@ export function DiceTray({ onRollResult, onResultCard, fadeDurationMs = 3000 }: 
   const [savedExpressions, setSavedExpressions] = useState<SavedExpression[]>([]);
   const [saveName, setSaveName] = useState("");
   const [selectedSaveId, setSelectedSaveId] = useState<string | null>(null);
-  const [logToEntry, setLogToEntry] = useState(true);
+  const { settings: uiSettings } = useUiSettings();
 
   useEffect(() => {
     const stored =
@@ -699,7 +700,7 @@ export function DiceTray({ onRollResult, onResultCard, fadeDurationMs = 3000 }: 
       const result = await DiceRoller.rollWithProvider(expression, diceBoxValueProvider);
       setLastRoll(result);
       setRollError(null);
-      if (onRollResult && logToEntry) {
+      if (onRollResult && uiSettings.logToEntry) {
         const html = formatResultAsHtml(result);
         if (html.trim().length) {
           onRollResult(html);
@@ -825,16 +826,7 @@ export function DiceTray({ onRollResult, onResultCard, fadeDurationMs = 3000 }: 
           placeholder="Example: 2d20kh1 + 4"
         />
         <div className="dice-expression-actions">
-          <button
-            type="button"
-            className={`dice-action-icon${logToEntry ? " primary" : ""}`}
-            onClick={() => setLogToEntry((prev) => !prev)}
-            aria-label="Toggle log to entry"
-            data-tooltip={logToEntry ? "Logging to entry" : "Not logging to entry"}
-          >
-            <NotebookPen size={44} strokeWidth={2.6} />
-          </button>
-          <div className="dice-expression-actions-right">
+          <div className="dice-expression-actions-right" style={{ marginLeft: "auto" }}>
             <button
               type="button"
               className="dice-action-icon primary"

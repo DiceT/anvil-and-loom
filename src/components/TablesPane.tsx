@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
-import { Dices, ChevronRight, NotebookPen } from "lucide-react";
+import { Dices, ChevronRight } from "lucide-react";
 import type { TableDescriptor } from "../types";
 import type { ForgeTable } from "../lib/tables/tableForge";
 import { rollOracleD100 } from "../core/dice/diceEngine";
 import { fetchTableList, fetchTableById } from "../lib/tables/tableRegistry";
 import type { TableResultCard } from "../core/results/resultTypes";
 import { generateResultCardId } from "../core/results/resultTypes";
+import { useUiSettings } from "../contexts/UiSettingsContext";
 
 export interface OracleResultCardPayload {
   tableId: string;
@@ -57,7 +58,7 @@ export default function TablesPane({
   const [tableList, setTableList] = useState<TableDescriptor[]>([]);
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [logToEntry, setLogToEntry] = useState(true);
+  const { settings: uiSettings } = useUiSettings();
   const [results, setResults] = useState<OracleRollResult[]>([]);
   const [isRolling, setIsRolling] = useState(false);
 
@@ -160,7 +161,7 @@ export default function TablesPane({
         };
         newResults.push(entry);
 
-        if (logToEntry && activeEntryId && onOracleResult && resultText) {
+        if (uiSettings.logToEntry && activeEntryId && onOracleResult && resultText) {
           // Send to entry the same payload used by other parts of the app
           const payload = {
             tableId,
@@ -231,17 +232,8 @@ Source: ${sourcePath}` : ""}`,
         <span className="settings-section-subtitle">ORACLES AND TABLES</span>
       </div>
 
-      {/* TOP: search + log toggle */}
+      {/* TOP: search */}
       <div className="oracles-header">
-        <button
-          type="button"
-          className={`dice-action-icon ${logToEntry ? 'primary' : ''} log-toggle`}
-          onClick={() => setLogToEntry((prev) => !prev)}
-          aria-label="Toggle log to entry"
-          data-tooltip={logToEntry ? 'Logging to entry' : 'Not logging to entry'}
-        >
-          <NotebookPen size={18} strokeWidth={2.2} />
-        </button>
         <input
           className="oracles-search"
           value={query}
