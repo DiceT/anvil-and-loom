@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { fetchAppSettings } from '../lib/settingsStore';
 import { interpretEntryOracle } from '../core/ai/oracleService';
 import type { AISettings } from '../core/ai/oraclePersonas';

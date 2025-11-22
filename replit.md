@@ -104,6 +104,19 @@ npm run electron
 - This is a fresh import - no user preferences yet defined
 
 ## Recent Changes
+- **November 22, 2025**: Unified Result Card system implementation
+  - **Created Unified Result Card Architecture**: All dice rolls, table rolls, and AI interpretations now use a consistent card structure
+    - `src/core/results/resultTypes.ts` - Type definitions for all result card variants (DiceResultCard, TableResultCard, InterpretationResultCard)
+    - `src/core/results/ResultCard.tsx` - Single component that renders all card types with consistent HEADER/CONTENT/RESULT structure
+    - Color-coded theming: dice (gray-blue), tables (green), oracle/interpretations (purple/bright blue)
+  - **Results Pane**: New testing pane (`src/components/ResultsPane.tsx`) displays stacked Entry Result Cards with newest at bottom
+  - **All Card Producers Refactored**: DiceTray, TablesPane, and InterpretButton now emit ResultCardModel instances
+    - DiceTray: Emits DiceResultCard for all dice rolls (standard, challenge, pool, degrading, exploding)
+    - TablesPane: Emits TableResultCard for oracle table rolls with proper newline formatting
+    - InterpretButton: Emits InterpretationResultCard with intelligent snapshot extraction from AI responses
+  - **State Management**: App.tsx maintains resultCards state with add/clear handlers wired to all producers
+  - **Architect Review**: All refactoring passed architect review - correct structure, no circular dependencies, consistent patterns
+
 - **November 22, 2025**: Complete 3D dice integration for all rolls
   - **All Dice Rolls Now Use 3D Physics**: Every dice roll in the app now goes through the 3D DiceBox system
     - Single die rolls (d4, d6, d8, d10, d12, d20) with advantage/disadvantage support
