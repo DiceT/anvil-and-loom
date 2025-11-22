@@ -74,13 +74,15 @@ Return: JSON array of ${N} strings.`;
 }
 
 async function fetchOpenAI(model: string, apiKey: string, system: string, user: string): Promise<string[]> {
-  // Use the same client-side chat/completions call the Dev Table used originally.
-  const { callChatModelRenderer } = await import('../openaiClient');
-  const messages = [
-    { role: 'system', content: system },
-    { role: 'user', content: user },
-  ];
-  const text = await callChatModelRenderer(apiKey, model, messages);
+  // Use the centralized AI client
+  const { callModel } = await import('../../core/ai/aiClient');
+  
+  const text = await callModel({
+    system,
+    user,
+    model,
+    apiKey, // Dev Table provides its own API key
+  });
 
   let parsed: unknown;
   try {

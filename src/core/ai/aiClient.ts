@@ -20,6 +20,12 @@ export interface AIInvokeOptions {
   user: string;
   /** Model ID (e.g., "gpt-4o-mini", "gpt-4") */
   model: string;
+  /**
+   * Optional API key for direct OpenAI calls.
+   * If provided, bypasses the /api/ai/chat endpoint and calls OpenAI directly.
+   * Used by Dev Table feature where users provide their own key.
+   */
+  apiKey?: string;
 }
 
 /**
@@ -42,14 +48,35 @@ export interface AIInvokeOptions {
  * ```
  */
 export async function callModel(options: AIInvokeOptions): Promise<string> {
-  const { system, user, model } = options;
+  const { system, user, model, apiKey } = options;
 
   const messages = [
     { role: 'system', content: system },
     { role: 'user', content: user },
   ];
 
-  // In web/Replit environment: use the /api/ai/chat endpoint
+  // If API key is provided, call OpenAI directly (used by Dev Table feature)
+  if (apiKey) {
+    const resp = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({ model, messages }),
+    });
+
+    if (!resp.ok) {
+      const text = await resp.text().catch(() => null);
+      throw new Error(`OpenAI error: ${resp.status} ${text || resp.statusText}`);
+    }
+
+    const json = await resp.json();
+    const text = json?.choices?.[0]?.message?.content ?? json?.choices?.[0]?.text ?? '';
+    return (text || '').trim();
+  }
+
+  // Otherwise, use the /api/ai/chat endpoint (standard path for Oracle and other features)
   // This endpoint is configured in vite.config.ts and uses electron/openaiClient.cjs internally
   const resp = await fetch('/api/ai/chat', {
     method: 'POST',

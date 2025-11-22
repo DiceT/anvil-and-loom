@@ -1,28 +1,8 @@
 import React, { useMemo, useState } from 'react';
 import { fetchAppSettings } from '../lib/settingsStore';
-import { buildOracleSystemPrompt, buildOracleUserPrompt } from '../lib/oraclePrompts';
-
-export type OracleResultCardPayload = {
-  tableId: string;
-  tableName: string;
-  roll: number;
-  resultText: string;
-  tags: string[];
-  sourcePath: string;
-};
-
-export type EntryOracleSnapshot = {
-  entryId: string;
-  title?: string;
-  oracleResults: OracleResultCardPayload[];
-};
-
-export type AISettings = {
-  oracleName: string;
-  oraclePersonaId: string;
-  model: string;
-  temperature: number;
-};
+import { interpretEntryOracle } from '../core/ai/oracleService';
+import type { AISettings } from '../core/ai/oraclePersonas';
+import type { OracleResultCardPayload, EntryOracleSnapshot } from '../core/ai/oracleTypes';
 
 function parseForgeOracleComments(content: string): OracleResultCardPayload[] {
   const results: OracleResultCardPayload[] = [];
@@ -129,32 +109,21 @@ export default function InterpretButton({
           resp = { success: false, error: e?.message ?? 'Unknown error' };
         }
       } else {
-        // No desktop bridge: prefer direct client call (same as Dev Table). If no client key, return a clear error.
+        // No desktop bridge: use new oracle service (calls /api/ai/chat endpoint)
         try {
           const clientSettings = await fetchAppSettings();
-          const key = clientSettings?.openaiApiKey?.trim();
           const modelToUse = (clientSettings?.openaiModel || settings.model || 'gpt-4o-mini');
-          const systemPrompt = buildOracleSystemPrompt({
+          
+          // Use the centralized oracle service
+          const aiSettings: AISettings = {
             oracleName: settings.oracleName,
-            oraclePersonaId: settings.oraclePersonaId,
-            model: settings.model,
-          });
-          const userPrompt = buildOracleUserPrompt(snapshot, settings.oracleName || 'The Loomwright');
-
-          if (!key) {
-            resp = { success: false, error: 'OpenAI API key not set in Settings → AI' };
-          } else {
-            try {
-              const { callChatModelRenderer } = await import('../lib/openaiClient');
-              const text = await callChatModelRenderer(key, modelToUse, [
-                { role: 'system', content: systemPrompt },
-                { role: 'user', content: userPrompt },
-              ]);
-              resp = { success: true, text };
-            } catch (e: any) {
-              resp = { success: false, error: e?.message ?? String(e) };
-            }
-          }
+            oraclePersonaId: settings.oraclePersonaId as any,
+            model: modelToUse,
+            temperature: settings.temperature,
+          };
+          
+          const text = await interpretEntryOracle(snapshot, aiSettings);
+          resp = { success: true, text };
         } catch (e: any) {
           resp = { success: false, error: e?.message ?? 'Network error' };
         }
