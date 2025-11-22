@@ -146,16 +146,16 @@ export const RESULT_CARD_THEMES: Record<string, ResultCardTheme> = {
     headerFontColor: "#ffffff",
   },
   table: {
-    headerBgColor: "#10b981", // Green
+    headerBgColor: "#255f1e", // Orange
     headerFontColor: "#ffffff",
   },
   oracle: {
-    headerBgColor: "#255f1e", // Orange
+    headerBgColor: "#8b5cf6", // Purple
     headerFontColor: "#ffffff",
   },
   interpretation: {
-    headerBgColor: "#255f1e", // Orange
-    headerFontColor: "#ffffff",
+    headerBgColor: "#3b82f6", // Bright blue
+    headerFontColor: "#1e293b", // Dark font for contrast
   },
 };
 
