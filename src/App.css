@@ -867,6 +867,15 @@ body {
   --icon-hover-stroke: 3px;
 }
 
+.status-icon-button.sidebar-icon-button--active {
+  color: var(--accent-soft);
+  background: rgba(197, 143, 95, 0.12);
+}
+
+.status-icon-button.sidebar-icon-button--active svg {
+  stroke: var(--accent-soft);
+}
+
 .app-status-indicator {
   margin-left: auto;
   color: var(--text-muted);
