@@ -1,0 +1,303 @@
+1. Pane behavior: more “Windows-y”
+
+Goal: 3-pane layout that can hide/dock like a normal app, without getting into Visual-Studio-level madness… yet.
+
+1.1. Current mental model (keep this)
+
+Left pane: Tome tree + its own toolbar + master toolbar at the bottom.
+
+Center pane: Main content (Entries, Journal, whatever tab is active).
+
+Right pane: Tools pane (Results / Dice / Tables), with the vertical tool strip on the far right.
+
+We keep that structure. We just teach it a few tricks.
+
+1.2. Minimal “Windows-like” behavior (Phase 1)
+
+This is what I’d have Loomwright implement right now:
+
+Collapsible left & right panes
+
+Each pane has:
+
+visible: boolean
+
+width: number (px)
+
+When hidden: width goes to 0, but a slim gutter remains with a little “open” button.
+
+Grid layout drives everything
+
+In App.tsx (or the shell component that owns layout):
+
+type PaneState = {
+  visible: boolean;
+  width: number; // px
+};
+
+const [leftPane, setLeftPane] = useState<PaneState>({ visible: true, width: 260 });
+const [rightPane, setRightPane] = useState<PaneState>({ visible: true, width: 360 });
+
+const gridTemplateColumns = `
+  ${leftPane.visible ? `${leftPane.width}px` : "0px"}
+  1fr
+  ${rightPane.visible ? `${rightPane.width}px` : "0px"}
+`;
+
+
+JSX:
+
+<div className="app-shell" style={{ display: "grid", gridTemplateColumns, gridTemplateRows: "1fr", height: "100vh" }}>
+  <aside className="pane-left">{/* Tome tree + master toolbar */}</aside>
+  <main className="pane-center">{/* Entries / content */}</main>
+  <aside className="pane-right">
+    {/* Tool strip + tool content (Results / Dice / Tables) */}
+  </aside>
+</div>
+
+
+Simple show/hide controls
+
+Left pane: tiny collapse/expand button near top of Tome toolbar or in master toolbar.
+
+Right pane: tiny collapse/expand button in the tool header (next to Results/Dice/Tables tabs) and/or on the vertical tool strip.
+
+Example handlers:
+
+<button onClick={() => setLeftPane(p => ({ ...p, visible: !p.visible }))}>
+  {leftPane.visible ? "⯈" : "⯇"}
+</button>
+
+<button onClick={() => setRightPane(p => ({ ...p, visible: !p.visible }))}>
+  {rightPane.visible ? "⯇" : "⯈"}
+</button>
+
+
+That alone gets you 80% of “Windows-like” behavior:
+
+Maximize center pane by hiding both sides
+
+Tuck the right tools away when you just want to read/write
+
+No fancy auto-hide or drag-resizing yet
+
+1.3. Later (Phase 2+), if you want more
+
+Not for today, but to keep in mind:
+
+Resizable splitters: add drag-bars between left/center and center/right that update width.
+
+Auto-hide “pinned” tools: right pane can collapse to a skinny bar and slide out on hover/click.
+
+Per-tool widths: Dice might want a wider pane than Results, but that’s dessert.
+
+For now: collapsible left/right with a persistent grid layout is the sweet spot.
+
+2. Results tab as a chat-style log
+
+You already had Replit wire this up for testing, which is great. Let’s formalize how it should behave so we’re all on the same page:
+
+2.1. Behavioral spec
+
+All rolls & oracle results go through a central ResultsLog (not just Dice).
+
+Results tab = chat window for everything:
+
+Newest cards at the bottom.
+
+Older cards above.
+
+Scrollbar, with auto-scroll to bottom when new results arrive (unless user has scrolled up).
+
+Even if “Log to Entry” is OFF, the Results tab still keeps the full session history (in memory, and later maybe persisted).
+
+2.2. Layout: anchor cards to the bottom
+
+Core pattern:
+
+function ResultsTab() {
+  const { results } = useResultsLog(); // ordered oldest → newest
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    // Auto-scroll to bottom when new results arrive
+    el.scrollTop = el.scrollHeight;
+  }, [results.length]);
+
+  return (
+    <div className="results-tab">
+      <div className="results-scroll" ref={scrollRef}>
+        {results.map(result => (
+          <ResultCard key={result.id} result={result} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+
+CSS:
+
+.results-tab {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.results-scroll {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;  /* 👈 anchors content to bottom */
+  padding: 0.5rem;
+  gap: 0.5rem;
+  overflow-y: auto;
+}
+
+
+That gives you:
+
+Cards visually glued to the bottom of the pane.
+
+More history scrolls upward, like a chat history.
+
+Your existing color-coding (dice/table/oracle/interpretation) just lives on the ResultCard.
+
+Key rule:
+All tools (Dice, Oracles, whatever) write to the same ResultsLog, and the Results tab is just a viewer.
+
+3. “Log to Entry” as a global toggle
+
+Right now that behavior is tool-flavored and slightly hidden. You want it:
+
+Universal (for all tools)
+
+Always visible
+
+Easy to reach
+
+Totally agree.
+
+3.1. Single source of truth
+
+Add a global UI settings slice:
+
+type UiSettings = {
+  logToEntry: boolean;
+};
+
+const UiSettingsContext = createContext<{
+  settings: UiSettings;
+  setSettings: React.Dispatch<React.SetStateAction<UiSettings>>;
+} | null>(null);
+
+
+Provider near the top:
+
+const [settings, setSettings] = useState<UiSettings>({ logToEntry: true });
+
+<UiSettingsContext.Provider value={{ settings, setSettings }}>
+  {/* rest of app */}
+</UiSettingsContext.Provider>
+
+
+Hook:
+
+function useUiSettings() {
+  const ctx = useContext(UiSettingsContext);
+  if (!ctx) throw new Error("UiSettingsContext missing");
+  return ctx;
+}
+
+3.2. Master toggle in bottom-left toolbar
+
+In the master toolbar (bottom of the left pane), add the global control:
+
+const { settings, setSettings } = useUiSettings();
+
+<button
+  className={
+    "sidebar-icon-button" +
+    (settings.logToEntry ? " sidebar-icon-button--active" : "")
+  }
+  title={settings.logToEntry ? "Logging to Entry: ON" : "Logging to Entry: OFF"}
+  onClick={() => setSettings(s => ({ ...s, logToEntry: !s.logToEntry }))}
+>
+  {/* pick icon: something "journal-ish" */}
+  <ScrollText size={20} strokeWidth={2.5} />
+</button>
+
+
+(Optional) Tools can show a mirrored indicator in their own headers if you want, but they shouldn’t own the state.
+
+3.3. How tools use it
+
+Whenever Dice / Oracles / whatever produce a result:
+
+Always push event → ResultsLog.
+
+If settings.logToEntry === true and there’s an active Entry:
+
+Also append a formatted line/card into that Entry.
+
+Pseudo-code in your result pipeline:
+
+function handleResult(result: ResultEvent) {
+  resultsLog.add(result); // always
+
+  const { logToEntry } = uiSettings.get();
+  const activeEntry = entryStore.getActiveEntry();
+
+  if (logToEntry && activeEntry) {
+    entryStore.appendToEntry(activeEntry.id, formatResultForEntry(result));
+  }
+}
+
+
+So:
+
+Turning Log to Entry off:
+
+Stops writing to the Entry.
+
+Does not stop the Results tab from accumulating the history.
+
+Turning it back on:
+
+Future results get logged again.
+
+Past history remains in Results.
+
+TL;DR for Loomwright
+
+If you want a short punchlist to hand them:
+
+Pane layout
+
+Switch to grid with left | center | right widths controlled by state.
+
+Implement visible toggle for left and right panes.
+
+Add collapse/expand buttons and slim gutters when collapsed.
+
+Results panel
+
+Results tab lives in the right tools pane.
+
+Results list is a flex column anchored to the bottom (justify-content: flex-end).
+
+Auto-scroll to bottom when new results arrive.
+
+All tools publish to a shared ResultsLog.
+
+Global Log to Entry
+
+Add logToEntry to global UI settings.
+
+Add a “Log to Entry” toggle button in the bottom-left master toolbar.
+
+Tools read that flag instead of owning their own copy.
+
+If you want next step after this, we can define the exact ResultEvent shape and the ResultLog API, so the dice engine and oracles are all pushing into the same stream.
