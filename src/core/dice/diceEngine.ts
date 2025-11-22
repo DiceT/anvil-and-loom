@@ -81,26 +81,6 @@ export interface DiceEngineResult {
   meta?: any;
 }
 
-/**
- * Simulate dice rolls using Math.random().
- *
- * This is the core RNG function used by all dice rolls in the app.
- * It returns an array of random values, each in the range [1, sides].
- *
- * @param count - Number of dice to roll
- * @param sides - Number of sides on each die
- * @returns Array of roll results
- */
-function simulateDice(count: number, sides: number): number[] {
-  if (count <= 0 || sides <= 0) return [];
-  const rolls: number[] = [];
-  for (let i = 0; i < count; i++) {
-    const value = Math.floor(Math.random() * sides) + 1;
-    rolls.push(Math.max(1, Math.min(sides, value)));
-  }
-  return rolls;
-}
-
 const SINGLE_DIE_CONFIG: Record<SingleDieType, { sides: number; label: string }> = {
   d4: { sides: 4, label: "1d4" },
   d6: { sides: 6, label: "1d6" },
@@ -224,7 +204,8 @@ export async function rollDice(
 
   switch (type) {
     case "four_d6": {
-      const rolls = simulateDice(4, 6);
+      // Use 3D DiceBox system for 4d6 roll
+      const rolls = await rollDiceBoxValues(4, 6);
       const total = rolls.reduce((sum, v) => sum + v, 0);
 
       return {
@@ -239,8 +220,20 @@ export async function rollDice(
     }
 
     case "percentile": {
-      const tensValue = simulateDice(1, 100)[0];
-      const onesValue = simulateDice(1, 10)[0];
+      // Use 3D DiceBox system for percentile roll (d100 + d10)
+      const results = await rollDiceBoxComposite([
+        { count: 1, sides: 100 },  // Tens die
+        { count: 1, sides: 10 }    // Ones die
+      ]);
+      
+      // Defensive: ensure we got valid results, fall back to RNG if not
+      // Tens die should be 0, 10, 20, ..., 90, or 100 (treated as 0)
+      const tensValue = (Array.isArray(results[0]) && results[0].length > 0) 
+        ? results[0][0] 
+        : Math.floor(Math.random() * 10) * 10;  // 0, 10, 20, ..., 90
+      const onesValue = (Array.isArray(results[1]) && results[1].length > 0) 
+        ? results[1][0] 
+        : Math.floor(Math.random() * 10) + 1;  // 1-10
 
       const tensIndex = normalizeTensIndex(tensValue);
       const onesIndex = normalizeOnesIndex(onesValue);
@@ -261,8 +254,22 @@ export async function rollDice(
     }
 
     case "challenge": {
-      const actionDie = simulateDice(1, 6)[0];
-      const challengeDice = simulateDice(2, 10);
+      // Use 3D DiceBox system for challenge roll (1d6 + 2d10)
+      const results = await rollDiceBoxComposite([
+        { count: 1, sides: 6 },   // Action die
+        { count: 2, sides: 10 }   // Challenge dice
+      ]);
+      
+      // Defensive: ensure we got valid results, fall back to RNG if not
+      const actionDie = (Array.isArray(results[0]) && results[0].length > 0) 
+        ? results[0][0] 
+        : Math.floor(Math.random() * 6) + 1;
+      const challengeDice = (Array.isArray(results[1]) && results[1].length >= 2) 
+        ? results[1] 
+        : [
+            Math.floor(Math.random() * 10) + 1,
+            Math.floor(Math.random() * 10) + 1
+          ];
       const baseModifier = 0;
       const userModifier = options.modifier ?? 0;
 
@@ -338,7 +345,9 @@ async function rollSingleDie(
   const mode: RollAdvantageMode = options.mode ?? "normal";
   const modifier = options.modifier ?? 0;
   const diceCount = mode === "normal" ? 1 : 2;
-  const rolls = simulateDice(diceCount, sides);
+  
+  // Use 3D DiceBox system for all rolls
+  const rolls = await rollDiceBoxValues(diceCount, sides);
 
   const chosen =
     mode === "advantage"
