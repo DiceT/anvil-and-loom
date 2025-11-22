@@ -220,36 +220,16 @@ export async function rollDice(
     }
 
     case "percentile": {
-      // Use 3D DiceBox system for percentile roll (d100 + d10)
-      const results = await rollDiceBoxComposite([
-        { count: 1, sides: 100 },  // Tens die
-        { count: 1, sides: 10 }    // Ones die
-      ]);
-      
-      // Defensive: ensure we got valid results, fall back to RNG if not
-      // Tens die should be 0, 10, 20, ..., 90, or 100 (treated as 0)
-      const tensValue = (Array.isArray(results[0]) && results[0].length > 0) 
-        ? results[0][0] 
-        : Math.floor(Math.random() * 10) * 10;  // 0, 10, 20, ..., 90
-      const onesValue = (Array.isArray(results[1]) && results[1].length > 0) 
-        ? results[1][0] 
-        : Math.floor(Math.random() * 10) + 1;  // 1-10
-
-      const tensIndex = normalizeTensIndex(tensValue);
-      const onesIndex = normalizeOnesIndex(onesValue);
-
-      let total = tensIndex * 10 + onesIndex;
-      if (total === 0) total = 100;
-
-      const d100Face = tensIndex === 0 ? "00" : String(tensIndex * 10);
-      const d10Face = String(onesIndex);
+      // Use 3D DiceBox system for percentile roll (single d100)
+      const rolls = await rollDiceBoxValues(1, 100);
+      const value = rolls[0] ?? Math.floor(Math.random() * 100) + 1;
 
       return {
         id: createId(),
         kind: "percentile",
         label: "d100",
-        value: total,
-        detail: `d100=${d100Face}, d10=${d10Face} -> ${total}`,
+        value,
+        detail: `Rolled d100 -> ${value}`,
       };
     }
 
@@ -402,38 +382,6 @@ async function rollSingleDie(
 }
 
 /**
- * Normalize tens die value for percentile rolls.
- *
- * Maps raw d100 roll to tens digit (0-9).
- */
-function normalizeTensIndex(value: number | undefined): number {
-  if (value == null || Number.isNaN(value)) return 0;
-  if (value === 0 || value === 100) return 0;
-  if (value % 10 === 0 && value >= 10 && value <= 90) {
-    return value / 10;
-  }
-  if (value >= 1 && value <= 9) {
-    return value;
-  }
-  return Math.max(0, Math.min(9, Math.floor(value / 10)));
-}
-
-/**
- * Normalize ones die value for percentile rolls.
- *
- * Maps raw d10 roll to ones digit (0-9).
- */
-function normalizeOnesIndex(value: number | undefined): number {
-  if (value == null || Number.isNaN(value)) return 0;
-  if (value === 10 || value === 0) return 0;
-  if (value >= 1 && value <= 9) {
-    return value;
-  }
-  const digit = Math.floor(value) % 10;
-  return digit < 0 ? digit + 10 : digit;
-}
-
-/**
  * Create a unique ID for a dice roll.
  */
 function createId(): string {
@@ -471,7 +419,7 @@ export interface OracleRollContext {
  * console.log(roll); // 67
  * ```
  */
-export async function rollOracleD100(ctx: OracleRollContext): Promise<number> {
+export async function rollOracleD100(_ctx: OracleRollContext): Promise<number> {
   try {
     const res = await rollDice("percentile");
     if (res && typeof res.value === "number") return Math.max(1, Math.min(100, Math.floor(res.value)));
