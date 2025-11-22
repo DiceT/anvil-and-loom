@@ -71,9 +71,6 @@ export function ResultCard({ card, variant }: ResultCardProps) {
         }}
       >
         <span>{headerText}</span>
-        {variant === "entry" && (
-          <span className="dice-log-caret" aria-hidden="true"></span>
-        )}
       </label>
       
       {showContent && (

@@ -67,7 +67,7 @@ export function ResultsPane({ results, onClearResults, onCopyToEntry }: ResultsP
                   style={{
                     position: "absolute",
                     top: "0.5rem",
-                    left: "0.5rem",
+                    right: "0.5rem",
                     backgroundColor: "var(--bg-elevated)",
                     border: "1px solid var(--border)",
                     padding: "0.25rem",
