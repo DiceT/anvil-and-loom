@@ -70,11 +70,11 @@ export function ResultsPane({ results, onClearResults, onCopyToEntry }: ResultsP
                     right: "0.5rem",
                     backgroundColor: "var(--bg-elevated)",
                     border: "1px solid var(--border)",
-                    padding: "0.25rem",
-                    borderRadius: "4px",
+                    padding: "0.2rem",
+                    borderRadius: "3px",
                   }}
                 >
-                  <FileText size={16} />
+                  <FileText size={12} />
                 </button>
               </div>
             ))}
