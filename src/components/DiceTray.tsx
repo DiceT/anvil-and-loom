@@ -64,7 +64,7 @@ function formatResultAsHtml(result: RollResult): string {
     return joinHtml([
       `<div class="dice-card dice-card-inline dice-log-card">`,
       `<input type="checkbox" id="${toggleId}" class="dice-log-toggle" />`,
-      `<label for="${toggleId}" class="dice-card-title dice-log-header">`,
+      `<label for="${toggleId}" class="dice-card-title dice-log-header" style="background-color: #1e3a5f; color: #ffffff;">`,
       `<span>CHALLENGE ROLL</span>`,
       `<span class="dice-log-caret" aria-hidden="true"></span>`,
       `</label>`,
