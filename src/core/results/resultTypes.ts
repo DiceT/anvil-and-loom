@@ -138,11 +138,11 @@ export interface ResultCardTheme {
  */
 export const RESULT_CARD_THEMES: Record<string, ResultCardTheme> = {
   dice: {
-    headerBgColor: "#4a5568", // Gray-blue (default)
+    headerBgColor: "#1e3a5f", // Midnight blue
     headerFontColor: "#ffffff",
   },
   challenge: {
-    headerBgColor: "#4a5568", // Gray-blue (same as dice)
+    headerBgColor: "#1e3a5f", // Midnight blue (same as dice)
     headerFontColor: "#ffffff",
   },
   table: {
