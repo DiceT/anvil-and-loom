@@ -323,9 +323,21 @@ Source: ${sourcePath}` : ""}`,
 
       {/* BOTTOM: result card pinned to bottom */}
       <div className="oracles-footer">
-        <div className="oracles-footer-card">
-          <div className="oracles-footer-header" style={{ backgroundColor: "#255f1e", color: "#ffffff" }}>TABLE: {latest ? latest.tableName.toUpperCase() : '—'}</div>
-          <div className="oracles-footer-body">{latest ? latest.resultText : 'No rolls yet.'}</div>
+        <div className="dice-card">
+          <div className="dice-card-title" style={{ backgroundColor: "#255f1e", color: "#ffffff" }}>
+            TABLE: {latest ? latest.tableName.toUpperCase() : '—'}
+          </div>
+          <div className="dice-card-body">
+            <div className="dice-card-detail">
+              Roll: <strong>{latest ? latest.roll : '—'}</strong>
+            </div>
+          </div>
+          <div className="dice-card-highlight">
+            Result:{" "}
+            <span className="dice-card-inline-result">
+              <strong>{latest ? latest.resultText : 'No rolls yet.'}</strong>
+            </span>
+          </div>
         </div>
       </div>
     </div>
