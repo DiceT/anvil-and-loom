@@ -67,6 +67,7 @@ import {
 import TablesPane from "./components/TablesPane";
 import InterpretButton from "./components/InterpretButton";
 import { ORACLE_PERSONAS } from './core/ai/oraclePersonas';
+import { renderResultCardHtml } from './core/results/ResultCard';
 
 type ActiveTool = "results" | "dice" | "tables" | "diceDev" | "devTools";
 type EntryType = "journal" | "note";
@@ -1834,15 +1835,20 @@ function App() {
                 <p className="settings-option-label">Oracle Persona</p>
                 <p className="settings-option-description">Choose how the oracle will interpret results.</p>
               </div>
-              <select
+                                                                                    <select
                 className="settings-select"
                 value={(settings.ai?.oracle?.oraclePersonaId) ?? 'loomwright'}
-                onChange={(e) => applySettingsPatch({ ai: { ...(settings.ai ?? {}), oracle: { ...(settings.ai?.oracle ?? {}), oraclePersonaId: e.target.value } } })}
+                onChange={(e) => {
+                  const personaId = e.target.value as any;
+                  const newLabel = ORACLE_PERSONAS[personaId]?.label ?? '';
+                  applySettingsPatch({ ai: { ...(settings.ai ?? {}), oracle: { ...(settings.ai?.oracle ?? {}), oraclePersonaId: personaId, oracleName: newLabel } } });
+                }}
               >
                 {Object.values(ORACLE_PERSONAS).map((p) => (
                   <option key={p.id} value={p.id}>{p.label}</option>
                 ))}
               </select>
+              <p className="settings-option-description" style={{ marginTop: '0.5rem' }}>{ORACLE_PERSONAS[(settings.ai?.oracle?.oraclePersonaId) ?? 'loomwright']?.description}</p>
             </div>
 
             <div className="settings-option settings-option-column">
@@ -2232,16 +2238,31 @@ const maybePlayDiceDevAudio = useCallback(async () => {
       {activeTool === "tables" && (
         <TablesPane
           activeEntryId={activeEntryId}
-          onOracleResult={(payload) => {
-            // Append an Oracle-style HTML Result Card to the active entry (tables only)
+                      onOracleResult={(payload) => {
+            // Append an Oracle-style Result Card to the active entry (tables only) using canonical renderer
             if (!activeEntryId) return;
             const baseContent =
               activeEntryDraftContent.length > 0
                 ? activeEntryDraftContent
                 : activeEntry?.content ?? "";
             const separator = baseContent.trim().length ? "\n\n" : "";
-            const card = formatOracleHtmlCard(payload);
-            const newContent = `${baseContent}${separator}${card}`;
+            const card = {
+              id: `card-${Date.now()}-${Math.random().toString(36).slice(2,11)}`,
+              kind: "table",
+              createdAt: Date.now(),
+              tableId: payload.tableId,
+              tableName: payload.tableName,
+              roll: payload.roll,
+              resultText: payload.resultText,
+              headerText: `TABLE: ${payload.tableName.toUpperCase()}`,
+              contentText: `Roll: ${payload.roll}`,
+              theme: "table",
+              sourcePath: payload.sourcePath,
+            } as any;
+                        // Use renderer to produce HTML identical to Results Pane
+            const html = renderResultCardHtml(card);
+            const meta = `<!-- forge:oracle tableId="${payload.tableId}" sourcePath="${payload.sourcePath}" roll=${payload.roll} result="${payload.resultText?.replace(/"/g,'\"')}" tags='${JSON.stringify(payload.tags || [])}' category="${payload.category || ""}" -->`;
+            const newContent = `${baseContent}${separator}${html}${meta}`;
             setActiveEntryDraftContent(newContent);
             setEntries((prev) =>
               prev.map((entry) =>

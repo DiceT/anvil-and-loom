@@ -5,6 +5,7 @@ import type { AISettings } from '../core/ai/oraclePersonas';
 import type { OracleResultCardPayload, EntryOracleSnapshot } from '../core/ai/oracleTypes';
 import type { InterpretationResultCard } from '../core/results/resultTypes';
 import { generateResultCardId } from '../core/results/resultTypes';
+import { renderResultCardHtml } from '../core/results/ResultCard';
 
 function parseForgeOracleComments(content: string): OracleResultCardPayload[] {
   const results: OracleResultCardPayload[] = [];
@@ -133,48 +134,94 @@ export default function InterpretButton({
         }
       }
 
-              if (resp && resp.success) {
-        const text = (resp.text || '').toString();
-        if (!text.trim()) {
+                    if (resp && resp.success) {
+        const raw = (resp.text || '').toString();
+        if (!raw.trim()) {
           const errorMsg = 'AI returned empty response';
-          const errHtml = `<div class="dice-card dice-card-inline dice-log-card"><input type="checkbox" id="${placeholderId}-err" class="dice-log-toggle" /><label for="${placeholderId}-err" class="dice-card-title dice-log-header"><span>INTERPRETATION: ${escapeHtml(settings.oracleName)}</span><span class="dice-log-caret" aria-hidden="true"></span></label><div class="dice-card-body dice-log-body"><div class="dice-card-detail">Failed to interpret oracle results: ${escapeHtml(errorMsg)}</div></div><div class="dice-card-highlight dice-log-footer"><span class="dice-log-footer-label">Result:</span><span class="dice-card-inline-result">${escapeHtml(errorMsg)}</span></div></div>`;
+                    const errorCard: InterpretationResultCard = {
+            id: generateResultCardId(),
+            kind: "interpretation",
+            createdAt: Date.now(),
+            oracleName: settings.oracleName,
+            personaId: settings.oraclePersonaId as any,
+            headerText: `INTERPRETATION: ${settings.oracleName.toUpperCase()}`,
+            snapshotText: errorMsg,
+            interpretationText: `Failed to interpret oracle results: ${errorMsg}`,
+            theme: "interpretation",
+          };
+          const errHtml = renderResultCardHtml(errorCard) + `\n<!-- interpret:meta id="${placeholderId}-err" -->`;
           console.debug('[InterpretButton] AI returned empty; replacing placeholder with error', { placeholderId, errorMsg });
-          // pass placeholder id instead of the full HTML so App can reliably replace by id
           onReplace(placeholderHtml, errHtml);
         } else {
-          const finalHtml = `<div class="dice-card dice-card-inline dice-log-card"><input type="checkbox" id="${placeholderId}-done" class="dice-log-toggle" /><label for="${placeholderId}-done" class="dice-card-title dice-log-header"><span>INTERPRETATION: ${escapeHtml(settings.oracleName)}</span><span class="dice-log-caret" aria-hidden="true"></span></label><div class="dice-card-body dice-log-body"><div class="dice-card-detail">${escapeHtml(text).replace(/\n/g, '<br/>')}</div></div><div class="dice-card-highlight dice-log-footer"><span class="dice-log-footer-label">Result:</span><span class="dice-card-inline-result">${escapeHtml(text)}</span></div></div>`;
-          console.debug('[InterpretButton] replacing placeholder', { placeholderId, placeholderLen: placeholderHtml.length, replacementLen: finalHtml.length, textPreview: (text||'').slice(0,200) });
+                    // Support structured responses (JSON) with { interpretation, snapshot }
+          let interpretation = raw;
+          let snapshot = '';
+          let parsedAsJson = false;
+          try {
+            const parsed = JSON.parse(raw);
+            if (parsed && typeof parsed === 'object') {
+              if (typeof parsed.interpretation === 'string') interpretation = parsed.interpretation;
+              if (typeof parsed.snapshot === 'string') snapshot = parsed.snapshot;
+              if (!snapshot && typeof parsed.snapshotText === 'string') snapshot = parsed.snapshotText;
+              parsedAsJson = true;
+            }
+          } catch (e) {
+            // not JSON, fall back to plain text parsing
+          }
+
+          if (!parsedAsJson) {
+            // Try to extract numbered sections like "1) INTERPRETATION ... 2) SNAPSHOT ..."
+            const norm = raw.replace(/\r/g, '');
+            const secRe = /^\s*1\)\s*(?:INTERPRETATION\b[:\s-]*)?([\s\S]*?)\s*\n\s*2\)\s*(?:SNAPSHOT\b[:\s-]*)?([\s\S]*)$/i;
+            const m = norm.match(secRe);
+            if (m) {
+              interpretation = m[1].trim();
+              snapshot = m[2].trim();
+            } else {
+              // Fallback: split on a "2)" marker anywhere
+              const split = norm.split(/\n\s*2\)\s*(?:SNAPSHOT\b[:\s-]*)?/i);
+              interpretation = (split[0] || '').replace(/^\s*1\)\s*(?:INTERPRETATION\b[:\s-]*)?/i, '').trim();
+              snapshot = (split[1] || '').trim();
+              // If still no snapshot, look for a SNAPSHOT label elsewhere
+              if (!snapshot) {
+                const snapMatch = norm.match(/(?:\n|^)\s*(?:2\)\s*)?SNAPSHOT\b[:\s-]*([\s\S]*)$/i);
+                if (snapMatch) snapshot = snapMatch[1].trim();
+              }
+            }
+          }
+
+          // If snapshot still empty, fall back to heuristic extraction from interpretation text
+          if (!snapshot) {
+            const lines = interpretation.split('\n').filter(line => line.trim());
+            let snapshotGuess = lines[lines.length - 1] || interpretation.slice(0, 100);
+            const lastLine = lines[lines.length - 1];
+            if (lastLine && !lastLine.match(/^[-•*]/) && !lastLine.toLowerCase().includes('next move')) {
+              if (lastLine.length <= 150) {
+                snapshotGuess = lastLine;
+              }
+            }
+            snapshot = snapshotGuess;
+          }
+
+                    // Build InterpretationResultCard and render HTML using canonical renderer so entry cards match Results Pane styling
+          const interpretationCard: InterpretationResultCard = {
+            id: generateResultCardId(),
+            kind: "interpretation",
+            createdAt: Date.now(),
+            oracleName: settings.oracleName,
+            personaId: settings.oraclePersonaId as any,
+            headerText: `INTERPRETATION: ${settings.oracleName.toUpperCase()}`,
+            snapshotText: snapshot,
+            interpretationText: interpretation,
+            theme: "interpretation",
+          };
+
+          const finalHtml = renderResultCardHtml(interpretationCard) + `\n<!-- interpret:meta id="${placeholderId}" -->`;
+          console.debug('[InterpretButton] replacing placeholder', { placeholderId, placeholderLen: placeholderHtml.length, replacementLen: finalHtml.length, textPreview: (interpretation||'').slice(0,200) });
           onReplace(placeholderHtml, finalHtml);
 
           // Emit InterpretationResultCard to Results pane if callback is provided
           if (onResultCard) {
-            // Extract snapshot: look for in-fiction snapshot at the end, or use a summary
-            const lines = text.split('\n').filter(line => line.trim());
-            
-            // Try to find a snapshot-like sentence (typically 1-2 sentences at the end)
-            // Look for the last paragraph that seems like a vivid description
-            let snapshotText = lines[0] || text.slice(0, 100);
-            
-            // Check if the last line looks like an in-fiction snapshot (no bullets, no "Next Moves")
-            const lastLine = lines[lines.length - 1];
-            if (lastLine && !lastLine.match(/^[-•*]/) && !lastLine.toLowerCase().includes('next move')) {
-              // Use last line if it's a reasonable length (not too long)
-              if (lastLine.length <= 150) {
-                snapshotText = lastLine;
-              }
-            }
-
-            const interpretationCard: InterpretationResultCard = {
-              id: generateResultCardId(),
-              kind: "interpretation",
-              createdAt: Date.now(),
-              oracleName: settings.oracleName,
-              personaId: settings.oraclePersonaId as any,
-              headerText: `INTERPRETATION: ${settings.oracleName.toUpperCase()}`,
-              snapshotText,
-              interpretationText: text,
-              theme: "interpretation",
-            };
             onResultCard(interpretationCard);
           }
         }

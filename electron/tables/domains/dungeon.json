@@ -1,0 +1,1611 @@
+[
+  {
+    "sourcePath": "forge",
+    "category": "Domain",
+    "name": "Objectives",
+    "tags": [
+      "domain",
+      "objective"
+    ],
+    "description": "A Dungeon is a constructed warren of confinement and control: cells, oubliettes, torture rooms, guard posts, and forgotten maintenance passages layered in cramped geometry. Air, light, and mercy are all in short supply, and the deeper you go, the less the place feels built for the comfort of anything human.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Escape before the last torch dies"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Free the one chained beneath the stairs"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Silence the informer hidden among prisoners"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Reach the cell no map admits"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Drag a confession from the unbroken captive"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Smuggle contraband past the watchful gargoyles"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Seal the passage bleeding cold twilight"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Restore power to the rusted portcullis"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Discover who holds the master key"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Poison the cistern that feeds the guards"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Replace the gaoler without being noticed"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Exorcise the cell that devours memory"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Track the scream that never ends"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Claim the blade buried in the oubliette"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Find the missing executioner and their tools"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Turn the prisoners against their wardens"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Sabotage the torture devices before nightfall"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Hide a body where stone drinks blood"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Map every hidden stair in a single watch"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Reach the deepest level and return sane"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Lead a doomed march to the gallows"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Rescue someone who refuses to leave"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "End the hunger of the iron maiden"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Steal the ledger of names and sins"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Swap two prisoners without raising alarm"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Follow the rats to their secret pantry"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Awaken the dormant guardians beneath the cells"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Collapse the corridor of no echoes"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Sneak a message into a sealed coffin"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Unlock a door that should stay barred"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Prove the dungeon itself remembers you"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Extinguish the lantern that wards off shadows"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Smuggle a monster into the guardroom"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Test every chain for a single weak link"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Hide until the changing of the torturers"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Capture a scream in a blackened bottle"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Interrogate the skeleton shackled to nothing"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Reach the chapel buried under execution pits"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Unbind the spirit nailed to the rack"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Replace the flagstones hiding forbidden stairs"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Deliver a prisoner to something nonhuman"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Confront the architect in their secret cell"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Lure the warden into the flooded pits"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Trade your name for another’s release"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Lock yourself in and break out alive"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Follow dried tears to the forgotten door"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Break the curse binding doors to blood"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Leave something of yourself in every cell"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "ACTION + THEME"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Objectives",
+    "summary": "Dungeon — Objectives"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Domain",
+    "name": "Atmosphere",
+    "tags": [
+      "domain"
+    ],
+    "description": "A Dungeon is a constructed warren of confinement and control: cells, oubliettes, torture rooms, guard posts, and forgotten maintenance passages layered in cramped geometry. Air, light, and mercy are all in short supply, and the deeper you go, the less the place feels built for the comfort of anything human.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Chains sway in windless dark"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Mildew blooms on sweating stone"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Distant screams blur into wind"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Torchlight crawls like nervous insects"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Ceiling drips a slow iron tang"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Air thick with old extinguished prayers"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Shadows linger after their casters leave"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Footsteps echo as if answered"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Rot and incense war in silence"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Faint bells toll beneath the floor"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Walls bulge as if breathing slowly"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Locks click by themselves then hush"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Whispers seep from hairline cracks"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Floor frostbitten despite stale heat"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Stale straw stinks of forgotten bodies"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Candles bend away from one cell"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Rust flakes fall like reddish snow"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Every corridor tastes of sapped courage"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Dust motes drift like trapped souls"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Darkness here feels slightly too heavy"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Air hums with restrained sobbing memory"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Moans reverberate through hollow pillars"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Stone sweats where no heat lies"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Keys jingle with no hand holding"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Cobwebs cling like desperate fingers"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Silence presses soft against eardrums"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Fetid puddles mirror nothing above"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Breath clouds then vanishes too quickly"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Walls stitched with crude iron staples"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Chains embedded deep rattle in dreams"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "A sour metallic mist hangs low"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Draft carries faint lullaby of despair"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Lantern flames burn colorless and thin"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Shadows pool in footprints behind you"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Floor stones subtly rearrange between blinks"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Inhaled air feels secondhand and used"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Far-off grinding suggests dungeon still shifting"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "The quiet tastes like bitten tongue"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Iron bars hum with dull resentment"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Cell doors exhale when opened slightly"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Ceaseless dripping keeps time for misery"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Laughter echoes, brittle and source-less"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Cold seeps upward through bare soles"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Every breath sounds treasonously loud here"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Pale fungi glow with hospital pallor"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Corridor corners gather unnatural chill"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Faint perfume mingles with old blood"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Some stones warm as if watching"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "ACTION + THEME"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Atmosphere",
+    "summary": "Dungeon — Atmosphere"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Domain",
+    "name": "Locations",
+    "tags": [
+      "domain"
+    ],
+    "description": "A Dungeon is a constructed warren of confinement and control: cells, oubliettes, torture rooms, guard posts, and forgotten maintenance passages layered in cramped geometry. Air, light, and mercy are all in short supply, and the deeper you go, the less the place feels built for the comfort of anything human.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Collapsed guard post choked with rusted spears"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Oubliette shaft whispering with unseen breath"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Torture gallery lined in flayed banners"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Flooded cellblock humming with blind leeches"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Narrow stair spiraling into breathless black"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Rotting barracks stinking of old chain oil"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Ceiling of hooks swaying without a draft"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Stone kennel slick with gnawed bone slop"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Pillory hall etched with begging fingernails"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Abandoned watchtower strangled by iron ivy"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Vent tunnel exhaling hot metallic sighs"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Low vault of coffins chained shut"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Guard captain’s den cluttered with broken masks"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Trap workshop cluttered with bloodstained tools"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Bridge of ribs spanning bottomless chute"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Chapel alcove drowned in candle wax"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Execution pit rimmed with scorched fetters"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Archive of shackles sorted by wrist size"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Scribe cell illuminated by blistering rune"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Well of drinking water tasting like coins"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Feeding troughs amid gnawed manacles and straw"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Hidden sally port sealed by fused hinges"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Collapsed torture theater beneath sagging chains"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Fungus-lit corridor breathing damp and spores"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Guard muster yard echoing with phantom drills"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Latrine trench clogged with pale, moving roots"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Interrogator’s parlor warm with muffled sobs"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Observation slit overlooking unlit slaughter floor"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Choked chimney shaft rattling with falling teeth"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Storage vault of labeled bone fragments"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Butcher’s stall reeking of salted prisoner"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Cramped ladderway buzzing with trapped flies"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Iron maze of deadfall portcullises"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Ossuary stair carpeted in powdered skulls"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Armory of warped shields and bent halberds"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Guard kennel reeking of diseased warhounds"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Warden’s overlook shrouded in bloodstained curtains"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Suffocation cell padded with damp leather"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Abandoned infirmary stocked with black leeches"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Mess hall tables scarred by desperate prayers"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Secret crawlspace swallowed by clotted cobwebs"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Floodgate chamber dripping slow red seepage"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Forgotten visitation room with bolted chairs"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Collapsed ceiling exposing root-choked stone"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Isolation wing humming with distant lullabies"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Ceaselessly ticking cage of clockwork restraints"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Vertigo balcony above endless chained void"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "CONNECTION WEB"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "ACTION + THEME"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Locations",
+    "summary": "Dungeon — Locations"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Domain",
+    "name": "Discoveries",
+    "tags": [
+      "domain"
+    ],
+    "description": "A Dungeon is a constructed warren of confinement and control: cells, oubliettes, torture rooms, guard posts, and forgotten maintenance passages layered in cramped geometry. Air, light, and mercy are all in short supply, and the deeper you go, the less the place feels built for the comfort of anything human.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Iron maiden filled with dried petals"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Cell wall scratched with reversed prayers"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Blood-slick ladder descending into silence"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Torchlight swallowed by a kneeling archway"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Keys grown into a gaoler’s ribcage"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Choke-chain collars bolted along corridor"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Floor grating exhaling distant funeral hymns"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Rust-furred chains arranged like a constellation"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Peephole watching from inside the stone"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Mildewed ledger listing tomorrow’s executions"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Crank that turns but moves nothing"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Bone dice scattered around a cracked manacle"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Hidden drain pulsing with warm breath"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Ceiling hooks still creak without wind"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Moss spelling names in slow dripping"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "False door opening into upright coffin"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Iron bars fused by melted fingerprints"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Bucket of tongues held on ice"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Guardroom bed neatly made, occupant absent"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Trapdoor sealed with dried black tears"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Whip hanging, braided from pale hair"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Oubliette echo repeating words incorrectly"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Mold-veiled mural of smiling prisoners"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Cage suspended over bottomless black shaft"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Lantern burning without flame or fuel"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Wall-mounted wheel turning on its own"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Rat-chewed map of impossible corridors"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Stone idol wearing a fresh hood"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Grindstone wet with recent bone dust"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Chalk outline pacing inside its cell"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Water trough reflecting someone else’s face"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Secret passage lined with nailed shadows"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Torture rack bearing wilted wildflowers"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Skeleton shackled by unbroken silk ropes"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Trap corridor reset using living bait"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Vent leaking sobs instead of air"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Guard post abandoned mid-hand of cards"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Door hinges grown over with teeth"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Maintenance hatch sealed by stitched leather"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Window looking into a buried sky"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Pile of locks missing their keyholes"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Collapsing stair supported by bound statues"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Iron mask whispering offers of safety"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Chains arranged into a crude cradle"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Wall pipe dripping liquid daylight slowly"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Spiked pit cushioned with moulted skins"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Tally marks ending in a bloodied question"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "CONNECTION WEB"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "DESCRIPTOR + FOCUS"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Discoveries",
+    "summary": "Dungeon — Discoveries"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Domain",
+    "name": "Banes",
+    "tags": [
+      "domain"
+    ],
+    "description": "A Dungeon is a constructed warren of confinement and control: cells, oubliettes, torture rooms, guard posts, and forgotten maintenance passages layered in cramped geometry. Air, light, and mercy are all in short supply, and the deeper you go, the less the place feels built for the comfort of anything human.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Rust-slick bars bite through grasping hands"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Floor stones hinge into silent throat pits"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Chained lantern smoke whispers binding oaths"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Ceiling hooks sway with unseen breath"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Dripping chains echo wrong, counting down"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Moss-veiled flagstones drink warm blood gladly"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Keyrings fuse to flesh, metal rooting"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Nails grow barbs that snag on air"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Iron maiden arms open, hungry and patient"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Gallows rope slithers, seeking a neck"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Torture rack tightens without any hands"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Branding irons glow at unsummoned names"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Grates exhale spores that rot memory"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Wall manacles close like shark jaws"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Cells rearrange, swallowing paths behind you"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Shackles sprout spikes when hope rises"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Oubliette walls slowly creep inward nightly"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Drains gurgle secrets that curse listeners"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Muffled sobs seep from unfitted bricks"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Torchlight breeds shadows that gnaw ankles"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Guard post arrows track breathing alone"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Locks forget owners, remember only screams"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Damp straw births biting centipede swarms"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Ceiling fungus releases sleep-thick yellow dust"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Hooks pull upward when names are spoken"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Rusted hinges shriek, calling hungry things"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Iron collars tighten with every lie"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Floor irons brand footprints that bleed"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Grim statues inhale, stealing your courage"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Whip scars crawl, forming binding sigils"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Barred windows open only onto void"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Pit floors are layered with teeth"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Razor wire vines creep across corridors"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Mazes reshift whenever eyes are closed"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Chains whisper bargains in dead languages"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Benches sprout restraints beneath sitting weight"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Water in troughs ferments into anguish"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Vent shafts exhale choking graveyard chill"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Skeletons locked in stocks still struggle"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Iron spikes thirst for kneeling backs"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Dungeon bells toll only for trespass"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Spare keys duplicate, each one wrong"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Invisible wardens tally every stolen breath"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Blood on walls refuses to dry"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Rotting doors bloom with narcotic spores"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Latticed floors reveal writhing things beneath"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Shadow iron bars exist only sometimes"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Steps descend forever, never reaching bottom"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "DESCRIPTOR + FOCUS"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Banes",
+    "summary": "Dungeon — Banes"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Domain",
+    "name": "Boons",
+    "tags": [
+      "domain"
+    ],
+    "description": "A Dungeon is a constructed warren of confinement and control: cells, oubliettes, torture rooms, guard posts, and forgotten maintenance passages layered in cramped geometry. Air, light, and mercy are all in short supply, and the deeper you go, the less the place feels built for the comfort of anything human.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Hidden cache beneath loose bloodstained stone"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Rusty manacles crack open, spilling keys"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Guardroom dice show impossible winning streak"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Fungus lamp glows brighter near secret exits"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Snapped torture rack hides smuggled healer kit"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Collapsed cell wall reveals forgotten armory"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Rotting straw conceals warded silver dagger"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Dry cistern echoes with guiding whispers"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Crude map scratched behind latrine bricks"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Chained skeleton points toward weaker mortar"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Vent grating rattles, exhaling clean air"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Abandoned meal still warm, poison removed"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Mildewed banner wraps you in muffled silence"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Iron maiden opens on untouched passage"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Executioner’s hood grants faceless anonymity"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Dripping ceiling reveals outline of stairwell"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Torch sconce twists, deadening distant screams"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Pit of bones hides blessed reliquary"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Guard’s purse heavy with unspent bribes"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Blood channel runs toward escape culvert"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Forgotten bell rope jammed safely mute"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Prison ledger lists false deaths, your names"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Black mold recoils from your quiet breath"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Grinding portcullis jams halfway, just enough"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Tally marks form code for safe route"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Fettered statue’s hand clutches warding charm"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Dungeon rats swarm, then guide your steps"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Branding irons cool, losing their sting"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Shackles here snap open at your touch"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Trap trigger already sprung by unlucky predecessor"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Guard shift song echoes, revealing safe timing"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Spilled oil outlines invisible warded circle"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Faded mural shows hidden lock mechanism"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Sewer grate bars eaten thin by rust"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Wall moss numbs pain where applied thick"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Old torture notes detail jailer’s secret fears"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Oubliette floor softer than it appears"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Ceiling chain lowers forgotten winch platform"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Watchdog sleeps, lulled by distant lullaby"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Dungeon incense masks your sweat and heartbeat"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Iron door swollen, cannot fully close"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Murmured prayers from below strengthen resolve"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Hoist crank still greased, silent when turned"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Prisoner graffiti warns of trap, saves"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Guard’s cloak left hanging, perfectly your size"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Crumbling arch leaves daylight hairline glimmer"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Warden’s keys misplaced on unattended hook"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Ancient wardstone flickers, leaving breach open"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "DESCRIPTOR + FOCUS"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Boons",
+    "summary": "Dungeon — Boons"
+  }
+]

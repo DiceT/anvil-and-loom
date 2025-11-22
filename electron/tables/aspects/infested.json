@@ -1,0 +1,1611 @@
+[
+  {
+    "sourcePath": "forge",
+    "category": "Aspect",
+    "name": "Objectives",
+    "tags": [
+      "aspect",
+      "objective"
+    ],
+    "description": "Infested areas are overrun by unwelcome life: vermin, spores, parasites, or hungry things that have made the place their nest. The original purpose of the area is still visible beneath the crawling, pulsing intrusion, but whatever lives here now is winning the slow war for the space.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Harvest the queen from the swarm"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Burn out every nest and burrow"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Recover relic buried beneath chittering"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Lure the infestation into rival domain"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Capture a living specimen for study"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Poison the brood without scarred survivors"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Seal every entrance before nightfall"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Smuggle infected host past temple guards"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Cleanse the shrine without angering spirits"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Track the source beneath pulsing roots"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Feed the hive to gain its favor"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Rescue cocooned prisoners before hatching"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Sabotage the fumigation to spare parasites"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Steal the egg clutch untouched"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Negotiate truce with the nesting horror"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Bind the swarm as unwilling guardians"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Plant a cursed seed among larvae"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Mark the safest path through vermin"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Silence the choral buzzing forever"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Awaken the slumbering broodmother below"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Shift infestation into your own flesh"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Test unproven cure on helpless villagers"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Smother the tunnels in sacred smoke"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Trace carrier spreading worms through caravans"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Hide evidence of spreading moldblight"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Defend the hive from holy fire"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Shatter the broodmind directing all pests"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Deliver bait body to hungry spawn"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Map every vein of creeping fungus"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Provoke swarm to devour your enemies"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Free the host-body from invasive spirit"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Corrupt the well with clutch of leeches"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Sift through maggot-pit for lost heirloom"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Infect yourself to earn hive trust"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Erect sanctum amid writhing infestation"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Swap the broodmother with crafted decoy"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Erase the last untainted corner"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Preserve a fragment of living rot"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Investigate voices whispering from termite walls"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Turn all crawling things against their king"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Barter safe passage with dripping tendrils"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Redirect sewer swarm toward besieging army"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Document each species for forbidden bestiary"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Isolate a pure strain of corruption"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Collapse the lair on gestating young"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Plant listening charms among clustered eggs"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Test whether the hive remembers your name"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Ensure nothing escapes when fire comes"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "ACTION + THEME"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Objectives",
+    "summary": "Infested — Objectives"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Aspect",
+    "name": "Atmosphere",
+    "tags": [
+      "aspect"
+    ],
+    "description": "Infested areas are overrun by unwelcome life: vermin, spores, parasites, or hungry things that have made the place their nest. The original purpose of the area is still visible beneath the crawling, pulsing intrusion, but whatever lives here now is winning the slow war for the space.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Air thick with chittering whispers"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Ceiling drips larvae instead of water"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Floorboards pulse, riddled with unseen grubs"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Mildew breathes slowly against the walls"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Cobweb veils sag under twitching egg-sacs"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Every shadow crawls with patient hunger"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Rotten beams seethe with gnawing mandibles"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Spores hang like dust, tasting of iron"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Sour reek of nesting, musk and decay"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Walls bulge where colonies knot and swell"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Soft crunch underfoot betrays countless shells"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Murmuring wings hum behind cracked plaster"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Faint dust storms from every fresh scratch"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Holes honeycomb the stone, softly weeping"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Ceiling rustles like leaves, but wetter"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Stale air buzzes with trapped bodies"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Fungus blooms glow, feeding on memories"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Thin trails of droppings form sigils"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Chewed tapestries sag, alive with fleas"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Lamp flames bow beneath unseen drafts"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Every surface slick with crawling mildew"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "A thousand eyes glint in crevices"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Slow, wet chewing somewhere behind you"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Pipes rattle as something migrates within"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Moss carpets quiver when stepped upon"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Strange husks line the corners like trophies"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "The stench of nesting drowns all thought"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Walls whisper as termites rearrange them"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Shredded insulation writhes with pale worms"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Dust motes reveal wriggling shapes midair"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Dripping slime threads stitch room together"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "A low, shared heartbeat fills the hall"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Roaches pour from keyholes like smoke"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Ceiling beams sag under hidden brood"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Mushrooms fan across portraits, devouring faces"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Rats stare boldly, refusing to scatter"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Every scratch on stone seeps insects"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Once-ornate carvings now nests of clacking"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Faint itch crawls beneath your skin"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Buzzing rises whenever the room quiets"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Maggot clusters throb in broken furniture"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Wet straw bedding twitches with tiny lives"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Thick cobwebs hum with trapped beating"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Fur and feathers mat in glistening drifts"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "The air tastes of moldy breath"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Soft bodies plop into puddles unseen"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Doorframes groan as burrowers widen them"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Every breath risks swallowing something alive"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "ACTION + THEME"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Atmosphere",
+    "summary": "Infested — Atmosphere"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Aspect",
+    "name": "Manifestations",
+    "tags": [
+      "aspect"
+    ],
+    "description": "Infested areas are overrun by unwelcome life: vermin, spores, parasites, or hungry things that have made the place their nest. The original purpose of the area is still visible beneath the crawling, pulsing intrusion, but whatever lives here now is winning the slow war for the space.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Ceiling sagging with bulging egg-sacs"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Floorboards ripple under unseen burrowers"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Walls sweat clotted larvae and pus"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Stairwell choked by weaving rootworms"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Statues packed with hissing beetle swarms"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Library shelves furred in twitching mold"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Doorframe lined with blinking chitinous eyes"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Fountain overflows with translucent leeches"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Pews hollowed, writhing with pale grubs"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Tapestries crawl as embroidered worms awaken"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Bell tower echoes with skittering carapaces"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Choir loft nests of bone-white rats"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Kitchen pots seethe with glassy maggots"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Cellar ceiling threaded by veined fungal cords"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Windows filmed by throbbing spore membranes"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Cradle gently rocked by skeletal vermin"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Writing desk drawers swarm with ink-drinking lice"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Well water clouded by drifting parasite knots"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Fireplace clogged with hardened spider brood"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Garden path lifted by swollen root-bulges"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Coffins packed tight with whispering centipedes"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Curtains sag beneath colonies of cocooned birds"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Banner sigils obscured by clustered moth wings"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Chandeliers dripping larvae instead of wax"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Mirror frame riddled with burrowing beetle tunnels"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Stone floor cracked by spreading puffball clusters"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Roof thatch alive with scurrying tick blankets"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Bed mattress pulsing softly with internal movement"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Altar stones crusted in fungal antler growths"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Charnel pit seething with blind white eels"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Door hinges gnawed by metallic silver slugs"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Food stores replaced by neatly stacked husks"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Cages hang open, filled only with webs"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Banners breathing slowly, woven with living roots"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Footprints fill instantly with skittering sandfleas"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Dead torch sconces bloom with fleshy polyp lanterns"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Chalk runes obscured by clinging lichen eyes"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Pillars hollowed into buzzing honeycomb chambers"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Ceiling fans draped in dangling cocoon strings"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Harpsichord keys jitter with nesting roaches"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Bathwater replaced by thick wriggling knot"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Broken armor stuffed with gently twitching spores"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Cobblestones crowned by clustered black snail shells"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Thrones upholstered in fused, living vermin"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Chapel icons veiled by spore-threaded silk"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Gate chains crawling with rust-red millipedes"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Book pages fused by living mold script"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "CONNECTION WEB"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "ACTION + THEME"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Manifestations",
+    "summary": "Infested — Manifestations"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Aspect",
+    "name": "Discoveries",
+    "tags": [
+      "aspect"
+    ],
+    "description": "Infested areas are overrun by unwelcome life: vermin, spores, parasites, or hungry things that have made the place their nest. The original purpose of the area is still visible beneath the crawling, pulsing intrusion, but whatever lives here now is winning the slow war for the space.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Library shelves sag under webbed cocoons"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Choir loft thick with chittering beetles"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Pews carpeted in restless rat fur"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Cracked altar weeps glistening white maggots"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Bell rope writhes with pale centipedes"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Fountain clogged by quivering gray eggs"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Icon niches filled with clacking skull spiders"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Confessional booth echoing with wing buzz"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Mold-veiled fresco hides blinking fungal eyes"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Collapsed stair packed with nesting wasps"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Ceiling beams sag under hanging cocoons"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Stone tiles lifted by burrowing root-worms"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Tapestries pulse, threaded with living worms"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Guardroom straw swarms with glossy roaches"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Cold forge chimney breathing black flies"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Chalice brimming with swimming leech broth"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Censer coughing spores in lazy spirals"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Basin overflows with translucent tadpole larvae"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Wine casks bloated with screeching larvae"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Prayer books swollen by whispering mold"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Pillars studded with anchored barnacle mouths"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Choir benches riddled by tunneling grubs"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Window lattice draped in vibrating moths"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Collapsed roof birthing steady spider rain"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Organ pipes clogged by nesting ravens"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Lectern hollowed, packed with speckled eggs"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Offering box throbs with trapped vermin"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Cruciform beam riddled with beetle channels"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Dusty reliquary crawling with bone lice"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Sacristy cupboards furred in luminous mildew"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Stone font ringed by feeding lampreys"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Choir rail lacquered in hardened insect resin"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Steeple stairs slick with snail trails"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Flagstones quilted by spreading fungal mats"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Wall crack exhaling warm ant swarms"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Hanging lanterns filled with webbed husks"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Crumbling balcony alive with nesting bats"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Font drain ringed by clinging slime-suckers"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Vestry robes seethe with silverfish shimmer"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Old mural overtaken by spore-blooms"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Pillar carvings gnawed to soft pulp"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Ceiling fresco dripping larval ichor strings"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Choir rail hollow, humming wasp brood"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Choir stall cushion pulsing with burrowers"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Pigeonholes stuffed with dried insect wings"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Gargoyle mouths packed with squirming nestlings"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Vestment chest exudes warm fungal reek"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "CONNECTION WEB"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "DESCRIPTOR + FOCUS"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Discoveries",
+    "summary": "Infested — Discoveries"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Aspect",
+    "name": "Banes",
+    "tags": [
+      "aspect"
+    ],
+    "description": "Infested areas are overrun by unwelcome life: vermin, spores, parasites, or hungry things that have made the place their nest. The original purpose of the area is still visible beneath the crawling, pulsing intrusion, but whatever lives here now is winning the slow war for the space.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Ceiling sacks drip larvae into armor"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Maggot swarms chew through leather straps"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Hidden tick nest floods your boots"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Spores blossom inside fresh mouth wounds"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Bedroll seethes with silverfish teeth"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Backpack lining erupts with biting centipedes"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Helm padding crawls with blind beetles"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Weapon grip slick with egg slime"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Torch smoke awakens dormant sporeclouds"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Food stores riddled with black weevils"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Water skins bulge with leech clusters"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Boot soles colonized by bone borers"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Parasite worms thread beneath fingernails"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Rust mites feast on metal buckles"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Sleeping ear becomes brood chamber"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Lungful of spores blossoms overnight"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Campfire heat hatches clutch of wasps"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Blood scent calls carrion rat tide"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Blanket folds conceal venomous centipede knot"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Rations hatch biting moth larvae"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Floor slime births glass-spined slugs"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Shadowed rafters drop flesh wasp combs"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Exposed wound breeds pale crawler nest"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Armor joints jammed with chitin shards"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Skin fleas whisper hunger into dreams"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Roots inside wall hook into ankles"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Saddle stuffing alive with gnawing lice"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Tent stakes riddled by corpse beetles"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Pack straps rasp with tiny mandibles"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Rat lice leap beneath clothing layers"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Pinned cloaks fill with burrowing gnats"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Guttering lantern draws biting moth swarm"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Weapon sheaths shelter fever gnats brood"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Bed mat pulses with hidden grubs"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Camp latrine overflows with questing tendrils"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Drinking horn rim lined with eggs"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Saddle leather softens into worm pulp"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Bedframe joints hide scorpion nursery"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Spore dust stains skin sick yellow"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Stray hair root sprouts twitching feelers"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Glove fingers packed with bone lice"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Threadbare cloak weaves itself from worms"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Dead firewood bursts with fang beetles"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Necklace cord tightens with living fibers"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Coin purse weight swarms into roaches"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Pillow straw writhes against your cheek"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Rain cloak mildews into spore skin"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Bandage wraps hatch translucent carrion flies"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "DESCRIPTOR + FOCUS"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Banes",
+    "summary": "Infested — Banes"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Aspect",
+    "name": "Boons",
+    "tags": [
+      "aspect"
+    ],
+    "description": "Infested areas are overrun by unwelcome life: vermin, spores, parasites, or hungry things that have made the place their nest. The original purpose of the area is still visible beneath the crawling, pulsing intrusion, but whatever lives here now is winning the slow war for the space.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Parasites ignore you, seeking richer hosts"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Swarming vermin clear a safe path"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Fungal growth reshapes into a hidden door"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Carrion flies whisper directions to safety"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Rotting nests hide one pristine relic"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Your scent matches the hive's brood"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Spores bloom into a healing crust"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Worms devour poison from your wounds"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Hive mind accepts you as distant kin"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Infesting swarm briefly obeys your gestures"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Burrowing things reveal a buried cache"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Maggot-filled carcass conceals untainted rations"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Mold-veiled script reveals forgotten warding rite"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Parasites abandon you, taking illness with them"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Leech-slick water restores lost vigor"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Chittering chorus silences when you listen"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Nest-stench masks you from hunting beasts"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Venomous brood turns on their queen"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Clinging fungus hardens into crude armor"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Gnawing larvae carve a secret tunnel"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Cloud of gnats blinds your pursuers"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Rat king trades rumors for crumbs"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Invasive vines cradle you from the fall"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Brood-queen's ichor grants brief foresight"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Trailing slime glows, outlining safe footing"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Ticks swell, bursting into bitter coin"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Infested idol grants command of gnats"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Roach-shelled charm repels larger predators"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Sporeburst reveals invisible footsteps ahead"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Infestation devours your lingering curse"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Chitin husks knit into sturdy bracers"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Tunnel grubs illuminate traps with cold fire"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Ravenous mold spares items you touch"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Hive murmurs warn of coming footsteps"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Swarm forms sigils only you understand"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Nest gases dull your more human fears"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Bone-boring beetles carve useful runes"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Sludge-dwelling leeches drink your lingering dread"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Fungal crowns mark you as untouchable"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Swarming fleas leap from you to foes"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Infested altar grants voice to vermin"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Carrion birds circle only your enemies"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Matted nests cushion your exhausted sleep"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Razor spores slice your bonds cleanly"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Vermin leftovers arrange into crude map"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Burrowers drag you clear of collapsing stone"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Hive heat keeps you alive through night"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Pulse of the infestation echoes your heartbeat"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "DESCRIPTOR + FOCUS"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Boons",
+    "summary": "Infested — Boons"
+  }
+]

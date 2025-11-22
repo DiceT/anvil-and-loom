@@ -4,16 +4,10 @@ import react from '@vitejs/plugin-react'
 // Small server endpoint for dev: POST /api/oracle/interpret
 function escapeHtml(s) { return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-function buildSystemPrompt(settings) {
-  const oracleName = (settings.oracleName||'The Loomwright');
-  const personaAddendum = (settings.personaAddendum||'');
-  return `You are ${oracleName}, the in-app oracle interpreter for the Anvil & Loom TTRPG.\n${personaAddendum}`;
-}
+// Use canonical prompt builders from core/ai to keep dev middleware consistent with the app
+import { buildOracleSystemPrompt, buildOracleUserPrompt } from './src/core/ai/oraclePrompts';
 
-function formatOracleResultsForPrompt(snapshot) {
-  if (!snapshot?.oracleResults?.length) return 'No oracle results were rolled.';
-  return snapshot.oracleResults.map((r,i)=>`#${i+1}\nTABLE: ${r.tableName}\nROLL: ${r.roll}\nRESULT: ${r.resultText}`).join('\n\n');
-}
+
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -49,8 +43,9 @@ export default defineConfig({
             return;
           }
 
-          const systemPrompt = buildSystemPrompt(settings);
-          const userPrompt = `You are ${settings.oracleName || 'The Loomwright'} inside the Anvil & Loom app.\nHere are the oracle results for the current journal entry:\n${formatOracleResultsForPrompt(snapshot)}\nUsing your system instructions, provide: 1) A brief interpretation tying these results together; 2) 1-3 concrete \"Next Moves\"; 3) Optional 1-2 sentence in-fiction snapshot.`;
+                    // Build prompts using the shared prompt builders
+          const systemPrompt = buildOracleSystemPrompt(settings);
+          const userPrompt = buildOracleUserPrompt(snapshot, settings.oracleName || 'The Loomwright');
 
           // Reuse shared OpenAI client helper (same as Dev Table)
           const { callChatModel } = await import('./electron/openaiClient.cjs');

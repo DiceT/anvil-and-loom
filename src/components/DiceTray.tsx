@@ -7,7 +7,7 @@ import { setDiceFadeDuration } from "../core/dice/diceEngine";
 import type { LogicalRollType, RollAdvantageMode } from "../core/dice/diceEngine";
 import type { DiceResultCard } from "../core/results/resultTypes";
 import { generateResultCardId } from "../core/results/resultTypes";
-import { getChallengeOutcomeColor } from "../core/results/ResultCard";
+import { getChallengeOutcomeColor, renderResultCardHtml } from "../core/results/ResultCard";
 import { useUiSettings } from "../contexts/UiSettingsContext";
 import {
   Triangle,
@@ -42,10 +42,20 @@ interface SavedExpression {
 }
 
 function formatResultAsHtml(result: RollResult): string {
+  // Prefer canonical renderer when possible so entry HTML matches Results Pane styling
+  try {
+    const card = convertResultToCard(result);
+    if (card) {
+      return renderResultCardHtml(card as any);
+    }
+  } catch {
+    // fallback to legacy HTML builder below
+  }
   const term = getPrimaryTerm(result);
   if (!term) return "";
   const toggleId = `dice-log-${Date.now()}-${Math.floor(Math.random() * 100000)}`;
   const constantTotal = getConstantSum(result.terms);
+
 
   if (term.type === "challenge") {
     const actionSegments: string[] = [`${term.actionDie}`];
@@ -698,18 +708,19 @@ export function DiceTray({ onRollResult, onResultCard, fadeDurationMs = 3000 }: 
       const expression = DiceExpression.parse(typeof expressionText === "string" ? expressionText : "");
       setWarnings(expression.warnings);
       const result = await DiceRoller.rollWithProvider(expression, diceBoxValueProvider);
-      setLastRoll(result);
+            setLastRoll(result);
       setRollError(null);
-      if (onRollResult && uiSettings.logToEntry) {
-        const html = formatResultAsHtml(result);
-        if (html.trim().length) {
-          onRollResult(html);
-        }
+      const card = convertResultToCard(result);
+      if (onResultCard && card) {
+        onResultCard(card);
       }
-      if (onResultCard) {
-        const card = convertResultToCard(result);
-        if (card) {
-          onResultCard(card);
+      if (onRollResult && uiSettings.logToEntry) {
+        try {
+          const html = card ? renderResultCardHtml(card as any) : formatResultAsHtml(result);
+          if (html && html.trim().length) onRollResult(html);
+        } catch (e) {
+          const html = formatResultAsHtml(result);
+          if (html && html.trim().length) onRollResult(html);
         }
       }
     } catch (error) {

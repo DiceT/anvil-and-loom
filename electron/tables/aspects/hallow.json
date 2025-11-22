@@ -1,0 +1,1611 @@
+[
+  {
+    "sourcePath": "forge",
+    "category": "Aspect",
+    "name": "Objectives",
+    "tags": [
+      "aspect",
+      "objective"
+    ],
+    "description": "Places marked as Hallow feel claimed by something greater than the people passing through them, whether that power is benevolent, indifferent, or deeply wrong. Even whispers seem to trespass here, and those who break oaths or spill blood in such ground rarely walk away unchanged.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Test whether the hallow still listens"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Bind your oath into the soil"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Trace the unseen border of sanctity"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Awaken whatever sleeps beneath stones"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Smuggle forbidden blood across consecrated ground"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Defile the altar without drawing notice"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Restore the hallow with unwilling sacrifice"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Steal a blessing and leave none"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Lure a pursuer onto cursed sanctuary"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Silence voices that profane this place"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Hide a relic where prayers once gathered"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Learn which name rules this hallow"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Renounce your vows before its witness"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Seal a pact using stolen bones"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Plant a secret beneath the shrine"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Expose the false holiness festering here"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Trade memories for safe passage through"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Carry hallowed dust to tainted lands"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Convince zealots the hallow has died"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Prove this ground rejects spilled blood"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Spill blood here and bear consequence"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Invite the forgotten patron to return"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Smother a rising miracle in ash"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Trap a restless spirit within boundary"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Twist the sanctuary to serve darkness"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Appease the wardens circling unseen above"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Discover what trespass first birthed this hallow"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Offer your shadow as temple tithe"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Guide a lost soul to its altar"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Turn pilgrim fervor toward quiet rebellion"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Rewrite the carved laws of silence"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Test which lie this ground permits"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Bear a dying enemy into safety"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Unmask the hidden price of refuge"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Corrupt a sacred rite mid-chant"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Walk the perimeter without drawing breath"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Entomb forbidden knowledge beneath the threshold"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Judge a supplicant by the echoes"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Smuggle a demon across consecrated boundary"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Invite profane revelry into solemn precinct"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Erase all traces of earlier worship"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Offer false relics to hungry soil"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Plant doubts in the hearts of pilgrims"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Wake the stone icons to demand payment"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Unbind the curse that guards this sanctuary"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Map the veins of power underfoot"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Teach the hallow your true name"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Turn its silent witness against your foe"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "ACTION + THEME"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Objectives",
+    "summary": "Hallow — Objectives"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Aspect",
+    "name": "Atmosphere",
+    "tags": [
+      "aspect"
+    ],
+    "description": "Places marked as Hallow feel claimed by something greater than the people passing through them, whether that power is benevolent, indifferent, or deeply wrong. Even whispers seem to trespass here, and those who break oaths or spill blood in such ground rarely walk away unchanged.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Breath catches, as if lungs trespass"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Dust hangs motionless, listening for lies"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Sound thins, swallowed into old stone"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Shadows lean inward, awaiting offense"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Air hums like distant, buried bees"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Footfalls echo twice, second step judging"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Cold presses upward from the soil"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Light bends away from the center"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Every whisper feels like scratched glass"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Invisible choir holds one long breath"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Wind circles, never daring to cross"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Tongues grow heavy with unsaid confessions"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Ozone tang rides breathless stillness"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Heartbeat thuds far too loudly here"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Motes drift in deliberate, watchful spirals"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Old prayers linger, stripped of comfort"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Silence arrives a heartbeat before entry"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Eyes water, though no smoke burns"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Shivering warmth settles only on scars"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Weight of unseen crowns bows necks"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Faint chanting undercuts every other noise"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "The sky above seems to kneel"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Air tastes of iron and incense"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Every step feels like a signature"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Tongueless names hiss behind grinding teeth"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Veins prickle, blood unwilling to spill"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Breath steams though air is not cold"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Throats dry as if forbidding speech"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Even flies avoid lingering over flesh"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Distant thunder answers careless laughter instantly"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Bones underfoot feel recently rearranged"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Soft ringing follows each spoken oath"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Your shadow stiffens, refusing to move"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Hairs rise, as if called to witness"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Sweet rot perfumes an unmarked center"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Time here moves with held breath"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Glare of strangers seems briefly sanctified"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Ground subtly tilts toward a hidden heart"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Leaves on nearby trees face inward"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Mist curls like fingers about ankles"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Dread arrives gentle, almost respectful"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Blood smell blooms from untouched earth"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Words leave the mouth already echoing"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Sky noise muffles as if underwater"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Ringing in ears shapes almost-commands"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Bare skin feels observed, never desired"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Old guilt flares bright as fresh wounds"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Each exhale feels like a tiny offering"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "ACTION + THEME"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Atmosphere",
+    "summary": "Hallow — Atmosphere"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Aspect",
+    "name": "Manifestations",
+    "tags": [
+      "aspect"
+    ],
+    "description": "Places marked as Hallow feel claimed by something greater than the people passing through them, whether that power is benevolent, indifferent, or deeply wrong. Even whispers seem to trespass here, and those who break oaths or spill blood in such ground rarely walk away unchanged.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Footsteps hush mid-stride, breath suddenly reverent"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Dust motes drift like watching, patient eyes"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Old bloodstains refuse to dry or fade"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Shadows kneel toward an unseen altar"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Air tastes of iron, incense, rain"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Every whispered word echoes back condemned"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Moss grows in deliberate, circling sigils"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Bones surface from soil, then sink again"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Wind circles boundary stones, never crossing"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Your name feels heavy spoken aloud"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Birdsong halts; distant bells answer instead"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Unlit candles weep cold, clear wax"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Reflections bow in water without you"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Heartbeat falls into measured, foreign rhythm"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Trees lean inward, branches forming broken haloes"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Carrion flies hover, but never land"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Footprints behind you slowly fill with ash"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Rust will not form within this circle"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Tongues of grass blacken beneath spilled lies"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Shallow graves breathe steam on warm days"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Knotted roots twist around unseen, buried relics"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Smoke from fires rises straight, never drifting"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Wounds sting with distant, accusing voices"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Rain skirts this place in respectful arcs"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Laughter falters, turning hoarse and distant"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Coins left here sink deep without sound"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Eyes refuse to meet across the boundary"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Statues sweat thick, resinous tears nightly"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "One star overhead burns brighter, watching"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Shallow pools swirl counter to all winds"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Spoken oaths thrum like chords in stone"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Broken weapons drag themselves toward the center"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Roots avoid a perfect, silent circle"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Insects die mid-flight, dropping like petals"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Your shadow lags behind, staring back"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Blood spilled here crawls uphill, seeking"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Voices of the lost rustle through leaves"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "No corpse here ever smells of rot"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Loose soil compacts beneath you, resisting trespass"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Distant chanting seeps through the ground"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Light bends inward, edges dimly haloed"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Fresh scars itch, struggling against unseen judgment"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Birds wheel above but never perch"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Colors dull to bone, gold, and bruise"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Joints creak like door hinges opening inward"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Forgotten prayers surface unbidden to your lips"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Sleep here brings fevered, instructive visions"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "CONNECTION WEB"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "ACTION + THEME"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Manifestations",
+    "summary": "Hallow — Manifestations"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Aspect",
+    "name": "Discoveries",
+    "tags": [
+      "aspect"
+    ],
+    "description": "Places marked as Hallow feel claimed by something greater than the people passing through them, whether that power is benevolent, indifferent, or deeply wrong. Even whispers seem to trespass here, and those who break oaths or spill blood in such ground rarely walk away unchanged.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Ashen altar ringed with kneeling stones"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Bleached antlers cradle a flickering star"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Old gallows swaying without any wind"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Footprints burn into frost then vanish"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Stone basin refills with stranger's memories"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Roots form a sleeping giant's outline"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Steps echo twice, second time pleading"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Crow feathers drift upward against gravity"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Black candles burn with colorless flame"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Hushed chanting from mouths sewn closed"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Bloodstain shaped like an open eye"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Shadows bow toward an unseen throne"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Hanging bells toll names you remember"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Veil of rain stops at drawn circle"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Ancient tree bears iron fruit, humming"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Moss grows only around your footsteps"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Frozen waterfall murmurs forbidden confessions"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Skulls stacked carefully, facing sunrise gap"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Stone idol weeps milk onto barren ground"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Sunlight splits, avoiding a central rock"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Insects trace sigils across your skin"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Buried swords vibrate faintly beneath soil"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Scent of myrrh without visible source"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Faint halo crowns whoever kneels here"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Every spoken vow echoes in bones"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Shattered shrine rebuilt by unseen hands"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Silent birds perched on invisible branches"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Moonbeam forms a doorway, never opening"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Old well reflects sky from another season"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Grass bends outward, circle perfectly bare"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Unmarked graves humming like distant beehives"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Carvings deepen themselves while you watch"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Your shadow hesitates, refusing to follow"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Lantern flame dims before carved symbol"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Stone steps worn by impossibly many knees"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Torn banners still ripple with battle cries"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Distant choir heard from seed-filled cairn"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Tree rings show years that never happened"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Bleeding statues crumble when directly addressed"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Sudden silence devours all nearby sound"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Dust motes halt midair, awaiting judgment"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Crossing threshold tightens skin around heart"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Phantom handprints bloom on altar cloth"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Ravens arrange bones into spiral paths"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Cold wind tastes faintly of promises"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Your name appears briefly in lichen"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Oathbreaker’s footprints blacken any touched stone"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "CONNECTION WEB"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "DESCRIPTOR + FOCUS"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Discoveries",
+    "summary": "Hallow — Discoveries"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Aspect",
+    "name": "Banes",
+    "tags": [
+      "aspect"
+    ],
+    "description": "Places marked as Hallow feel claimed by something greater than the people passing through them, whether that power is benevolent, indifferent, or deeply wrong. Even whispers seem to trespass here, and those who break oaths or spill blood in such ground rarely walk away unchanged.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Any oath sworn here brands the tongue"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Dreams rot into sermons of knives"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Blood spilled here never washes away"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Unclean feet blister with sigil-wounds"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "False prayers hatch wasp-thoughts in skulls"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Echoes return as accusations, never words"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Blasphemers cough up dust and teeth"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Sleep taken here births fevered prophecies"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Eyes dim, yet see accusing silhouettes"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Laughter here curdles into strangled sobbing"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Hands that steal blacken to brittle ash"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Voices crack, haunted by unseen choirs"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Every lie spoken here fattens shadows"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Names uttered here are forgotten outside"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Salt turns to writhing grubs on tongues"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Those who run find ground thickening"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Wounds gained here reopen each new moon"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Food souring to grave-marrow between teeth"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Hair slowly braids itself into nooses"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Spilled blood crawls home along skin"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Refusing the silence invites choking roots"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Mirrors here only show your corpse"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Tools rust into thorns in your grip"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Breath fog shapes accusing, wordless faces"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Steps taken here echo years later"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "The ground remembers every footprint with hunger"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Shadows detach, whispering your worst sins"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Metal carried here aches like broken bone"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Water drunk here tastes of old prayers"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Sweat beads into tiny staring eyes"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Those who curse here lose their names"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Tongues grow heavy, swelling with secrets"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Misused blessings return as barbed maledictions"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Crossing the boundary stains soles ink-black"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Touching the altar burns invisible branding"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Killing here binds murderer and victim dreams"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Lies spoken here sprout thorns in lungs"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Mocking the unseen invites brittle bones"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Unwept tears congeal into glassy tumors"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "The wind repeats your fears aloud"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Ignorant trespass warps memories of arrival"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Refusing offerings draws insects under skin"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Spat curses coil back into veins"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Eyes that pry here forget all color"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Breaking vows summons a double, vengeful"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Turning your back here invites claws"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Harvest taken here spoils in transit"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Those who linger grow allergic to daylight"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "DESCRIPTOR + FOCUS"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Banes",
+    "summary": "Hallow — Banes"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Aspect",
+    "name": "Boons",
+    "tags": [
+      "aspect"
+    ],
+    "description": "Places marked as Hallow feel claimed by something greater than the people passing through them, whether that power is benevolent, indifferent, or deeply wrong. Even whispers seem to trespass here, and those who break oaths or spill blood in such ground rarely walk away unchanged.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Blood washed clean by unseen hands"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Sworn oaths bind stronger than iron"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Wounds close beneath watching silence"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Tongues cannot shape deliberate lies"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Spilled blood shifts to harmless water"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Profane weapons refuse to strike true"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Ghosts bow and give quiet passage"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Footsteps leave no trace in soil"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Curses fray like old spiderwebs"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Rot pauses, granting food long freshness"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Eyes see clearly through clinging shadows"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Hidden paths glow faint in mind"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Dreams here answer unspoken questions"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "The unworthy cannot draw their blades"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Echoed prayers gain keen, swift notice"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Night creatures avert their hungry gaze"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Chains loosen from unjustly bound wrists"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Lost names return to trembling lips"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Ashes stir, revealing unburned keepsakes"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Blasphemous script blurs into harmless ink"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Dead embers flare when truth is spoken"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "False witnesses choke on their testimony"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Steps toward betrayal grow unbearably heavy"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Forgotten ancestors murmur clear guidance"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Poison dulls, losing its vicious edge"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Storm winds bow away from the hallow"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Sanctified ground confuses pursuing trackers"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Murderous intent falters, hand suddenly trembling"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Childlike laughter dispels gathering dread"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Veils between realms thin for prayer"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Fleeing cowards gain one last courage"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Sacrificed offerings never go unnoticed"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Distant allies feel urgent, wordless tug"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Shadows recoil from the dying wish"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Unmarked graves reveal faint guiding glimmers"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Time slows for one desperate heartbeat"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Desecrated relics here remember their purpose"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Unjust commands pass unheard through ears"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Forgotten wards spark back into strength"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Eyes of statues track approaching danger"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Sacred silence swallows incriminating sounds"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Hunters lose all spoor of the penitent"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Hands cannot complete a coward’s strike"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Bells ring only for approaching doom"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Bleak omens skip those who kneel"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Tongues of beasts briefly shape human warnings"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Last breath carries a chosen message"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Chosen footprints glow only to friends"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "DESCRIPTOR + FOCUS"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Boons",
+    "summary": "Hallow — Boons"
+  }
+]

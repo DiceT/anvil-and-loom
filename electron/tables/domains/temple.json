@@ -1,0 +1,1611 @@
+[
+  {
+    "sourcePath": "forge",
+    "category": "Domain",
+    "name": "Objectives",
+    "tags": [
+      "domain",
+      "objective"
+    ],
+    "description": "A Temple is a place shaped around reverence, obedience, and offerings, whether its gods are present, distant, or dead. Even in ruin, its layout pulls you toward altars, icons, and ritual spaces, and the stones remember every prayer, sacrifice, and betrayal performed in their shadow.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Secure the relic before the priests"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Profane the altar with forbidden blood"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Steal the temple's memory of you"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Awaken whatever sleeps beneath the crypt"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Bargain with the mute stone idols"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Silence the hymn that never ends"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Expose the high priest's hidden corpse"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Replace the god's image with your own"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Seal the gate beneath the sacred font"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Smuggle a heretic into the inner sanctum"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Smother the last ember of sacred fire"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Recover the tongue cut from prophecy"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Bind the wandering spirit of the sanctuary"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Decode the fresco before dawn sacrifice"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Let the chained oracle finally speak"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Turn pilgrims away with whispered terror"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Defend the sanctuary from its chosen god"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Plant a false scripture in the archives"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Lure the abbot into the forbidden nave"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Drink from every unmarked ritual basin"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Unmask the disguised execution as coronation"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Guide the lost child to the black altar"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Bleed on each threshold to claim passage"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Restore the shattered idol with living flesh"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Carry the dying bellringer to the steeple"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Harvest tears from kneeling penitents unnoticed"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Extinguish every candle before prayer ends"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Uncover the room that appears during vespers"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Turn the confession booth into a trap"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Deliver a curse as a holy blessing"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Trade your name for sanctuary's protection"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Lead the procession into the buried wing"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Feed the ravenous offering pit at midnight"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Erase your sin from the ledger"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Expose the skeleton bricked inside the pulpit"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Poison the incense that clouds the choir"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Guide the blind idol's hand toward truth"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Guard the reliquary from its own relic"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Catch the escaping halo in an iron cage"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Interrupt the sacrifice without spilling blood"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Invite the dead congregation back to pews"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Hide a weapon beneath the communion rail"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Translate the hymn that peels skin"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Consecrate a stranger as unwilling martyr"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Return the stolen vow to its owner"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Drag a lurking demon into the baptistry"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Test every priest for hollow bones"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Follow the echo of an unsaid prayer"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "ACTION + THEME"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Objectives",
+    "summary": "Temple — Objectives"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Domain",
+    "name": "Atmosphere",
+    "tags": [
+      "domain"
+    ],
+    "description": "A Temple is a place shaped around reverence, obedience, and offerings, whether its gods are present, distant, or dead. Even in ruin, its layout pulls you toward altars, icons, and ritual spaces, and the stones remember every prayer, sacrifice, and betrayal performed in their shadow.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Incense hangs like suffocating ghost"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Whispers drip from sweating stone"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Candles gutter against unseen breath"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Shadows kneel before empty altar"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Stained glass bleeds colorless light"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Floor slick with old, black blessings"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Air thick with forgotten vows"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Columns lean, listening for confessions"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Statues exhale dust and disapproval"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Choir loft hums without voices"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Distant chanting from nowhere, everywhere"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Echoes lag, answering a different question"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Cold drafts carry metallic prayers"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Ceiling frescoes watch with peeling eyes"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Bell rope sways without ringing"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Ash snowfalls over worn pews"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Steps worn concave by desperate knees"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Gold leaf curls like burnt skin"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Altar cloth damp with imagined blood"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Smell of myrrh, mold, and fear"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Unseen congregation shifts in the dark"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Hallway arches like clasped, bony fingers"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Every footprint sounds like a trespass"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Rotted offerings buzz with patient flies"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Chill settles heavier near icons"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Light arrives late, leaves too early"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Rain prays softly through broken roof"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Choir stalls arranged like judgment seats"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Censer chains clink to absent rhythm"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Sanctum silence thunders in the skull"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Marble floor veined like trapped lightning"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Shadows flicker opposite the flames"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Walls breathe in unison with you"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Sacrificial pit yawns, never satisfied"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Painted saints avert their flaking faces"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Every door opens toward the altar"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Dust motes orbit unseen presences"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Tithing box rattles without being touched"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Gargoyles drip rain and old sins"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Faint organ notes from dead pipes"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Smear of soot outlines missing relic"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Fresco halos darken like bruised fruit"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Pillars etched deep with fingernail prayers"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Floor mosaics shuffle when unobserved"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Moonlight carves the nave like silver"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Air tastes of charred petitions"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Vaulted ceiling presses hope downward"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Silence breaks only to listen back"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "ACTION + THEME"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Atmosphere",
+    "summary": "Temple — Atmosphere"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Domain",
+    "name": "Locations",
+    "tags": [
+      "domain"
+    ],
+    "description": "A Temple is a place shaped around reverence, obedience, and offerings, whether its gods are present, distant, or dead. Even in ruin, its layout pulls you toward altars, icons, and ritual spaces, and the stones remember every prayer, sacrifice, and betrayal performed in their shadow.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Sanctum floor veined with dried candle wax"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Collapsed bell tower choked in climbing thorns"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Flooded nave echoing with invisible chants"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Pillar forest carved with kneeling figures"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Broken cloister open to a black sky"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Side chapel sealed with melted incense"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Altar steps slick from old sacrifices"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Gallery of faceless saints watching doors"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Library of chained scriptures rusting softly"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Crypt corridor breathing out cold hymns"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Ritual pit circled by gnawed prayer beads"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Defiled font crawling with blind silver eels"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Choir loft sagging above shattered pews"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Confession booths gutted and hung with bells"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Garden court where statues slowly exhale dust"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Sacristy cupboards stuffed with bloodstained linens"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Processional bridge spanning a bottomless chasm"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Gate of ribs framing the inner shrine"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Roofless transept where rain falls upward"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Inner sanctum humming with trapped supplicants"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Reliquary vault lit by imprisoned fireflies"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Staircase worn hollow by kneeling pilgrims"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Hidden vestry smelling of wax and rot"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Choked ossuary packed with prayer-scratched skulls"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Hall of votive masks whispering confessions"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Subterranean baptism pool black as coal"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Secret stair curling behind the altar"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Dust-blind refectory lined with empty chairs"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Scribe’s cell wallpapered in flayed skin scriptures"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Echo chamber amplifying every breath into choruses"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Sacrificial terrace overlooking a red horizon"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Stone labyrinth tracing forgotten processional routes"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Censer room thick with choking sweetness"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Watchtower niche housing a single weeping gargoyle"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Collapsed archway strangled by rosary vines"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Bleeding wall mural that refuses to fade"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Dripping ceiling above an untouched offering bowl"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Flagstone trapdoor ringed with faded blessings"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Courtyard well murmuring unanswered litanies"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Dormitory of straw pallets and shared nightmares"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Circular prayer hall with revolving floor"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Burned shrine tiled in ash and teeth"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Veiled corridor that muffles every footfall"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Amphitheater of stone benches facing nothing"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Frozen garden where incense smoke crystallizes"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Sunken chapel accessible only at low tide"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Bell chamber where ropes twitch themselves"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "CONNECTION WEB"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "ACTION + THEME"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Locations",
+    "summary": "Temple — Locations"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Domain",
+    "name": "Discoveries",
+    "tags": [
+      "domain"
+    ],
+    "description": "A Temple is a place shaped around reverence, obedience, and offerings, whether its gods are present, distant, or dead. Even in ruin, its layout pulls you toward altars, icons, and ritual spaces, and the stones remember every prayer, sacrifice, and betrayal performed in their shadow.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Altar slick with still-warm black ichor"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Choir stalls filled with silent bone listeners"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Candles burning with voices instead of flame"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Stone idol weeping rusted chain links"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Offering bowl piled with gnawed finger bones"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Shadow kneeling at altar without a caster"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Floor mosaic rearranging into pleading faces"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Pillars wrapped in living scripture serpents"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Confessional booth breathing slow and shallow"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Thick incense forming accusatory pointing hands"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Font of water disguising a bottomless shaft"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Gold leaf flaking to reveal scabbed flesh"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Bell rope braided from mummified tongues"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Tattered prayer flags flutter without any wind"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Stained glass saints turning their backs inward"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Pews carved with fresh names in your handwriting"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Censer swinging alone, chains straining upward"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Choir loft occupied by hooded, headless silhouettes"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Sacrificial pit lined with polished jawbones"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Relic case empty, glass smeared from inside"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Statues crowded around a missing central space"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Ceiling fresco repainting itself in drying blood"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Chalice filled with teeth still softly chattering"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Organ pipes exhaling distant battlefield screams"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Marble steps worn deep by ghostly knees"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Side chapel flooded with milk-white stagnant water"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Prayer wheel spinning backward, shedding dark petals"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Candles arranged in map of your veins"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Icon faces scraped off, eyes painted beneath"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Rope barrier twisted into a noose crown"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Sanctuary lamp glowing inside a trapped moth"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Collection box rattling with restless unseen coins"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Cracked bell humming your unspoken confessions"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Reliquary guarded by kneeling armored skeletons"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Processional banner dripping rain indoors only"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Lector’s stand gnawed as if by desperate teeth"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Choir books written in fresh, wet ink"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Sacristy door barred from outside, lock melted"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Throne-like priest’s chair facing the wrong way"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Bas-relief palms pressed outward from interior stone"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Cloister garden sprouting hands instead of flowers"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Crumbling sermon notes weighed with a human heart"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Secret stair beneath rug of stitched scalps"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Bronze gong dented by repeated head impacts"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Sanctified dagger still warm, recently washed"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Inner gate sealed with waxy earplugs"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Balcony rail tied with thousands of wishes"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "CONNECTION WEB"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "DESCRIPTOR + FOCUS"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Discoveries",
+    "summary": "Temple — Discoveries"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Domain",
+    "name": "Banes",
+    "tags": [
+      "domain"
+    ],
+    "description": "A Temple is a place shaped around reverence, obedience, and offerings, whether its gods are present, distant, or dead. Even in ruin, its layout pulls you toward altars, icons, and ritual spaces, and the stones remember every prayer, sacrifice, and betrayal performed in their shadow.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Shrine eyes open, icons begin weeping"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Altar stone drinks blood, never enough"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Chanting continues after every mouth silences"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Incense smoke coils into strangling hands"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Dead god’s tongue twitches beneath flagstones"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Pews become teeth, aisle a gullet"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Statue steps down, demands your shadow"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Holy water breeds slick black leeches"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Relics whisper bargains that erase names"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Bell tolls, loosening bones in listeners"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Ceiling fresco peels, saints crawl free"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Offering bowl vomits swarming ash-wasps"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Carved angels sharpen wings on skulls"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Choir stalls echo your secret sins"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Confessional door locks, voice is wrong"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Candles burn cold, freezing open eyes"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Tithe chest fills with beating hearts"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Sacrificial knife leaps toward nearest throat"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Prayer rugs knot around kneeling legs"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Choirbooks rewrite themselves in fresh skin"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Stained glass saints hunt escaping light"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Unseen congregation breathes behind every column"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Steps to altar lengthen, never ending"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Any spoken plea summons hungry echoes"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Floor mosaics rearrange, spelling execution sentences"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Offertory coins hatch glinting spiderlings"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Ritual gong ruptures veins in ears"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Chalice overflows with remembered betrayals"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Censer chain coils like constrictor serpent"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Icon’s painted mouth devours spoken prayers"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Pillars bleed when touched, taste familiar"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Sacristy cupboards hide softly sobbing garments"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Scripture brands itself into bare flesh"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Every doorway returns you to nave"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Roof gutters drip liquefied pilgrim footprints"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Kneelers sprout nails, demand deeper devotion"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Invisible hands pose you for sacrifice"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Shadow choir sings, throatlessly yet deafening"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Bell rope loops invitingly around necks"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Absent idol’s silhouette gnaws at sight"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Ghost processions trample living in silence"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Dust of old prayers chokes tongues"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Sanctum air thickens, clotted with oaths"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Marble floor softens, eager to swallow"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Holy sigils invert, now curse bearers"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Sacred fire burns only living memories"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Reliquary glass shows your corpse inside"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Last pew always seated by future you"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "DESCRIPTOR + FOCUS"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Banes",
+    "summary": "Temple — Banes"
+  },
+  {
+    "sourcePath": "forge",
+    "category": "Domain",
+    "name": "Boons",
+    "tags": [
+      "domain"
+    ],
+    "description": "A Temple is a place shaped around reverence, obedience, and offerings, whether its gods are present, distant, or dead. Even in ruin, its layout pulls you toward altars, icons, and ritual spaces, and the stones remember every prayer, sacrifice, and betrayal performed in their shadow.",
+    "headers": [
+      "Roll",
+      "Result"
+    ],
+    "tableData": [
+      {
+        "floor": 1,
+        "ceiling": 2,
+        "result": "Dusty reliquary spills still-warm embers"
+      },
+      {
+        "floor": 3,
+        "ceiling": 4,
+        "result": "Faded mural bleeds guidance in fresh color"
+      },
+      {
+        "floor": 5,
+        "ceiling": 6,
+        "result": "Thorned idol drinks blood, grants calm"
+      },
+      {
+        "floor": 7,
+        "ceiling": 8,
+        "result": "Cracked bell tolls, your wounds knit"
+      },
+      {
+        "floor": 9,
+        "ceiling": 10,
+        "result": "Obsidian altar hums, sharpening resolve"
+      },
+      {
+        "floor": 11,
+        "ceiling": 12,
+        "result": "Forgotten hymn on lips halts decay"
+      },
+      {
+        "floor": 13,
+        "ceiling": 14,
+        "result": "Silver censer smoke hides your sins"
+      },
+      {
+        "floor": 15,
+        "ceiling": 16,
+        "result": "Collapsed arch opens brief sunlit path"
+      },
+      {
+        "floor": 17,
+        "ceiling": 18,
+        "result": "Stone cherub whispers enemy’s true fear"
+      },
+      {
+        "floor": 19,
+        "ceiling": 20,
+        "result": "Ruined font fills with memory-water"
+      },
+      {
+        "floor": 21,
+        "ceiling": 22,
+        "result": "Rotten tapestry reveals unseen door"
+      },
+      {
+        "floor": 23,
+        "ceiling": 24,
+        "result": "Shattered icon smiles, curse loosens"
+      },
+      {
+        "floor": 25,
+        "ceiling": 26,
+        "result": "Prayer wheel turns itself, fate bends"
+      },
+      {
+        "floor": 27,
+        "ceiling": 28,
+        "result": "Stray candleflame crawls, tracing safe route"
+      },
+      {
+        "floor": 29,
+        "ceiling": 30,
+        "result": "Offering bowl overflows with stolen years"
+      },
+      {
+        "floor": 31,
+        "ceiling": 32,
+        "result": "Ghostly choir drowns out accusing voices"
+      },
+      {
+        "floor": 33,
+        "ceiling": 34,
+        "result": "Broken pew softens, cradling dreamless sleep"
+      },
+      {
+        "floor": 35,
+        "ceiling": 36,
+        "result": "Guttering lamps flare, warding prowling shadows"
+      },
+      {
+        "floor": 37,
+        "ceiling": 38,
+        "result": "Cold incense ash tastes like courage"
+      },
+      {
+        "floor": 39,
+        "ceiling": 40,
+        "result": "Bleeding fresco maps safe passage tonight"
+      },
+      {
+        "floor": 41,
+        "ceiling": 42,
+        "result": "Idle cenobite spirit teaches forbidden blessing"
+      },
+      {
+        "floor": 43,
+        "ceiling": 44,
+        "result": "Marble saint’s hand warms in warning"
+      },
+      {
+        "floor": 45,
+        "ceiling": 46,
+        "result": "Unblinking idol accepts lie as truth"
+      },
+      {
+        "floor": 47,
+        "ceiling": 48,
+        "result": "Ritual gong’s echo turns blades aside"
+      },
+      {
+        "floor": 49,
+        "ceiling": 50,
+        "result": "Ancient tithe ledger forgets your debts"
+      },
+      {
+        "floor": 51,
+        "ceiling": 52,
+        "result": "Sanctuary threshold erases tracks and scent"
+      },
+      {
+        "floor": 53,
+        "ceiling": 54,
+        "result": "Mosaicked floor shifts, hiding your trespass"
+      },
+      {
+        "floor": 55,
+        "ceiling": 56,
+        "result": "Choir stall carvings swallow spoken oaths"
+      },
+      {
+        "floor": 57,
+        "ceiling": 58,
+        "result": "Hollow column answers question with chill certainty"
+      },
+      {
+        "floor": 59,
+        "ceiling": 60,
+        "result": "Sacrificial pit exhales, reviving failing breath"
+      },
+      {
+        "floor": 61,
+        "ceiling": 62,
+        "result": "Veiled effigy twists, pointing safest heresy"
+      },
+      {
+        "floor": 63,
+        "ceiling": 64,
+        "result": "Pillar shadows lengthen, hiding your presence"
+      },
+      {
+        "floor": 65,
+        "ceiling": 66,
+        "result": "Alms box creaks, offering lucky trinket"
+      },
+      {
+        "floor": 67,
+        "ceiling": 68,
+        "result": "Glyph-etched step forgives one past betrayal"
+      },
+      {
+        "floor": 69,
+        "ceiling": 70,
+        "result": "Temple rats encircle, guiding like acolytes"
+      },
+      {
+        "floor": 71,
+        "ceiling": 72,
+        "result": "Warped organ keys play wordless protection"
+      },
+      {
+        "floor": 73,
+        "ceiling": 74,
+        "result": "Library niche births a useful rumor"
+      },
+      {
+        "floor": 75,
+        "ceiling": 76,
+        "result": "Candled skull grins, sharing stolen secret"
+      },
+      {
+        "floor": 77,
+        "ceiling": 78,
+        "result": "Weathered gargoyle winks, diverting predator’s gaze"
+      },
+      {
+        "floor": 79,
+        "ceiling": 80,
+        "result": "Chalice fills with night, numbing pain"
+      },
+      {
+        "floor": 81,
+        "ceiling": 82,
+        "result": "Sacristy door unlocks at your touch"
+      },
+      {
+        "floor": 83,
+        "ceiling": 84,
+        "result": "Fragrant myrrh cloud slows encroaching corruption"
+      },
+      {
+        "floor": 85,
+        "ceiling": 86,
+        "result": "Martyred bones rattle, frightening lurking spirits"
+      },
+      {
+        "floor": 87,
+        "ceiling": 88,
+        "result": "Offering of spit and dust accepted"
+      },
+      {
+        "floor": 89,
+        "ceiling": 90,
+        "result": "Hidden crypt ladder appears beneath kneeler"
+      },
+      {
+        "floor": 91,
+        "ceiling": 92,
+        "result": "Echoed chant returns with bolstered conviction"
+      },
+      {
+        "floor": 93,
+        "ceiling": 94,
+        "result": "Relic shard glows, repelling sanctified hunters"
+      },
+      {
+        "floor": 95,
+        "ceiling": 96,
+        "result": "Crumbling spire’s shadow shields forbidden meeting"
+      },
+      {
+        "floor": 97,
+        "ceiling": 98,
+        "result": "DESCRIPTOR + FOCUS"
+      },
+      {
+        "floor": 99,
+        "ceiling": 100,
+        "result": "ROLL TWICE"
+      }
+    ],
+    "maxRoll": 100,
+    "oracle_type": "Boons",
+    "summary": "Temple — Boons"
+  }
+]

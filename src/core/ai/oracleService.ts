@@ -9,6 +9,7 @@
 
 import { callModel } from './aiClient';
 import { buildOracleSystemPrompt, buildOracleUserPrompt } from './oraclePrompts';
+import { fetchAppSettings } from '../../lib/settingsStore';
 import type { AISettings } from './oraclePersonas';
 import type { EntryOracleSnapshot } from './oracleTypes';
 
@@ -54,12 +55,17 @@ export async function interpretEntryOracle(
   snapshot: EntryOracleSnapshot,
   settings: AISettings
 ): Promise<string> {
-  const systemPrompt = buildOracleSystemPrompt(settings);
+    const systemPrompt = buildOracleSystemPrompt(settings);
   const userPrompt = buildOracleUserPrompt(snapshot, settings.oracleName);
+
+  // Load stored app settings so we can use a user-provided OpenAI API key if present
+  const clientSettings = await fetchAppSettings();
+  const apiKey = clientSettings?.openaiApiKey?.trim() || undefined;
 
   return await callModel({
     system: systemPrompt,
     user: userPrompt,
     model: settings.model,
+    apiKey,
   });
 }

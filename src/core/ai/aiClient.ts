@@ -78,7 +78,7 @@ export async function callModel(options: AIInvokeOptions): Promise<string> {
 
   // Otherwise, use the /api/ai/chat endpoint (standard path for Oracle and other features)
   // This endpoint is configured in vite.config.ts and uses electron/openaiClient.cjs internally
-  const resp = await fetch('/api/ai/chat', {
+  const resp = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ model, messages }),
