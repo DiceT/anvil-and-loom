@@ -38,8 +38,8 @@ export function ResultsPane({ results, onClearResults, onCopyToEntry }: ResultsP
 
   return (
     <div className="pane">
-      <div className="pane-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <h2>RESULTS</h2>
+      <div className="oracles-title" style={{ marginBottom: '0.25rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span className="settings-section-subtitle">RESULTS</span>
         {results.length > 0 && onClearResults && (
           <button
             onClick={onClearResults}
