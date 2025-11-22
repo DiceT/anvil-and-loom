@@ -74,9 +74,11 @@ export function ResultsPane({ results, onClearResults, onCopyToEntry }: ResultsP
                     borderRadius: "2px",
                     width: "auto",
                     height: "auto",
+                    ["--icon-size" as string]: "12px",
+                    ["--icon-stroke" as string]: "1.5px",
                   }}
                 >
-                  <FileText size={10} />
+                  <FileText />
                 </button>
               </div>
             ))}
