@@ -1,0 +1,322 @@
+You’re absolutely right to lock this in now. Once cards are unified, everything will *feel* like one app instead of three systems duct-taped together.
+
+Here’s a focused spec you can hand straight to Replit for **Result Card unification**, using **CHALLENGE ROLL** as the canonical template.
+
+---
+
+````text
+You are refactoring the Anvil & Loom app to unify all "Result Cards" into a single, modular system.
+
+High-level intent
+-----------------
+- Make the existing CHALLENGE ROLL result card the **visual and structural template**.
+- Every result card (dice rolls, challenge rolls, table rolls, AI interpretations) should use the same internal model:
+  - HEADER
+  - CONTENT
+  - RESULT
+- Different card types may map their data differently into those three regions, but the layout and component structure are shared.
+- In the Entry, cards may render slightly differently than in the in-pane tray, but they should still be based on the same core card component.
+
+Do NOT change the core behavior of any mechanic (dice, tables, interpretations). Only unify how results are represented and rendered.
+
+
+1) Discover the current CHALLENGE ROLL card
+-------------------------------------------
+
+1. Find the existing implementation for the **CHALLENGE ROLL** result card:
+   - The component(s) responsible for:
+     - Header: shows "CHALLENGE ROLL", maybe icons, roll summary.
+     - Content/details: challenge dice, action score, etc.
+     - Result: final outcome (Strong/Weak/Fail or resolved text).
+
+2. Treat this as the "golden template" for:
+   - Layout: header strip, body/content area, result section.
+   - Card chrome: borders, padding, fonts, icon placement.
+
+3. Do *not* remove this card. Instead, **abstract its concept** into a reusable system.
+
+
+2) Define unified Result Card types
+-----------------------------------
+
+Create a new core type module (or extend an existing one), e.g.:
+
+- `src/core/results/resultTypes.ts`
+
+Define a unified set of card types:
+
+```ts
+export type ResultCardKind =
+  | "dice"          // generic dice roll
+  | "challenge"     // challenge roll
+  | "table"         // oracle table roll
+  | "interpretation"; // AI oracle interpretation
+
+export interface BaseResultCard {
+  id: string;
+  kind: ResultCardKind;
+  createdAt: number;
+}
+
+/**
+ * Generic dice / challenge roll cards
+ */
+export interface DiceResultCard extends BaseResultCard {
+  kind: "dice" | "challenge";
+  headerText: string;     // text shown in header (e.g. "CHALLENGE ROLL", "DICE ROLL")
+  headerIcon?: string;    // optional icon name if used
+  contentText: string;    // brief description / roll formula / metadata
+  resultText: string;     // main outcome (e.g. "Strong Hit", or total)
+  theme?: "default" | "challenge" | "dice"; // for header color/style
+}
+
+/**
+ * Table roll cards
+ */
+export interface TableResultCard extends BaseResultCard {
+  kind: "table";
+  tableId: string;
+  tableName: string;   // e.g. "Blighted: Objectives"
+  roll: number;
+  resultText: string;  // table result prompt
+  // Mapped into the three sections:
+  headerText: string;  // e.g. "TABLE: BLIGHTED, OBJECTIVES"
+  contentText: string; // e.g. "Roll 31 on Blighted: Objectives"
+  theme?: "table";
+}
+
+/**
+ * Oracle interpretation cards
+ *
+ * Snapshot = the main visible result.
+ * Interpretation = optional deeper bullets, shown when expanded.
+ */
+export interface InterpretationResultCard extends BaseResultCard {
+  kind: "interpretation";
+  oracleName: string;        // e.g. "The Loomwright"
+  personaId: OraclePersonaId;
+  headerText: string;        // e.g. "INTERPRETATION: THE LOOMWRIGHT"
+  snapshotText: string;      // one-line vivid snapshot (main "Result")
+  interpretationText: string; // bullets or short text shown when expanded
+  theme?: "interpretation" | "oracle";
+}
+
+/**
+ * Union type for all result cards
+ */
+export type ResultCardModel =
+  | DiceResultCard
+  | TableResultCard
+  | InterpretationResultCard;
+````
+
+Add JSDoc comments explaining which card kinds map to which mechanics.
+
+Note:
+
+* We are *logically* thinking in terms of HEADER / CONTENT / RESULT, but we encode that as `headerText`, `contentText`, `resultText`/`snapshotText` on each model, because different types name "result" differently.
+
+3. Implement a single ResultCard component
+
+---
+
+Create a central renderer, e.g.:
+
+* `src/core/results/ResultCard.tsx`
+
+This component:
+
+* Accepts:
+
+  ```ts
+  interface ResultCardProps {
+    card: ResultCardModel;
+    variant?: "inline" | "entry"; // "inline" for tray/panel, "entry" for main journal log
+    onExpandChange?: (expanded: boolean) => void;
+  }
+  ```
+* Renders consistent structure:
+
+  * **Header**: uses `card.headerText`, icon, and theme.
+  * **Content area**: uses `card.contentText` or type-specific details.
+  * **Result area**:
+
+    * For `dice`/`challenge`: `resultText` (e.g. "Strong Hit" or total).
+    * For `table`: `resultText` = the table prompt.
+    * For `interpretation`:
+
+      * Collapsed: **show `snapshotText` only** as the "Result".
+      * Expanded: show `interpretationText` (full reading) in Content, with `snapshotText` still visible in Result.
+
+Use the **current CHALLENGE ROLL card** as the reference for:
+
+* How the header strip looks.
+* How spacing and padding work.
+* How expand/collapse works in the Entry context (if applicable).
+
+Apply theming via CSS classes based on `card.kind` or `card.theme`:
+
+Examples:
+
+* `result-card--challenge` → header color A.
+* `result-card--dice` → header color B.
+* `result-card--table` → header color C.
+* `result-card--interpretation` → header color D.
+
+4. Refactor existing card producers to use ResultCardModel
+
+---
+
+Locate all the places where **result cards are created or rendered**, including:
+
+* Dice Tool / Dice Tray (dice results, challenge rolls)
+* Tables Pane (table rolls, table log entries)
+* Oracle Interpret button (interpretation cards)
+
+For each:
+
+1. Replace ad-hoc HTML or loose payloads with `ResultCardModel` instances.
+
+   * Example for a table roll:
+
+   ```ts
+   const card: TableResultCard = {
+     id: generateId(),
+     kind: "table",
+     createdAt: Date.now(),
+     tableId,
+     tableName,
+     roll,
+     resultText, // from table row
+     headerText: `TABLE: ${aspectOrDomainName.toUpperCase()}, ${subtableName.toUpperCase()}`,
+     contentText: `Roll ${roll} on ${tableName}`,
+     theme: "table",
+   };
+   ```
+
+2. For oracle interpretations:
+
+   * After we get the raw text from `interpretEntryOracle`, use the existing splitter to derive:
+
+     * `interpretationText` (bullet section)
+     * `snapshotText` (one-line result)
+   * Create:
+
+   ```ts
+   const card: InterpretationResultCard = {
+     id: generateId(),
+     kind: "interpretation",
+     createdAt: Date.now(),
+     oracleName: settings.oracleName,
+     personaId: settings.oraclePersonaId,
+     headerText: `INTERPRETATION: ${settings.oracleName.toUpperCase()}`,
+     snapshotText,
+     interpretationText,
+     theme: "interpretation",
+   };
+   ```
+
+3. For dice & challenge results:
+
+   * Use the CHALLENGE ROLL card's existing logic to map data into:
+
+     * `headerText`: "CHALLENGE ROLL" or "DICE ROLL"
+     * `contentText`: e.g. "Action: X + Stat: Y vs [d10, d10]"
+     * `resultText`: "Strong Hit", "Weak Hit", or final total
+
+5) Use ResultCard component everywhere cards are rendered
+
+---
+
+Anywhere the app currently renders a result card (HTML template, JSX snippet), refactor to:
+
+```tsx
+<ResultCard
+  card={cardModel}
+  variant={location === "entry" ? "entry" : "inline"}
+/>
+```
+
+Examples:
+
+* In the **Dice Tray / dev panel**:
+
+  * Use `variant="inline"` for quick readouts.
+* In the **Entry log**:
+
+  * Use `variant="entry"` for the full card with expand/collapse support.
+
+For interpretation cards in the Entry:
+
+* In collapsed view:
+
+  * Show header + snapshot only.
+* In expanded view:
+
+  * Within the Content area, show:
+
+    * "Interpretation:" label and `interpretationText`.
+  * Result area can continue to show `snapshotText` as the key line.
+
+6. Comments and documentation
+
+---
+
+Add concise comments/JSDoc in:
+
+* `resultTypes.ts`:
+
+  * Explain each card kind and how it maps to game concepts (dice, challenge, table, oracle).
+
+* `ResultCard.tsx`:
+
+  * Describe:
+
+    * The three conceptual sections (Header, Content, Result).
+    * How each `ResultCardKind` uses those sections.
+    * How `variant` affects rendering (inline vs entry).
+
+Example JSDoc:
+
+```ts
+/**
+ * Unified renderer for all result cards in Anvil & Loom.
+ *
+ * Conceptually splits each card into three regions:
+ * - Header: label, icon, and high-level context.
+ * - Content: supporting details (roll breakdown, interpretation bullets, etc.).
+ * - Result: the main outcome or line that matters most at a glance.
+ *
+ * Different card kinds (dice, challenge, table, interpretation) map their data into
+ * these three regions, but share the same card chrome and behavior.
+ */
+```
+
+7. Clean up redundancy and report
+
+---
+
+After the refactor:
+
+1. Remove any old, now-unused card components or ad-hoc HTML renderers.
+2. Search for duplicated rendering logic for result cards; consolidate into `ResultCard`.
+3. At the end of your response, briefly report:
+
+   * Which files were updated to use `ResultCard`.
+   * Which old card renderers or types were removed.
+   * Any TODOs or edge cases (e.g., if some legacy card type is still pending migration).
+
+The core acceptance criteria:
+
+* The CHALLENGE ROLL card still looks and behaves exactly as before.
+* Dice, table, and interpretation results now follow the same HEADER / CONTENT / RESULT structure.
+* The Entry shows interpretation **Snapshot** as the main visible result, with deeper Interpretation available on expand.
+* No behavior regression in existing logging or roll flows.
+
+```
+
+---
+
+That should give Replit a *tight* mission: “turn Challenge Roll into the template, and make everything else use it.” Once it’s done, we can tweak header colors and persona flair on top of a clean, unified card system.
+::contentReference[oaicite:0]{index=0}
+```

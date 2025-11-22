@@ -1,0 +1,105 @@
+Good catch, and yeah, we need to spell that out for Loomwright/Replit so they don’t “standardize” away the expand/collapse behavior.
+
+Short answer:
+I implied it with `variant="inline" | "entry"`, but let’s make it **explicit**: same data model, two **rendering modes**:
+
+1. **Standard Result Card** (everywhere except Entry)
+2. **Entry Result Card** (Entry log, collapsible CONTENT)
+
+Here’s an updated snippet you can hand to Replit that clarifies this without rewriting the whole spec:
+
+````text
+IMPORTANT RESULT CARD DETAIL
+
+There are TWO visual/result-card variants that share the same underlying model:
+
+1) Standard Result Card (non-entry use)
+   - Used in: Dice Tray / Dev panels / side panes / previews.
+   - Always shows all three conceptual regions:
+     - HEADER
+     - CONTENT
+     - RESULT
+   - CONTENT is always visible in this mode.
+
+2) Entry Result Card (inside a Journal Entry)
+   - Used ONLY in the Entry log.
+   - Shows HEADER and RESULT by default.
+   - CONTENT is HIDDEN by default.
+   - When the HEADER is clicked, the CONTENT toggles between HIDDEN and VISIBLE
+     (expand/collapse behavior).
+   - RESULT stays visible in both states.
+
+Implementation guidance
+
+- Keep a single unified data model (`ResultCardModel`) as previously described
+  (DiceResultCard, TableResultCard, InterpretationResultCard).
+- Implement a single renderer component, e.g. `ResultCard`, that accepts a prop:
+
+  ```ts
+  type ResultCardVariant = "standard" | "entry";
+
+  interface ResultCardProps {
+    card: ResultCardModel;
+    variant: ResultCardVariant;
+  }
+````
+
+* Behavior:
+
+  * `variant: "standard"`
+
+    * Render HEADER, CONTENT, and RESULT all visible.
+    * HEADER is NOT a toggle in this mode.
+
+  * `variant: "entry"`
+
+    * Render HEADER and RESULT visible at all times.
+    * CONTENT is inside a collapsible container.
+    * Clicking the HEADER toggles the CONTENT container open/closed.
+    * Keep this consistent across all card kinds (dice, challenge, table, interpretation).
+
+Mapping for specific card kinds:
+
+* Dice / Challenge cards:
+
+  * HEADER: e.g. "CHALLENGE ROLL" (this card is the template for layout/chrome).
+  * CONTENT: breakdown (dice rolled, stats, etc.).
+  * RESULT: outcome (e.g. "Strong Hit", total, etc.).
+
+* Table cards:
+
+  * HEADER: e.g. "TABLE: BLIGHTED, OBJECTIVES".
+  * CONTENT: context (table name, roll number, maybe source info).
+  * RESULT: table row `resultText` (the prompt).
+
+* Interpretation cards:
+
+  * HEADER: e.g. "INTERPRETATION: THE LOOMWRIGHT".
+  * CONTENT: the "Interpretation:" bullets (deeper oracle reading).
+  * RESULT: the "Snapshot:" one-line vivid summary.
+
+    * In Entry variant, show only the Snapshot by default; Interpretation bullets appear when expanded.
+
+Usage:
+
+* In all non-entry contexts (side panes, dev tools, quick views), call:
+
+  ```tsx
+  <ResultCard card={card} variant="standard" />
+  ```
+
+* When rendering cards in the Entry log, call:
+
+  ```tsx
+  <ResultCard card={card} variant="entry" />
+  ```
+
+Please preserve the existing CHALLENGE ROLL card appearance and behavior as the visual reference,
+but refactor it to go through this unified `ResultCard` component with the correct variant.
+
+```
+
+If you paste that onto the end of the result-card refactor instructions I gave earlier, Replit will know:  
+same card model, two display modes, with Entry mode doing the click-to-expand CONTENT while HEADER + RESULT stay present.
+::contentReference[oaicite:0]{index=0}
+```
