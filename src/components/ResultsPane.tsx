@@ -66,15 +66,17 @@ export function ResultsPane({ results, onClearResults, onCopyToEntry }: ResultsP
                   title="Copy to Entry"
                   style={{
                     position: "absolute",
-                    top: "0.5rem",
-                    right: "0.5rem",
+                    top: "0.35rem",
+                    right: "0.35rem",
                     backgroundColor: "var(--bg-elevated)",
                     border: "1px solid var(--border)",
-                    padding: "0.2rem",
-                    borderRadius: "3px",
+                    padding: "0.15rem",
+                    borderRadius: "2px",
+                    width: "auto",
+                    height: "auto",
                   }}
                 >
-                  <FileText size={12} />
+                  <FileText size={10} />
                 </button>
               </div>
             ))}
