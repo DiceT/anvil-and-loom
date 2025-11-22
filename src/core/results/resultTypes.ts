@@ -150,12 +150,12 @@ export const RESULT_CARD_THEMES: Record<string, ResultCardTheme> = {
     headerFontColor: "#ffffff",
   },
   oracle: {
-    headerBgColor: "#8b5cf6", // Purple
+    headerBgColor: "#255f1e", // Orange
     headerFontColor: "#ffffff",
   },
   interpretation: {
-    headerBgColor: "#3b82f6", // Bright blue
-    headerFontColor: "#1e293b", // Dark font for contrast
+    headerBgColor: "#255f1e", // Orange
+    headerFontColor: "#ffffff",
   },
 };
 
