@@ -104,6 +104,11 @@ npm run electron
 - This is a fresh import - no user preferences yet defined
 
 ## Recent Changes
+- **November 22, 2025**: Results Pane enhancements
+  - **Auto-scroll to bottom**: New entries automatically scroll into view
+  - **Copy to Entry button**: Each result card has a copy button (desktop-ready)
+  - **History management**: Results tab maintains complete history when "Log to Entry" is disabled
+
 - **November 22, 2025**: Unified Result Card system implementation
   - **Created Unified Result Card Architecture**: All dice rolls, table rolls, and AI interpretations now use a consistent card structure
     - `src/core/results/resultTypes.ts` - Type definitions for all result card variants (DiceResultCard, TableResultCard, InterpretationResultCard)
