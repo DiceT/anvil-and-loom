@@ -28,9 +28,12 @@
 
 ```
 /src/
-  /components/     - React components (DiceTray, TablesPane, etc.)
+  /core/          - Centralized core modules (refactored Nov 22, 2025)
+    /ai/          - AI client, oracle service, personas, prompts, types
+    /dice/        - Dice engine, appearance settings
+  /components/    - React components (DiceTray, TablesPane, etc.)
   /lib/
-    /dice/        - Dice engine, expression parser, roller
+    /dice/        - DiceBox manager, expression parser, roller
     /tables/      - Table registry and AI table filler
   App.tsx         - Main application component
   
@@ -101,6 +104,19 @@ npm run electron
 - This is a fresh import - no user preferences yet defined
 
 ## Recent Changes
+- **November 22, 2025**: Major refactoring for modularity and code clarity
+  - **AI Module Consolidation**: Created `src/core/ai/` with centralized AI client and oracle service
+    - `aiClient.ts` - Single wrapper for all OpenAI API calls via `/api/ai/chat` endpoint
+    - `oracleService.ts` - Centralized oracle interpretation logic
+    - `oraclePersonas.ts`, `oraclePrompts.ts`, `oracleTypes.ts` - Modular oracle system
+    - Removed duplicates: `src/lib/oraclePersonas.ts`, `src/lib/oraclePrompts.ts`, `src/lib/openaiClient.ts`
+  - **Dice Engine Consolidation**: Created `src/core/dice/` with centralized dice logic
+    - `diceEngine.ts` - Single API for all dice rolls, delegates to 3D DiceBox manager
+    - `diceAppearance.ts` - Shared appearance state (prevents circular dependencies)
+    - Removed duplicate: `src/lib/diceEngine.ts`
+  - **Component Updates**: All components now use centralized modules from `src/core/`
+  - **Architect Review**: Passed - preserves 3D DiceBox behavior, eliminates circular dependencies
+  
 - **November 22, 2025**: Initial Replit setup
   - Configured Vite to run on 0.0.0.0:5000
   - Set up workflow for dev server
