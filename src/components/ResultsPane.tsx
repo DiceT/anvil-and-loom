@@ -66,7 +66,7 @@ export function ResultsPane({ results, onClearResults, onCopyToEntry }: ResultsP
                   title="Copy to Entry"
                   style={{
                     position: "absolute",
-                    top: "0.7rem",
+                    top: "0.85rem",
                     right: "0.5rem",
                     backgroundColor: "var(--bg-elevated)",
                     border: "1px solid var(--border)",
