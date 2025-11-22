@@ -1129,7 +1129,7 @@ function renderLastRollCard(lastRoll: RollResult) {
     return (
       <>
         <div className="dice-card">
-          <div className="dice-card-title">{headerText}</div>
+          <div className="dice-card-title" style={{ backgroundColor: "#1e3a5f", color: "#ffffff" }}>{headerText}</div>
           <div className="dice-card-body">
             <div className="dice-card-detail">Roll: {rollsDisplay}</div>
             <div className="dice-card-detail">Threshold: {threshold}</div>
@@ -1159,7 +1159,7 @@ function renderLastRollCard(lastRoll: RollResult) {
     return (
       <>
         <div className="dice-card">
-          <div className="dice-card-title">{headerText}</div>
+          <div className="dice-card-title" style={{ backgroundColor: "#1e3a5f", color: "#ffffff" }}>{headerText}</div>
           <div className="dice-card-body">{explosionLines}</div>
           <div className="dice-card-highlight">
             Result:{" "}
@@ -1193,7 +1193,7 @@ function renderLastRollCard(lastRoll: RollResult) {
     return (
       <>
         <div className="dice-card">
-          <div className="dice-card-title">{poolHeader}</div>
+          <div className="dice-card-title" style={{ backgroundColor: "#1e3a5f", color: "#ffffff" }}>{poolHeader}</div>
           <div className="dice-card-body">
             <div className="dice-card-detail">Rolls: {rollsDisplay}</div>
             <div className="dice-card-detail">Target: {threshold}</div>
@@ -1227,7 +1227,7 @@ function renderLastRollCard(lastRoll: RollResult) {
     return (
       <>
         <div className="dice-card">
-          <div className="dice-card-title">{headerText}</div>
+          <div className="dice-card-title" style={{ backgroundColor: "#1e3a5f", color: "#ffffff" }}>{headerText}</div>
           <div className="dice-card-body">
             <div className="dice-card-detail">Rolls: {rollsDisplay || "-"}</div>
             {constantTotal !== 0 && (

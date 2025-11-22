@@ -324,7 +324,7 @@ Source: ${sourcePath}` : ""}`,
       {/* BOTTOM: result card pinned to bottom */}
       <div className="oracles-footer">
         <div className="oracles-footer-card">
-          <div className="oracles-footer-header">TABLE: {latest ? latest.tableName.toUpperCase() : '—'}</div>
+          <div className="oracles-footer-header" style={{ backgroundColor: "#255f1e", color: "#ffffff" }}>TABLE: {latest ? latest.tableName.toUpperCase() : '—'}</div>
           <div className="oracles-footer-body">{latest ? latest.resultText : 'No rolls yet.'}</div>
         </div>
       </div>
