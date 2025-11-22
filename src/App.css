@@ -850,7 +850,7 @@ body {
 /* Dice tray */
 
 .dice-tray {
-  padding: 14px;
+  padding: 0 14px 14px 14px;
   display: flex;
   flex-direction: column;
   gap: 10px;
