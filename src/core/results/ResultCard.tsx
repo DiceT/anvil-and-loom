@@ -92,7 +92,7 @@ export function ResultCard({ card, variant }: ResultCardProps) {
           className="dice-card-inline-result"
           style={resultColor ? { color: resultColor } : undefined}
         >
-          <strong>{resultText}</strong>
+          {card.kind === "table" || card.kind === "interpretation" ? resultText : <strong>{resultText}</strong>}
         </span>
       </div>
     </div>
