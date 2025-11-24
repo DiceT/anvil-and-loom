@@ -1,4 +1,4 @@
-import {
+﻿import {
   useCallback,
   useEffect,
   useMemo,
@@ -37,7 +37,6 @@ import DevTableForgePane from "./components/DevTableForgePane";
 
 marked.setOptions({
   breaks: true,
-  gfm: true, // GitHub Flavored Markdown - allows HTML
 });
 import { DiceTray } from "./components/DiceTray";
 import { ResultsPane } from "./components/ResultsPane";
@@ -64,7 +63,6 @@ import {
   setDiceTensThemeColor,
   setDiceTexture,
   rollDiceBoxValues,
-  subscribeToResultCards,
 } from "./core/dice/diceEngine";
 import TablesPane from "./components/TablesPane";
 import InterpretButton from "./components/InterpretButton";
@@ -295,36 +293,6 @@ function App() {
       unsubscribe?.();
     };
   }, []);
-
-  // Subscribe to dice engine result cards
-  useEffect(() => {
-    const unsubscribe = subscribeToResultCards((card) => {
-      setResultCards((prev) => [card, ...prev]);
-
-      // If logging to entry is enabled, add the card to the active entry
-      if (uiSettings.logToEntry && activeEntryId) {
-        const html = renderResultCardHtml(card);
-
-        // Update draft content
-        setActiveEntryDraftContent((prevDraft) => {
-          const separator = prevDraft.trim().length ? "\n\n" : "";
-          return `${prevDraft}${separator}${html}`;
-        });
-
-        // Update entries
-        setEntries((prev) => prev.map((entry) => {
-          if (entry.id === activeEntryId) {
-            const separator = entry.content.trim().length ? "\n\n" : "";
-            const newContent = `${entry.content}${separator}${html}`;
-            return { ...entry, content: newContent, updatedAt: Date.now() };
-          }
-          return entry;
-        }));
-      }
-    });
-
-    return unsubscribe;
-  }, [uiSettings.logToEntry, activeEntryId]);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", settings.theme);
@@ -874,8 +842,8 @@ function App() {
   }, [searchQuery, tapestryTree]);
 
   const handleCheckForUpdates = useCallback(() => {
-    console.info("Checking for updates…");
-    window.alert("Checking for updates… (coming soon)");
+    console.info("Checking for updatesΓÇª");
+    window.alert("Checking for updatesΓÇª (coming soon)");
   }, []);
 
   const handleOpenSettings = () => {
@@ -916,9 +884,9 @@ function App() {
       setActiveEntryDraftContent("");
     }
   }, [activeEntry]);
-
+  
   const renderMainContent = () => {
-    if (!activeEntry) {
+  if (!activeEntry) {
       return (
         <div className="app-main-empty">
           <h2>No entry selected</h2>
@@ -964,8 +932,8 @@ function App() {
               {saveError
                 ? saveError
                 : isSavingEntry
-                  ? "Saving..."
-                  : "Saved"}
+                ? "Saving..."
+                : "Saved"}
             </span>
           </div>
           <div className="app-editor-mode-toggle">
@@ -1301,7 +1269,7 @@ function App() {
                 </p>
               </div>
               {tapestriesLoading ? (
-                <p className="settings-hint">Scanning Tapestries…</p>
+                <p className="settings-hint">Scanning TapestriesΓÇª</p>
               ) : tapestryList.length ? (
                 <select
                   className="settings-select"
@@ -1867,7 +1835,7 @@ function App() {
                 <p className="settings-option-label">Oracle Persona</p>
                 <p className="settings-option-description">Choose how the oracle will interpret results.</p>
               </div>
-              <select
+                                                                                    <select
                 className="settings-select"
                 value={(settings.ai?.oracle?.oraclePersonaId) ?? 'loomwright'}
                 onChange={(e) => {
@@ -2011,15 +1979,15 @@ function App() {
       return api
         .deleteTapestryPath({ path: node.path })
         .then(() => {
-          if (node.type === "file") {
-            setEntries((prev) => prev.filter((entry) => entry.id !== node.path));
-            setActiveEntryId((prev) => (prev === node.path ? null : prev));
-          }
-          const parent = getParentFolderPath(node.path);
-          setSelectedFolderPath(parent);
-          setSelectedNode(null);
-          fetchTapestryTree();
-        });
+        if (node.type === "file") {
+          setEntries((prev) => prev.filter((entry) => entry.id !== node.path));
+          setActiveEntryId((prev) => (prev === node.path ? null : prev));
+        }
+        const parent = getParentFolderPath(node.path);
+        setSelectedFolderPath(parent);
+        setSelectedNode(null);
+        fetchTapestryTree();
+      });
     },
     [fetchTapestryTree]
   );
@@ -2205,15 +2173,15 @@ function App() {
     return diceDevAudioPromise.current;
   }, []);
 
-  const maybePlayDiceDevAudio = useCallback(async () => {
-    try {
-      await loadDiceDevAudio();
-      const { surfaces, dice } = diceDevAudioPool.current;
-      if (!surfaces.length && !dice.length) return;
+const maybePlayDiceDevAudio = useCallback(async () => {
+  try {
+    await loadDiceDevAudio();
+    const { surfaces, dice } = diceDevAudioPool.current;
+    if (!surfaces.length && !dice.length) return;
       const playClip = (clip?: HTMLAudioElement) => {
         if (!clip) return;
         clip.currentTime = 0;
-        clip.play().catch(() => { });
+        clip.play().catch(() => {});
       };
       const hits = Math.max(1, Math.floor(Math.random() * 2) + 2); // 2-3 hits
       for (let i = 0; i < hits; i++) {
@@ -2222,11 +2190,11 @@ function App() {
           playClip(surfaces[Math.floor(Math.random() * surfaces.length)]);
           playClip(dice[Math.floor(Math.random() * dice.length)]);
         }, delay);
-      }
-    } catch {
-      // ignore audio failures so rolls don't break
     }
-  }, [loadDiceDevAudio]);
+  } catch {
+    // ignore audio failures so rolls don't break
+  }
+}, [loadDiceDevAudio]);
 
   const handleDiceDevBoxRoll = useCallback(async () => {
     try {
@@ -2270,7 +2238,7 @@ function App() {
       {activeTool === "tables" && (
         <TablesPane
           activeEntryId={activeEntryId}
-          onOracleResult={(payload) => {
+                      onOracleResult={(payload) => {
             // Append an Oracle-style Result Card to the active entry (tables only) using canonical renderer
             if (!activeEntryId) return;
             const baseContent =
@@ -2279,7 +2247,7 @@ function App() {
                 : activeEntry?.content ?? "";
             const separator = baseContent.trim().length ? "\n\n" : "";
             const card = {
-              id: `card-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`,
+              id: `card-${Date.now()}-${Math.random().toString(36).slice(2,11)}`,
               kind: "table",
               createdAt: Date.now(),
               tableId: payload.tableId,
@@ -2291,9 +2259,9 @@ function App() {
               theme: "table",
               sourcePath: payload.sourcePath,
             } as any;
-            // Use renderer to produce HTML identical to Results Pane
+                        // Use renderer to produce HTML identical to Results Pane
             const html = renderResultCardHtml(card);
-            const meta = `<!-- forge:oracle tableId="${payload.tableId}" sourcePath="${payload.sourcePath}" roll=${payload.roll} result="${payload.resultText?.replace(/"/g, '\"')}" tags='${JSON.stringify(payload.tags || [])}' category="${payload.category || ""}" -->`;
+            const meta = `<!-- forge:oracle tableId="${payload.tableId}" sourcePath="${payload.sourcePath}" roll=${payload.roll} result="${payload.resultText?.replace(/"/g,'\"')}" tags='${JSON.stringify(payload.tags || [])}' category="${payload.category || ""}" -->`;
             const newContent = `${baseContent}${separator}${html}${meta}`;
             setActiveEntryDraftContent(newContent);
             setEntries((prev) =>
@@ -2322,15 +2290,15 @@ function App() {
       )}
 
       {/* DiceTray stays mounted, just hidden when not active */}
-      <div style={{ display: activeTool === "dice" ? "block" : "none" }}>
-        <DiceTray
-          onRollResult={handleDiceRollLog}
-          onResultCard={handleAddResultCard}
-          fadeDurationMs={settings.diceFadeDurationMs}
-        />
+        <div style={{ display: activeTool === "dice" ? "block" : "none" }}>
+          <DiceTray
+            onRollResult={handleDiceRollLog}
+            onResultCard={handleAddResultCard}
+            fadeDurationMs={settings.diceFadeDurationMs}
+          />
+        </div>
       </div>
-    </div>
-  );
+    );
 
   const statusText = "Connected to local workspace";
 
@@ -2345,281 +2313,287 @@ function App() {
   return (
     <div className="app-root">
       <div className="app-shell" style={{ gridTemplateColumns }}>
-        {/* LEFT: Tome / library pane */}
-        <aside className="app-sidebar" style={{ width: leftPane.visible ? leftPane.width : 0, display: leftPane.visible ? "flex" : "none" }}>
-          <div className="app-sidebar-header">
-            <div className="app-logo-mark" />
-            <div className="app-logo-text">
-              <div className="app-logo-title">Anvil &amp; Loom</div>
-              <div className="app-logo-subtitle">TOME</div>
-            </div>
-            <button
-              className="pane-collapse-button"
-              onClick={toggleLeftPane}
-              aria-label="Collapse sidebar"
-              title="Collapse sidebar"
-            >
-              <PanelLeftClose size={18} strokeWidth={2} />
-            </button>
+      {/* LEFT: Tome / library pane */}
+      <aside className="app-sidebar" style={{ width: leftPane.visible ? leftPane.width : 0, display: leftPane.visible ? "flex" : "none" }}>
+        <div className="app-sidebar-header">
+          <div className="app-logo-mark" />
+          <div className="app-logo-text">
+            <div className="app-logo-title">Anvil &amp; Loom</div>
+            <div className="app-logo-subtitle">TOME</div>
           </div>
+          <button
+            className="pane-collapse-button"
+            onClick={toggleLeftPane}
+            aria-label="Collapse sidebar"
+            title="Collapse sidebar"
+          >
+            <PanelLeftClose size={18} strokeWidth={2} />
+          </button>
+        </div>
 
-          <div className="app-sidebar-toolbar">
-            <button
-              className="sidebar-toolbar-button icon-button"
-              aria-label="New entry"
-              data-tooltip="New entry"
-              onClick={() => openCreateModal("entry")}
-            >
-              <FilePlus2 size={20} strokeWidth={2} />
-            </button>
-            <button
-              className="sidebar-toolbar-button icon-button"
-              aria-label="New folder"
-              data-tooltip="New folder"
-              onClick={() => openCreateModal("folder")}
-            >
-              <FolderPlus size={20} strokeWidth={2} />
-            </button>
-            <button
-              className="sidebar-toolbar-button icon-button"
-              aria-label="Rename"
-              data-tooltip="Rename"
-              onClick={handleRenameSelected}
-              disabled={
-                !selectedNode ||
-                (selectedNode.type === "folder" && selectedNode.path === "")
-              }
-            >
-              <Pencil size={20} strokeWidth={2} />
-            </button>
-            <button
-              className="sidebar-toolbar-button icon-button"
-              aria-label="Delete entry"
-              data-tooltip="Delete entry"
-              onClick={handleDeleteSelected}
-              disabled={
-                !selectedNode ||
-                (selectedNode.type === "folder" && selectedNode.path === "")
-              }
-            >
-              <Trash2 size={20} strokeWidth={2} />
-            </button>
-            <button
-              className={`sidebar-toolbar-button icon-button${searchOpen ? " sidebar-toolbar-button-active" : ""
-                }`}
-              aria-label="Search entries"
-              data-tooltip="Search entries"
-              onClick={() => setSearchOpen((prev) => !prev)}
-            >
-              <Search size={20} strokeWidth={2} />
-            </button>
+        <div className="app-sidebar-toolbar">
+          <button
+            className="sidebar-toolbar-button icon-button"
+            aria-label="New entry"
+            data-tooltip="New entry"
+            onClick={() => openCreateModal("entry")}
+          >
+            <FilePlus2 size={20} strokeWidth={2} />
+          </button>
+          <button
+            className="sidebar-toolbar-button icon-button"
+            aria-label="New folder"
+            data-tooltip="New folder"
+            onClick={() => openCreateModal("folder")}
+          >
+            <FolderPlus size={20} strokeWidth={2} />
+          </button>
+          <button
+            className="sidebar-toolbar-button icon-button"
+            aria-label="Rename"
+            data-tooltip="Rename"
+            onClick={handleRenameSelected}
+            disabled={
+              !selectedNode ||
+              (selectedNode.type === "folder" && selectedNode.path === "")
+            }
+          >
+            <Pencil size={20} strokeWidth={2} />
+          </button>
+          <button
+            className="sidebar-toolbar-button icon-button"
+            aria-label="Delete entry"
+            data-tooltip="Delete entry"
+            onClick={handleDeleteSelected}
+            disabled={
+              !selectedNode ||
+              (selectedNode.type === "folder" && selectedNode.path === "")
+            }
+          >
+            <Trash2 size={20} strokeWidth={2} />
+          </button>
+          <button
+            className={`sidebar-toolbar-button icon-button${
+              searchOpen ? " sidebar-toolbar-button-active" : ""
+            }`}
+            aria-label="Search entries"
+            data-tooltip="Search entries"
+            onClick={() => setSearchOpen((prev) => !prev)}
+          >
+            <Search size={20} strokeWidth={2} />
+          </button>
+        </div>
+
+        {searchOpen && (
+          <div className="app-sidebar-search">
+            <input
+              type="text"
+              placeholder="Search entries..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
           </div>
-
-          {searchOpen && (
-            <div className="app-sidebar-search">
-              <input
-                type="text"
-                placeholder="Search entries..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-          )}
-
-          <div className="app-directory-tree">
-            {treeLoading ? (
-              <div className="app-entry-empty">
-                <p>Loading Tapestry…</p>
-              </div>
-            ) : treeError ? (
-              <div className="app-entry-empty">
-                <p>{treeError}</p>
-              </div>
-            ) : visibleTree.length === 0 ? (
-              <div className="app-entry-empty">
-                <p>No files found in this Tapestry.</p>
-              </div>
-            ) : (
-              renderTapestryNodes(visibleTree)
-            )}
-          </div>
-        </aside>
-
-        {leftPane.visible && (
-          <div
-            className="app-resize-handle app-resize-handle-left"
-            onMouseDown={() => setIsResizingLeft(true)}
-            style={{ gridColumn: 2 }}
-          />
         )}
 
-        {/* CENTER: main content pane */}
-        <main className="app-main">
-          {/* Tools launcher - top right */}
-          {!isToolPaneOpen && (
-            <div className="app-tools-launcher">
+        <div className="app-directory-tree">
+          {treeLoading ? (
+            <div className="app-entry-empty">
+              <p>Loading TapestryΓÇª</p>
+            </div>
+          ) : treeError ? (
+            <div className="app-entry-empty">
+              <p>{treeError}</p>
+            </div>
+          ) : visibleTree.length === 0 ? (
+            <div className="app-entry-empty">
+              <p>No files found in this Tapestry.</p>
+            </div>
+          ) : (
+            renderTapestryNodes(visibleTree)
+          )}
+        </div>
+      </aside>
+
+      {leftPane.visible && (
+        <div
+          className="app-resize-handle app-resize-handle-left"
+          onMouseDown={() => setIsResizingLeft(true)}
+          style={{ gridColumn: 2 }}
+        />
+      )}
+
+      {/* CENTER: main content pane */}
+      <main className="app-main">
+        {/* Tools launcher - top right */}
+        {!isToolPaneOpen && (
+          <div className="app-tools-launcher">
+            <button
+              className="tool-icon-button icon-button"
+              onClick={() => openTool("results")}
+              aria-label="Results"
+              data-tooltip="Results"
+            >
+              <ScrollText size={32} strokeWidth={2.5} />
+            </button>
+            <button
+              className="tool-icon-button icon-button"
+              onClick={() => openTool("dice")}
+              aria-label="Dice"
+              data-tooltip="Dice"
+            >
+              <Dices size={32} strokeWidth={2.5} />
+            </button>
+            <button
+              className="tool-icon-button icon-button"
+              onClick={() => openTool("tables")}
+              aria-label="Tables"
+              data-tooltip="Tables"
+            >
+              <LayoutPanelTop size={32} strokeWidth={2.5} />
+            </button>
+            <button
+              className="tool-icon-button icon-button"
+              onClick={() => openTool("diceDev")}
+              aria-label="Dice dev"
+              data-tooltip="Dice Dev"
+            >
+              <FlaskConical size={32} strokeWidth={2.5} />
+            </button>
+            {settings.developerMode && (
               <button
                 className="tool-icon-button icon-button"
-                onClick={() => openTool("results")}
-                aria-label="Results"
-                data-tooltip="Results"
-              >
-                <ScrollText size={32} strokeWidth={2.5} />
-              </button>
-              <button
-                className="tool-icon-button icon-button"
-                onClick={() => openTool("dice")}
-                aria-label="Dice"
-                data-tooltip="Dice"
-              >
-                <Dices size={32} strokeWidth={2.5} />
-              </button>
-              <button
-                className="tool-icon-button icon-button"
-                onClick={() => openTool("tables")}
-                aria-label="Tables"
-                data-tooltip="Tables"
-              >
-                <LayoutPanelTop size={32} strokeWidth={2.5} />
-              </button>
-              <button
-                className="tool-icon-button icon-button"
-                onClick={() => openTool("diceDev")}
-                aria-label="Dice dev"
-                data-tooltip="Dice Dev"
+                onClick={() => openTool("devTools")}
+                aria-label="Dev Tools"
+                data-tooltip="Dev Tools"
               >
                 <FlaskConical size={32} strokeWidth={2.5} />
               </button>
+            )}
+          </div>
+        )}
+        <div className="app-main-tabbar">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              className={
+                "app-main-tab" + (tab.id === activeTabId ? " app-main-tab--active" : "")
+              }
+              onClick={() => {
+                setActiveTabId(tab.id);
+                if (tab.kind === "tome") setActiveEntryId(tab.id);
+              }}
+              title={tab.title}
+            >
+              <span className="app-main-tab-title">{tab.title}</span>
+              {tab.kind !== "home" && (
+                <span
+                  className="app-main-tab-close"
+                  role="button"
+                  aria-label={`Close ${tab.title}`}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    closeTab(tab.id);
+                  }}
+                >
+                  ├ù
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
+        <div className="app-main-body">
+          <div className="app-main-inner">
+            {renderTabContent(tabs.find((t) => t.id === activeTabId))}
+          </div>
+        </div>
+      </main>
+
+      {/* RIGHT: tools pane */}
+      {isToolPaneOpen && (
+        <>
+        <div
+          className="app-resize-handle app-resize-handle-right"
+          onMouseDown={() => setIsResizingRight(true)}
+          style={{ gridColumn: 4 }}
+        />
+        <div className="app-tools-expanded">
+          <div className="app-tools-header">
+            <div className="app-tools-tabs">
+              <button
+                className={`tool-tab icon-button${
+                  activeTool === "results" ? " tool-tab-active" : ""
+                }`}
+                onClick={() => setActiveTool("results")}
+                aria-label="Results"
+                data-tooltip="Results"
+              >
+                <ScrollText size={24} strokeWidth={2.5} />
+              </button>
+              <button
+                className={`tool-tab icon-button${
+                  activeTool === "dice" ? " tool-tab-active" : ""
+                }`}
+                onClick={() => setActiveTool("dice")}
+                aria-label="Dice"
+                data-tooltip="Dice"
+              >
+                <Dices size={24} strokeWidth={2.5} />
+              </button>
+              <button
+                className={`tool-tab icon-button${
+                  activeTool === "tables" ? " tool-tab-active" : ""
+                }`}
+                onClick={() => setActiveTool("tables")}
+                aria-label="Tables"
+                data-tooltip="Tables"
+              >
+                <LayoutPanelTop size={24} strokeWidth={2.5} />
+              </button>
+              <button
+                className={`tool-tab icon-button${
+                  activeTool === "diceDev" ? " tool-tab-active" : ""
+                }`}
+                onClick={() => setActiveTool("diceDev")}
+                aria-label="Dice Dev"
+                data-tooltip="Dice Dev"
+              >
+                <FlaskConical size={24} strokeWidth={2.5} />
+              </button>
               {settings.developerMode && (
                 <button
-                  className="tool-icon-button icon-button"
-                  onClick={() => openTool("devTools")}
+                  className={`tool-tab icon-button${
+                    activeTool === "devTools" ? " tool-tab-active" : ""
+                  }`}
+                  onClick={() => setActiveTool("devTools")}
                   aria-label="Dev Tools"
                   data-tooltip="Dev Tools"
                 >
-                  <FlaskConical size={32} strokeWidth={2.5} />
+                  <FlaskConical size={24} strokeWidth={2.5} />
                 </button>
               )}
             </div>
-          )}
-          <div className="app-main-tabbar">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                className={
-                  "app-main-tab" + (tab.id === activeTabId ? " app-main-tab--active" : "")
-                }
-                onClick={() => {
-                  setActiveTabId(tab.id);
-                  if (tab.kind === "tome") setActiveEntryId(tab.id);
-                }}
-                title={tab.title}
-              >
-                <span className="app-main-tab-title">{tab.title}</span>
-                {tab.kind !== "home" && (
-                  <span
-                    className="app-main-tab-close"
-                    role="button"
-                    aria-label={`Close ${tab.title}`}
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      closeTab(tab.id);
-                    }}
-                  >
-                    ×
-                  </span>
-                )}
-              </button>
-            ))}
+            <button
+              className="pane-collapse-button"
+              onClick={toggleRightPane}
+              aria-label="Collapse tools"
+              title="Collapse tools"
+              style={{ position: "absolute", top: "8px", right: "40px" }}
+            >
+              <PanelRightClose size={18} strokeWidth={2} />
+            </button>
+            <button
+              className="app-tools-close"
+              onClick={closeTools}
+              title="Close tools"
+            >
+              ├ù
+            </button>
           </div>
-          <div className="app-main-body">
-            <div className="app-main-inner">
-              {renderTabContent(tabs.find((t) => t.id === activeTabId))}
-            </div>
-          </div>
-        </main>
 
-        {/* RIGHT: tools pane */}
-        {isToolPaneOpen && (
-          <>
-            <div
-              className="app-resize-handle app-resize-handle-right"
-              onMouseDown={() => setIsResizingRight(true)}
-              style={{ gridColumn: 4 }}
-            />
-            <div className="app-tools-expanded">
-              <div className="app-tools-header">
-                <div className="app-tools-tabs">
-                  <button
-                    className={`tool-tab icon-button${activeTool === "results" ? " tool-tab-active" : ""
-                      }`}
-                    onClick={() => setActiveTool("results")}
-                    aria-label="Results"
-                    data-tooltip="Results"
-                  >
-                    <ScrollText size={24} strokeWidth={2.5} />
-                  </button>
-                  <button
-                    className={`tool-tab icon-button${activeTool === "dice" ? " tool-tab-active" : ""
-                      }`}
-                    onClick={() => setActiveTool("dice")}
-                    aria-label="Dice"
-                    data-tooltip="Dice"
-                  >
-                    <Dices size={24} strokeWidth={2.5} />
-                  </button>
-                  <button
-                    className={`tool-tab icon-button${activeTool === "tables" ? " tool-tab-active" : ""
-                      }`}
-                    onClick={() => setActiveTool("tables")}
-                    aria-label="Tables"
-                    data-tooltip="Tables"
-                  >
-                    <LayoutPanelTop size={24} strokeWidth={2.5} />
-                  </button>
-                  <button
-                    className={`tool-tab icon-button${activeTool === "diceDev" ? " tool-tab-active" : ""
-                      }`}
-                    onClick={() => setActiveTool("diceDev")}
-                    aria-label="Dice Dev"
-                    data-tooltip="Dice Dev"
-                  >
-                    <FlaskConical size={24} strokeWidth={2.5} />
-                  </button>
-                  {settings.developerMode && (
-                    <button
-                      className={`tool-tab icon-button${activeTool === "devTools" ? " tool-tab-active" : ""
-                        }`}
-                      onClick={() => setActiveTool("devTools")}
-                      aria-label="Dev Tools"
-                      data-tooltip="Dev Tools"
-                    >
-                      <FlaskConical size={24} strokeWidth={2.5} />
-                    </button>
-                  )}
-                </div>
-                <button
-                  className="pane-collapse-button"
-                  onClick={toggleRightPane}
-                  aria-label="Collapse tools"
-                  title="Collapse tools"
-                  style={{ position: "absolute", top: "8px", right: "40px" }}
-                >
-                  <PanelRightClose size={18} strokeWidth={2} />
-                </button>
-                <button
-                  className="app-tools-close"
-                  onClick={closeTools}
-                  title="Close tools"
-                >
-                  ×
-                </button>
-              </div>
-
-              <div className="app-tools-body">{renderToolContent()}</div>
-            </div>
-          </>
-        )}
+          <div className="app-tools-body">{renderToolContent()}</div>
+        </div>
+        </>
+      )}
       </div>
 
       <footer className="app-status-bar">
@@ -2632,8 +2606,9 @@ function App() {
             <User size={24} strokeWidth={2} />
           </button>
           <button
-            className={`status-icon-button icon-button${uiSettings.logToEntry ? " sidebar-icon-button--active" : ""
-              }`}
+            className={`status-icon-button icon-button${
+              uiSettings.logToEntry ? " sidebar-icon-button--active" : ""
+            }`}
             aria-label="Log to Entry"
             data-tooltip={uiSettings.logToEntry ? "Logging to Entry: ON" : "Logging to Entry: OFF"}
             onClick={() => setUiSettings(s => ({ ...s, logToEntry: !s.logToEntry }))}
@@ -2797,7 +2772,7 @@ function formatOracleCard(payload: {
   tags: string[];
   sourcePath: string;
 }): string {
-  const header = `> 🧵 Oracle – ${payload.tableName} (${payload.roll})`;
+  const header = `> ≡ƒº╡ Oracle ΓÇô ${payload.tableName} (${payload.roll})`;
   const body = payload.resultText ? `\n> ${payload.resultText}` : "";
   const meta = `\n<!-- forge:oracle tableId="${payload.tableId}" sourcePath="${payload.sourcePath}" roll=${payload.roll} result="${payload.resultText?.replace(/"/g, '\\"')}" tags="${JSON.stringify(payload.tags || []).replace(/"/g, '\\"')}" -->`;
   return `${header}${body}${meta}`;
@@ -2832,17 +2807,17 @@ function escapeHtml(text: string) {
     .replace(/'/g, "&#39;");
 }
 
-const renderDiceDevHighlights = (result: RollResult) => {
-  const highlights = annotateRollResult(result);
-  if (!highlights.length) return null;
-  return (
-    <div className="dice-dev-highlights">
-      {highlights.map((highlight, index) => (
-        <DiceDevHighlight key={`${highlight.type}-${index}`} highlight={highlight} />
-      ))}
-    </div>
-  );
-};
+  const renderDiceDevHighlights = (result: RollResult) => {
+    const highlights = annotateRollResult(result);
+    if (!highlights.length) return null;
+    return (
+      <div className="dice-dev-highlights">
+        {highlights.map((highlight, index) => (
+          <DiceDevHighlight key={`${highlight.type}-${index}`} highlight={highlight} />
+        ))}
+      </div>
+    );
+  };
 const DiceDevHighlight = ({ highlight }: { highlight: RollHighlight }) => {
   switch (highlight.type) {
     case "challenge-outcome":
@@ -2852,8 +2827,8 @@ const DiceDevHighlight = ({ highlight }: { highlight: RollHighlight }) => {
           style={{ borderColor: highlight.color }}
         >
           <strong style={{ color: highlight.color }}>{highlight.outcome}</strong>
-          {highlight.boon && <span> • Boon</span>}
-          {highlight.complication && <span> • Complication</span>}
+          {highlight.boon && <span> ΓÇó Boon</span>}
+          {highlight.complication && <span> ΓÇó Complication</span>}
         </div>
       );
     case "natural-crit":

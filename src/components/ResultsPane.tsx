@@ -7,16 +7,16 @@
 
 import { useEffect, useRef } from "react";
 import { ResultCard } from "../core/results/ResultCard";
-import type { ResultCardModel } from "../core/results/resultTypes";
+import type { ResultCard as ResultCardType } from "../core/results/resultModel";
 import { Trash2, FileText } from "lucide-react";
 
 interface ResultsPaneProps {
-  results: ResultCardModel[];
+  results: ResultCardType[];
   onClearResults?: () => void;
-  onCopyToEntry?: (card: ResultCardModel) => void;
+  onCopyToEntry?: (card: ResultCardType) => void;
 }
 
-export function ResultsPane({ results, onClearResults, onCopyToEntry }: ResultsPaneProps) {
+export function ResultsPane({ results, onClearResults, onCopyToEntry }: ResultsPaneProps): React.ReactNode {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -27,7 +27,7 @@ export function ResultsPane({ results, onClearResults, onCopyToEntry }: ResultsP
     }
   }, [results.length]);
 
-  const handleCopyToEntry = (card: ResultCardModel) => {
+  const handleCopyToEntry = (card: ResultCardType) => {
     if (onCopyToEntry) {
       onCopyToEntry(card);
     } else {

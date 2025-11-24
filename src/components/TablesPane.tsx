@@ -4,8 +4,8 @@ import type { TableDescriptor } from "../types";
 import type { ForgeTable } from "../lib/tables/tableForge";
 import { rollOracleD100 } from "../core/dice/diceEngine";
 import { fetchTableList, fetchTableById } from "../lib/tables/tableRegistry";
-import type { TableResultCard } from "../core/results/resultTypes";
-import { generateResultCardId } from "../core/results/resultTypes";
+import type { ResultCard } from "../core/results/resultModel";
+import { convertTableToCard } from "../core/results/converters";
 import { useUiSettings } from "../contexts/UiSettingsContext";
 
 export interface OracleResultCardPayload {
@@ -52,7 +52,7 @@ export default function TablesPane({
 }: {
   activeEntryId: string | null;
   onOracleResult: (payload: OracleResultCardPayload) => void;
-  onResultCard?: (card: TableResultCard) => void;
+  onResultCard?: (card: ResultCard) => void;
   onOpenTableEditor: (tableId: string) => void;
 }) {
   const [tableList, setTableList] = useState<TableDescriptor[]>([]);
@@ -175,25 +175,19 @@ export default function TablesPane({
           onOracleResult(payload);
         }
 
-        // Emit TableResultCard to Results pane if callback is provided
+        // Emit ResultCard to Results pane if callback is provided
         if (onResultCard && resultText) {
-          const categoryLabel = table.category === "Aspect" ? "ASPECT" : table.category === "Domain" ? "DOMAIN" : "ORACLE";
-          const tableCard: TableResultCard = {
-            id: generateResultCardId(),
-            kind: "table",
-            createdAt: Date.now(),
+          const isOracle = table.category !== "Aspect" && table.category !== "Domain";
+          const card = convertTableToCard({
             tableId,
             tableName,
             roll: normalized,
             resultText,
-            headerText: `${categoryLabel}: ${tableName.toUpperCase()}`,
-            contentText: `Roll ${normalized} on ${tableName}${sourcePath ? `
-Source: ${sourcePath}` : ""}`,
-            theme: "table",
             category: table.category,
             sourcePath,
-          };
-          onResultCard(tableCard);
+            isOracle,
+          });
+          onResultCard(card);
         }
       } catch (e) {
         console.error("Oracle roll failed:", e);

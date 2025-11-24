@@ -1,0 +1,86 @@
+.entry-editor-root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.entry-editor-root .cm-editor {
+  height: 100%;
+  font-family: var(--font-monospace, Menlo, Consolas, monospace);
+  font-size: 0.95rem;
+}
+
+.entry-editor-root .cm-content {
+  white-space: pre-wrap;
+  word-break: normal;
+  word-wrap: break-word;
+}
+
+.entry-editor-root--readonly .cm-editor {
+  /* slight visual hint for read-only mode */
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Read-only adjustments: hide caret and selection visuals while keeping widgets clickable */
+.entry-editor-root--readonly .cm-cursor {
+  display: none !important;
+}
+
+.entry-editor-root--readonly .cm-selectionBackground,
+.entry-editor-root--readonly .cm-selectionLayer .cm-selectionBackground,
+.entry-editor-root--readonly .cm-content ::selection {
+  background: transparent !important;
+}
+
+.entry-editor-root--readonly .cm-editor:focus {
+  outline: none !important;
+}
+
+.entry-editor-root--readonly .cm-content,
+.entry-editor-root--readonly .cm-scroller {
+  caret-color: transparent !important;
+}
+
+.dice-widget {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(15, 23, 42, 0.9);
+  color: var(--text-main, #e5e7eb);
+  border-radius: 9999px;
+  padding: 0.1rem 0.5rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.dice-widget:hover {
+  border-color: rgba(248, 250, 252, 0.6);
+  background: rgba(30, 64, 175, 0.8);
+}
+
+.entry-markdown-view {
+  min-height: 320px;
+  border: 1px solid var(--border-muted);
+  border-radius: 12px;
+  background: var(--surface-card);
+  color: var(--text-main);
+  padding: 1rem;
+  font-size: 1rem;
+}
+
+.entry-markdown-view h1,
+.entry-markdown-view h2,
+.entry-markdown-view h3 {
+  margin-top: 1.2rem;
+  margin-bottom: 0.6rem;
+}
+
+.entry-markdown-view p {
+  margin: 0.5rem 0;
+}
+
+.entry-markdown-view ul,
+.entry-markdown-view ol {
+  padding-left: 1.25rem;
+}

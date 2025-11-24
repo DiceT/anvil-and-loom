@@ -12,6 +12,19 @@
  * consistent randomness behavior across the app.
  */
 
+import type { ResultCard } from "../results/resultModel";
+import { convertDiceToCard } from "../results/converters";
+import DiceExpression from "../../lib/dice/DiceExpression";
+import { diceBoxValueProvider } from "../../lib/dice/diceBoxProvider";
+import { DiceRoller } from "../../lib/dice/DiceRoller";
+
+/**
+ * Generate a unique ID for dice rolls.
+ */
+function createId(): string {
+  return Math.random().toString(36).substring(2, 15);
+}
+
 // Re-export dice appearance functions from the shared appearance module
 export {
   setDiceFadeDuration,
@@ -239,17 +252,17 @@ export async function rollDice(
         { count: 1, sides: 6 },   // Action die
         { count: 2, sides: 10 }   // Challenge dice
       ]);
-      
+
       // Defensive: ensure we got valid results, fall back to RNG if not
-      const actionDie = (Array.isArray(results[0]) && results[0].length > 0) 
-        ? results[0][0] 
+      const actionDie = (Array.isArray(results[0]) && results[0].length > 0)
+        ? results[0][0]
         : Math.floor(Math.random() * 6) + 1;
-      const challengeDice = (Array.isArray(results[1]) && results[1].length >= 2) 
-        ? results[1] 
+      const challengeDice = (Array.isArray(results[1]) && results[1].length >= 2)
+        ? results[1]
         : [
-            Math.floor(Math.random() * 10) + 1,
-            Math.floor(Math.random() * 10) + 1
-          ];
+          Math.floor(Math.random() * 10) + 1,
+          Math.floor(Math.random() * 10) + 1
+        ];
       const baseModifier = 0;
       const userModifier = options.modifier ?? 0;
 
@@ -279,9 +292,8 @@ export async function rollDice(
 
       const detail =
         typeof actionDie === "number" && challengeDice.length >= 2 && quality
-          ? `Action: ${actionDie}${baseModifier ? ` + ${baseModifier}` : ""}${
-              userModifier ? ` + ${userModifier}` : ""
-            } = ${actionScore}; Challenge: [${challengeDice.join(", ")}]`
+          ? `Action: ${actionDie}${baseModifier ? ` + ${baseModifier}` : ""}${userModifier ? ` + ${userModifier}` : ""
+          } = ${actionScore}; Challenge: [${challengeDice.join(", ")}]`
           : "Challenge roll (invalid)";
 
       return {
@@ -304,128 +316,145 @@ export async function rollDice(
       };
     }
 
-    default:
-      throw new Error(`Unsupported roll type: ${type}`);
   }
+  throw new Error(`Unsupported roll type: ${type}`);
 }
 
 /**
- * Roll a single die with optional advantage/disadvantage and modifiers.
- *
- * @param sides - Number of sides on the die
- * @param baseLabel - Label for the die (e.g., "1d20")
- * @param options - Roll options
- * @returns Promise resolving to a dice result
+ * Roll a single die with options.
  */
 async function rollSingleDie(
   sides: number,
-  baseLabel: string,
+  label: string,
   options: RollOptions
 ): Promise<DiceEngineResult> {
-  const mode: RollAdvantageMode = options.mode ?? "normal";
-  const modifier = options.modifier ?? 0;
-  const diceCount = mode === "normal" ? 1 : 2;
-  
-  // Use 3D DiceBox system for all rolls
-  const rolls = await rollDiceBoxValues(diceCount, sides);
+  const { mode = "normal", modifier = 0 } = options;
 
-  const chosen =
-    mode === "advantage"
-      ? Math.max(...rolls)
-      : mode === "disadvantage"
-      ? Math.min(...rolls)
-      : rolls[0];
+  // Use 3D DiceBox system
+  let rolls: number[];
 
-  const label =
-    mode === "normal"
-      ? baseLabel
-      : `${baseLabel} (${mode === "advantage" ? "Advantage" : "Disadvantage"})`;
+  if (mode === "advantage" || mode === "disadvantage") {
+    // Roll 2 dice for advantage/disadvantage
+    rolls = await rollDiceBoxValues(2, sides);
+  } else {
+    // Normal roll
+    rolls = await rollDiceBoxValues(1, sides);
+  }
 
-  const detail =
-    mode === "normal"
-      ? rolls.length
-        ? `Rolled ${baseLabel} -> ${chosen}`
-        : `Rolled ${baseLabel} (could not read value)`
-      : rolls.length >= 2
-      ? `Rolled 2d${sides} [${rolls.slice(0, 2).join(", ")}] -> ${
-          mode === "advantage" ? "highest" : "lowest"
-        } ${chosen}`
-      : `Rolled 2d${sides} (could not read values)`;
+  // Fallback if 3D roll fails (shouldn't happen with proper setup)
+  if (rolls.length === 0) {
+    rolls = [Math.floor(Math.random() * sides) + 1];
+    if (mode !== "normal") {
+      rolls.push(Math.floor(Math.random() * sides) + 1);
+    }
+  }
 
-  const finalValue =
-    typeof chosen === "number" && !Number.isNaN(chosen)
-      ? chosen + modifier
-      : chosen;
+  let value: number;
+  let detail: string;
 
-  const detailWithModifier =
-    modifier && typeof chosen === "number"
-      ? `${detail}; modifier ${modifier >= 0 ? "+" : "-"} ${Math.abs(
-          modifier
-        )} = ${finalValue}`
-      : detail;
+  if (mode === "advantage") {
+    const [r1, r2] = rolls;
+    const kept = Math.max(r1, r2);
+    value = kept + modifier;
+    detail = `Rolled 2${label} (Advantage) -> [${r1}, ${r2}] -> kept ${kept}${modifier ? ` + ${modifier}` : ""} = ${value}`;
+  } else if (mode === "disadvantage") {
+    const [r1, r2] = rolls;
+    const kept = Math.min(r1, r2);
+    value = kept + modifier;
+    detail = `Rolled 2${label} (Disadvantage) -> [${r1}, ${r2}] -> kept ${kept}${modifier ? ` + ${modifier}` : ""} = ${value}`;
+  } else {
+    const r1 = rolls[0];
+    value = r1 + modifier;
+    detail = `Rolled ${label} -> ${r1}${modifier ? ` + ${modifier}` : ""} = ${value}`;
+  }
 
   return {
     id: createId(),
     kind: "number",
     label,
-    value: finalValue,
-    detail: detailWithModifier,
+    value,
+    detail,
     meta: {
-      type: "single",
-      mode,
-      rolls: rolls.slice(0, diceCount),
-      chosen,
       sides,
+      rolls,
+      mode,
       modifier,
     },
   };
 }
 
+// ============================================================================
+// Event System for Result Cards
+// ============================================================================
+
+type ResultCardListener = (card: ResultCard) => void;
+const listeners: Set<ResultCardListener> = new Set();
+
 /**
- * Create a unique ID for a dice roll.
+ * Subscribe to receive ResultCards whenever a dice roll completes.
+ * @param listener Function to call with the new ResultCard
+ * @returns Unsubscribe function
  */
-function createId(): string {
-  return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+export function subscribeToResultCards(listener: ResultCardListener): () => void {
+  listeners.add(listener);
+  return () => {
+    listeners.delete(listener);
+  };
 }
 
 /**
- * Context for oracle table rolls.
+ * Emit a ResultCard to all subscribers.
+ * @param card The ResultCard to emit
  */
-export interface OracleRollContext {
-  /** Unique table identifier */
-  tableId: string;
-  /** Human-readable table name */
-  tableName: string;
-  /** Optional source file path */
-  sourcePath?: string;
+export function emitResultCard(card: ResultCard): void {
+  listeners.forEach((listener) => {
+    try {
+      listener(card);
+    } catch (error) {
+      console.error("Error in result card listener:", error);
+    }
+  });
 }
 
 /**
- * Roll a d100 for oracle table lookups.
- *
- * This is the primary function used by TablesPane to generate random table results.
- * It uses the centralized dice engine's percentile roll with fallback to Math.random().
- *
- * @param ctx - Oracle roll context (table info)
- * @returns Promise resolving to a number between 1-100
- *
- * @example
- * ```ts
- * const roll = await rollOracleD100({
- *   tableId: "npc-reaction",
- *   tableName: "NPC Reaction",
- *   sourcePath: "/tables/npc.json"
- * });
- * console.log(roll); // 67
- * ```
+ * Unified entry point for rolling dice expressions.
+ * Parses the expression, rolls the dice (with 3D animation), converts the result
+ * to a ResultCard, and emits it to all subscribers.
+ * 
+ * This is a "fire-and-forget" operation from the caller's perspective.
+ * 
+ * @param notation The dice notation string (e.g., "1d20+5", "2d6")
  */
-export async function rollOracleD100(_ctx: OracleRollContext): Promise<number> {
+export async function rollExpression(notation: string): Promise<void> {
   try {
-    const res = await rollDice("percentile");
-    if (res && typeof res.value === "number") return Math.max(1, Math.min(100, Math.floor(res.value)));
-  } catch (e) {
-    console.warn("rollOracleD100 failed, falling back to RNG", e);
+    // 1. Parse expression
+    const expression = DiceExpression.parse(notation);
+
+    // 2. Roll using the DiceRoller with 3D DiceBox integration
+    const result = await DiceRoller.rollWithProvider(expression, diceBoxValueProvider);
+
+    // 3. Convert to ResultCard
+    const card = convertDiceToCard(result);
+
+    // 4. Emit to subscribers
+    if (card) {
+      emitResultCard(card);
+    }
+  } catch (error) {
+    console.error("Error in rollExpression:", error);
+    // We could emit an error card here if we wanted, but for now just log it
   }
-  // Fallback to Math.random()
-  return Math.floor(Math.random() * 100) + 1;
 }
+
+/**
+ * Roll a d100 for an oracle table.
+ * Returns the numeric result directly for use in table lookups.
+ * Does NOT emit a ResultCard event automatically (the caller handles that).
+ */
+export async function rollOracleD100(metadata?: any): Promise<number> {
+  const expression = DiceExpression.parse("d100");
+  const result = await DiceRoller.rollWithProvider(expression, diceBoxValueProvider);
+  return result.total;
+}
+
+

@@ -58,7 +58,7 @@ function playDiceAudio() {
       const playClip = (clip?: HTMLAudioElement) => {
         if (!clip) return;
         clip.currentTime = 0;
-        clip.play().catch(() => {});
+        clip.play().catch(() => { });
       };
       const hits = Math.max(1, Math.floor(Math.random() * 2) + 2); // 2-3 hits
       for (let i = 0; i < hits; i++) {
@@ -224,7 +224,19 @@ export async function rollDiceBoxValues(count: number, sides: number): Promise<n
 export async function rollDiceBoxComposite(
   requests: Array<{ count: number; sides: number }>
 ): Promise<number[][]> {
-  const payload = requests.map((req) => ({ sides: req.sides, qty: req.count }));
+  // DiceBox automatically treats 2d10 as percentile dice (tens + ones).
+  // To prevent this, we split any request for multiple d10s into individual 1d10 requests.
+  const payload: Array<{ sides: number; qty: number }> = [];
+  requests.forEach((req) => {
+    if (req.sides === 10 && req.count > 1) {
+      // Split multiple d10s into individual dice
+      for (let i = 0; i < req.count; i++) {
+        payload.push({ sides: 10, qty: 1 });
+      }
+    } else {
+      payload.push({ sides: req.sides, qty: req.count });
+    }
+  });
   const rolls = await rollInternal(payload);
   const specs: Array<{ sides: number }> = [];
   requests.forEach((req) => {

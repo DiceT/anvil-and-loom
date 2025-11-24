@@ -3,10 +3,9 @@ import DiceExpression, { type DiceExpressionWarning } from "../lib/dice/DiceExpr
 import DiceRoller, { type RollResult, type DiceTermRollResult } from "../lib/dice/DiceRoller";
 import diceBoxValueProvider from "../lib/dice/diceBoxAdapter";
 import { annotateRollResult, type RollHighlight } from "../lib/dice/rollHighlights";
-import { setDiceFadeDuration } from "../core/dice/diceEngine";
+import { setDiceFadeDuration, rollExpression } from "../core/dice/diceEngine";
 import type { LogicalRollType, RollAdvantageMode } from "../core/dice/diceEngine";
-import type { DiceResultCard } from "../core/results/resultTypes";
-import { generateResultCardId } from "../core/results/resultTypes";
+
 import { getChallengeOutcomeColor, renderResultCardHtml } from "../core/results/ResultCard";
 import { useUiSettings } from "../contexts/UiSettingsContext";
 import {
@@ -26,8 +25,6 @@ import {
 } from "lucide-react";
 
 interface DiceTrayProps {
-  onRollResult?: (html: string) => void;
-  onResultCard?: (card: DiceResultCard) => void;
   fadeDurationMs?: number;
 }
 
@@ -67,9 +64,8 @@ function formatResultAsHtml(result: RollResult): string {
     }
     const actionText = actionSegments.join(" ");
     const challengeText = term.challengeScore.length ? term.challengeScore.join(", ") : "-";
-    const resultText = `${term.outcome}${term.boon ? " (Boon)" : ""}${
-      term.complication ? " (Complication)" : ""
-    }`;
+    const resultText = `${term.outcome}${term.boon ? " (Boon)" : ""}${term.complication ? " (Complication)" : ""
+      }`;
     const outcomeColor = getChallengeOutcomeColor(term.outcome);
 
     return joinHtml([
@@ -106,9 +102,8 @@ function formatResultAsHtml(result: RollResult): string {
         const rollsDisplay = t.dice
           .map((die) => (die.dropped ? `(${die.value})` : `${die.value}`))
           .join(", ");
-        const label = `${t.term.count}d${t.term.sides}${
-          t.term.selection ? ` (${t.term.selection.mode.replace("-", " ")})` : ""
-        }`;
+        const label = `${t.term.count}d${t.term.sides}${t.term.selection ? ` (${t.term.selection.mode.replace("-", " ")})` : ""
+          }`;
         return `<div class="dice-card-detail">${label}: ${rollsDisplay || "-"} = ${t.total}</div>`;
       });
       const constantLines = constantTerms.map(
@@ -146,9 +141,8 @@ function formatResultAsHtml(result: RollResult): string {
       const statusText = met ? "PASS" : "FAIL";
       const statusColor = met ? "#22c55e" : "#ef4444";
       const successLabel = `${successes} success${successes === 1 ? "" : "es"}`;
-      const poolHeader = `DICE POOL - ${term.term.count}d${term.term.sides} T:${threshold} S:${
-        needed !== undefined ? needed : "-"
-      }`;
+      const poolHeader = `DICE POOL - ${term.term.count}d${term.term.sides} T:${threshold} S:${needed !== undefined ? needed : "-"
+        }`;
 
       return joinHtml([
         `<div class="dice-card dice-card-inline dice-log-card">`,
@@ -212,9 +206,8 @@ function formatResultAsHtml(result: RollResult): string {
         })
         .join("");
       const header = `EXPLODING ROLL ${term.term.count}d${term.term.sides} T:${threshold}`;
-      const resultText = `${term.total}${
-        explosionCount > 0 ? ` - ${explosionCount} Explosions` : ""
-      }`;
+      const resultText = `${term.total}${explosionCount > 0 ? ` - ${explosionCount} Explosions` : ""
+        }`;
 
       return joinHtml([
         `<div class="dice-card dice-card-inline dice-log-card">`,
@@ -243,9 +236,8 @@ function formatResultAsHtml(result: RollResult): string {
     const rollsText = rollsDisplay || "-";
     const modifierText =
       constantTotal !== 0
-        ? `<div class="dice-card-detail">Modifier: <strong>${
-            constantTotal > 0 ? "+" : ""
-          }${constantTotal}</strong></div>`
+        ? `<div class="dice-card-detail">Modifier: <strong>${constantTotal > 0 ? "+" : ""
+        }${constantTotal}</strong></div>`
         : "";
 
     return joinHtml([
@@ -270,7 +262,7 @@ function formatResultAsHtml(result: RollResult): string {
   return "";
 }
 
-function convertResultToCard(result: RollResult): DiceResultCard | null {
+function convertResultToCard(result: RollResult): ResultCard | null {
   const term = getPrimaryTerm(result);
   if (!term) return null;
   const constantTotal = getConstantSum(result.terms);
@@ -285,9 +277,8 @@ function convertResultToCard(result: RollResult): DiceResultCard | null {
     }
     const actionText = actionSegments.join(" ");
     const challengeText = term.challengeScore.length ? term.challengeScore.join(", ") : "-";
-    const resultText = `${term.outcome}${term.boon ? " (Boon)" : ""}${
-      term.complication ? " (Complication)" : ""
-    }`;
+    const resultText = `${term.outcome}${term.boon ? " (Boon)" : ""}${term.complication ? " (Complication)" : ""
+      }`;
     const outcomeColor = getChallengeOutcomeColor(term.outcome);
 
     return {
@@ -308,7 +299,7 @@ function convertResultToCard(result: RollResult): DiceResultCard | null {
         t.type === "dice" && !t.term.pool && !t.term.explode && !t.term.degrade
     );
     const constantTerms = result.terms.filter((t) => t.type === "constant");
-    
+
     if (simpleDiceTerms.length > 1) {
       const header = result.expression?.original
         ? `ROLLED ${humanizeSelectionShorthand(result.expression.original)}`
@@ -317,9 +308,8 @@ function convertResultToCard(result: RollResult): DiceResultCard | null {
         const rollsDisplay = t.dice
           .map((die) => (die.dropped ? `(${die.value})` : `${die.value}`))
           .join(", ");
-        const label = `${t.term.count}d${t.term.sides}${
-          t.term.selection ? ` (${t.term.selection.mode.replace("-", " ")})` : ""
-        }`;
+        const label = `${t.term.count}d${t.term.sides}${t.term.selection ? ` (${t.term.selection.mode.replace("-", " ")})` : ""
+          }`;
         return `${label}: ${rollsDisplay || "-"} = ${t.total}`;
       });
       const constantLines = constantTerms.map((c) => `Modifier: ${c.value}`);
@@ -346,10 +336,9 @@ function convertResultToCard(result: RollResult): DiceResultCard | null {
       const statusText = met ? "PASS" : "FAIL";
       const statusColor = met ? "#22c55e" : "#ef4444";
       const successLabel = `${successes} success${successes === 1 ? "" : "es"}`;
-      const poolHeader = `DICE POOL - ${term.term.count}d${term.term.sides} T:${threshold} S:${
-        needed !== undefined ? needed : "-"
-      }`;
-      
+      const poolHeader = `DICE POOL - ${term.term.count}d${term.term.sides} T:${threshold} S:${needed !== undefined ? needed : "-"
+        }`;
+
       const rollsDisplay = term.dice.map(d => d.value).join(", ");
       const contentText = `Rolls: ${rollsDisplay}\nTarget: ${threshold}\nSuccesses Needed: ${needed !== undefined ? needed : "-"}`;
 
@@ -396,9 +385,8 @@ function convertResultToCard(result: RollResult): DiceResultCard | null {
         return `${label}: ${values}`;
       });
       const header = `EXPLODING ROLL ${term.term.count}d${term.term.sides} T:${threshold}`;
-      const resultText = `${term.total}${
-        explosionCount > 0 ? ` - ${explosionCount} Explosions` : ""
-      }`;
+      const resultText = `${term.total}${explosionCount > 0 ? ` - ${explosionCount} Explosions` : ""
+        }`;
 
       return {
         id: generateResultCardId(),
@@ -589,7 +577,7 @@ const HexagonIcon: DiceIcon = ({ size = 20, strokeWidth = 2 }) => (
   </svg>
 );
 
-export function DiceTray({ onRollResult, onResultCard, fadeDurationMs = 3000 }: DiceTrayProps) {
+export function DiceTray({ fadeDurationMs = 3000 }: DiceTrayProps) {
   const [expressionText, setExpressionText] = useState("1d20");
   const [builderMode, setBuilderMode] = useState<RollAdvantageMode>("normal");
   const [isRolling, setIsRolling] = useState(false);
@@ -658,16 +646,19 @@ export function DiceTray({ onRollResult, onResultCard, fadeDurationMs = 3000 }: 
   const mergeDieIntoExpression = (sides: number) => {
     setExpressionText((prev) => {
       const trimmed = prev.trim();
-      const baseline = trimmed.length === 0 || isBaselineExpression(trimmed);
-      if (baseline) {
+
+      // Empty expression: just add the die
+      if (trimmed.length === 0) {
         return buildDieFragment(sides, builderMode, true);
       }
-      // When using advantage/disadvantage, always append a new fragment rather than
-      // merging into an existing die count so the selection (kh/kl) stays intact.
+
+      // Try to increment existing dice of the same type (only in normal mode)
       if (builderMode === "normal") {
         const bumped = incrementDieInExpression(trimmed, sides);
         if (bumped) return bumped;
       }
+
+      // Otherwise, append the new die
       const fragment = buildDieFragment(sides, builderMode, false);
       return `${trimmed} ${fragment}`.trim();
     });
@@ -705,33 +696,12 @@ export function DiceTray({ onRollResult, onResultCard, fadeDurationMs = 3000 }: 
     if (isRolling) return;
     try {
       setIsRolling(true);
-      const expression = DiceExpression.parse(typeof expressionText === "string" ? expressionText : "");
-      setWarnings(expression.warnings);
-      const result = await DiceRoller.rollWithProvider(expression, diceBoxValueProvider);
-            setLastRoll(result);
       setRollError(null);
-      const card = convertResultToCard(result);
-      if (onResultCard && card) {
-        onResultCard(card);
-      }
-      if (onRollResult && uiSettings.logToEntry) {
-        try {
-          const html = card ? renderResultCardHtml(card as any) : formatResultAsHtml(result);
-          if (html && html.trim().length) onRollResult(html);
-        } catch (e) {
-          const html = formatResultAsHtml(result);
-          if (html && html.trim().length) onRollResult(html);
-        }
-      }
+      const expression = typeof expressionText === "string" ? expressionText : "";
+      await rollExpression(expression);
     } catch (error) {
-      if (error instanceof Error) {
-        console.error("Roll error:", error);
-      } else {
-        console.error("Roll error (non-error):", error);
-      }
-      setRollError(
-        error instanceof Error ? error.message : "Failed to parse or roll this expression."
-      );
+      console.error("Roll error:", error);
+      setRollError("Failed to parse or roll this expression.");
     } finally {
       setIsRolling(false);
     }
@@ -793,9 +763,8 @@ export function DiceTray({ onRollResult, onResultCard, fadeDurationMs = 3000 }: 
         </button>
         <button
           type="button"
-          className={`dice-adv-toggle${
-            builderMode === "disadvantage" ? " dice-adv-toggle-active" : ""
-          }`}
+          className={`dice-adv-toggle${builderMode === "disadvantage" ? " dice-adv-toggle-active" : ""
+            }`}
           onClick={() =>
             setBuilderMode((mode) => (mode === "disadvantage" ? "normal" : "disadvantage"))
           }
@@ -806,9 +775,8 @@ export function DiceTray({ onRollResult, onResultCard, fadeDurationMs = 3000 }: 
         </button>
         <button
           type="button"
-          className={`dice-adv-toggle${
-            builderMode === "advantage" ? " dice-adv-toggle-active" : ""
-          }`}
+          className={`dice-adv-toggle${builderMode === "advantage" ? " dice-adv-toggle-active" : ""
+            }`}
           onClick={() => setBuilderMode((mode) => (mode === "advantage" ? "normal" : "advantage"))}
           data-tooltip="Advantage"
           aria-label="Toggle advantage"
@@ -853,107 +821,107 @@ export function DiceTray({ onRollResult, onResultCard, fadeDurationMs = 3000 }: 
       </div>
 
       <div className="dice-template-row">
-          <button
-            type="button"
-            className="dice-action-icon"
-            onClick={() => {
-              setExpressionText("");
-              setBuilderMode("normal");
-            }}
-            disabled={!expressionText.trim()}
-            aria-label="Clear expression"
-            data-tooltip="Clear expression"
-          >
-            <Eraser size={44} strokeWidth={2.6} />
+        <button
+          type="button"
+          className="dice-action-icon"
+          onClick={() => {
+            setExpressionText("");
+            setBuilderMode("normal");
+          }}
+          disabled={!expressionText.trim()}
+          aria-label="Clear expression"
+          data-tooltip="Clear expression"
+        >
+          <Eraser size={44} strokeWidth={2.6} />
         </button>
         <div className="dice-template-group">
-        <button
-          type="button"
-          className="dice-template-button"
-          onClick={() => handleTemplate("challenge")}
-          aria-label="Challenge template"
-          data-tooltip="Challenge Template"
-        >
-          <Swords size={24} strokeWidth={2.8} />
-        </button>
-        <button
-          type="button"
-          className="dice-template-button"
-          onClick={() => handleTemplate("pool")}
-          aria-label="Dice pool template"
-          data-tooltip="Dice Pool Template"
-        >
-          <Blocks size={24} strokeWidth={2.8} />
-        </button>
-        <button
-          type="button"
-          className="dice-template-button"
-          onClick={() => handleTemplate("degrade")}
-          aria-label="Degrading die template"
-          data-tooltip="Degrading Die Template"
-        >
-          <TrendingDown size={24} strokeWidth={2.8} />
-        </button>
-        <button
-          type="button"
-          className="dice-template-button"
-          onClick={() => handleTemplate("explode")}
-          aria-label="Exploding dice template"
-          data-tooltip="Exploding Dice Template"
-        >
-          <Bomb size={24} strokeWidth={2.8} />
-        </button>
+          <button
+            type="button"
+            className="dice-template-button"
+            onClick={() => handleTemplate("challenge")}
+            aria-label="Challenge template"
+            data-tooltip="Challenge Template"
+          >
+            <Swords size={24} strokeWidth={2.8} />
+          </button>
+          <button
+            type="button"
+            className="dice-template-button"
+            onClick={() => handleTemplate("pool")}
+            aria-label="Dice pool template"
+            data-tooltip="Dice Pool Template"
+          >
+            <Blocks size={24} strokeWidth={2.8} />
+          </button>
+          <button
+            type="button"
+            className="dice-template-button"
+            onClick={() => handleTemplate("degrade")}
+            aria-label="Degrading die template"
+            data-tooltip="Degrading Die Template"
+          >
+            <TrendingDown size={24} strokeWidth={2.8} />
+          </button>
+          <button
+            type="button"
+            className="dice-template-button"
+            onClick={() => handleTemplate("explode")}
+            aria-label="Exploding dice template"
+            data-tooltip="Exploding Dice Template"
+          >
+            <Bomb size={24} strokeWidth={2.8} />
+          </button>
         </div>
       </div>
 
-        <div className="dice-save-controls">
-          <div className="dice-save-row">
-            <button
-              type="button"
-              className="dice-save-icon"
-              onClick={handleSaveExpression}
-              disabled={!saveName.trim()}
-              aria-label="Save expression"
-              data-tooltip="Save expression"
-            >
-              <Save size={42} strokeWidth={2.6} />
-            </button>
-            <input
-              type="text"
-              value={saveName}
-              onChange={(event) => setSaveName(event.target.value)}
-              placeholder="Save name"
-            />
-          </div>
-          <div className="dice-save-row">
-            <button
-              type="button"
-              className="dice-save-icon"
-              onClick={handleDeleteSaved}
-              disabled={!selectedSaveId}
-              aria-label="Delete saved expression"
-              data-tooltip="Delete saved expression"
-            >
-              <Trash2 size={42} strokeWidth={2.6} />
-            </button>
-            <select
-              value={selectedSaveId ?? ""}
-              onChange={(event) => {
-                const value = event.target.value;
-                setSelectedSaveId(value || null);
-                if (value) handleLoadExpression(value);
-              }}
-              className="dice-saved-select"
-            >
-              <option value="">Saved expressions</option>
-              {savedExpressions.map((expr) => (
-                <option key={expr.id} value={expr.id}>
-                  {expr.name}
-                </option>
-              ))}
-            </select>
-          </div>
+      <div className="dice-save-controls">
+        <div className="dice-save-row">
+          <button
+            type="button"
+            className="dice-save-icon"
+            onClick={handleSaveExpression}
+            disabled={!saveName.trim()}
+            aria-label="Save expression"
+            data-tooltip="Save expression"
+          >
+            <Save size={42} strokeWidth={2.6} />
+          </button>
+          <input
+            type="text"
+            value={saveName}
+            onChange={(event) => setSaveName(event.target.value)}
+            placeholder="Save name"
+          />
         </div>
+        <div className="dice-save-row">
+          <button
+            type="button"
+            className="dice-save-icon"
+            onClick={handleDeleteSaved}
+            disabled={!selectedSaveId}
+            aria-label="Delete saved expression"
+            data-tooltip="Delete saved expression"
+          >
+            <Trash2 size={42} strokeWidth={2.6} />
+          </button>
+          <select
+            value={selectedSaveId ?? ""}
+            onChange={(event) => {
+              const value = event.target.value;
+              setSelectedSaveId(value || null);
+              if (value) handleLoadExpression(value);
+            }}
+            className="dice-saved-select"
+          >
+            <option value="">Saved expressions</option>
+            {savedExpressions.map((expr) => (
+              <option key={expr.id} value={expr.id}>
+                {expr.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
 
       {warnings.length > 0 && (
         <div className="dice-dev-warning">
@@ -1030,15 +998,15 @@ function renderLastRollCard(lastRoll: RollResult) {
               }
               if (t.type === "dice") {
                 const rollsDisplay = t.dice
-          .map((die) => (die.dropped ? `(${die.value})` : `${die.value}`))
-          .join(", ");
-        const countLabel = `${t.term.count}d${t.term.sides}`;
-        const selectionText = formatSelectionText(t.term.selection);
-        const selectionTag = selectionText
-          ? ` ${selectionText}`
-          : t.term.selection
-            ? ` (${t.term.selection.mode.replace("-", " ")})`
-            : "";
+                  .map((die) => (die.dropped ? `(${die.value})` : `${die.value}`))
+                  .join(", ");
+                const countLabel = `${t.term.count}d${t.term.sides}`;
+                const selectionText = formatSelectionText(t.term.selection);
+                const selectionTag = selectionText
+                  ? ` ${selectionText}`
+                  : t.term.selection
+                    ? ` (${t.term.selection.mode.replace("-", " ")})`
+                    : "";
                 return (
                   <div key={`term-${index}`} className="dice-card-detail">
                     <span>
@@ -1192,9 +1160,8 @@ function renderLastRollCard(lastRoll: RollResult) {
     const statusText = met ? "PASS" : "FAIL";
     const statusColor = met ? "#22c55e" : "#ef4444";
     const successLabel = `${successes} success${successes === 1 ? "" : "es"}`;
-    const poolHeader = `DICE POOL - ${term.term.count}d${term.term.sides} T:${threshold} S:${
-      needed !== undefined ? needed : "-"
-    }`;
+    const poolHeader = `DICE POOL - ${term.term.count}d${term.term.sides} T:${threshold} S:${needed !== undefined ? needed : "-"
+      }`;
 
     return (
       <>

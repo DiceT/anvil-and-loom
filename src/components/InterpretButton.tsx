@@ -3,9 +3,9 @@ import { fetchAppSettings } from '../lib/settingsStore';
 import { interpretEntryOracle } from '../core/ai/oracleService';
 import type { AISettings } from '../core/ai/oraclePersonas';
 import type { OracleResultCardPayload, EntryOracleSnapshot } from '../core/ai/oracleTypes';
-import type { InterpretationResultCard } from '../core/results/resultTypes';
-import { generateResultCardId } from '../core/results/resultTypes';
 import { renderResultCardHtml } from '../core/results/ResultCard';
+import { convertInterpretationToCard } from '../core/results/converters';
+import { emitResultCard } from '../core/dice/diceEngine';
 
 function parseForgeOracleComments(content: string): OracleResultCardPayload[] {
   const results: OracleResultCardPayload[] = [];
@@ -66,14 +66,12 @@ export default function InterpretButton({
   entryId,
   onAppend,
   onReplace,
-  onResultCard,
   getAiSettings,
 }: {
   entryContent: string;
   entryId: string | null;
   onAppend: (html: string) => void;
   onReplace: (placeholderHtml: string, replacementHtml: string) => void;
-  onResultCard?: (card: InterpretationResultCard) => void;
   getAiSettings: () => AISettings;
 }) {
   const [isWorking, setIsWorking] = useState(false);
@@ -92,7 +90,7 @@ export default function InterpretButton({
     };
 
     // create placeholder card html with explicit start/end markers so replacement is robust
-    const placeholderId = `interpret-${Date.now()}-${Math.floor(Math.random()*100000)}`;
+    const placeholderId = `interpret-${Date.now()}-${Math.floor(Math.random() * 100000)}`;
     const placeholderStart = `<!-- interpret:start id="${placeholderId}" -->`;
     const placeholderEnd = `<!-- interpret:end id="${placeholderId}" -->`;
     const placeholderCard = `<div class="dice-card dice-card-inline dice-log-card"><input type="checkbox" id="${placeholderId}" class="dice-log-toggle" /><label for="${placeholderId}" class="dice-card-title dice-log-header"><span>INTERPRETATION: ${escapeHtml(settings.oracleName)}</span><span class="dice-log-caret" aria-hidden="true"></span></label><div class="dice-card-body dice-log-body"> <div class="dice-card-detail">Thinking…</div></div><div class="dice-card-highlight dice-log-footer"><span class="dice-log-footer-label">Result:</span><span class="dice-card-inline-result">…</span></div></div>`;
@@ -118,7 +116,7 @@ export default function InterpretButton({
         try {
           const clientSettings = await fetchAppSettings();
           const modelToUse = (clientSettings?.openaiModel || settings.model || 'gpt-4o-mini');
-          
+
           // Use the centralized oracle service
           const aiSettings: AISettings = {
             oracleName: settings.oracleName,
@@ -126,7 +124,7 @@ export default function InterpretButton({
             model: modelToUse,
             temperature: settings.temperature,
           };
-          
+
           const text = await interpretEntryOracle(snapshot, aiSettings);
           resp = { success: true, text };
         } catch (e: any) {
@@ -134,35 +132,25 @@ export default function InterpretButton({
         }
       }
 
-                    if (resp && resp.success) {
+      if (resp && resp.success) {
         const raw = (resp.text || '').toString();
         if (!raw.trim()) {
           const errorMsg = 'AI returned empty response';
-                    const errorCard: InterpretationResultCard = {
-            id: generateResultCardId(),
-            kind: "interpretation",
-            createdAt: Date.now(),
-            oracleName: settings.oracleName,
-            personaId: settings.oraclePersonaId as any,
-            headerText: `INTERPRETATION: ${settings.oracleName.toUpperCase()}`,
-            snapshotText: errorMsg,
-            interpretationText: `Failed to interpret oracle results: ${errorMsg}`,
-            theme: "interpretation",
-          };
-          const errHtml = renderResultCardHtml(errorCard) + `\n<!-- interpret:meta id="${placeholderId}-err" -->`;
+
+          const errHtml = `<div class="dice-card dice-card-inline dice-log-card"><input type="checkbox" id="${placeholderId}-err" class="dice-log-toggle" /><label for="${placeholderId}-err" class="dice-card-title dice-log-header"><span>INTERPRETATION: ${escapeHtml(settings.oracleName)}</span><span class="dice-log-caret" aria-hidden="true"></span></label><div class="dice-card-body dice-log-body"><div class="dice-card-detail">Failed to interpret oracle results: ${escapeHtml(errorMsg)}</div></div><div class="dice-card-highlight dice-log-footer"><span class="dice-log-footer-label">Result:</span><span class="dice-card-inline-result">${escapeHtml(errorMsg)}</span></div></div>`;
           console.debug('[InterpretButton] AI returned empty; replacing placeholder with error', { placeholderId, errorMsg });
           onReplace(placeholderHtml, errHtml);
         } else {
-                    // Support structured responses (JSON) with { interpretation, snapshot }
+          // Support structured responses (JSON) with { interpretation, snapshot }
           let interpretation = raw;
-          let snapshot = '';
+          let snapshotText = '';
           let parsedAsJson = false;
           try {
             const parsed = JSON.parse(raw);
             if (parsed && typeof parsed === 'object') {
               if (typeof parsed.interpretation === 'string') interpretation = parsed.interpretation;
-              if (typeof parsed.snapshot === 'string') snapshot = parsed.snapshot;
-              if (!snapshot && typeof parsed.snapshotText === 'string') snapshot = parsed.snapshotText;
+              if (typeof parsed.snapshot === 'string') snapshotText = parsed.snapshot;
+              if (!snapshotText && typeof parsed.snapshotText === 'string') snapshotText = parsed.snapshotText;
               parsedAsJson = true;
             }
           } catch (e) {
@@ -176,22 +164,22 @@ export default function InterpretButton({
             const m = norm.match(secRe);
             if (m) {
               interpretation = m[1].trim();
-              snapshot = m[2].trim();
+              snapshotText = m[2].trim();
             } else {
               // Fallback: split on a "2)" marker anywhere
               const split = norm.split(/\n\s*2\)\s*(?:SNAPSHOT\b[:\s-]*)?/i);
               interpretation = (split[0] || '').replace(/^\s*1\)\s*(?:INTERPRETATION\b[:\s-]*)?/i, '').trim();
-              snapshot = (split[1] || '').trim();
+              snapshotText = (split[1] || '').trim();
               // If still no snapshot, look for a SNAPSHOT label elsewhere
-              if (!snapshot) {
+              if (!snapshotText) {
                 const snapMatch = norm.match(/(?:\n|^)\s*(?:2\)\s*)?SNAPSHOT\b[:\s-]*([\s\S]*)$/i);
-                if (snapMatch) snapshot = snapMatch[1].trim();
+                if (snapMatch) snapshotText = snapMatch[1].trim();
               }
             }
           }
 
           // If snapshot still empty, fall back to heuristic extraction from interpretation text
-          if (!snapshot) {
+          if (!snapshotText) {
             const lines = interpretation.split('\n').filter(line => line.trim());
             let snapshotGuess = lines[lines.length - 1] || interpretation.slice(0, 100);
             const lastLine = lines[lines.length - 1];
@@ -200,30 +188,23 @@ export default function InterpretButton({
                 snapshotGuess = lastLine;
               }
             }
-            snapshot = snapshotGuess;
+            snapshotText = snapshotGuess;
           }
 
-                    // Build InterpretationResultCard and render HTML using canonical renderer so entry cards match Results Pane styling
-          const interpretationCard: InterpretationResultCard = {
-            id: generateResultCardId(),
-            kind: "interpretation",
-            createdAt: Date.now(),
+          // Use converter to create the card
+          const interpretationCard = convertInterpretationToCard({
             oracleName: settings.oracleName,
-            personaId: settings.oraclePersonaId as any,
-            headerText: `INTERPRETATION: ${settings.oracleName.toUpperCase()}`,
-            snapshotText: snapshot,
-            interpretationText: interpretation,
-            theme: "interpretation",
-          };
+            personaId: settings.oraclePersonaId,
+            snapshot: snapshotText,
+            interpretation: interpretation,
+          });
 
           const finalHtml = renderResultCardHtml(interpretationCard) + `\n<!-- interpret:meta id="${placeholderId}" -->`;
-          console.debug('[InterpretButton] replacing placeholder', { placeholderId, placeholderLen: placeholderHtml.length, replacementLen: finalHtml.length, textPreview: (interpretation||'').slice(0,200) });
+          console.debug('[InterpretButton] replacing placeholder', { placeholderId, placeholderLen: placeholderHtml.length, replacementLen: finalHtml.length, textPreview: (interpretation || '').slice(0, 200) });
           onReplace(placeholderHtml, finalHtml);
 
-          // Emit InterpretationResultCard to Results pane if callback is provided
-          if (onResultCard) {
-            onResultCard(interpretationCard);
-          }
+          // Emit InterpretationResultCard to Results pane
+          emitResultCard(interpretationCard);
         }
       } else {
         const errorMsg = resp?.error ?? 'Unknown error';
