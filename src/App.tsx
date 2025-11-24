@@ -316,6 +316,8 @@ function App() {
           if (entry.id === activeEntryId) {
             const separator = entry.content.trim().length ? "\n\n" : "";
             const newContent = `${entry.content}${separator}${html}`;
+            // Trigger save
+            scheduleSave(newContent, activeEntryId);
             return { ...entry, content: newContent, updatedAt: Date.now() };
           }
           return entry;
@@ -324,6 +326,7 @@ function App() {
     });
 
     return unsubscribe;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uiSettings.logToEntry, activeEntryId]);
 
   useEffect(() => {
@@ -904,7 +907,7 @@ function App() {
     entries.find((entry) => entry.id === activeEntryId) ?? null;
   const renderedMarkdown = useMemo(() => {
     if (!activeEntry) return "";
-    return marked.parse(activeEntryDraftContent || "");
+    return activeEntryDraftContent || "";
   }, [activeEntry, activeEntryDraftContent]);
 
   useEffect(() => {
